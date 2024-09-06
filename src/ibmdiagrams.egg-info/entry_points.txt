@@ -1,0 +1,2 @@
+[console_scripts]
+ibmdiagrams = ibmdiagrams.ibmscripts.ibmdiagrams:main
