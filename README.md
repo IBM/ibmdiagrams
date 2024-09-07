@@ -14,8 +14,6 @@ Output is a drawio file that can be opened and edited in drawio.
 
 [Terraform Checklist](docs/checklist-terraform.md)
 
-[Releases](docs/releases.md)
-
 ## Guides
 
 1. [Setup](docs/setup.md)
