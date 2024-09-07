@@ -94,7 +94,7 @@ Notable changes to this project are documented in this file.
 
 - Fixed options for cli.
 
-## 1.0.
+## 1.0.7
 
 ### Features
 
