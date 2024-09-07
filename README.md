@@ -2,7 +2,7 @@
 
 ## Overview
 
-Generate architecture diagrams following IBM Diagram Standard.
+Generate architecture diagrams following [IBM Diagram Standard](https://www.ibm.com/design/language/infographics/technical-diagrams/design).
 
 Input can be Python or Terraform.
 
