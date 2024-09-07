@@ -1,11 +1,17 @@
-# Using Terraform
+# Terraform
 
 ## Usage
 
-Terraform example:
-- Input Terraform: tests/terraform/slzvsi.tfstate
-- Create XML: ibmdiagrams slzvsi.tfstate
-- View XML: Open slzvsi.drawio in drawio desktop
+- ibmdiagrams example.tfstate
+- Open example.drawio in drawio desktop.
+
+## Examples
+
+[VSI on VPC Landing Zone](examples/slzvsi-terraform.drawio.png)
+
+## Features Implemented
+
+[Terraform Checklist](terraform-checklist.md)
 
 ## License
 

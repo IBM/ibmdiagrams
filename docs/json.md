@@ -1,11 +1,11 @@
-# Using JSON (internal tooling)
+# Using JSON (tooling)
 
 ## Usage
 
-JSON examples:
-- Input JSON: tests/json/vpc.json
-- Create XML: ibmdiagrams vpc.json
-- View XML: Open vpc.drawio in drawio desktop
+JSON example:
+- Input JSON: vpc.json
+- Create drawio: ibmdiagrams vpc.json
+- View drawio: Open vpc.drawio in drawio desktop
 
 ## License
 

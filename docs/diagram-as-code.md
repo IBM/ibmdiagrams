@@ -1,10 +1,6 @@
-# UsingPython
+# Diagram as Code
 
-## Sidebars
-
-- ibmcloud
-
-## Parameters
+<details><summary>IBM Cloud Parameters</summary>
 
 1. Diagram
 - name
@@ -24,6 +20,12 @@
 - endarrow
 - startfill
 - endfill
+</details>
+
+<details><summary>IBM Cloud Examples</summary>
+
+[VSI on VPC Landing Zone](examples/slzvsi.md)
+</details>
 
 ## License
 
