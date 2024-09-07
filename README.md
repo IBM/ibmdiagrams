@@ -10,6 +10,8 @@ Output is a drawio file that can be opened and edited in drawio.
 
 Icons are from the [icons repo](https://github.com/IBM-Cloud/architecture-icons) for use in any drawio desktop. 
 
+Early release for testing - externals are subject to change but are stabilizing.
+
 <details><summary>Benefits</summary>
 
 ### Diagram as Code
