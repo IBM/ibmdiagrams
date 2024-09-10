@@ -1,6 +1,6 @@
 # Diagram as Code
 
-<details><summary>IBM Cloud Parameters</summary>
+<details><summary>Parameters</summary>
 
 1. Diagram
 - name
@@ -20,11 +20,14 @@
 - endarrow
 - startfill
 - endfill
+
 </details>
 
-<details><summary>IBM Cloud Examples</summary>
+<details><summary>Examples</summary>
 
-[VSI on VPC Landing Zone](examples/slzvsi.md)
+1. [VSI on VPC Landing Zone](examples/slzvsi.md)
+2. [Power Virtual Server with VPC Landing Zone](examples/slzpowervs.md)
+
 </details>
 
 ## License
