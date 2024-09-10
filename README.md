@@ -32,10 +32,13 @@ Early release for testing - externals are subject to change.
 <details><summary>Features</summary>
 
 1. Shapes:
-- Group (container=1) represents a deployedOn relationship (e.g. virtual server is deployedOn a subnet).
-- Zone (container=0) represents a deployedTo relationship (e.g. virtual server is deployedTo a security group).
+- Group (container=1) represents a deployedOn relationship (e.g. virtual server is deployedOn a subnet, see example).
+- Zone (container=0) represents a deployedTo relationship (e.g. virtual server is deployedTo a security group, see example).
 - Node (square shape) represent standalone components or devices.
 - Actor (round shape) represent roles, functions or attributes played by human users, devices and other entities that interact with any of the above.
+
+![deployed-example](docs/images/deployed-example.png)
+
 2. Selecting within non-containers:
 - ibmdiagrams generates correct Z order autommatically.
 - If needed, use alt-click or option-click to select shapes within non-containers, or define Z order by moving shapes backward.

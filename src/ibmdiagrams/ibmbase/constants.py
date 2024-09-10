@@ -16,19 +16,7 @@
 from enum import Enum
 
 
-# Format Style
-
-class ShapeFormat(Enum):
-   ACTOR = 'shape=mxgraph.ibmshapes.actor;%ICON%STROKE%FILL'
-   PNODE = 'shape=mxgraph.ibmshapes.pnode;%ICON%STROKE%FILL'
-   EPNODE = 'shape=mxgraph.ibmshapes.epnode;%ICON%STROKE%FILL'
-   PLOC = 'shape=mxgraph.ibmshapes.ploc;%ICON%STROKE%FILL'
-   GPLOC = 'shape=mxgraph.ibmshapes.gploc;%ICON%STROKE%FILL'
-   ZONE = 'shape=mxgraph.ibmshapes.zone;%ICON%STROKE%FILL'
-   GZONE = 'shape=mxgraph.ibmshapes.gzone;%ICON%STROKE%FILL'
-   IMAGE = 'shape=image;'
-   GROUP = 'group;%STROKE%FILL'
-   BORDER = '%STROKE%FILL'
+# Initial Sizes
 
 class ShapeSize(Enum):
    COLLAPSED = {'width': '48', 'height': '48'}
@@ -36,56 +24,157 @@ class ShapeSize(Enum):
    LOCATION = {'width': '240', 'height': '152'}
    ITEM = {'width': '252', 'height': '16'}
 
+# Format Style
+
+class ShapeFormat(Enum):
+   # Collapsed shapes.
+   ACTOR = 'shape=mxgraph.ibmshapes.actor;%ICON%STROKE%FILL'
+   PNODE = 'shape=mxgraph.ibmshapes.pnode;%ICON%STROKE%FILL'
+
+   # Expanded and grouping shapes.
+   EPNODE = 'shape=mxgraph.ibmshapes.epnode;%ICON%STROKE%FILL'
+   PLOC = 'shape=mxgraph.ibmshapes.ploc;%ICON%STROKE%FILL'
+   GPLOC = 'shape=mxgraph.ibmshapes.gploc;%ICON%STROKE%FILL'
+   ZONE = 'shape=mxgraph.ibmshapes.zone;%ICON%STROKE%FILL'
+   GZONE = 'shape=mxgraph.ibmshapes.gzone;%ICON%STROKE%FILL'
+
+   # Static expanded and grouping shape.
+   GROUP = 'group;%STROKE%FILL'
+
+   # Image shape.
+   IMAGE = 'shape=image;'
+
 # Base Style
 
 class BaseStyle(Enum):
-   FONT = 'fontFamily=IBM Plex Sans;fontSize=14;fontColor=#000000;'
+   # Font properties.
+   FONT = 'fontFamily=IBM Plex Sans;fontSize=14;fontColor=#000000;html=1;'
+
+   # Container properties.
    CONTAINER = 'container=1;collapsible=0;expand=0;recursiveResize=0;'
    NON_CONTAINER = 'container=0;collapsible=0;expand=0;recursiveResize=0;'
+
+   # Zone border properties.
    ZONE = 'dashed=1;dashPattern=1 2;strokeWidth=2;'
-   IMAGE = 'image=;'
 
-   #COLLAPSED_LABEL = 'html=1;whiteSpace=wrap;align=center;verticalAlign=top;verticalLabelPosition=bottom;'
-   #EXPANDED_NODE_ICON_LABEL = 'html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacingLeft=60;'
-   #EXPANDED_ICON_LABEL = 'html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacingLeft=50;'
-   #EXPANDED_NOICON_LABEL = 'html=1;witeSpace=wrap;align=left;verticalAlign=top;spacingLeft=16;'
+   # Separate no image property to ensure placement at end of style.
+   IMAGE = "image=;"
 
-   COLLAPSED_LABEL = 'html=1;align=center;verticalAlign=top;verticalLabelPosition=bottom;'
-   EXPANDED_NODE_ICON_LABEL = 'html=1;align=left;verticalAlign=top;spacingLeft=60;'
-   EXPANDED_ICON_LABEL = 'html=1;align=left;verticalAlign=top;spacingLeft=50;'
-   EXPANDED_NOICON_LABEL = 'html=1;align=left;verticalAlign=top;spacingLeft=16;'
+   # Collapsed shapes label properties.
+   COLLAPSED_LABEL = 'align=center;verticalAlign=top;verticalLabelPosition=bottom;'
+
+   # Expanded and grouping shapes with one line label.
+   EPNODE_LABEL1 = 'align=left;verticalAlign=top;spacingLeft=56;spacingTop=8;'
+   PLOC_LABEL1 = 'align=left;verticalAlign=top;spacingLeft=50;spacingTop=8;'
+   GPLOC_LABEL1 = 'align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;'
+   ZONE_LABEL1 = 'align=left;verticalAlign=top;spacingLeft=50;spacingTop=8;'
+   GZONE_LABEL1 = 'align=left;verticalAlign=top;spacingLeft=12;spacingTop=8;'
+
+   # Expanded and grouping shapes with two line label.
+   EPNODE_LABEL2 = 'align=left;verticalAlign=top;spacingLeft=56;spacingTop=0;'
+   PLOC_LABEL2 = 'align=left;verticalAlign=top;spacingLeft=50;spacingTop=0;'
+   GPLOC_LABEL2 = 'align=left;verticalAlign=top;spacingLeft=12;spacingTop=0;'
+   ZONE_LABEL2 = 'align=left;verticalAlign=top;spacingLeft=50;spacingTop=0;'
+   GZONE_LABEL2 = 'align=left;verticalAlign=top;spacingLeft=12;spacingTop=0;'
+
+   # Expanded and grouping shapes with N line label.
+   EPNODE_LABEL3 = 'align=left;verticalAlign=top;spacingLeft=56;spacingTop=-8;'
+   PLOC_LABEL3 = 'align=left;verticalAlign=top;spacingLeft=50;spacingTop=-8;'
+   GPLOC_LABEL3 = 'align=left;verticalAlign=top;spacingLeft=12;spacingTop=-8;'
+   ZONE_LABEL3 = 'align=left;verticalAlign=top;spacingLeft=50;spacingTop=-8;'
+   GZONE_LABEL3 = 'align=left;verticalAlign=top;spacingLeft=12;spacingTop=-8;'
 
 # Combined Style
 
 class CombinedStyle(Enum):
-   NODE = BaseStyle.FONT.value + BaseStyle.COLLAPSED_LABEL.value + BaseStyle.IMAGE.value
-   EPNODE = BaseStyle.FONT.value + BaseStyle.EXPANDED_NODE_ICON_LABEL.value + BaseStyle.CONTAINER.value + BaseStyle.IMAGE.value
-   PLOC = BaseStyle.FONT.value + BaseStyle.EXPANDED_ICON_LABEL.value + BaseStyle.CONTAINER.value + BaseStyle.IMAGE.value
-   GPLOC = BaseStyle.FONT.value + BaseStyle.EXPANDED_NOICON_LABEL.value + BaseStyle.CONTAINER.value + BaseStyle.IMAGE.value
-   ZONE = BaseStyle.FONT.value + BaseStyle.EXPANDED_ICON_LABEL.value + BaseStyle.NON_CONTAINER.value + BaseStyle.ZONE.value + BaseStyle.IMAGE.value
-   GZONE = BaseStyle.FONT.value + BaseStyle.EXPANDED_NOICON_LABEL.value + BaseStyle.NON_CONTAINER.value + BaseStyle.ZONE.value + BaseStyle.IMAGE.value
-   IMAGE = BaseStyle.FONT.value + BaseStyle.COLLAPSED_LABEL.value + BaseStyle.NON_CONTAINER.value + BaseStyle.IMAGE.value
-   GROUP = BaseStyle.FONT.value + BaseStyle.COLLAPSED_LABEL.value + BaseStyle.NON_CONTAINER.value
+   # Collapsed shapes.
+   ACTOR =  BaseStyle.FONT.value + BaseStyle.COLLAPSED_LABEL.value + BaseStyle.IMAGE.value
+   PNODE = BaseStyle.FONT.value + BaseStyle.COLLAPSED_LABEL.value + BaseStyle.IMAGE.value
+   IMAGE = BaseStyle.FONT.value + BaseStyle.COLLAPSED_LABEL.value + BaseStyle.IMAGE.value
+
+   # Expanded and grouping shapes with one line label.
+   EPNODE1 = BaseStyle.FONT.value + BaseStyle.EPNODE_LABEL1.value + BaseStyle.CONTAINER.value + BaseStyle.IMAGE.value
+   PLOC1 = BaseStyle.FONT.value + BaseStyle.PLOC_LABEL1.value + BaseStyle.CONTAINER.value + BaseStyle.IMAGE.value
+   GPLOC1 = BaseStyle.FONT.value + BaseStyle.GPLOC_LABEL1.value + BaseStyle.CONTAINER.value + BaseStyle.IMAGE.value
+   ZONE1 = BaseStyle.FONT.value + BaseStyle.ZONE_LABEL1.value + BaseStyle.ZONE.value + BaseStyle.NON_CONTAINER.value + BaseStyle.IMAGE.value
+   GZONE1 = BaseStyle.FONT.value + BaseStyle.GZONE_LABEL1.value + BaseStyle.ZONE.value + BaseStyle.NON_CONTAINER.value + BaseStyle.IMAGE.value
+
+   # Expanded and grouping shapes with two line label.
+   EPNODE2 = BaseStyle.FONT.value + BaseStyle.EPNODE_LABEL2.value + BaseStyle.CONTAINER.value + BaseStyle.IMAGE.value
+   PLOC2 = BaseStyle.FONT.value + BaseStyle.PLOC_LABEL2.value + BaseStyle.CONTAINER.value + BaseStyle.IMAGE.value
+   GPLOC2 = BaseStyle.FONT.value + BaseStyle.GPLOC_LABEL2.value + BaseStyle.CONTAINER.value + BaseStyle.IMAGE.value
+   ZONE2 = BaseStyle.FONT.value + BaseStyle.ZONE_LABEL2.value + BaseStyle.ZONE.value + BaseStyle.NON_CONTAINER.value + BaseStyle.IMAGE.value
+   GZONE2 = BaseStyle.FONT.value + BaseStyle.GZONE_LABEL2.value + BaseStyle.ZONE.value + BaseStyle.NON_CONTAINER.value + BaseStyle.IMAGE.value
+
+   # Expanded and grouping shapes with N line label.
+   EPNODE3 = BaseStyle.FONT.value + BaseStyle.EPNODE_LABEL3.value + BaseStyle.CONTAINER.value + BaseStyle.IMAGE.value
+   PLOC3 = BaseStyle.FONT.value + BaseStyle.PLOC_LABEL3.value + BaseStyle.CONTAINER.value + BaseStyle.IMAGE.value
+   GPLOC3 = BaseStyle.FONT.value + BaseStyle.GPLOC_LABEL3.value + BaseStyle.CONTAINER.value + BaseStyle.IMAGE.value
+   ZONE3 = BaseStyle.FONT.value + BaseStyle.ZONE_LABEL3.value + BaseStyle.ZONE.value + BaseStyle.NON_CONTAINER.value + BaseStyle.IMAGE.value
+   GZONE3 = BaseStyle.FONT.value + BaseStyle.GZONE_LABEL3.value + BaseStyle.ZONE.value + BaseStyle.NON_CONTAINER.value + BaseStyle.IMAGE.value
+
+   # Test properties.
    TEXT = 'text;html=1;resizable=0;autosize=1;align=left;verticalAlign=middle;points=[];strokeColor=none;rounded=0;'
 
-# Shape Style
+#  Shape Style
 
 class ShapeStyle(Enum):
-   ACTOR = ShapeFormat.ACTOR.value + CombinedStyle.NODE.value
-   PNODE = ShapeFormat.PNODE.value + CombinedStyle.NODE.value
-   EPNODE = ShapeFormat.EPNODE.value + CombinedStyle.EPNODE.value
+   # Collapsed shapes.
+   ACTOR = ShapeFormat.ACTOR.value + CombinedStyle.ACTOR.value
+   PNODE = ShapeFormat.PNODE.value + CombinedStyle.PNODE.value
 
-   PLOC = ShapeFormat.PLOC.value + CombinedStyle.PLOC.value  
-   GPLOC = ShapeFormat.GPLOC.value + CombinedStyle.GPLOC.value  
+   # Expanded and grouping shapes with one line label.
+   EPNODE1 = ShapeFormat.EPNODE.value + CombinedStyle.EPNODE1.value
+   PLOC1 = ShapeFormat.PLOC.value + CombinedStyle.PLOC1.value  
+   GPLOC1 = ShapeFormat.GPLOC.value + CombinedStyle.GPLOC1.value  
+   ZONE1 = ShapeFormat.ZONE.value + CombinedStyle.ZONE1.value
+   GZONE1 = ShapeFormat.GZONE.value + CombinedStyle.GZONE1.value
 
-   ZONE = ShapeFormat.ZONE.value + CombinedStyle.ZONE.value
-   GZONE = ShapeFormat.GZONE.value + CombinedStyle.GZONE.value
+   # Expanded and grouping shapes with two line label.
+   EPNODE2 = ShapeFormat.EPNODE.value + CombinedStyle.EPNODE2.value
+   PLOC2 = ShapeFormat.PLOC.value + CombinedStyle.PLOC2.value  
+   GPLOC2 = ShapeFormat.GPLOC.value + CombinedStyle.GPLOC2.value  
+   ZONE2 = ShapeFormat.ZONE.value + CombinedStyle.ZONE2.value
+   GZONE2 = ShapeFormat.GZONE.value + CombinedStyle.GZONE2.value
 
-   GROUP = ShapeFormat.GROUP.value + CombinedStyle.GROUP.value
+   # Expanded and grouping shapes with N line label.
+   EPNODE3 = ShapeFormat.EPNODE.value + CombinedStyle.EPNODE3.value
+   PLOC3 = ShapeFormat.PLOC.value + CombinedStyle.PLOC3.value  
+   GPLOC3 = ShapeFormat.GPLOC.value + CombinedStyle.GPLOC3.value  
+   ZONE3 = ShapeFormat.ZONE.value + CombinedStyle.ZONE3.value
+   GZONE3 = ShapeFormat.GZONE.value + CombinedStyle.GZONE3.value
+
    IMAGE = ShapeFormat.IMAGE.value + CombinedStyle.IMAGE.value
 
-   BPLOC = ShapeFormat.BORDER.value + CombinedStyle.PLOC.value
-   BZONE = ShapeFormat.BORDER.value + CombinedStyle.ZONE.value
+# Static Shape Style
+
+class StaticShapeStyle(Enum):
+   # Collapsed shapes.
+   ACTOR = CombinedStyle.ACTOR.value
+   PNODE = CombinedStyle.PNODE.value
+
+   # Expanded and grouping shapes with one line label.
+   EPNODE1 = ShapeFormat.GROUP.value + CombinedStyle.EPNODE1.value
+   PLOC1 = ShapeFormat.GROUP.value + CombinedStyle.PLOC1.value  
+   GPLOC1 = ShapeFormat.GROUP.value + CombinedStyle.GPLOC1.value  
+   ZONE1 = ShapeFormat.GROUP.value + CombinedStyle.ZONE1.value
+   GZONE1 = ShapeFormat.GROUP.value + CombinedStyle.GZONE1.value
+
+   # Expanded and grouping shapes with two line label.
+   EPNODE2 = ShapeFormat.GROUP.value + CombinedStyle.EPNODE2.value
+   PLOC2 = ShapeFormat.GROUP.value + CombinedStyle.PLOC2.value  
+   GPLOC2 = ShapeFormat.GROUP.value + CombinedStyle.GPLOC2.value  
+   ZONE2 = ShapeFormat.GROUP.value + CombinedStyle.ZONE2.value
+   GZONE2 = ShapeFormat.GROUP.value + CombinedStyle.GZONE2.value
+
+   # Expanded and grouping shapes with N line label.
+   EPNODE3 = ShapeFormat.GROUP.value + CombinedStyle.EPNODE3.value
+   PLOC3 = ShapeFormat.GROUP.value + CombinedStyle.PLOC3.value  
+   GPLOC3 = ShapeFormat.GROUP.value + CombinedStyle.GPLOC3.value  
+   ZONE3 = ShapeFormat.GROUP.value + CombinedStyle.ZONE3.value
+   GZONE3 = ShapeFormat.GROUP.value + CombinedStyle.GZONE3.value
+
+   IMAGE = ShapeFormat.IMAGE.value + CombinedStyle.IMAGE.value
 
 # Color Style
 

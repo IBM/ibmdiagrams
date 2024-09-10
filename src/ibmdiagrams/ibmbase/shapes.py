@@ -23,24 +23,12 @@ class Shapes:
       self.common = common
       self.types = Types(common)
 
-   def buildCatalogIcon(self, parentid, properties):
-      node = self.types.buildCatalogIcon(parentid, properties)
-      return node
-
-   def buildCatalogShape(self, id, properties, x, y, width, height, meta):
-      node = self.types.buildCatalogNode(id, properties, x, y, width, height, meta)
-      return node
-
-   def buildGroupIcon(self, parentid, properties):
-      node = self.types.buildGroupIcon(parentid, properties)
-      return node
-
-   def buildSidebar(self, parentid, properties):
-      node = self.types.buildSidebar(parentid, properties)
+   def buildStaticShape(self, id, properties, x, y, width, height, meta, items):
+      node = self.types.buildStaticShape(id, properties, x, y, width, height, meta, items)
       return node
 
    def buildShape(self, id, properties, x, y, width, height, meta):
-      node = self.types.buildNode(id, properties, x, y, width, height, meta)
+      node = self.types.buildShape(id, properties, x, y, width, height, meta)
       return node
 
    def buildLink(self, id, label, source, target, startarrow, endarrow, startfill, endfill, meta):

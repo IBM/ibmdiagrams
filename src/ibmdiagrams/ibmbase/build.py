@@ -255,45 +255,14 @@ class Build:
 
       meta = properties["data"]
 
-      generated = False
-      if self.common.isCatalogIcons():
-         shape = properties["shape"].lower()
-         if shape == "pnode":
-            linecolor = properties["linecolor"]
-            properties["linecolor"] = Colors.names["black"]
-            name = Colors.names[linecolor]
-            #fillcolor = Colors.names["light" + name]
-            fillcolor = Colors.names["white"]
-            properties["fillcolor"] = fillcolor
-            shapenode = self.shapes.buildCatalogShape(groupid, properties, x, y, width, height, meta)
-            items.append(shapenode)
-            generated = True
-      
-      if not generated:
-         shapenode = self.shapes.buildShape(groupid, properties, x, y, width, height, meta)
-         items.append(shapenode)
+      shape = properties["shape"].lower()
 
       if self.common.isStaticIcons() or self.common.isCatalogIcons():
-         shape = properties["shape"].lower()
-         
-         if shape == "ploc" or shape == 'zone':
-            #icon = properties["icon"]
-            #if icon == "":
-            #   icon = GROUP_ICON_DEFAULT
-            #iconname, linecolor, fillcolor, image = self.icons.getIcon(icon)
-            #if image != "":
-            #   iconimage = self.icons.getStaticIcon(image)
-            #else:
-            #   iconimage = ""
-            #properties["image"] = iconimage
-            groupiconnode = self.shapes.buildGroupIcon(groupid, properties)
-            items.append(groupiconnode)
-         if shape == "ploc" or shape == "gploc":
-            sidebarnode = self.shapes.buildSidebar(groupid, properties)
-            items.append(sidebarnode)
-         if self.common.isCatalogIcons() and shape == "pnode":
-            catalognode = self.shapes.buildCatalogIcon(groupid, properties)
-            items.append(catalognode)
+         shapenode = self.shapes.buildStaticShape(groupid, properties, x, y, width, height, meta, items)
+         items.append(shapenode)
+      else:
+         shapenode = self.shapes.buildShape(groupid, properties, x, y, width, height, meta)
+         items.append(shapenode)
 
       return items, links, values
 

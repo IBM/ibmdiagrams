@@ -38,13 +38,12 @@ def main():
 
    common = Common() 
 
-   parser = ArgumentParser(description='ibmdiagrams')
+   parser = ArgumentParser(prog='ibmdiagrams', 
+                           description='Generate architecture diagrams following IBM Diagram Standard.',
+                           epilog='https://github.com/IBM/ibmdiagrams')
 
-   #parser.add_argument('-input', dest='inputfile', default='', help='input file name (terraform or internal json)')
-   #parser.add_argument('inputfile', help='required input file name (terraform file or internal json file)')
    parser.add_argument('inputfile', help='required input file name (terraform file)')
    parser.add_argument('-output', dest='outputfolder', default='', help='output folder')
-   #parser.add_argument('-icontype', dest='icontype', default='static', help='icon type (static or catalog)')
    parser.add_argument('-icontype', dest='icontype', default='static', help='icon type (static only)')
    parser.add_argument('-direction', dest='direction', default='LR', help='layout direction (LR or TB)')
    #parser.add_argument('-fontname', dest='fontname', default=common.getFontName(), help='font name')
@@ -54,7 +53,7 @@ def main():
 
    inputfile = args.inputfile
    outputfolder = args.outputfolder
-   #icontype = args.icontype
+   icontype = args.icontype
    direction = args.direction
    #fontname = args.fontname
    #fontsize = args.fontsize

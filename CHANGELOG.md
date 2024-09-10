@@ -1,6 +1,13 @@
 # Change Log
 
-Notable changes to this project are documented in this file.
+Notable changes to this project:
+
+## 1.0.23
+
+### Fixes
+
+- Fixed and redesigned static support.
+- (Internal issue #4) Fixed vertical label position on group shapes, zone shapes, and expanded shapes.
 
 ## 1.0.22
 

@@ -20,7 +20,7 @@ from uuid import uuid4
 
 from .common import Common
 
-from .constants import ShapeKind, ShapeStyle
+from .constants import ShapeKind, ShapeStyle, StaticShapeStyle
 from .elements import Elements
 
 @staticmethod
@@ -140,149 +140,7 @@ class Types:
                          'as': 'geometry'}}
       return data
 
-   def buildCatalogIcon(self, parentid, node):
-      #style = "shape=image;"
-
-      #linecolor = node["linecolor"]
-      #styleStroke = "strokeColor=" + linecolor + ";" 
-      #styleStroke = "strokeColor=none;" 
-
-      #fillcolor = node["fillcolor"]
-      #if fillcolor:
-      #   #style += "fillColor=" + fillcolor + ";" 
-      #   styleFill = "fillColor=" + fillcolor + ";" 
-      #else:
-      #   #style += "fillColor=none;" 
-      #   styleFill = "fillColor=none;" 
-      
-      #style += "strokeColor=none;fillColor=none;"
-      #style += styleStroke + styleFill
-
-      image = node["image"] 
-      #if image != "":
-      #   style += image
-
-      style = ShapeStyle.IMAGE.value + image
-
-      name = node["label"]
-
-      header = {'id': randomid(),
-                'placeholders': '1'}
-
-      cell = {'parent': parentid,
-              'style': style,
-              'vertex': '1'}
-
-      geo = {'x': str(12),
-             'y': str(12),
-             'width': str(24),
-             'height': str(24),
-             'as': 'geometry'}
-
-      props = {}
-
-      data = {'header': header, 'cell': cell, 'geo': geo, 'props':  props}
-
-      return data
-
-   def buildCatalogNode(self, id, node, x, y, width, height, meta):
-      style = ShapeStyle.GROUP.value
-
-      linecolor = node["linecolor"]
-      fillcolor = node["fillcolor"]
-      #style += 'strokeColor=' + linecolor + ';fillColor=' + fillcolor +';'
-      #style += 'strokeColor=' + linecolor + ';fillColor=' + fillcolor +';strokeWidth=2;'
-      styleStroke = "strokeColor=" + linecolor + ';' 
-      styleFill = "fillColor=" + fillcolor + ';' 
-      style = style.replace("%STROKE", styleStroke)
-      style = style.replace("%FILL", styleFill)
-      #style += 'strokeWidth=2;'
-
-      name = node["label"]
-      subname = node["sublabel"]
-      labelsize = 20
-
-      if len(name) > 0:
-         name = self.common.truncateText(name, labelsize, '<br>')
-
-      if len(subname) > 0:
-         subname = self.common.truncateText(subname, labelsize, '<br>')
-
-      shapelabel = "<b style='font-weight:600'>" + name + "</b><br>" + subname
-
-      parentid = node["parentid"]
-      parentid = '1' if parentid == None else parentid
-
-      header = {'id': id,
-                'label': shapelabel,
-                'placeholders': '1'}
-
-      cell = {'parent': parentid,
-              'style': style,
-              'vertex': '1'}
-
-      geo = {'x': str(x),
-             'y': str(y),
-             'width': str(48),
-             'height': str(48),
-             'as': 'geometry'}
-
-      props = {}
-
-      data = {'header': header, 'cell': cell, 'geo': geo, 'props':  props}
-
-      return data
-
-   def buildGroupIcon(self, parentid, node):
-      style = "shape=image;"
-
-      linecolor = node["linecolor"]
-      #styleStroke = "strokeColor=" + linecolor + ";" 
-      styleStroke = "strokeColor=none;" 
-
-      fillcolor = node["fillcolor"]
-      if fillcolor:
-         #style += "fillColor=" + fillcolor + ";" 
-         styleFill = "fillColor=" + fillcolor + ";" 
-      else:
-         #style += "fillColor=none;" 
-         styleFill = "fillColor=none;" 
-      
-      #style += "strokeColor=none;fillColor=none;"
-      style += styleStroke + styleFill
-
-      image = node["image"] 
-      if image != "":
-         style += image
-
-      name = node["label"]
-
-      header = {'id': randomid(),
-                'placeholders': '1'}
-
-      cell = {'parent': parentid,
-              'style': style,
-              'vertex': '1'}
-
-      #geo = {'x': str(15),
-      #       'y': str(7),
-      #       'width': str(24),
-      #       'height': str(24),
-      #       'as': 'geometry'}
-
-      geo = {'x': str(14),
-             'y': str(12),
-             'width': str(24),
-             'height': str(24),
-             'as': 'geometry'}
-
-      props = {}
-
-      data = {'header': header, 'cell': cell, 'geo': geo, 'props':  props}
-
-      return data
-
-   def buildSidebar(self, parentid, node):
+   def buildStaticGroupSidebar(self, parentid, node):
       linecolor = node["linecolor"]
       style = 'strokeColor=' + linecolor + ';fillColor=' + linecolor +';'
 
@@ -305,92 +163,133 @@ class Types:
 
       return data
 
-   def buildNode(self, id, node, x, y, width, height, meta):
-      shape = node["shape"].lower()
-      if shape == "actor":
-         style = ShapeStyle.ACTOR.value
-      elif shape == "pnode":
-         style = ShapeStyle.PNODE.value
-      elif shape == "epnode":
-         style = ShapeStyle.EPNODE.value
-      elif shape == "ploc":
-         style = ShapeStyle.PLOC.value
-      elif shape == "gploc":
-         style = ShapeStyle.GPLOC.value
-      elif shape == "zone":
-         style = ShapeStyle.ZONE.value
-      elif shape == "gzone":
-         style = ShapeStyle.GZONE.value
-      else:
-         style = ShapeStyle.PNODE.value
+   def buildStaticGroupIcon(self, parentid, node):
+      image = node["image"]
+      style = "shape=image;aspect=fixed;" + image
 
-      linecolor = node["linecolor"]
-      #style += "strokeColor=" + linecolor + ';' 
-      styleStroke = "strokeColor=" + linecolor + ';' 
-      style = style.replace("%STROKE", styleStroke)
+      header = {'id': randomid(),
+                'placeholders': '1'}
 
-      fillcolor = node["fillcolor"]
-      if fillcolor:
-         #style += "fillColor=" + fillcolor + ';' 
-         styleFill = "fillColor=" + fillcolor + ';' 
-      else:
-         #style += "fillColor=none;" 
-         styleFill = "fillColor=none;" 
-      style = style.replace("%FILL", styleFill)
+      cell = {'parent': parentid,
+              'style': style,
+              'vertex': '1'}
 
-      #multiplicity = node["many"]
-      #if multiplicity:
-      #   style += "ibmMultiplicity=1;"
+      geo = {'x': str(12),
+             'y': str(12),
+             'width': str(24),
+             'height': str(24),
+             'as': 'geometry'}
 
+      props = {}
+
+      data = {'header': header, 'cell': cell, 'geo': geo, 'props':  props}
+
+      return data
+
+   def buildStaticExpandedIcon(self, parentid, node):
+      image = node["image"]
+      #style = "shape=image;aspect=fixed;" + StaticShapeStyle.PNODE.value + image
+      style = "shape=image;aspect=fixed;" + image
+
+      header = {'id': randomid(),
+                'placeholders': '1'}
+
+      cell = {'parent': parentid,
+              'style': style,
+              'vertex': '1'}
+
+      geo = {'x': str(0),
+             'y': str(0),
+             'width': str(48),
+             'height': str(48),
+             'as': 'geometry'}
+
+      props = {}
+
+      data = {'header': header, 'cell': cell, 'geo': geo, 'props':  props}
+
+      return data
+
+   def buildStaticShape(self, id, node, x, y, width, height, meta, items):
       name = node["label"]
       subname = node["sublabel"]
+      shape = node["shape"].lower()
 
-      badgetext = node["badgetext"]
-      badgeshape = node["badgeshape"]
-      badgelinecolor = node["badgelinecolor"]
-      badgefillcolor = node["badgefillcolor"]
+      linecount = 0
+      if len(name) > 0:
+         linecount = linecount + 1 + name.count("<br")
+      if len(subname) > 0:
+         linecount = linecount + 1 + subname.count("<br")
 
-      #if "newparentid" in node:
-      #   parentid = node["newparentid"]
-      #else:
+      if shape == "actor":
+         image = node["image"]
+         style = "shape=image;aspect=fixed;" + StaticShapeStyle.ACTOR.value + image
+      elif shape == "pnode":
+         image = node["image"]
+         style = "shape=image;aspect=fixed;" + StaticShapeStyle.PNODE.value + image
+      elif shape == "epnode":
+         if linecount == 0 or linecount == 1:
+            style = StaticShapeStyle.EPNODE1.value
+         elif linecount == 2:
+            style = StaticShapeStyle.EPNODE2.value
+         else:
+           style = StaticShapeStyle.EPNODE3.value
+         shapenode = self.buildStaticExpandedIcon(id, node) 
+         items.append(shapenode)
+      elif shape == "ploc":
+         if linecount == 0 or linecount == 1:
+            style = StaticShapeStyle.PLOC1.value
+         elif linecount == 2:
+            style = StaticShapeStyle.PLOC2.value
+         else:
+           style = StaticShapeStyle.PLOC3.value
+         shapenode = self.buildStaticGroupSidebar(id, node) 
+         items.append(shapenode)
+         shapenode = self.buildStaticGroupIcon(id, node) 
+         items.append(shapenode)
+      elif shape == "gploc":
+         if linecount == 0 or linecount == 1:
+            style = StaticShapeStyle.GPLOC1.value
+         elif linecount == 2:
+            style = StaticShapeStyle.GPLOC2.value
+         else:
+           style = StaticShapeStyle.GPLOC3.value
+         shapenode = self.buildStaticGroupSidebar(id, node) 
+         items.append(shapenode)
+      elif shape == "zone":
+         if linecount == 0 or linecount == 1:
+            style = StaticShapeStyle.ZONE1.value
+         elif linecount == 2:
+            style = StaticShapeStyle.ZONE2.value
+         else:
+           style = StaticShapeStyle.ZONE3.value
+         shapenode = self.buildStaticGroupIcon(id, node) 
+         items.append(shapenode)
+      elif shape == "gzone":
+         if linecount == 0 or linecount == 1:
+            style = StaticShapeStyle.GZONE1.value
+         elif linecount == 2:
+            style = StaticShapeStyle.GZONE2.value
+         else:
+           style = StaticShapeStyle.GZONE3.value
+      else:
+         style = StaticShapeStyle.PNODE.value
+
+      if shape != "actor" and shape != "pnode":
+         linecolor = node["linecolor"]
+         styleStroke = "strokeColor=" + linecolor + ';' 
+         style = style.replace("%STROKE", styleStroke)
+
+         fillcolor = node["fillcolor"]
+         if fillcolor:
+            styleFill = "fillColor=" + fillcolor + ';' 
+         else:
+            styleFill = "fillColor=none;" 
+         style = style.replace("%FILL", styleFill)
+
       parentid = node["parentid"]
       parentid = '1' if parentid == None else parentid
 
-      #icon = node["icon"]
-      #if icon != "":
-      #   styleIcon = 'icon=' + icon + ';'
-      #else:
-      #   styleIcon = ""
-      #style = style.replace("%ICON", styleIcon)
-
-      image = node["image"] 
-      if image != "":
-         if shape == "actor" or shape == "pnode":
-            style = ShapeStyle.IMAGE.value + image
-         elif shape == "ploc":
-            style = ShapeStyle.BPLOC.value
-            style = style.replace("%STROKE", styleStroke)
-            style = style.replace("%FILL", styleFill)
-         elif shape == "epnode":
-            style = ShapeStyle.EPNODE.value
-            style = style.replace("%STROKE", styleStroke)
-            style = style.replace("%FILL", styleFill)
-         elif shape == "zone":
-            style = ShapeStyle.BZONE.value
-            style = style.replace("%STROKE", styleStroke)
-            style = style.replace("%FILL", styleFill)
-
-      else:
-         icon = node["icon"]
-         if icon != "":
-            styleIcon = 'icon=' + icon + ';'
-         else:
-            styleIcon = ""
-         style = style.replace("%ICON", styleIcon)
-
-      #shapelabel = "<b style='font-weight:600'>%Primary-Label%</b><br>%Secondary-Text%"
-      #labelsize = 30
-      #labelsize = 24
       labelsize = 20
 
       if len(name) > 0:
@@ -415,11 +314,122 @@ class Types:
              'height': str(height),
              'as': 'geometry'}
 
-      #props = {#'Badge-Text': badgetext,
-      #         #'Icon-Name': iconname,
-      #         #'Icon-Name': icon,
-      #         'Primary-Label': name,
-      #         'Secondary-Text': subname}
+      props = {}
+
+      if meta != None:
+         props.update(meta)
+
+      data = {'header': header, 'cell': cell, 'geo': geo, 'props':  props}
+
+      return data
+
+   def buildShape(self, id, node, x, y, width, height, meta):
+      shape = node["shape"].lower()
+      name = node["label"]
+      subname = node["sublabel"]
+      shape = node["shape"].lower()
+
+      linecount = 0
+      if len(name) > 0:
+         linecount = linecount + 1 + name.count("<br")
+      if len(subname) > 0:
+         linecount = linecount + 1 + subname.count("<br")
+
+      if shape == "actor":
+         style = ShapeStyle.ACTOR.value
+      elif shape == "pnode":
+         style = ShapeStyle.PNODE.value
+      elif shape == "epnode":
+         if linecount == 0 or linecount == 1:
+            style = ShapeStyle.EPNODE1.value
+         elif linecount == 2:
+            style = ShapeStyle.EPNODE2.value
+         else:
+           style = ShapeStyle.EPNODE3.value
+      elif shape == "ploc":
+         if linecount == 0 or linecount == 1:
+            style = ShapeStyle.PLOC1.value
+         elif linecount == 2:
+            style = ShapeStyle.PLOC2.value
+         else:
+           style = ShapeStyle.PLOC3.value
+      elif shape == "gploc":
+         if linecount == 0 or linecount == 1:
+            style = ShapeStyle.GPLOC1.value
+         elif linecount == 2:
+            style = ShapeStyle.GPLOC2.value
+         else:
+           style = ShapeStyle.GPLOC3.value
+      elif shape == "zone":
+         if linecount == 0 or linecount == 1:
+            style = ShapeStyle.ZONE1.value
+         elif linecount == 2:
+            style = ShapeStyle.ZONE2.value
+         else:
+           style = ShapeStyle.ZONE3.value
+      elif shape == "gzone":
+         if linecount == 0 or linecount == 1:
+            style = ShapeStyle.GZONE1.value
+         elif linecount == 2:
+            style = ShapeStyle.GZONE2.value
+         else:
+           style = ShapeStyle.GZONE3.value
+      else:
+         style = ShapeStyle.PNODE.value
+
+      linecolor = node["linecolor"]
+      styleStroke = "strokeColor=" + linecolor + ';' 
+      style = style.replace("%STROKE", styleStroke)
+
+      fillcolor = node["fillcolor"]
+      if fillcolor:
+         #style += "fillColor=" + fillcolor + ';' 
+         styleFill = "fillColor=" + fillcolor + ';' 
+      else:
+         #style += "fillColor=none;" 
+         styleFill = "fillColor=none;" 
+      style = style.replace("%FILL", styleFill)
+
+      name = node["label"]
+      subname = node["sublabel"]
+
+      parentid = node["parentid"]
+      parentid = '1' if parentid == None else parentid
+
+      image = node["image"] 
+      if image != "":
+         style = ShapeStyle.IMAGE.value + image
+      else:
+         icon = node["icon"]
+         if icon != "":
+            styleIcon = 'icon=' + icon + ';'
+         else:
+            styleIcon = ""
+         style = style.replace("%ICON", styleIcon)
+
+      labelsize = 20
+
+      if len(name) > 0:
+         name = self.common.truncateText(name, labelsize, '<br>')
+
+      if len(subname) > 0:
+         subname = self.common.truncateText(subname, labelsize, '<br>')
+
+      shapelabel = "<b style='font-weight:600'>" + name + "</b><br>" + subname
+
+      header = {'id': id,
+                'label': shapelabel,
+                'placeholders': '1'}
+
+      cell = {'parent': parentid,
+              'style': style,
+              'vertex': '1'}
+
+      geo = {'x': str(x),
+             'y': str(y),
+             'width': str(width),
+             'height': str(height),
+             'as': 'geometry'}
 
       props = {}
 
