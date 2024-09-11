@@ -37,7 +37,7 @@ Early release for testing - externals are subject to change.
 - Node (square shape) represent standalone components or devices.
 - Actor (round shape) represent roles, functions or attributes played by human users, devices and other entities that interact with any of the above.
 
-![deployed-example](docs/images/deployed-example.png)
+![deployed](docs/images/deployed.png)
 
 2. Selecting within non-containers:
 - ibmdiagrams generates correct Z order autommatically.

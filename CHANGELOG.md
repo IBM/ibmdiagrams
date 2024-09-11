@@ -2,6 +2,13 @@
 
 Notable changes to this project:
 
+## 1.0.24
+
+### Fixes
+
+- Fixed Power icon.
+- Updated diagram examples and collage with corrected label positions.
+
 ## 1.0.23
 
 ### Fixes

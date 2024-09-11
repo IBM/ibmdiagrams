@@ -99,7 +99,7 @@ class Icons:
        # Compute
       'Virtual Server': {'icon': 'ibm-cloud--virtual-server-vpc', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"], 'staticicon': 'Virtual Server for VPC', 'catalogicon': 'Virtual Server for VPC'},
       # Note: Need to correct static icon name.
-      'Power Virtual Server': {'icon': 'ibm--power-vs', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"], 'staticicon': 'Power Vitural Server', 'catalogicon': 'Power Virtual Server Virtual Machine'},
+      'Power Virtual Server': {'icon': 'ibm--power-vs', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"], 'staticicon': 'Power Virtual Server', 'catalogicon': 'Power Virtual Server Virtual Machine'},
       'Classic Virtual Server': {'icon': 'ibm-cloud--virtual-server-classic', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"], 'staticicon': 'Virtual Server Classic', 'catalogicon': 'Virtual Server for Classic'},
       'Bare Metal Server': {'icon': 'ibm-cloud--bare-metal-servers-vpc', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"], 'staticicon': 'Bare Metal for VPC', 'catalogicon': 'Bare Metal Server for VPC'},
       'Classic Bare Metal Server': {'icon': 'ibm-cloud--bare-metal-server', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"], 'staticicon': 'Bare Metal Server', 'catalogicon': 'Bare Metal Server for Classic'},
