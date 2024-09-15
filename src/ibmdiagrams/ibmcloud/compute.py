@@ -13,10 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from . import _IBMItem
+from . import _IBMCollapsed
 from .colors import Colors
 
-class _Compute(_IBMItem):
+class _Compute(_IBMCollapsed):
     def __init__(self, label, sublabel="", icon=""):
         super(_Compute, self).__init__(label=label, sublabel=sublabel, 
                                       linecolor=Colors.lines["compute"], 

@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from . import _IBMDiagram, _IBMEdge
+from . import _IBMDiagram
 from .colors import Colors
 
 class IBMDiagram(_IBMDiagram):
@@ -24,13 +24,5 @@ class IBMDiagram(_IBMDiagram):
         super(IBMDiagram, self).__init__(name=name, filename=filename, output=output, 
                                          direction=direction, icontype=icontype)
 
-class IBMEdge(_IBMEdge):
-    def __init__(self, label="", startarrow="", endarrow="", startfill=True, endfill=True, fontname="IBM Plex Sans", fontsize=14):
-        super(IBMEdge, self).__init__(label=label,
-                                      startarrow=startarrow, endarrow=endarrow,
-                                      startfill=startfill, endfill=endfill,
-                                      fontname=fontname, fontsize=fontsize)
-
 # Aliases
 Diagram = IBMDiagram
-Edge = IBMEdge

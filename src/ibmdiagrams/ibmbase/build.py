@@ -27,7 +27,7 @@ from copy import copy
 
 from .colors import Colors
 from .common import Common
-from .properties import Properties, Alternates, GroupTypes, Directions, EdgeArrows, EdgeStyles, Fonts, ItemTypes, OutputFormats, IconTypes, Providers
+from .properties import Properties, Alternates, GroupTypes, Directions, ConnectorArrows, ConnectorStyles, Fonts, ItemTypes, OutputFormats, IconTypes, Providers
 from .constants import ComponentFill, FillPalette, ShapeKind, ShapeName, ShapePos, ZoneCIDR
 from .shapes import Shapes
 from .icons import Icons
@@ -60,11 +60,11 @@ ITEM_ICONS_DEFAULT = "BUILTIN"
 ITEM_FONTNAME_DEFAULT = "IBM Plex Sans"
 ITEM_FONTSIZE_DEFAULT = 14
 
-EDGE_COLOR_DEFAULT = "black"
-EDGE_ARROW_DEFAULT = "classic"
-EDGE_STYLE_DEFAULT = "solid"
-EDGE_FONTNAME_DEFAULT = "IBM Plex Sans"
-EDGE_FONTSIZE_DEFAULT = 12
+CONNECTOR_COLOR_DEFAULT = "black"
+CONNECTOR_ARROW_DEFAULT = "classic"
+CONNECTOR_STYLE_DEFAULT = "solid"
+CONNECTOR_FONTNAME_DEFAULT = "IBM Plex Sans"
+CONNECTOR_FONTSIZE_DEFAULT = 12
 
 class Build:
    common = None
@@ -75,7 +75,7 @@ class Build:
    diagrams = {}
    groups = {}
    items = {}
-   edges = {}
+   connectors = {}
    sequence = []
    tops = []
    bottoms = []
@@ -89,7 +89,7 @@ class Build:
       self.diagrams = data.getDiagrams()
       self.groups = data.getGroups()
       self.items = data.getItems()
-      self.edges = data.getEdges()
+      self.connectors = data.getConnectors()
       self.sequence = data.getSequence()
       self.tops = []
       self.bottoms = []
@@ -102,7 +102,12 @@ class Build:
       outputfile = outputfile if outputfile != "" else diagramname + ".drawio"
       outputfolder = self.common.getOutputFolder()
       
-      self.common.printStartDiagram(diagramname, provider)
+      print("build:")
+      print(self.common.isInputPython())
+      if (self.common.isInputPython()):
+         self.common.printStartDiagram(diagramname + ".py", provider)
+      else:
+         self.common.printStartDiagram(diagramname, provider)
 
       for name, diagram in diagrams.items():
          self.shapes.buildXML(diagram, name)
@@ -117,7 +122,7 @@ class Build:
    def buildDiagrams(self):
       self.checkAll()
 
-      if self.diagrams == None or self.groups == None or self.items == None or self.edges == None:
+      if self.diagrams == None or self.groups == None or self.items == None or self.connectors == None:
          return None
 
       provider = self.common.getProvider().value.upper()
@@ -129,11 +134,14 @@ class Build:
       if properties["filename"] != "*":
          outputfile = properties["filename"] + ".drawio"
          diagramname = properties["name"]
-         self.common.printStartDiagram(diagramname, provider)
+         if (self.common.isInputPython()):
+            self.common.printStartDiagram(diagramname + ".py", provider)
+         else:
+            self.common.printStartDiagram(diagramname, provider)
 
       self.setupAll()
 
-      if self.diagrams == None or self.groups == None or self.items == None or self.edges == None:
+      if self.diagrams == None or self.groups == None or self.items == None or self.connectors == None:
          return None
 
       if properties["filename"] != "*":
@@ -156,7 +164,7 @@ class Build:
       self.diagrams = self.checkDiagrams(self.diagrams)
       self.groups = self.checkGroups(self.groups)
       self.items = self.checkItems(self.items)
-      self.edges = self.checkEdges(self.edges)
+      self.connectors = self.checkConnectors(self.connectors)
 
    def setupAll(self):
       self.addKeys()
@@ -188,7 +196,7 @@ class Build:
       #self.printDiagrams()
       #self.printGroups()
       #self.printItems()
-      #self.printEdges()
+      #self.printConnectors()
       #self.printTops()
       #self.printBottoms()
 
@@ -205,11 +213,11 @@ class Build:
          links += grouplinks
          values += groupvalues
 
-      for edgeid, properties in self.edges.items():
-         edgeitems, edgelinks, edgevalues = self.buildEdgeShape(edgeid, properties)
-         items += edgeitems
-         links += edgelinks
-         values += edgevalues
+      for connectorid, properties in self.connectors.items():
+         connectoritems, connectorlinks, connectorvalues = self.buildConnectorShape(connectorid, properties)
+         items += connectoritems
+         links += connectorlinks
+         values += connectorvalues
 
       return items, links, values
 
@@ -266,7 +274,7 @@ class Build:
 
       return items, links, values
 
-   def buildEdgeShape(self, edgeid, properties):
+   def buildConnectorShape(self, connectorid, properties):
       items = []
       links = []
       values = []
@@ -281,22 +289,22 @@ class Build:
 
       '''
       if arrow == "none":
-         edgenode = self.shapes.buildSolidLink(edgeid, label, sourceid, targetid, None)
+         connectornode = self.shapes.buildSolidLink(connectorid, label, sourceid, targetid, None)
       elif arrow == "single":
-         edgenode = self.shapes.buildSingleArrow(edgeid, label, sourceid, targetid, None)
+         connectornode = self.shapes.buildSingleArrow(connectorid, label, sourceid, targetid, None)
       else:  # "double"
-         edgenode = self.shapes.buildDoubleArrow(edgeid, label, sourceid, targetid, None)
+         connectornode = self.shapes.buildDoubleArrow(connectorid, label, sourceid, targetid, None)
       '''
 
       if startarrow == "" and endarrow == "":
-         edgenode = self.shapes.buildSolidLink(edgeid, label, sourceid, targetid, startarrow, endarrow, startfill, endfill, None)
+         connectornode = self.shapes.buildSolidLink(connectorid, label, sourceid, targetid, startarrow, endarrow, startfill, endfill, None)
       elif startarrow != "" and endarrow != "":
-         edgenode = self.shapes.buildDoubleArrow(edgeid, label, sourceid, targetid, startarrow, endarrow, startfill, endfill, None)
+         connectornode = self.shapes.buildDoubleArrow(connectorid, label, sourceid, targetid, startarrow, endarrow, startfill, endfill, None)
       #elif startarrow != "" or endarrow != "":
       else:
-         edgenode = self.shapes.buildSingleArrow(edgeid, label, sourceid, targetid, startarrow, endarrow, startfill, endfill, None)
+         connectornode = self.shapes.buildSingleArrow(connectorid, label, sourceid, targetid, startarrow, endarrow, startfill, endfill, None)
 
-      links.append(edgenode)
+      links.append(connectornode)
 
       return items, links, values
 
@@ -660,8 +668,8 @@ class Build:
 
       return items
 
-   def checkEdges(self, edges):
-      for edgeid, properties in edges.items():
+   def checkConnectors(self, connectors):
+      for connectorid, properties in connectors.items():
          color = properties["color"]
          if color != "":
             hexcolor = self.checkLineColor(color)
@@ -672,58 +680,58 @@ class Build:
 
          style = properties["style"]
          if style == "":
-            style = EDGE_STYLE_DEFAULT
-         elif not style.upper() in [parm.value for parm in EdgeStyles]:
-            self.common.printInvalidEdgeStyle(style)
+            style = CONNECTOR_STYLE_DEFAULT
+         elif not style.upper() in [parm.value for parm in ConnectorStyles]:
+            self.common.printInvalidConnectorStyle(style)
             return None
-         edges[edgeid]["style"] = style
+         connectors[connectorid]["style"] = style
 
          '''
          startarrow = properties["startarrow"]
          if startarrow == "":
-            startarrow = EDGE_ARROW_DEFAULT
-         elif not startarrow.upper() in [parm.value for parm in EdgeArrows]:
-            self.common.printInvalidEdgeArrow(startarrow)
+            startarrow = CONNECTOR_ARROW_DEFAULT
+         elif not startarrow.upper() in [parm.value for parm in ConnectorArrows]:
+            self.common.printInvalidConnectorArrow(startarrow)
             return None
-         edges[edgeid]["startarrow"] = startarrow.lower()
+         connectors[connectorid]["startarrow"] = startarrow.lower()
          '''
          startarrow = properties["startarrow"]
          if startarrow != "": 
-            if not startarrow.upper() in [parm.value for parm in EdgeArrows]:
-               self.common.printInvalidEdgeArrow(startarrow)
+            if not startarrow.upper() in [parm.value for parm in ConnectorArrows]:
+               self.common.printInvalidConnectorArrow(startarrow)
                return None
-            edges[edgeid]["startarrow"] = startarrow.lower()
+            connectors[connectorid]["startarrow"] = startarrow.lower()
 
          '''
          endarrow = properties["endarrow"]
          if endarrow == "":
-            endarrow = EDGE_ARROW_DEFAULT
-         elif not endarrow.upper() in [parm.value for parm in EdgeArrows]:
-            self.common.printInvalidEdgeArrow(endarrow)
+            endarrow = CONNECTOR_ARROW_DEFAULT
+         elif not endarrow.upper() in [parm.value for parm in ConnectorArrows]:
+            self.common.printInvalidConnectorArrow(endarrow)
             return None
-         edges[edgeid]["endarrow"] = endarrow.lower()
+         connectors[connectorid]["endarrow"] = endarrow.lower()
          '''
          endarrow = properties["endarrow"]
          if endarrow != "":
-            if not endarrow.upper() in [parm.value for parm in EdgeArrows]:
-               self.common.printInvalidEdgeArrow(endarrow)
+            if not endarrow.upper() in [parm.value for parm in ConnectorArrows]:
+               self.common.printInvalidConnectorArrow(endarrow)
                return None
-            edges[edgeid]["endarrow"] = endarrow.lower()
+            connectors[connectorid]["endarrow"] = endarrow.lower()
 
          fontname = properties["fontname"]
          if fontname == "":
-            fontname = EDGE_FONTNAME_DEFAULT
+            fontname = CONNECTOR_FONTNAME_DEFAULT
          elif not fontname in [parm.value for parm in Fonts]:
             self.common.printInvalidFont(fontname)
             return None
-         edges[edgeid]["fontname"] = fontname
+         connectors[connectorid]["fontname"] = fontname
 
          fontsize = properties["fontsize"]
          if fontsize == 0:
-            fontsize = EDGE_FONTSIZE_DEFAULT
-         edges[edgeid]["fontsize"] = fontsize
+            fontsize = CONNECTOR_FONTSIZE_DEFAULT
+         connectors[connectorid]["fontsize"] = fontsize
 
-      return edges
+      return connectors
 
    # Line color must be from IBM Color Palette and can be component name, color name, or hex value.
    def checkLineColor(self, linecolor):
@@ -1575,10 +1583,10 @@ class Build:
          print(f'"{key}": {value}')
       return
 
-   def printEdges(self):
+   def printConnectors(self):
       print("")
-      print("Edges:")
-      for key, value in self.edges.items():
+      print("Connectors:")
+      for key, value in self.connectors.items():
          print("")
          print(f'"{key}": {value}')
       return

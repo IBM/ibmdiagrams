@@ -32,7 +32,7 @@ _group = ContextVar("group")
 #_diagrams = {} # Dictionary of diagrams.
 #_groups = {} # Dictionary of groups.
 #_items = {}    # Dictionary of items.
-#_edges = {}    # Dictionary of edges.
+#_connectors = {}    # Dictionary of connectors.
 
 _data = Properties()
 _savediagrams = {}
@@ -85,6 +85,7 @@ class Diagrams:
                 name = "",
                 filename = ""):
       self.common = Common()
+      self.common.setInputPython()
       self.diagramid = randomid()
 
       self.properties = _data.getDiagramsProperties(name=name, filename=filename)
@@ -116,6 +117,7 @@ class Diagram:
                 direction = "LR",
                 icontype = "STATIC"):
       self.common = Common()
+      self.common.setInputPython()
       self.diagramid = randomid()
       self.name = name
 
@@ -170,7 +172,7 @@ class Group:
    targetid = None
    parent = None
    item = None
-   edge = None
+   connector = None
    properties = {}
 
    def __init__(self, 
@@ -213,10 +215,10 @@ class Group:
       return
 
    def __sub__(self, shape = None):
-      # group - group or group - item or group - edge
+      # group - group or group - item or group - connector
       if isinstance(shape, Group) or isinstance(shape, Item):
-         edge = Edge(sourceid=self.shapeid, targetid=shape.shapeid, startarrow="", endarrow="", operator="sub")
-      else:  # isinstance(shape, Edge)
+         connector = Connector(sourceid=self.shapeid, targetid=shape.shapeid, startarrow="", endarrow="", operator="sub")
+      else:  # isinstance(shape, Connector)
          shape.sourceid = self.shapeid
          #shape.startarrow = ""
          #shape.endarrow = ""
@@ -224,10 +226,10 @@ class Group:
       return shape
 
    def __lshift__(self, shape = None):
-      # shape << shape or shape << edge
+      # shape << shape or shape << connector
       if isinstance(shape, Group) or isinstance(shape, Item):
-         edge = Edge(sourceid=shape.shapeid, targetid=self.shapeid, startarrow="", endarrow="classic", operator="lshift")
-      else:  # isinstance(shape, Edge)
+         connector = Connector(sourceid=shape.shapeid, targetid=self.shapeid, startarrow="", endarrow="classic", operator="lshift")
+      else:  # isinstance(shape, Connector)
          shape.sourceid = self.shapeid
          #shape.startarrow = ""
          #shape.endarrow = ""
@@ -235,10 +237,10 @@ class Group:
       return shape
 
    def __rshift__(self, shape = None):
-      # shape >> shape or shape >> edge
+      # shape >> shape or shape >> connector
       if isinstance(shape, Group) or isinstance(shape, Item):
-         edge = Edge(sourceid=self.shapeid, targetid=shape.shapeid, startarrow="", endarrow="classic", operator="rshift")
-      else:  # isinstance(shape, Edge)
+         connector = Connector(sourceid=self.shapeid, targetid=shape.shapeid, startarrow="", endarrow="classic", operator="rshift")
+      else:  # isinstance(shape, Connector)
          shape.sourceid = self.shapeid
          #shape.startarrow = ""
          #shape.endarrow = ""
@@ -258,7 +260,7 @@ class Item:
    operator = ""
    style = ""
    item = None
-   edge = None
+   connector = None
    properties = {}
 
    def __init__(self, 
@@ -297,11 +299,11 @@ class Item:
    #   return self.properties["label"]
 
    def __sub__(self, shape = None):
-      # item - item or item - edge
+      # item - item or item - connector
       if isinstance(shape, Group) or isinstance(shape, Item):
-         #edge = Edge(sourceid=self.shapeid, targetid=shape.shapeid, startarrow="", endarrow="", operator="sub", fontname=self.fontname, fontsize=12)
-         edge = Edge(sourceid=self.shapeid, targetid=shape.shapeid, startarrow="", endarrow="", operator="sub")
-      else:  # isinstance(shape, Edge)
+         #connector = Connector(sourceid=self.shapeid, targetid=shape.shapeid, startarrow="", endarrow="", operator="sub", fontname=self.fontname, fontsize=12)
+         connector = Connector(sourceid=self.shapeid, targetid=shape.shapeid, startarrow="", endarrow="", operator="sub")
+      else:  # isinstance(shape, Connector)
          shape.sourceid = self.shapeid
          #shape.startarrow = ""
          #shape.endarrow = ""
@@ -309,33 +311,56 @@ class Item:
       return shape
 
    def __lshift__(self, shape = None):
-      # shape << shape or shape << edge
+      # shape << shape or shape << connector
       if isinstance(shape, Group) or isinstance(shape, Item):
-         #edge = Edge(sourceid=shape.shapeid, targetid=self.shapeid, operator="lshift", fontname=self.fontname, fontsize=12)
-         #edge = Edge(sourceid=shape.shapeid, targetid=self.shapeid, startarrow="", endarrow="classic", operator="lshift", fontname=self.fontname, fontsize=12)
-         edge = Edge(sourceid=shape.shapeid, targetid=self.shapeid, startarrow="", endarrow="classic", operator="lshift")
-      else:  # isinstance(shape, Edge)
+         #connector = Connector(sourceid=shape.shapeid, targetid=self.shapeid, operator="lshift", fontname=self.fontname, fontsize=12)
+         #connector = Connector(sourceid=shape.shapeid, targetid=self.shapeid, startarrow="", endarrow="classic", operator="lshift", fontname=self.fontname, fontsize=12)
+         connector = Connector(sourceid=shape.shapeid, targetid=self.shapeid, startarrow="", endarrow="classic", operator="lshift")
+
+      else:  # isinstance(shape, Connector)
          shape.sourceid = self.shapeid
          #shape.startarrow = ""
          #shape.endarrow = "classic"
          shape.operator = "lshift"
+
+         connectorid = shape.getConnectorID()
+         _data.setConnectorSourceID(connectorid, shape.shapeid)
+         _data.setConnectorTargetID(connectorid, self.shapeid)
+         _data.setConnectorEndArrow(connectorid, "classic")
+
+         #print("__init::lshift printConnector:")
+         #_data.printConnector(connectorid)
+
       return shape
 
    def __rshift__(self, shape = None):
-      # shape >> shape or shape >> edge
+      # shape >> shape or shape >> connector
       if isinstance(shape, Group) or isinstance(shape, Item):
-         #edge = Edge(sourceid=self.shapeid, targetid=shape.shapeid, color = "", operator="rshift", fontname=self.fontname, fontsize=12)
-         #edge = Edge(sourceid=self.shapeid, targetid=shape.shapeid, startarrow="", endarrow="classic", operator="rshift", fontname=self.fontname, fontsize=12)
-         edge = Edge(sourceid=self.shapeid, targetid=shape.shapeid, startarrow="", endarrow="classic", operator="rshift")
-      else:  # isinstance(shape, Edge)
-         shape.sourceid = self.shapeid
+         #connector = Connector(sourceid=self.shapeid, targetid=shape.shapeid, color = "", operator="rshift", fontname=self.fontname, fontsize=12)
+         #connector = Connector(sourceid=self.shapeid, targetid=shape.shapeid, startarrow="", endarrow="classic", operator="rshift", fontname=self.fontname, fontsize=12)
+
+         connector = Connector(sourceid=self.shapeid, targetid=shape.shapeid, startarrow="", endarrow="classic", operator="rshift")
+
+      else:  # isinstance(shape, Connector)
+         shape.targetid = self.shapeid
          #shape.startarrow = ""
          #shape.endarrow = "classic"
+         shape.startarrow = "classic"
+         shape.endarrow = "" 
          shape.operator = "rshift"
+
+         if self.targetid != None:
+            _data.setConnectorSourceID(self.shapeid, self.targetid)
+            _data.setConnectorTargetID(self.shapeid, self.sourceid)
+            _data.setConnectorStartArrow(self.shapeid, self.startarrow)
+            _data.setConnectorEndArrow(self.shapeid, self.endarrow)
+            _data.setConnectorStartFill(self.shapeid, self.startfill)
+            _data.setConnectorEndFill(self.shapeid, self.endfill)
+            _data.setConnectorOperator(self.shapeid, shape.operator)
+
       return shape
 
-
-class Edge:
+class Connector:
    common = None
    shapeid = None
    parentid = None
@@ -350,7 +375,7 @@ class Edge:
    #operator = ""
    #style = ""
    item = None
-   edge = None
+   connector = None
    properties = {}
 
    def __init__(self, 
@@ -378,86 +403,98 @@ class Edge:
       self.startfill = startfill
       self.endfill = endfill
 
-      self.properties = _data.getEdgeProperties(label=label, sourceid=sourceid, targetid=targetid, color=color, style=style, startarrow=startarrow, endarrow=endarrow, startfill=startfill, endfill=endfill, fontname=fontname, fontsize=fontsize)
-
-      _data.addEdge(self.shapeid, self.properties)
+      self.properties = _data.getConnectorProperties(label=label, sourceid=sourceid, targetid=targetid, color=color, style=style, startarrow=startarrow, endarrow=endarrow, startfill=startfill, endfill=endfill, fontname=fontname, fontsize=fontsize)
+      _data.addConnector(self.shapeid, self.properties)
       _data.updateSequence(self.shapeid)
+
+      #print("__init::connector::init printConnector:")
+      #_data.printConnector(self.shapeid)
 
       return
 
+   def getConnectorID(self):
+      return self.shapeid
+
    def __sub__(self, shape = None):
-      # edge - shape
+      # connector - shape
       if isinstance(shape, Group) or isinstance(shape, Item):
          if self.sourceid != None:
-            _data.setEdgeSourceID(self.shapeid, self.sourceid)
-            _data.setEdgeTargetID(self.shapeid, shape.shapeid)
-            _data.setEdgeStartArrow(self.shapeid, self.startarrow)
-            _data.setEdgeEndArrow(self.shapeid, self.endarrow)
-            _data.setEdgeStartFill(self.shapeid, self.startfill)
-            _data.setEdgeEndFill(self.shapeid, self.endfill)
-            _data.setEdgeOperator(self.shapeid, self.operator)
+            _data.setConnectorSourceID(self.shapeid, self.sourceid)
+            _data.setConnectorTargetID(self.shapeid, shape.shapeid)
+            _data.setConnectorStartArrow(self.shapeid, self.startarrow)
+            _data.setConnectorEndArrow(self.shapeid, self.endarrow)
+            _data.setConnectorStartFill(self.shapeid, self.startfill)
+            _data.setConnectorEndFill(self.shapeid, self.endfill)
+            _data.setConnectorOperator(self.shapeid, self.operator)
          else:
             # Minus has precedence over << and sourceid hasn't been set.
             # Set dummy value for source to prevent serialization error in dumpXML.
-            _data.setEdgeSourceID(self.shapeid, self.shapeid)
-            _data.setEdgeTargetID(self.shapeid, shape.shapeid)
-            _data.setEdgeStartArrow(self.shapeid, self.startarrow)
-            _data.setEdgeEndArrow(self.shapeid, self.endarrow)
-            _data.setEdgeStartFill(self.shapeid, self.startfill)
-            _data.setEdgeEndFill(self.shapeid, self.endfill)
-            _data.setEdgeOperator(self.shapeid, self.operator)
-            print("Edge.__sub__: shape << edge - shape not supported")
+            _data.setConnectorSourceID(self.shapeid, self.shapeid)
+            _data.setConnectorTargetID(self.shapeid, shape.shapeid)
+            _data.setConnectorStartArrow(self.shapeid, self.startarrow)
+            _data.setConnectorEndArrow(self.shapeid, self.endarrow)
+            _data.setConnectorStartFill(self.shapeid, self.startfill)
+            _data.setConnectorEndFill(self.shapeid, self.endfill)
+            _data.setConnectorOperator(self.shapeid, self.operator)
+            print("Connector.__sub__: shape << connector - shape not supported")
             sys_exit()
       else:
-         print("Edge.__sub__: edge - shape not supported")
+         print("Connector.__sub__: connector - shape not supported")
          sys_exit()
 
       return shape
 
    def __lshift__(self, shape = None):
-      # edge << shape
+      # connector << shape
       if isinstance(shape, Group) or isinstance(shape, Item):
-         _data.setEdgeSourceID(self.shapeid, shape.shapeid)
-         _data.setEdgeTargetID(self.shapeid, self.sourceid)
-         _data.setEdgeOperator(self.shapeid, self.operator)
+         _data.setConnectorSourceID(self.shapeid, shape.shapeid)
+         _data.setConnectorTargetID(self.shapeid, self.sourceid)
+         _data.setConnectorOperator(self.shapeid, self.operator)
          #arrow = "double" if self.operator == "rshift" else "single" 
          if self.operator == "rshift":
             # Double arrow.
-            _data.setEdgeStartArrow(self.shapeid, self.startarrow)
-            _data.setEdgeEndArrow(self.shapeid, self.endarrow)
-            _data.setEdgeStartFill(self.shapeid, self.startfill)
-            _data.setEdgeEndFill(self.shapeid, self.endfill)
+            _data.setConnectorStartArrow(self.shapeid, self.startarrow)
+            _data.setConnectorEndArrow(self.shapeid, self.endarrow)
+            _data.setConnectorStartFill(self.shapeid, self.startfill)
+            _data.setConnectorEndFill(self.shapeid, self.endfill)
          else:
             # Single arrow.
-            _data.setEdgeStartArrow(self.shapeid, self.startarrow)
-            _data.setEdgeEndArrow(self.shapeid, self.endarrow)
-            _data.setEdgeStartFill(self.shapeid, self.startfill)
-            _data.setEdgeEndFill(self.shapeid, self.endfill)
+            _data.setConnectorStartArrow(self.shapeid, self.startarrow)
+            _data.setConnectorEndArrow(self.shapeid, self.endarrow)
+            _data.setConnectorStartFill(self.shapeid, self.startfill)
+            _data.setConnectorEndFill(self.shapeid, self.endfill)
       else:
-         print("Edge.__lshift__: edge << shape not supported")
+         print("Connector.__lshift__: connector << shape not supported")
          sys_exit()
       return shape
 
    def __rshift__(self, shape = None):
-      # edge >> shape
+      # connector >> shape
       if isinstance(shape, Group) or isinstance(shape, Item):
-         _data.setEdgeSourceID(self.shapeid, self.sourceid)
-         _data.setEdgeTargetID(self.shapeid, shape.shapeid)
-         _data.setEdgeOperator(self.shapeid, self.operator)
+         #_data.setConnectorSourceID(self.shapeid, self.sourceid)
+         #_data.setConnectorTargetID(self.shapeid, shape.shapeid)
+         #_data.setConnectorOperator(self.shapeid, self.operator)
+         _data.setConnectorSourceID(self.shapeid, shape.shapeid)
          #arrow = "double" if self.operator == "lshift" else "single" 
          if self.operator == "lshift":
             # Double arrow.
-            _data.setEdgeStartArrow(self.shapeid, self.startarrow)
-            _data.setEdgeEndArrow(self.shapeid, self.endarrow)
-            _data.setEdgeStartFill(self.shapeid, self.startfill)
-            _data.setEdgeEndFill(self.shapeid, self.endfill)
+            #_data.setConnectorStartArrow(self.shapeid, self.startarrow)
+            _data.setConnectorStartArrow(self.shapeid, "classic")
+            #_data.setConnectorEndArrow(self.shapeid, self.endarrow)
+            #_data.setConnectorStartFill(self.shapeid, self.startfill)
+            #_data.setConnectorEndFill(self.shapeid, self.endfill)
+
+            #print("__init::lshift printConnector:")
+            #_data.printConnector(self.shapeid)
+
          else:
             # Single arrow.
-            _data.setEdgeStartArrow(self.shapeid, self.startarrow)
-            _data.setEdgeEndArrow(self.shapeid, self.endarrow)
-            _data.setEdgeStartFill(self.shapeid, self.startfill)
-            _data.setEdgeEndFill(self.shapeid, self.endfill)
+            _data.setConnectorStartArrow(self.shapeid, self.startarrow)
+            _data.setConnectorEndArrow(self.shapeid, self.endarrow)
+            _data.setConnectorStartFill(self.shapeid, self.startfill)
+            _data.setConnectorEndFill(self.shapeid, self.endfill)
+
       else:
-         print("Edge.__rshift__: edge >> shape not supported")
+         print("Connector.__rshift__: connector >> shape not supported")
          sys_exit()
       return shape

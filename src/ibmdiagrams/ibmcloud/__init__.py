@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from ibmdiagrams import Diagram, Group, Item, Edge
+from ibmdiagrams import Diagram, Group, Item, Connector
 
 class _IBMDiagram(Diagram):
     def __init__(self, name, filename="", direction="", output="", provider="ibm", icontype=""):
@@ -21,24 +21,33 @@ class _IBMDiagram(Diagram):
                                           direction=direction, 
                                           icontype=icontype)
 
-class _IBMGroup(Group):
+class _IBMGrouping(Group):
     def __init__(self, label, sublabel="", linecolor="", fillcolor="", shape="", icon="", fontname="IBM Plex Sans", fontsize=14, direction=""):
-        super(_IBMGroup, self).__init__(label=label, sublabel=sublabel, 
-                                        linecolor=linecolor, fillcolor=fillcolor,
-                                        shape=shape, icon=icon, 
-                                        fontname=fontname, fontsize=fontsize,
-                                        direction=direction) 
+        super(_IBMGrouping, self).__init__(label=label, sublabel=sublabel, 
+                                           linecolor=linecolor, fillcolor=fillcolor,
+                                           shape=shape, icon=icon, 
+                                           fontname=fontname, fontsize=fontsize,
+                                           direction=direction) 
 
-class _IBMItem(Item):
+class _IBMExpanded(Group):
+    def __init__(self, label, sublabel="", linecolor="", fillcolor="", shape="", icon="", fontname="IBM Plex Sans", fontsize=14, direction=""):
+        super(_IBMExpanded, self).__init__(label=label, sublabel=sublabel, 
+                                           linecolor=linecolor, fillcolor=fillcolor,
+                                           shape=shape, icon=icon, 
+                                           fontname=fontname, fontsize=fontsize,
+                                           direction=direction) 
+
+class _IBMCollapsed(Item):
     def __init__(self, label, sublabel="", linecolor="", fillcolor="", shape="", icon="", fontname="IBM Plex Sans", fontsize=14):
-        super(_IBMItem, self).__init__(label=label, sublabel=sublabel, 
-                                       linecolor=linecolor, fillcolor=fillcolor, 
-                                       shape=shape, icon=icon, 
-                                       fontname=fontname, fontsize=fontsize)
+        super(_IBMCollapsed, self).__init__(label=label, sublabel=sublabel, 
+                                            linecolor=linecolor, fillcolor=fillcolor, 
+                                            shape=shape, icon=icon, 
+                                            fontname=fontname, fontsize=fontsize)
 
-class _IBMEdge(Edge):
-    def __init__(self, label="", startarrow="", endarrow="", startfill=True, endfill=True, fontname="IBM Plexc Sans", fontsize=14):
-        super(_IBMEdge, self).__init__(label=label, 
-                                       startarrow=startarrow, endarrow=endarrow, 
-				       startfill=startfill, endfill=endfill,
-                                       fontname=fontname, fontsize=fontsize)
+class _IBMConnector(Connector):
+    def __init__(self, label="", startarrow="", endarrow="", startfill=True, endfill=True, fontname="IBM Plexc Sans", fontsize=14, operator="", sourceid=None, targetid=None):
+        super(_IBMConnector, self).__init__(label=label, 
+                                            startarrow=startarrow, endarrow=endarrow,
+                                            startfill=startfill, endfill=endfill,
+                                            fontname=fontname, fontsize=fontsize,
+                                            operator=operator, sourceid=sourceid, targetid=targetid)

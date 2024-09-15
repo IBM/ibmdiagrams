@@ -14,8 +14,8 @@
 3. Collapsed Shapes
 - label = primary label (SemiBold font)
 - sublabel = secondary label (Regular font)
-4. Edge
-- label = edge label
+4. Connectors
+- label = connector label
 - startarrow
 - endarrow
 - startfill

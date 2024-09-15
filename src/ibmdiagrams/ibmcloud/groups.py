@@ -13,18 +13,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from . import _IBMGroup
+from . import _IBMGrouping, _IBMExpanded
 from .colors import Colors
 
-class _Groups(_IBMGroup):
+class _Grouping(_IBMGrouping):
     def __init__(self, label, sublabel="", linecolor="", fillcolor="", shape="", icon="", direction="LR"):
-        super(_Groups, self).__init__(label, sublabel=sublabel, 
-                                      linecolor=linecolor, fillcolor=fillcolor, 
-                                      shape=shape, icon=icon, direction=direction)
+        super(_Grouping, self).__init__(label, sublabel=sublabel, 
+                                        linecolor=linecolor, fillcolor=fillcolor, 
+                                        shape=shape, icon=icon, direction=direction)
 
 # Core Groups
 
-class _CoreGroup(_Groups):
+class _CoreGroup(_Grouping):
     def __init__(self, label, sublabel="", linecolor="", fillcolor="", icon="", direction="LR"):
         super(_CoreGroup, self).__init__(label, sublabel=sublabel, 
                                          linecolor=linecolor, fillcolor=fillcolor,
@@ -51,13 +51,13 @@ class Subnet(_CoreGroup):
 class PublicNetwork(_CoreGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(PublicNetwork, self).__init__(label, sublabel=sublabel, 
-                                            linencolor=Colors.lines["network"], fillcolor=Colors.fills["white"],
+                                            linecolor=Colors.lines["network"], fillcolor=Colors.fills["white"],
                                             icon="Public Network", direction="LR") 
 
 class EnterpriseNetwork(_CoreGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(EnterpriseNetwork, self).__init__(label, sublabel=sublabel, 
-                                                linencolor=Colors.lines["network"], fillcolor=Colors.fills["white"],
+                                                linecolor=Colors.lines["network"], fillcolor=Colors.fills["white"],
                                                 icon="Enterprise Network", direction=direction) 
 
 class CloudServices(_CoreGroup):
@@ -162,51 +162,51 @@ Public = PublicNetwork
 PoP = PointOfPresence
 
 
-# Zone Groups
+# Control Groups
 
-class _ZoneGroup(_Groups):
+class _ControlGroup(_Grouping):
     def __init__(self, label, sublabel="", linecolor="", fillcolor="", icon="", direction="LR"):
-        super(_ZoneGroup, self).__init__(label, sublabel=sublabel, 
-                                         linecolor=linecolor, fillcolor=fillcolor, 
-                                         shape="zone", icon=icon, direction=direction)
+        super(_ControlGroup, self).__init__(label, sublabel=sublabel, 
+                                            linecolor=linecolor, fillcolor=fillcolor, 
+                                            shape="zone", icon=icon, direction=direction)
 
-class AccessGroup(_ZoneGroup):
+class AccessGroup(_ControlGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(AccessGroup, self).__init__(label, sublabel=sublabel,
-                                          linecolor=Colors.lines["security"], bgcolor=Colors.fills["none"],
+                                          linecolor=Colors.lines["security"], fillcolor=Colors.fills["none"],
                                           icon="Access Group", direction=direction)
 
-class AccountGroup(_ZoneGroup):
+class AccountGroup(_ControlGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(AccountGroup, self).__init__(label, sublabel=sublabel,
                                            linecolor=Colors.lines["security"], fillcolor=Colors.fills["none"],
                                            icon="Account Group", direction=direction)
 
-class InstanceGroup(_ZoneGroup):
+class InstanceGroup(_ControlGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(InstanecGroup, self).__init__(label, sublabel=sublabel,
                                             linecolor=Colors.lines["compute"], fillcolor=Colors.fills["none"],
                                             icon="Instance Group", direction=direction)
 
-class PlacementGroup(_ZoneGroup):
+class PlacementGroup(_ControlGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(PlacementGroup, self).__init__(label, sublabel=sublabel,
                                              linecolor=Colors.lines["compute"], fillcolor=Colors.fills["none"],
                                              icon="Placement Group", direction=direction)
 
-class ResourceGroup(_ZoneGroup):
+class ResourceGroup(_ControlGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(ResourceGroup, self).__init__(label, sublabel=sublabel,
                                             linecolor=Colors.lines["security"], fillcolor=Colors.fills["none"],
                                             icon="Resource Group", direction=direction)
 
-class SecurityGroup(_ZoneGroup):
+class SecurityGroup(_ControlGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(SecurityGroup, self).__init__(label, sublabel=sublabel,
                                             linecolor=Colors.lines["security"], fillcolor=Colors.fills["none"],
                                             icon="Security Group", direction=direction)
 
-class AvailabilityZone(_ZoneGroup):
+class AvailabilityZone(_ControlGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(AvailabilityZone, self).__init__(label, sublabel=sublabel,
                                                linecolor=Colors.lines["location"], fillcolor=Colors.fills["location"], 
@@ -218,7 +218,7 @@ Zone = AvailabilityZone
 
 # Expanded Groups
 
-class _ExpandedGroups(_IBMGroup):
+class _ExpandedGroups(_IBMExpanded):
     def __init__(self, label, sublabel="", linecolor="", fillcolor="", icon="", direction="LR"):
         super(_ExpandedGroups, self).__init__(label, sublabel=sublabel, 
                                               linecolor=linecolor, fillcolor=fillcolor, 

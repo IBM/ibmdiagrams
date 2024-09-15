@@ -442,8 +442,8 @@ class Common:
    def printInvalidAlternate(self, alternate):
       self.messages.printInvalidAlternate(alternate)
 
-   def printInvalidEdgeStyle(self, style):
-      self.messages.printInvalidEdgeStyle(style)
+   def printInvalidConnectorStyle(self, style):
+      self.messages.printInvalidConnectorStyle(style)
 
    def printInvalidFillColor(self, color):
       self.messages.printInvalidFillColor(color)

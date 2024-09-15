@@ -33,6 +33,7 @@ src/ibmdiagrams/ibmcloud/actors.py
 src/ibmdiagrams/ibmcloud/ai.py
 src/ibmdiagrams/ibmcloud/colors.py
 src/ibmdiagrams/ibmcloud/compute.py
+src/ibmdiagrams/ibmcloud/connectors.py
 src/ibmdiagrams/ibmcloud/containers.py
 src/ibmdiagrams/ibmcloud/data.py
 src/ibmdiagrams/ibmcloud/devops.py

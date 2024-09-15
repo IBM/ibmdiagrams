@@ -2,6 +2,17 @@
 
 Notable changes to this project:
 
+## 1.0.25
+
+### Features
+
+- Base connectors implementation for solid, dashed, dotted, double, and tunnel.
+
+### Fixes
+
+- (John Pape) Typos fixed in PublicNetwork and AccessGroup.
+- Fixes in conjunction with base connectors implementation.
+
 ## 1.0.24
 
 ### Fixes

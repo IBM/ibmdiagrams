@@ -43,7 +43,7 @@ class Compose:
    diagrams = {}
    groups = {}
    items = {}
-   edges = {}
+   connectors = {}
    tgwid = 0
 
    common = None
@@ -66,7 +66,7 @@ class Compose:
       diagrams = {}
       groups = {}
       items = {}
-      edges = {}
+      connectors = {}
 
       regionname = "Region"
 
@@ -78,7 +78,7 @@ class Compose:
          publicid = randomid()
          internetid = randomid()
          #self.properties.updateSequence(self.common.compress(publicid))
-         #groups, items, edges = self.composePublic(groups, items, edges, publicid, internetid)
+         #groups, items, connectors = self.composePublic(groups, items, connectors, publicid, internetid)
 
          cloudid = randomid()
          self.properties.updateSequence(self.common.compress(cloudid))
@@ -117,11 +117,11 @@ class Compose:
                      break
 
             self.properties.updateSequence(self.common.compress(resourceid))
-            groups, items, edges = self.composeResourceGroup(regionid, groups, items, edges, resourceid, resourcename)
+            groups, items, connectors = self.composeResourceGroup(regionid, groups, items, connectors, resourceid, resourcename)
 
             servicesid = randomid()
             self.properties.updateSequence(self.common.compress(servicesid))
-            groups, items, edges = self.composeServices(groups, items, edges, servicesid, resourceid)
+            groups, items, connectors = self.composeServices(groups, items, connectors, servicesid, resourceid)
 
             #properties = self.properties.getGroupProperties(label=vpcname, icon='VPC', direction='LR', parentid=self.common.compress(regionid))
             #groups[self.common.compress(vpcid)] = properties
@@ -137,7 +137,7 @@ class Compose:
          #diagrams = {}
          #groups = {}
          #items = {}
-         #edges = {}
+         #connectors = {}
 
          vpcid = vpcframe['id']
          vpcname = vpcframe['name']
@@ -160,7 +160,7 @@ class Compose:
             publicid = randomid()
             internetid = randomid()
             self.properties.updateSequence(self.common.compress(publicid))
-            groups, items, edges = self.composePublic(groups, items, edges, publicid, internetid)
+            groups, items, connectors = self.composePublic(groups, items, connectors, publicid, internetid)
 
             cloudid = "Cloud" + ":" + vpcid
             self.properties.updateSequence(self.common.compress(cloudid))
@@ -171,14 +171,14 @@ class Compose:
             #if self.data.hasServices():
             #   servicesid = randomid()
             #   self.properties.updateSequence(self.common.compress(servicesid))
-            #   groups, items, edges = self.composeServices(groups, items, edges, servicesid, regionid, vpcid)
+            #   groups, items, connectors = self.composeServices(groups, items, connectors, servicesid, regionid, vpcid)
 
          self.properties.updateSequence(self.common.compress(vpcid))
-         groups, items, edges = self.composeLoadBalancers(vpcname, vpcid, groups, items, edges, internetid)
+         groups, items, connectors = self.composeLoadBalancers(vpcname, vpcid, groups, items, connectors, internetid)
 
          # TBD
          #if not self.common.isInputTerraform():
-         #   groups, items, edges = self.composeNetworkACLs(vpcname, vpcid, groups, items, edges, internetid)
+         #   groups, items, connectors = self.composeNetworkACLs(vpcname, vpcid, groups, items, connectors, internetid)
 
          #routername = vpcname + '-router'
          #self.properties.updateSequence(self.common.compress(routername))
@@ -186,14 +186,14 @@ class Compose:
          #internetid = randomid()
          self.properties.updateSequence(self.common.compress(internetid))
 
-         publicedgeid = randomid()
-         self.properties.updateSequence(self.common.compress(publicedgeid))
+         publicconnectorid = randomid()
+         self.properties.updateSequence(self.common.compress(publicconnectorid))
 
          for regionzonename in vpcTable[vpcid]:
             zoneid = self.common.compress(regionzonename)
             self.properties.updateSequence(zoneid)
 
-            groups, items, edges = self.composeSubnets(regionzonename, vpcname, groups, items, edges, internetid)
+            groups, items, connectors = self.composeSubnets(regionzonename, vpcname, groups, items, connectors, internetid)
 
             zonename = regionzonename.split(':')[1]
 
@@ -221,16 +221,16 @@ class Compose:
 
          if self.common.isInputTerraform():
             self.properties.updateSequence(self.common.compress(vpcresourceid))
-            groups, items, edges = self.composeResourceGroup(regionid, groups, items, edges, vpcresourceid, vpcresourcename)
+            groups, items, connectors = self.composeResourceGroup(regionid, groups, items, connectors, vpcresourceid, vpcresourcename)
             iconname, linecolor, fillcolor, staticicon, catalogicon = self.icons.getIcon('VPC')
             properties = self.properties.getGroupProperties(label=vpcname, linecolor=linecolor, fillcolor=fillcolor, icon='VPC', direction='LR', parentid=self.common.compress(vpcresourceid))
             groups[self.common.compress(vpcid)] = properties
 
             if self.tgwid != 0:
                properties = self.properties.getSingleArrowProperties(sourceid=self.common.compress(self.tgwid), targetid=self.common.compress(vpcid))
-               edgeid = randomid()
-               edges[self.common.compress(edgeid)] = properties
-               self.properties.updateSequence(self.common.compress(edgeid))
+               connectorid = randomid()
+               connectors[self.common.compress(connectorid)] = properties
+               self.properties.updateSequence(self.common.compress(connectorid))
          else:
             # VPC properties with parent region:vpcid
             #regionid = "Region" + ":" + vpcid
@@ -253,14 +253,14 @@ class Compose:
          #properties = {"type": "node", "label": routername, "sublabel": '', "shape": '', "linecolor": '', "fillcolor": '', "badgetext": '', "badgeshape": '', "badgelinecolor": '', "badgefillcolor": '', "icon": 'router', "hideicon": '', "direction": '', "many": '', "provider": '', "fontname": '', "fontsize": 0, "parentid": self.common.compress(vpcid)}
          #items[self.common.compress(routername)] = properties
 
-         #groups, items, edges = self.composeLoadBalancers(vpcname, vpcid, groups, items, edges, internetid)
+         #groups, items, connectors = self.composeLoadBalancers(vpcname, vpcid, groups, items, connectors, internetid)
 
-         #groups, items, edges = self.composePublic(groups, items, edges, publicid, internetid)
+         #groups, items, connectors = self.composePublic(groups, items, connectors, publicid, internetid)
 
-         #properties = {"type": "edge", "label": '', "sourceid": self.common.compress(publicuserid), "targetid": self.common.compress(internetid), "style": '', "arrow": '', "fontname": '', "fontsize": 0}
+         #properties = {"type": "connector", "label": '', "sourceid": self.common.compress(publicuserid), "targetid": self.common.compress(internetid), "style": '', "arrow": '', "fontname": '', "fontsize": 0}
 
-         #publicedgeid = randomid()
-         #edges[self.common.compress(publicedgeid)] = properties
+         #publicconnectorid = randomid()
+         #connectors[self.common.compress(publicconnectorid)] = properties
 
          if not self.common.isInputTerraform():
             properties = self.properties.getDiagramProperties(name=vpcname, filename='*')
@@ -270,7 +270,7 @@ class Compose:
             self.properties.setDiagrams(diagrams)
             self.properties.setGroups(groups)
             self.properties.setItems(items)
-            self.properties.setEdges(edges)
+            self.properties.setConnectors(connectors)
 
             build = Build(self.common, self.properties)
             xmldata = build.buildDiagrams()
@@ -283,13 +283,13 @@ class Compose:
             diagrams = {}
             groups = {}
             items = {}
-            edges = {}
+            connectors = {}
 
       if self.common.isInputTerraform():
          #if self.data.hasServices():
          #   servicesid = randomid()
          #   self.properties.updateSequence(self.common.compress(servicesid))
-         #   groups, items, edges = self.composeServices(groups, items, edges, servicesid, cloudid)
+         #   groups, items, connectors = self.composeServices(groups, items, connectors, servicesid, cloudid)
 
          basename = self.common.getOutputBase()
          properties = self.properties.getDiagramProperties(name=basename, filename='*')
@@ -299,7 +299,7 @@ class Compose:
          self.properties.setDiagrams(diagrams)
          self.properties.setGroups(groups)
          self.properties.setItems(items)
-         self.properties.setEdges(edges)
+         self.properties.setConnectors(connectors)
 
          build = Build(self.common, self.properties)
          xmldata = build.buildDiagrams()
@@ -315,7 +315,7 @@ class Compose:
 
       return
 
-   def composeServices(self, groups, items, edges, servicesid, parentid):
+   def composeServices(self, groups, items, connectors, servicesid, parentid):
       iconname, linecolor, fillcolor, staticicon, catalogicon = self.icons.getIcon('Cloud Services')
       properties = self.properties.getGroupProperties(label='Cloud Services', linecolor=linecolor, fillcolor=fillcolor, icon='Cloud Services', direction='TB', parentid=self.common.compress(parentid))
       groups[self.common.compress(servicesid)] = properties
@@ -323,7 +323,7 @@ class Compose:
       #resourceid = randomid()
       #resourcename = "Resource Group"
       #self.properties.updateSequence(self.common.compress(resourceid))
-      #groups, items, edges = self.composeResourceGroup(servicesid, groups, items, edges, resourceid, resourcename)
+      #groups, items, connectors = self.composeResourceGroup(servicesid, groups, items, connectors, resourceid, resourcename)
 
       if self.data.hasActivityTrackers():
          activitytrackers = self.data.getActivityTrackers()
@@ -430,18 +430,18 @@ class Compose:
          items[self.common.compress(self.tgwid)] = properties
          self.properties.updateSequence(self.common.compress(self.tgwid))
 
-      return groups, items, edges
+      return groups, items, connectors
 
-   def composeResourceGroup(self, parentid, groups, items, edges, resourceid, resourcename):
+   def composeResourceGroup(self, parentid, groups, items, connectors, resourceid, resourcename):
       #iconname, linecolor, fillcolor, staticicon, catalogicon = self.icons.getIcon('Resource Group')
       #properties = self.properties.getGroupProperties(label=resourcename, linecolor=linecolor, fillcolor=fillcolor, icon='Resource Group', shape='ZONE', direction='TB', parentid=self.common.compress(parentid))
       properties = self.properties.getGroupProperties(label=resourcename, icon='Resource Group', shape='ZONE', direction='TB', parentid=self.common.compress(parentid))
 
       groups[self.common.compress(resourceid)] = properties
 
-      return groups, items, edges
+      return groups, items, connectors
 
-   def composePublic(self, groups, items, edges, publicid, internetid):
+   def composePublic(self, groups, items, connectors, publicid, internetid):
       iconname, linecolor, fillcolor, staticicon, catalogicon = self.icons.getIcon('Public Network')
       properties = self.properties.getGroupProperties(label='Public Network', linecolor=linecolor, fillcolor=fillcolor, icon='Public Network', direction='TB', parentid=None)
 
@@ -466,13 +466,13 @@ class Compose:
 
       properties = self.properties.getDoubleArrowProperties(sourceid=self.common.compress(userid), targetid=self.common.compress(internetid))
 
-      internetedgeid = randomid()
-      edges[self.common.compress(internetedgeid)] = properties
-      self.properties.updateSequence(self.common.compress(internetedgeid))
+      internetconnectorid = randomid()
+      connectors[self.common.compress(internetconnectorid)] = properties
+      self.properties.updateSequence(self.common.compress(internetconnectorid))
 
-      return groups, items, edges
+      return groups, items, connectors
 
-   def composeEnterprise(self, groups, items, edges, enterpriseid):
+   def composeEnterprise(self, groups, items, connectors, enterpriseid):
       iconname, linecolor, fillcolor, staticicon, catalogicon = self.icons.getIcon('Enterprise Network')
       properties = self.properties.getGroupProperties(label='Enterprise Network', linecolor=linecolor, fillcolor=fillcolor, icon='Enterprise Network', direction='TB', parentid=None)
 
@@ -485,9 +485,9 @@ class Compose:
       userid = randomid()
       items[userid] = properties
 
-      return groups, items, edges
+      return groups, items, connectors
 
-   def composeSubnets(self, regionzonename, vpcname, groups, items, edges, internetid): 
+   def composeSubnets(self, regionzonename, vpcname, groups, items, connectors, internetid): 
       properties = {}
 
       zoneTable = self.data.getZoneTable()
@@ -538,7 +538,7 @@ class Compose:
                   pubgatefipip = pubgateframe['floatingIP']
                pubgatename = pubgateframe['name']
 
-         groups, items, edges = self.composeSubnetIcons(subnetid, subnetname, subnetvpcname, vpcname, groups, items, edges, internetid)
+         groups, items, connectors = self.composeSubnetIcons(subnetid, subnetname, subnetvpcname, vpcname, groups, items, connectors, internetid)
 
          bastion = False
          if subnetname.lower().find("bastion") != -1:
@@ -565,16 +565,16 @@ class Compose:
 
                properties = self.properties.getSingleArrowProperties(sourceid=self.common.compress(subnetid), targetid=self.common.compress(subnetpubgateid))
 
-               edgeid = randomid()
-               edges[self.common.compress(edgeid)] = properties
-               self.properties.updateSequence(self.common.compress(edgeid))
+               connectorid = randomid()
+               connectors[self.common.compress(connectorid)] = properties
+               self.properties.updateSequence(self.common.compress(connectorid))
 
                #routername = vpcname + '-router'
                properties = self.properties.getSingleArrowProperties(sourceid=self.common.compress(subnetpubgateid), targetid=self.common.compress(internetid))
 
-               edgeid = randomid()
-               edges[self.common.compress(edgeid)] = properties
-               self.properties.updateSequence(self.common.compress(edgeid))
+               connectorid = randomid()
+               connectors[self.common.compress(connectorid)] = properties
+               self.properties.updateSequence(self.common.compress(connectorid))
 
             elif subnetpubgateid != save_subnetpubgateid:
                self.common.printInvalidPublicGateway(subnetpubgateid)
@@ -582,15 +582,15 @@ class Compose:
             else:
                properties = self.properties.getSingleArrowProperties(sourceid=self.common.compress(subnetid), targetid=self.common.compress(subnetpubgateid))
 
-               edgeid = randomid()
-               edges[self.common.compress(edgeid)] = properties
-               self.properties.updateSequence(self.common.compress(edgeid))
+               connectorid = randomid()
+               connectors[self.common.compress(connectorid)] = properties
+               self.properties.updateSequence(self.common.compress(connectorid))
 
          self.properties.updateSequence(self.common.compress(subnetid))
 
-      return groups, items, edges
+      return groups, items, connectors
 
-   def composeSubnetIcons(self, subnetid, subnetname, subnetvpcname, vpcname, groups, items, edges, internetid):
+   def composeSubnetIcons(self, subnetid, subnetname, subnetvpcname, vpcname, groups, items, connectors, internetid):
       properties = {}
 
       icons = self.data.getSubnetIconTable(subnetid)
@@ -691,9 +691,9 @@ class Compose:
 
                properties = self.properties.getDoubleArrowProperties(label=iplabel, sourceid=self.common.compress(instanceid), targetid=self.common.compress(internetid))
 
-               fipedgeid = randomid()
-               edges[self.common.compress(fipedgeid)] = properties
-               self.properties.updateSequence(self.common.compress(fipedgeid))
+               fipconnectorid = randomid()
+               connectors[self.common.compress(fipconnectorid)] = properties
+               self.properties.updateSequence(self.common.compress(fipconnectorid))
 
          elif icontype.lower() == 'vpngateway':
             icontype = "VPN Gateway" 
@@ -730,9 +730,9 @@ class Compose:
          items[iconid] = properties
          self.properties.updateSequence(iconid)
 
-      return groups, items, edges
+      return groups, items, connectors
 
-   def composeLoadBalancers(self, vpcname, vpcid, groups, items, edges, internetid):
+   def composeLoadBalancers(self, vpcname, vpcid, groups, items, connectors, internetid):
       lbs = self.data.getLoadBalancers(vpcid)
       if lbs != None:
          for lbpool in lbs:
@@ -826,17 +826,17 @@ class Compose:
                               #routername = vpcname + '-router'
                               properties = self.properties.getDoubleArrowProperties(sourceid=self.common.compress(lbid), targetid=self.common.compress(internetid))
 
-                              edgeid = randomid()
-                              edges[self.common.compress(edgeid)] = properties
-                              self.properties.updateSequence(self.common.compress(edgeid))
+                              connectorid = randomid()
+                              connectors[self.common.compress(connectorid)] = properties
+                              self.properties.updateSequence(self.common.compress(connectorid))
 
                            # label, source, target
                            #instancelink = self.shapes.buildDoubleArrow('', nicid, lbid, None)
                            properties = self.properties.getDoubleArrowProperties(sourceid=self.common.compress(instanceid), targetid=self.common.compress(lbid))
 
-                           edgeid = randomid()
-                           edges[self.common.compress(edgeid)] = properties
-                           self.properties.updateSequence(self.common.compress(edgeid))
+                           connectorid = randomid()
+                           connectors[self.common.compress(connectorid)] = properties
+                           self.properties.updateSequence(self.common.compress(connectorid))
                      else:
                         instanceid = member['instanceId']
                         instance = self.data.getInstance(instanceid)
@@ -847,9 +847,9 @@ class Compose:
                                  address = nic['ip']
                                  break
                            else:
-                              return groups, items, edges
+                              return groups, items, connectors
                         else:
-                           return groups, items, edges
+                           return groups, items, connectors
 
                      if not self.common.isInputTerraform():
                         nicdata = self.data.getNetworkInterface(address, instanceid)
@@ -876,21 +876,21 @@ class Compose:
                                  #routername = vpcname + '-router'
                                  properties = self.properties.getDoubleArrowProperties(sourceid=self.common.compress(lbid), targetid=self.common.compress(internetid))
 
-                                 edgeid = randomid()
-                                 edges[self.common.compress(edgeid)] = properties
-                                 self.properties.updateSequence(self.common.compress(edgeid))
+                                 connectorid = randomid()
+                                 connectors[self.common.compress(connectorid)] = properties
+                                 self.properties.updateSequence(self.common.compress(connectorid))
 
                               # label, source, target
                               #instancelink = self.shapes.buildDoubleArrow('', nicid, lbid, None)
                               properties = self.properties.getDoubleArrowProperties(sourceid=self.common.compress(instanceid), targetid=self.common.compress(lbid))
 
-                              edgeid = randomid()
-                              edges[self.common.compress(edgeid)] = properties
-                              self.properties.updateSequence(self.common.compress(edgeid))
+                              connectorid = randomid()
+                              connectors[self.common.compress(connectorid)] = properties
+                              self.properties.updateSequence(self.common.compress(connectorid))
 
-      return groups, items, edges
+      return groups, items, connectors
 
-   def composeNetworkACLs(self, vpcname, vpcid, groups, items, edges, internetid):
+   def composeNetworkACLs(self, vpcname, vpcid, groups, items, connectors, internetid):
       meta = {}
       acls = self.data.getNetworkACLs(vpcid)
 
@@ -908,7 +908,7 @@ class Compose:
               items[self.common.compress(aclid)] = properties
               self.properties.updateSequence(self.common.compress(aclid))
 
-      return groups, items, edges
+      return groups, items, connectors
 
    # Get zone CIDR.
    def getZoneCIDR(self, zone):

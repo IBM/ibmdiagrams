@@ -22,14 +22,14 @@ class Properties:
       self.diagrams = {}
       self.groups = {}
       self.items = {}
-      self.edges = {}
+      self.connectors = {}
 
    def reset(self):
       self.sequence = []
       self.diagrams = {}
       self.groups = {}
       self.items = {}
-      self.edges = {}
+      self.connectors = {}
 
    def getSequence(self):
       return self.sequence
@@ -46,8 +46,8 @@ class Properties:
    def getItems(self):
       return self.items
 
-   def getEdges(self):
-      return self.edges
+   def getConnectors(self):
+      return self.connectors
 
    def setSheets(self, sheets):
       self.sheets = sheets
@@ -61,8 +61,8 @@ class Properties:
    def setItems(self, items):
       self.items = items
 
-   def setEdges(self, edges):
-      self.edges = edges
+   def setConnectors(self, connectors):
+      self.connectors = connectors
 
    def addSheets(self, diagramid, properties):
       self.sheets[diagramid] = properties
@@ -76,29 +76,63 @@ class Properties:
    def addItem(self, nodeid, properties):
       self.items[nodeid] = properties
 
-   def addEdge(self, edgeid, properties):
-      self.edges[edgeid] = properties
+   def addConnector(self, connectorid, properties):
+      self.connectors[connectorid] = properties
 
-   def setEdgeSourceID(self, shapeid, sourceid):
-      self.edges[shapeid]["sourceid"] = sourceid 
+   def getConnectorLabel(self, shapeid):
+      return self.connectors[shapeid]["label"]
 
-   def setEdgeTargetID(self, shapeid, targetid):
-      self.edges[shapeid]["targetid"] = targetid
+   def getConnectorSourceID(self, shapeid):
+      return self.connectors[shapeid]["sourceid"]
 
-   def setEdgeStartArrow(self, shapeid, startarrow):
-      self.edges[shapeid]["startarrow"] = startarrow 
+   def getConnectorTargetID(self, shapeid):
+      return self.connectors[shapeid]["targetid"]
 
-   def setEdgeEndArrow(self, shapeid, endarrow):
-      self.edges[shapeid]["endarrow"] = endarrow 
+   def getConnectorStartArrow(self, shapeid):
+      return self.connectors[shapeid]["startarrow"]
 
-   def setEdgeStartFill(self, shapeid, startfill):
-      self.edges[shapeid]["startfill"] = startfill 
+   def getConnectorEndArrow(self, shapeid):
+      return self.connectors[shapeid]["endarrow"]
 
-   def setEdgeEndFill(self, shapeid, endfill):
-      self.edges[shapeid]["endfill"] = endfill 
+   def setConnectorSourceID(self, shapeid, sourceid):
+      self.connectors[shapeid]["sourceid"] = sourceid 
 
-   def setEdgeOperator(self, shapeid, operator):
-      self.edges[shapeid]["operator"] = operator
+   def setConnectorTargetID(self, shapeid, targetid):
+      self.connectors[shapeid]["targetid"] = targetid
+
+   def setConnectorStartArrow(self, shapeid, startarrow):
+      self.connectors[shapeid]["startarrow"] = startarrow 
+
+   def setConnectorEndArrow(self, shapeid, endarrow):
+      self.connectors[shapeid]["endarrow"] = endarrow 
+
+   def setConnectorStartFill(self, shapeid, startfill):
+      self.connectors[shapeid]["startfill"] = startfill 
+
+   def setConnectorEndFill(self, shapeid, endfill):
+      self.connectors[shapeid]["endfill"] = endfill 
+
+   def setConnectorOperator(self, shapeid, operator):
+      self.connectors[shapeid]["operator"] = operator
+
+   def printConnector(self, shapeid):
+      print("printConnector:")
+      print("label:")
+      print(self.connectors[shapeid]["label"])
+      print("sourceid:")
+      print(self.connectors[shapeid]["sourceid"])
+      print("targetid:")
+      print(self.connectors[shapeid]["targetid"])
+      print("startarrow:")
+      print(self.connectors[shapeid]["startarrow"])
+      print("endarrow:")
+      print(self.connectors[shapeid]["endarrow"])
+      print("startfill:")
+      print(self.connectors[shapeid]["startfill"])
+      print("endfill:")
+      print(self.connectors[shapeid]["endfill"])
+      print("operator:")
+      print(self.connectors[shapeid]["operator"])
 
    def updateSequence(self, sequenceid):
       self.sequence.append(sequenceid)
@@ -211,8 +245,8 @@ class Properties:
       "data": data,
       "parentid": parentid}
 
-   def getEdgeProperties(self,
-      attrtype = "edge",
+   def getConnectorProperties(self,
+      attrtype = "connector",
       label = "",
       sourceid = "",
       targetid = "",
@@ -222,6 +256,7 @@ class Properties:
       endarrow = "",
       startfill = "",
       endfill = "",
+      operator = "",
       fontname = "",
       fontsize = 0):
     return {
@@ -235,6 +270,7 @@ class Properties:
       "endarrow": endarrow,
       "startfill": startfill,
       "endfill": endfill,
+      "operator": operator,
       "fontname": fontname,
       "fontsize": fontsize}
 
@@ -245,7 +281,7 @@ class Properties:
       color = "",
       fontname = "",
       fontsize = 0):
-    return self.getEdgeProperties(
+    return self.getConnectorProperties(
       label = label,
       sourceid = sourceid,
       targetid = targetid,
@@ -262,7 +298,7 @@ class Properties:
       color = "",
       fontname = "",
       fontsize = 0):
-    return self.getEdgeProperties(
+    return self.getConnectorProperties(
       label = label,
       sourceid = sourceid,
       targetid = targetid,
@@ -325,17 +361,17 @@ class Fonts(Enum):
    IBM_PLEX_SANS_KR = 'IBM Plex Sans KR'
    IBM_PLEX_SANS_THAI = 'IBM Plex Sans Thai'
 
-class EdgeArrows(Enum):
+class ConnectorArrows(Enum):
    NONE = 'NONE'
    CLASSIC = 'CLASSIC'
    OVAL = 'OVAL'
 
-class EdgeStyles(Enum):
+class ConnectorStyles(Enum):
    SOLID = 'SOLID'
    DASHED = 'DASHED'
 
 # Allows customization of lines and arrows.
-class ExtendedEdgeStyles(Enum):
+class ExtendedConnectorStyles(Enum):
    SOLID_LINE = 'dashed=0;'
    DASHED_LINE = 'dashed=1;'
    NO_ARROW = 'endArrow=none;'

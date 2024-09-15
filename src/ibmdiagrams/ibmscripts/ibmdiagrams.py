@@ -103,34 +103,7 @@ def main():
          common.printExit()
 
    else:
-
       print()
-      ##print("ibmdiagrams chat")
-      ##print("----------------")
-      ##print()
-      #print("Generate diagrams based on describing the desired cloud architecture -")
-      #print()
-      #resources = input("What are the resources used in the cloud system architecture?")
-      #print()
-      #clusters = input("How are these cloud provider resources grouped?")
-      #print()
-      #relationships = input("Describe the relationships between these resources and groups?")
-      #print()
-      #print(resources)
-      #print(clusters)
-      #print(relationships)
-
-      ##savedescriptions = []
-      ##while True:
-      ##   description = input("Describe architecture or 'done':  ")
-      ##   if description.lower() == 'done':
-      ##      break
-      ##   else:
-      ##      savedescriptions.append(description)
-
 
 if __name__ == "__main__":
    main()
-
-#   main = drawitrun()
-#   main.main()
