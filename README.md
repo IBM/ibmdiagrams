@@ -32,18 +32,18 @@ Early release for testing - externals are subject to change.
 <details><summary>Features</summary>
 
 1. Shapes:
-- Group (container=1) represents a deployedOn relationship (e.g. virtual server is deployedOn a subnet, see example).
-- Zone (container=0) represents a deployedTo relationship (e.g. virtual server is deployedTo a security group, see example).
+- Group (container=1) represents a deployedOn relationship (e.g. virtual server is deployedOn a subnet).
+- Zone (container=0) represents a deployedTo relationship (e.g. virtual server is deployedTo a security group).
 - Node (square shape) represent standalone components or devices.
 - Actor (round shape) represent roles, functions or attributes played by human users, devices and other entities that interact with any of the above.
-
-![deployed](docs/images/deployed.png)
 
 2. Selecting within non-containers:
 - ibmdiagrams generates correct Z order autommatically.
 - If needed, use alt-click or option-click to select shapes within non-containers, or define Z order by moving shapes backward.
 3. Labels:
-- ibmdiagrams enables the use of two labels on all shapes with a label that is SemiBold font and a sublabel (under label) that is regular font.
+- ibmdiagrams enables the use of two labels on all shapes with a label that is SemiBold font and a sublabel (under label) that is regular font using html: \<b style='font-weight:600'>label\</b>\<br>sublabel
+- Users can also add \<br> tags in labels and sublabels for  additional lines.
+- Group properties are generated according to how many lines are intended to ensure proper label placement.
 4. Fill colors:
 - ibmdiagrams generates shapes with fill colors that are either white or a light color from same color family as the corresponding primary color (e.g. Cyan 50 is primary and fill is Cyan 10 or white).
 </details>
