@@ -442,6 +442,9 @@ class Common:
    def printInvalidAlternate(self, alternate):
       self.messages.printInvalidAlternate(alternate)
 
+   def printInvalidConnectorArrow(self, arrow):
+      self.messages.printInvalidConnectorArrow(arrow)
+
    def printInvalidConnectorStyle(self, style):
       self.messages.printInvalidConnectorStyle(style)
 

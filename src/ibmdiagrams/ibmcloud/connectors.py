@@ -20,53 +20,46 @@ from .colors import Colors
 # startarrow/endarrow = T, Arrow, OpenArrow, Circle, OpenCircle, Diamond, OpenDiamond
 
 class _Connector(_IBMConnector):
-    def __init__(self, label="", startarrow="arrow", endarrow="arrow", startfill=True, endfill=True, fontname="IBM Plex Sans", fontsize=14, operator="", sourceid=None, targetid=None):
+    def __init__(self, label="", startarrow="", endarrow="", fontname="IBM Plex Sans", fontsize=14, operator="", sourceid=None, targetid=None):
         super(_Connector, self).__init__(label=label,
                                          startarrow=startarrow, endarrow=endarrow,
-                                         startfill=startfill, endfill=endfill,
                                          fontname=fontname, fontsize=fontsize,
                                          operator=operator, sourceid=sourceid, targetid=targetid)
 
-class SolidLine(_Connector):
-    def __init__(self, label="", startarrow="", endarrow="", startfill=True, endfill=True, fontname="IBM Plex Sans", fontsize=14, operator="", sourceid=None, targetid=None):
-        super(SolidLine, self).__init__(label,
+class SolidEdge(_Connector):
+    def __init__(self, label="", startarrow="", endarrow="", fontname="IBM Plex Sans", fontsize=14, operator="", sourceid=None, targetid=None):
+        super(SolidEdge, self).__init__(label,
                                         startarrow=startarrow, endarrow=endarrow,
-                                        startfill=startfill, endfill=endfill,
                                         fontname=fontname, fontsize=fontsize,
                                         operator=operator, sourceid=sourceid, targetid=targetid)
 
-class DashedLine(_Connector):
-    def __init__(self, label="", startarrow="", endarrow="", startfill=True, endfill=True, fontname="IBM Plex Sans", fontsize=14, operator="", sourceid=None, targetid=None):
-        super(DashedLine, self).__init__(label,
+class DashedEdge(_Connector):
+    def __init__(self, label="", startarrow="", endarrow="", fontname="IBM Plex Sans", fontsize=14, operator="", sourceid=None, targetid=None):
+        super(DashedEdge, self).__init__(label,
                                          startarrow=startarrow, endarrow=endarrow,
-                                         startfill=startfill, endfill=endfill,
                                          fontname=fontname, fontsize=fontsize,
                                          operator=operator, sourceid=sourceid, targetid=targetid)
 
-class DottedLine(_Connector):
-    def __init__(self, label="", startarrow="", endarrow="", startfill=True, endfill=True, fontname="IBM Plex Sans", fontsize=14, operator="", sourceid=None, targetid=None):
-        super(DottedLine, self).__init__(label,
+class DottedEdge(_Connector):
+    def __init__(self, label="", startarrow="", endarrow="", fontname="IBM Plex Sans", fontsize=14, operator="", sourceid=None, targetid=None):
+        super(DottedEdge, self).__init__(label,
                                          startarrow=startarrow, endarrow=endarrow,
-                                         startfill=startfill, endfill=endfill,
                                          fontname=fontname, fontsize=fontsize,
                                          operator=operator, sourceid=sourceid, targetid=targetid)
 
-class DoubleLine(_Connector):
-    def __init__(self, label="", startarrow="", endarrow="", startfill=True, endfill=True, fontname="IBM Plex Sans", fontsize=14, operator="", sourceid=None, targetid=None):
-        super(DoubleLine, self).__init__(label,
+class DoubleEdge(_Connector):
+    def __init__(self, label="", startarrow="", endarrow="", fontname="IBM Plex Sans", fontsize=14, operator="", sourceid=None, targetid=None):
+        super(DoubleEdge, self).__init__(label,
                                          startarrow=startarrow, endarrow=endarrow,
-                                         startfill=startfill, endfill=endfill,
                                          fontname=fontname, fontsize=fontsize,
                                          operator=operator, sourceid=sourceid, targetid=targetid)
 
-class TunnelLine(_Connector):
-    def __init__(self, label="", startarrow="", endarrow="", startfill=True, endfill=True, fontname="IBM Plex Sans", fontsize=14, operator="", sourceid=None, targetid=None):
-        super(TunnelLine, self).__init__(label,
+class TunnelEdge(_Connector):
+    def __init__(self, label="", startarrow="", endarrow="", fontname="IBM Plex Sans", fontsize=14, operator="", sourceid=None, targetid=None):
+        super(TunnelEdge, self).__init__(label,
                                          startarrow=startarrow, endarrow=endarrow,
-                                         startfill=startfill, endfill=endfill,
                                          fontname=fontname, fontsize=fontsize,
                                          operator=operator, sourceid=sourceid, targetid=targetid)
 
 
 # Aliases
-Line = SolidLine

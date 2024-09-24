@@ -2,6 +2,12 @@
 
 Notable changes to this project:
 
+## 1.0.26
+
+### Features
+
+- Base connectors parameter simplification.  
+
 ## 1.0.25
 
 ### Features

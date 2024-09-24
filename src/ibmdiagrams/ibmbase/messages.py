@@ -74,6 +74,7 @@ class Messages:
    invalidNodeShapeMessage = '(Error) Invalid node shape: %s'
    invalidProviderMessage = '(Error) Invalid provider: %s'
    invalidAlternateMessage = '(Error) Invalid alternate: %s'
+   invalidConnectorArrowMessage = '(Error) Invalid connector arrow: %s'
    invalidConnectorStyleMessage = '(Error) Invalid connector style: %s'
    invalidLineColorMessage = '(Error) Invalid line color: %s'
    invalidFillColorMessage = '(Error) Invalid fill color: %s'
@@ -219,6 +220,9 @@ class Messages:
 
    def printInvalidAlternate(self, alternate):
       self.printError(self.invalidAlternateMessage % alternate)
+
+   def printInvalidConnectorArrow(self, arrow):
+      self.printError(self.invalidConnectorArrowMessage % arrow)
 
    def printInvalidConnectorStyle(self, style):
       self.printError(self.invalidConnectorStyleMessage % style)

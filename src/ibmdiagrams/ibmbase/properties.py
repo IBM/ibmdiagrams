@@ -117,22 +117,56 @@ class Properties:
 
    def printConnector(self, shapeid):
       print("printConnector:")
+      print("connectorid:")
+      print(shapeid)
       print("label:")
-      print(self.connectors[shapeid]["label"])
+      label = self.connectors[shapeid]["label"]
+      if label:
+         print(label)
+      else:
+         print("None")
       print("sourceid:")
-      print(self.connectors[shapeid]["sourceid"])
+      sourceid = self.connectors[shapeid]["sourceid"]
+      if sourceid:
+         print(sourceid)
+      else:
+         print("None")
       print("targetid:")
-      print(self.connectors[shapeid]["targetid"])
+      targetid = self.connectors[shapeid]["targetid"]
+      if targetid:
+         print(targetid)
+      else:
+         print("None")
       print("startarrow:")
-      print(self.connectors[shapeid]["startarrow"])
+      startarrow = self.connectors[shapeid]["startarrow"]
+      if startarrow:
+         print(startarrow)
+      else:
+         print("None")
       print("endarrow:")
-      print(self.connectors[shapeid]["endarrow"])
+      endarrow = self.connectors[shapeid]["endarrow"]
+      if endarrow:
+         print(endarrow)
+      else:
+         print("None")
       print("startfill:")
-      print(self.connectors[shapeid]["startfill"])
+      startfill = self.connectors[shapeid]["startfill"]
+      if startfill:
+         print(startfill)
+      else:
+         print("None")
       print("endfill:")
-      print(self.connectors[shapeid]["endfill"])
+      endfill = self.connectors[shapeid]["endfill"]
+      if endfill:
+         print(endfill)
+      else:
+         print("None")
       print("operator:")
-      print(self.connectors[shapeid]["operator"])
+      operator = self.connectors[shapeid]["operator"]
+      if operator:
+         print(operator)
+      else:
+         print("None")
 
    def updateSequence(self, sequenceid):
       self.sequence.append(sequenceid)
@@ -286,7 +320,7 @@ class Properties:
       sourceid = sourceid,
       targetid = targetid,
       color = color,
-      endarrow = "Classic",
+      endarrow = "block",
       endfill = True,
       fontname = fontname,
       fontsize = fontsize)
@@ -303,14 +337,13 @@ class Properties:
       sourceid = sourceid,
       targetid = targetid,
       color = color,
-      startarrow = "Classic",
-      endarrow = "Classic",
+      startarrow = "block",
+      endarrow = "block",
       startfill = True,
       endfill = True,
       fontname = fontname,
       fontsize = fontsize)
 
-# Valid attribute values.
 # Valid attribute values.
 
 class Directions(Enum):
@@ -363,8 +396,11 @@ class Fonts(Enum):
 
 class ConnectorArrows(Enum):
    NONE = 'NONE'
-   CLASSIC = 'CLASSIC'
+   BLOCK = 'BLOCK'
+   DIAMOND = 'DIAMOND'
    OVAL = 'OVAL'
+   #BASEDASH = 'BASEDASH'
+   #BOX = 'BOX'
 
 class ConnectorStyles(Enum):
    SOLID = 'SOLID'
