@@ -45,8 +45,9 @@ class _IBMCollapsed(Item):
                                             fontname=fontname, fontsize=fontsize)
 
 class _IBMConnector(Connector):
-    def __init__(self, label="", startarrow="", endarrow="", fontname="IBM Plex Sans", fontsize=14, operator="", sourceid=None, targetid=None):
+    def __init__(self, label="", startarrow="", endarrow="", linetype="solid", linewidth=1, linecolor="#000000", fontname="IBM Plex Sans", fontsize=14, operator="", sourceid=None, targetid=None):
         super(_IBMConnector, self).__init__(label=label, 
                                             startarrow=startarrow, endarrow=endarrow,
+                                            linetype=linetype, linewidth=linewidth, linecolor=linecolor,
                                             fontname=fontname, fontsize=fontsize,
                                             operator=operator, sourceid=sourceid, targetid=targetid)

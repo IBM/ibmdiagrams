@@ -102,8 +102,6 @@ class Build:
       outputfile = outputfile if outputfile != "" else diagramname + ".drawio"
       outputfolder = self.common.getOutputFolder()
       
-      print("build:")
-      print(self.common.isInputPython())
       if (self.common.isInputPython()):
          self.common.printStartDiagram(diagramname + ".py", provider)
       else:
@@ -286,6 +284,11 @@ class Build:
       startfill = properties["startfill"]
       endfill = properties["endfill"]
       label = properties["label"]
+      linetype = properties["linetype"]
+      linewidth = properties["linewidth"]
+      linecolor = properties["linecolor"]
+      fontname = properties["fontname"]
+      fontsize = properties["fontsize"]
 
       '''
       if arrow == "none":
@@ -297,12 +300,12 @@ class Build:
       '''
 
       if startarrow == "" and endarrow == "":
-         connectornode = self.shapes.buildSolidLink(connectorid, label, sourceid, targetid, startarrow, endarrow, startfill, endfill, None)
+         connectornode = self.shapes.buildSolidLink(connectorid, label, sourceid, targetid, startarrow, endarrow, startfill, endfill, linetype, linewidth, linecolor, fontname, fontsize, None)
       elif startarrow != "" and endarrow != "":
-         connectornode = self.shapes.buildDoubleArrow(connectorid, label, sourceid, targetid, startarrow, endarrow, startfill, endfill, None)
+         connectornode = self.shapes.buildDoubleArrow(connectorid, label, sourceid, targetid, startarrow, endarrow, startfill, endfill, linetype, linewidth, linecolor, fontname, fontsize, None)
       #elif startarrow != "" or endarrow != "":
       else:
-         connectornode = self.shapes.buildSingleArrow(connectorid, label, sourceid, targetid, startarrow, endarrow, startfill, endfill, None)
+         connectornode = self.shapes.buildSingleArrow(connectorid, label, sourceid, targetid, startarrow, endarrow, startfill, endfill, linetype, linewidth, linecolor, fontname, fontsize, None)
 
       links.append(connectornode)
 
@@ -670,21 +673,21 @@ class Build:
 
    def checkConnectors(self, connectors):
       for connectorid, properties in connectors.items():
-         color = properties["color"]
-         if color != "":
-            hexcolor = self.checkLineColor(color)
-            self.common.printInvalidLineColor(color)
+         linecolor = properties["linecolor"]
+         if linecolor == "":
+            hexcolor = self.checkLineColor(linecolor)
+            self.common.printInvalidLineColor(linecolor)
             return None
-         else:
-            color = self.checkLineColor("black")
+         #else:
+         #  color = self.checkLineColor("black")
 
-         style = properties["style"]
-         if style == "":
-            style = CONNECTOR_STYLE_DEFAULT
-         elif not style.upper() in [parm.value for parm in ConnectorStyles]:
+         linetype = properties["linetype"]
+         if linetype == "":
+            linetype = CONNECTOR_STYLE_DEFAULT
+         elif not linetype.upper() in [parm.value for parm in ConnectorStyles]:
             self.common.printInvalidConnectorStyle(style)
             return None
-         connectors[connectorid]["style"] = style
+         connectors[connectorid]["linetype"] = linetype
 
          '''
          startarrow = properties["startarrow"]

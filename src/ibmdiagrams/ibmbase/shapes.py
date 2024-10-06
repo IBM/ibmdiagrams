@@ -31,17 +31,17 @@ class Shapes:
       node = self.types.buildShape(id, properties, x, y, width, height, meta)
       return node
 
-   def buildLink(self, id, label, source, target, startarrow, endarrow, startfill, endfill, meta):
-       return self.types.buildLink(id, label, source, target, startarrow, endarrow, startfill, endfill, meta)
+   def buildLink(self, id, label, source, target, startarrow, endarrow, startfill, endfill, linetype, linewidth, linecolor, fontname, fontsize, meta):
+       return self.types.buildLink(id, label, source, target, startarrow, endarrow, startfill, endfill, linetype, linewidth, linecolor, fontname, fontsize, meta)
 
-   def buildSolidLink(self, id, label, source, target, startarrow, endarrow, startfill, endfill, meta):
-       return self.types.buildSolidLink(id, label, source, target, startarrow, endarrow, startfill, endfill, meta)
+   def buildSolidLink(self, id, label, source, target, startarrow, endarrow, startfill, endfill, linetype, linewidth, linecolor, fontname, fontsize, meta):
+       return self.types.buildSolidLink(id, label, source, target, startarrow, endarrow, startfill, endfill, linetype, linewidth, linecolor, fontname, fontsize, meta)
 
-   def buildDoubleArrow(self, id, label, source, target, startarrow, endarrow, startfill, endfill, meta):
-       return self.types.buildSolidLinkDoubleArrow(id, label, source, target, startarrow, endarrow, startfill, endfill, meta)
+   def buildDoubleArrow(self, id, label, source, target, startarrow, endarrow, startfill, endfill, linetype, linewidth, linecolor, fontname, fontsize, meta):
+       return self.types.buildSolidLinkDoubleArrow(id, label, source, target, startarrow, endarrow, startfill, endfill, linetype, linewidth, linecolor, fontname, fontsize, meta)
 
-   def buildSingleArrow(self, id, label, source, target, startarrow, endarrow, startfill, endfill, meta):
-       return self.types.buildSolidLinkSingleArrow(id, label, source, target, startarrow, endarrow, startfill, endfill, meta)
+   def buildSingleArrow(self, id, label, source, target, startarrow, endarrow, startfill, endfill, linetype, linewidth, linecolor, fontname, fontsize, meta):
+       return self.types.buildSolidLinkSingleArrow(id, label, source, target, startarrow, endarrow, startfill, endfill, linetype, linewidth, linecolor, fontname, fontsize, meta)
 
    def buildXML(self, vpcdata, pagename):
       self.types.buildXML(vpcdata, self.types.buildPage(pagename))

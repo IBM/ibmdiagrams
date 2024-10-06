@@ -284,12 +284,13 @@ class Properties:
       label = "",
       sourceid = "",
       targetid = "",
-      color = "",
-      style = "",
       startarrow = "",
       endarrow = "",
       startfill = "",
       endfill = "",
+      linetype = "",
+      linewidth = 1, 
+      linecolor = "",
       operator = "",
       fontname = "",
       fontsize = 0):
@@ -298,12 +299,13 @@ class Properties:
       "label": label,
       "sourceid": sourceid,
       "targetid": targetid,
-      "color": color,
-      "style": style,
       "startarrow": startarrow,
       "endarrow": endarrow,
       "startfill": startfill,
       "endfill": endfill,
+      "linetype": linetype,
+      "linewidth": linewidth,
+      "linecolor": linecolor,
       "operator": operator,
       "fontname": fontname,
       "fontsize": fontsize}
@@ -312,14 +314,14 @@ class Properties:
       label = "",
       sourceid = "",
       targetid = "",
-      color = "",
+      linecolor = "",
       fontname = "",
       fontsize = 0):
     return self.getConnectorProperties(
       label = label,
       sourceid = sourceid,
       targetid = targetid,
-      color = color,
+      linecolor = "#000000",
       endarrow = "block",
       endfill = True,
       fontname = fontname,
@@ -329,14 +331,14 @@ class Properties:
       label = "",
       sourceid = "",
       targetid = "",
-      color = "",
+      linecolor = "",
       fontname = "",
       fontsize = 0):
     return self.getConnectorProperties(
       label = label,
       sourceid = sourceid,
       targetid = targetid,
-      color = color,
+      linecolor = "#000000",
       startarrow = "block",
       endarrow = "block",
       startfill = True,
@@ -405,6 +407,10 @@ class ConnectorArrows(Enum):
 class ConnectorStyles(Enum):
    SOLID = 'SOLID'
    DASHED = 'DASHED'
+   LONGDASHED = 'LONGDASHED'
+   DOTTED = 'DOTTED'
+   DOUBLE = 'DOUBLE'
+   TUNNEL = 'TUNNEL'
 
 # Allows customization of lines and arrows.
 class ExtendedConnectorStyles(Enum):

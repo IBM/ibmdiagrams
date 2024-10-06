@@ -1,4 +1,4 @@
-# @file types.py
+#h @file types.py
 #
 # Copyright contributors to the ibmdiagrams project
 #
@@ -40,18 +40,42 @@ class Types:
       self.elements = Elements(self.data)
       random.seed(time.time())
 
-   def buildLink(self, id, label, source, target, startarrow, endarrow, startfill, endfill, meta):
-      style = 'dashed=0;'
+   def buildLink(self, id, label, source, target, startarrow, endarrow, startfill, endfill, linetype, linewidth, linecolor, fontname, fontsize, meta):
+      if linetype.upper() == "DASHED":
+         style = 'dashed=1;'
+      elif linetype.upper() == "LONGDASHED":
+         style = 'dashed=1;dashPattern=7 2;'
+      elif linetype.upper() == "DOTTED":
+         style = 'dashed=1;dashPattern=1 2;'
+      else:
+         style = 'dashed=0;'
 
-      if startarrow != "":
-         style += 'startArrow=' + startarrow + ';startFill=' + ('1' if startfill else '0')+ ';'
-         if startarrow == "oval":
-           style += "sourcePerimeterSpacing=4;"
+      style += 'strokeWidth=' + str(linewidth) + ';fontFamily=' + fontname + ';fontSize=' + str(fontsize) + ';'
 
-      if endarrow != "":
-         style += 'endArrow=' + endarrow + ';endFill=' + ('1' if endfill else '0') + ';'
-         if endarrow == "oval":
-           style += "targetPerimeterSpacing=4;"
+      # Note: Connectors overlap with edgeStyle so using direct point-to-point but need better connector layout.
+      #style += 'html=1;rounded=0;jumpStyle=gap;edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;'
+      style += 'html=1;rounded=0;jumpStyle=gap;'
+
+      if linetype.upper() == "DOUBLE":
+         style += 'shape=link;startArrow=none;endArrow=none;strokeColor=' + linecolor + ';'
+      elif linetype.upper() == "TUNNEL":
+         style += 'shape=flexArrow;startArrow=none;endArrow=none;strokeColor=none;fillColor=' + linecolor + ';'
+      else:
+         style += 'strokeColor=' + linecolor + ';'
+         if startarrow == "":
+            style += 'startArrow=none;startFill=0;'
+         else:
+            style += 'startArrow=' + startarrow + ';startFill=' + ('1' if startfill else '0')+ ';'
+            if startarrow == "oval":
+              # Note: Default is for oval to be centered on border so add space to be next to border per design center.
+              style += "sourcePerimeterSpacing=3;"
+         if endarrow == "":
+            style += 'endArrow=none;endFill=0;'
+         else:
+            style += 'endArrow=' + endarrow + ';endFill=' + ('1' if endfill else '0') + ';'
+            if endarrow == "oval":
+              # Note: Default is for oval to be centered on border so add space to be next to border per design center.
+              style += "targetPerimeterSpacing=3;"
 
       data = {'header': {'id': id,
                          'label': ''},
@@ -64,22 +88,42 @@ class Types:
                          'as': 'geometry'}}
       return data
 
-   def buildSolidLink(self, id, label, source, target, startarrow, endarrow, startfill, endfill, meta):
-      style = 'dashed=0;'
-
-      if startarrow == "":
-         style += 'startArrow=none;startFill=0;'
+   def buildSolidLink(self, id, label, source, target, startarrow, endarrow, startfill, endfill, linetype, linewidth, linecolor, fontname, fontsize, meta):
+      if linetype.upper() == "DASHED":
+         style = 'dashed=1;'
+      elif linetype.upper() == "LONGDASHED":
+         style = 'dashed=1;dashPattern=7 2;'
+      elif linetype.upper() == "DOTTED":
+         style = 'dashed=1;dashPattern=1 2;'
       else:
-         style += 'startArrow=' + startarrow + ';startFill=' + ('1' if startfill else '0')+ ';'
-         if startarrow == "oval":
-           style += "sourcePerimeterSpacing=4;"
+         style = 'dashed=0;'
 
-      if endarrow == "":
-         style += 'endArrow=none;endFill=0;'
+      style += 'strokeWidth=' + str(linewidth) + ';fontFamily=' + fontname + ';fontSize=' + str(fontsize) + ';'
+
+      # Note: Connectors overlap with edgeStyle so using direct point-to-point but need better connector layout.
+      #style += 'html=1;rounded=0;jumpStyle=gap;edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;'
+      style += 'html=1;rounded=0;jumpStyle=gap;'
+
+      if linetype.upper() == "DOUBLE":
+         style += 'shape=link;startArrow=none;endArrow=none;strokeColor=' + linecolor + ';'
+      elif linetype.upper() == "TUNNEL":
+         style += 'shape=flexArrow;startArrow=none;endArrow=none;strokeColor=none;fillColor=' + linecolor + ';'
       else:
-         style += 'endArrow=' + endarrow + ';endFill=' + ('1' if endfill else '0') + ';'
-         if endarrow == "oval":
-           style += "targetPerimeterSpacing=4;"
+         style += 'strokeColor=' + linecolor + ';'
+         if startarrow == "":
+            style += 'startArrow=none;startFill=0;'
+         else:
+            style += 'startArrow=' + startarrow + ';startFill=' + ('1' if startfill else '0')+ ';'
+            if startarrow == "oval":
+              # Note: Default is for oval to be centered on border so add space to be next to border per design center.
+              style += "sourcePerimeterSpacing=3;"
+         if endarrow == "":
+            style += 'endArrow=none;endFill=0;'
+         else:
+            style += 'endArrow=' + endarrow + ';endFill=' + ('1' if endfill else '0') + ';'
+              # Note: Default is for oval to be centered on border so add space to be next to border per design center.
+            if endarrow == "oval":
+              style += "targetPerimeterSpacing=3;"
 
       data = {'header': {'id': id,
                          'label': label},
@@ -92,18 +136,42 @@ class Types:
                          'as': 'geometry'}}
       return data
 
-   def buildSolidLinkSingleArrow(self, id, label, source, target, startarrow, endarrow, startfill, endfill, meta):
-      style = 'dashed=0;'
+   def buildSolidLinkSingleArrow(self, id, label, source, target, startarrow, endarrow, startfill, endfill, linetype, linewidth, linecolor, fontname, fontsize, meta):
+      if linetype.upper() == "DASHED":
+         style = 'dashed=1;'
+      elif linetype.upper() == "LONGDASHED":
+         style = 'dashed=1;dashPattern=7 2;'
+      elif linetype.upper() == "DOTTED":
+         style = 'dashed=1;dashPattern=1 2;'
+      else:
+         style = 'dashed=0;'
 
-      if startarrow != "":
-         style += 'startArrow=' + startarrow + ';startFill=' + ('1' if startfill else '0')+ ';'
-         if startarrow == "oval":
-           style += "sourcePerimeterSpacing=4;"
+      style += 'strokeWidth=' + str(linewidth) + ';fontFamily=' + fontname + ';fontSize=' + str(fontsize) + ';'
 
-      if endarrow != "":
-         style += 'endArrow=' + endarrow + ';endFill=' + ('1' if endfill else '0') + ';'
-         if endarrow == "oval":
-           style += "targetPerimeterSpacing=4;"
+      # Note: Connectors overlap with edgeStyle so using direct point-to-point but need better connector layout.
+      #style += 'html=1;rounded=0;jumpStyle=gap;edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;'
+      style += 'html=1;rounded=0;jumpStyle=gap;'
+
+      if linetype.upper() == "DOUBLE":
+         style += 'shape=link;startArrow=none;endArrow=none;strokeColor=' + linecolor + ';'
+      elif linetype.upper() == "TUNNEL":
+         style += 'shape=flexArrow;startArrow=none;endArrow=none;strokeColor=none;fillColor=' + linecolor + ';'
+      else:
+         style += 'strokeColor=' + linecolor + ';'
+         if startarrow == "":
+            style += 'startArrow=none;startFill=0;'
+         else:
+            style += 'startArrow=' + startarrow + ';startFill=' + ('1' if startfill else '0')+ ';'
+            if startarrow == "oval":
+              # Note: Default is for oval to be centered on border so add space to be next to border per design center.
+              style += "sourcePerimeterSpacing=3;"
+         if endarrow == "":
+            style += 'endArrow=none;endFill=0;'
+         else:
+            style += 'endArrow=' + endarrow + ';endFill=' + ('1' if endfill else '0') + ';'
+            if endarrow == "oval":
+              # Note: Default is for oval to be centered on border so add space to be next to border per design center.
+               style += "targetPerimeterSpacing=3;"
 
       data = {'header': {'id': id,
                          'label': label},
@@ -116,18 +184,42 @@ class Types:
                          'as': 'geometry'}}
       return data
 
-   def buildSolidLinkDoubleArrow(self, id, label, source, target, startarrow, endarrow, startfill, endfill, meta):
-      style = 'dashed=0;'
+   def buildSolidLinkDoubleArrow(self, id, label, source, target, startarrow, endarrow, startfill, endfill, linetype, linewidth, linecolor, fontname, fontsize, meta):
+      if linetype.upper() == "DASHED":
+         style = 'dashed=1;'
+      elif linetype.upper() == "LONGDASHED":
+         style = 'dashed=1;dashPattern=7 2;'
+      elif linetype.upper() == "DOTTED":
+         style = 'dashed=1;dashPattern=1 2;'
+      else:
+         style = 'dashed=0;'
 
-      if startarrow != "":
-         style += 'startArrow=' + startarrow + ';startFill=' + ('1' if startfill else '0')+ ';'
-         if startarrow == "oval":
-           style += "sourcePerimeterSpacing=4;"
+      style += 'strokeWidth=' + str(linewidth) + ';fontFamily=' + fontname + ';fontSize=' + str(fontsize) + ';'
 
-      if endarrow != "":
-         style += 'endArrow=' + endarrow + ';endFill=' + ('1' if endfill else '0') + ';'
-         if endarrow == "oval":
-           style += "targetPerimeterSpacing=4;"
+      # Note: Connectors overlap with edgeStyle so using direct point-to-point but need better connector layout.
+      #style += 'html=1;rounded=0;jumpStyle=gap;edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;'
+      style += 'html=1;rounded=0;jumpStyle=gap;'
+
+      if linetype.upper() == "DOUBLE":
+         style += 'shape=link;startArrow=none;endArrow=none;strokeColor=' + linecolor + ';'
+      elif linetype.upper() == "TUNNEL":
+         style += 'shape=flexArrow;startArrow=none;endArrow=none;strokeColor=none;fillColor=' + linecolor + ';'
+      else:
+         style += 'strokeColor=' + linecolor + ';'
+         if startarrow == "":
+            style += 'startArrow=none;startFill=0;'
+         else:
+            style += 'startArrow=' + startarrow + ';startFill=' + ('1' if startfill else '0')+ ';'
+            if startarrow == "oval":
+              # Note: Default is for oval to be centered on border so add space to be next to border per design center.
+              style += "sourcePerimeterSpacing=3;"
+         if endarrow == "":
+            style += 'endArrow=none;endFill=0;'
+         else:
+            style += 'endArrow=' + endarrow + ';endFill=' + ('1' if endfill else '0') + ';'
+            if endarrow == "oval":
+              # Note: Default is for oval to be centered on border so add space to be next to border per design center.
+              style += "targetPerimeterSpacing=3;"
 
       data = {'header': {'id': id,
                          'label': label},
@@ -141,8 +233,8 @@ class Types:
       return data
 
    def buildStaticGroupSidebar(self, parentid, node):
-      linecolor = node["linecolor"]
-      style = 'strokeColor=' + linecolor + ';fillColor=' + linecolor +';'
+      color = node["linecolor"]
+      style = 'strokeColor=' + color + ';fillColor=' + color +';'
 
       header = {'id': randomid(),
                 'placeholders': '1'}
@@ -276,8 +368,8 @@ class Types:
          style = StaticShapeStyle.PNODE.value
 
       if shape != "actor" and shape != "pnode":
-         linecolor = node["linecolor"]
-         styleStroke = "strokeColor=" + linecolor + ';' 
+         color = node["linecolor"]
+         styleStroke = "strokeColor=" + color + ';' 
          style = style.replace("%STROKE", styleStroke)
 
          fillcolor = node["fillcolor"]
@@ -377,8 +469,8 @@ class Types:
       else:
          style = ShapeStyle.PNODE.value
 
-      linecolor = node["linecolor"]
-      styleStroke = "strokeColor=" + linecolor + ';' 
+      color = node["linecolor"]
+      styleStroke = "strokeColor=" + color + ';' 
       style = style.replace("%STROKE", styleStroke)
 
       fillcolor = node["fillcolor"]

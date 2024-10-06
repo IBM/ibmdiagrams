@@ -1,4 +1,4 @@
-# @file __init__.py
+#i @file __init__.py
 #
 # Copyright contributors to the ibmdiagrams project
 #
@@ -301,75 +301,44 @@ class Item:
    def __sub__(self, shape = None):
       # item - item or item - connector
       if isinstance(shape, Group) or isinstance(shape, Item):
-         #connector = Connector(sourceid=self.shapeid, targetid=shape.shapeid, startarrow="", endarrow="", operator="sub", fontname=self.fontname, fontsize=12)
          connector = Connector(sourceid=self.shapeid, targetid=shape.shapeid, startarrow="", endarrow="", operator="sub")
       else:  # isinstance(shape, Connector)
          shape.sourceid = self.shapeid
-         #shape.startarrow = ""
-         #shape.endarrow = ""
          shape.operator = "sub"
       return shape
 
    def __lshift__(self, shape = None):
       # shape << shape or shape << connector
       if isinstance(shape, Group) or isinstance(shape, Item):
-         #connector = Connector(sourceid=shape.shapeid, targetid=self.shapeid, operator="lshift", fontname=self.fontname, fontsize=12)
-         #connector = Connector(sourceid=shape.shapeid, targetid=self.shapeid, startarrow="", endarrow="arrow", operator="lshift", fontname=self.fontname, fontsize=12)
          connector = Connector(sourceid=shape.shapeid, targetid=self.shapeid, startarrow="", endarrow="arrow", operator="lshift")
 
       else:  # isinstance(shape, Connector)
          shape.sourceid = self.shapeid
-         #shape.startarrow = ""
-         #shape.endarrow = "arrow"
          shape.operator = "lshift"
 
          connectorid = shape.getConnectorID()
          _data.setConnectorSourceID(connectorid, shape.shapeid)
          _data.setConnectorTargetID(connectorid, self.shapeid)
-         _data.setConnectorEndArrow(connectorid, "block")
+         #NEW _data.setConnectorEndArrow(connectorid, "block")
          _data.setConnectorOperator(connectorid, "lshift")
-
-         #print("__init__::item.lshift")
-         #_data.printConnector(connectorid)
 
       return shape
 
    def __rshift__(self, shape = None):
       # shape >> shape or shape >> connector
       if isinstance(shape, Group) or isinstance(shape, Item):
-         #connector = Connector(sourceid=self.shapeid, targetid=shape.shapeid, color = "", operator="rshift", fontname=self.fontname, fontsize=12)
-         #connector = Connector(sourceid=self.shapeid, targetid=shape.shapeid, startarrow="", endarrow="arrow", operator="rshift", fontname=self.fontname, fontsize=12)
 
          connector = Connector(sourceid=self.shapeid, targetid=shape.shapeid, startarrow="", endarrow="arrow", operator="rshift")
 
-         #print("__init__::item.rshift shape=Group/Item:")
-         #_data.printConnector(connectorid)
       else:  # isinstance(shape, Connector)
          shape.targetid = self.shapeid
-         #shape.startarrow = ""
-         #shape.endarrow = "arrow"
-         #shape.startarrow = "arrow"
-         #shape.endarrow = "" 
          shape.operator = "rshift"
 
          connectorid = shape.getConnectorID()
          _data.setConnectorSourceID(connectorid, shape.shapeid)
          _data.setConnectorTargetID(connectorid, self.shapeid)
-         #_data.setConnectorEndArrow(connectorid, "")
-         _data.setConnectorStartArrow(connectorid, "block")
+         #_data.setConnectorStartArrow(connectorid, "block")
          _data.setConnectorOperator(connectorid, "rshift")
-
-         #print("__init__::item.rshift shape=Connector:")
-         #_data.printConnector(connectorid)
-
-         #if self.targetid != None:
-         #   _data.setConnectorSourceID(self.shapeid, self.targetid)
-         #   _data.setConnectorTargetID(self.shapeid, self.sourceid)
-         #   _data.setConnectorStartArrow(self.shapeid, self.startarrow)
-         #   _data.setConnectorEndArrow(self.shapeid, self.endarrow)
-         #   _data.setConnectorStartFill(self.shapeid, self.startfill)
-         #   _data.setConnectorEndFill(self.shapeid, self.endfill)
-         #   _data.setConnectorOperator(self.shapeid, shape.operator)
 
       return shape
 
@@ -378,14 +347,14 @@ class EndTypes(Enum):
    ARROW = "ARROW"  # arrow=block
    OPENARROW = "OPENARROW" # arrow=open
    CIRCLE = "CIRCLE"  # arrow=oval
-   OPENCIRCLE = "OPENSIRCLE"  # arrow=oval with fill=0
+   OPENCIRCLE = "OPENCIRCLE"  # arrow=oval with fill=0
    DIAMOND = "DIAMOND"  # arrow=diamond
    OPENDIAMOND = "OPENDIAMOND"  # arrow=diamond with fill=0
 
 class EndMapping(Enum):
    NONE = ""  # arrow=none
    ARROW = "block"  # arrow=block
-   OPENARROW = "open" # arrow=block with fill=0
+   OPENARROW = "block" # arrow=block with fill=0
    CIRCLE = "oval"  # arrow=oval
    OPENCIRCLE = "oval"  # arrow=oval with fill=0
    DIAMOND = "diamond"  # arrow=diamond
@@ -398,27 +367,25 @@ class Connector:
    #sourceid = None
    #targetid = None
    parent = None
-   color = ""
+   linetype = "solid"
+   linewidth = 1
+   linecolor = ""
    startarrow = ""
    endarrow = ""
    startfill = True
    endfill = True
    #operator = ""
-   #style = ""
    item = None
    connector = None
    properties = {}
 
    def __init__(self, 
                 label = "", 
-                #forward = False,   # Not currently used.
-                #reverse = False,   # Not currently used.
-                color = "",        # Not currently used.
-                style = "",        # Not currently used.
                 startarrow = "",
                 endarrow = "",
-                #startfill = True,
-                #endfill = True,
+                linetype = "solid",
+                linewidth = 1,
+                linecolor = "#000000",
                 fontname = "IBM Plex Sans",
                 fontsize = 14,
                 operator = "",     # Internal use only.
@@ -427,10 +394,7 @@ class Connector:
       self.common = Common()
       self.shapeid = randomid()
 
-      self.color = color
-
-      #self.startarrow = startarrow
-      #self.endarrow = endarrow
+      self.linecolor = linecolor
 
       if startarrow != "":
          if not startarrow.upper() in [parm.value for parm in EndTypes]:
@@ -470,13 +434,10 @@ class Connector:
          else:
             self.endarrow = ""
 
-      self.properties = _data.getConnectorProperties(label=label, sourceid=sourceid, targetid=targetid, color=color, style=style, startarrow=self.startarrow, endarrow=self.endarrow, startfill=self.startfill, endfill=self.endfill, fontname=fontname, fontsize=fontsize)
+      self.properties = _data.getConnectorProperties(label=label, sourceid=sourceid, targetid=targetid, startarrow=self.startarrow, endarrow=self.endarrow, startfill=self.startfill, endfill=self.endfill, linetype=linetype, linewidth=linewidth, linecolor=linecolor, fontname=fontname, fontsize=fontsize)
 
       _data.addConnector(self.shapeid, self.properties)
       _data.updateSequence(self.shapeid)
-
-      #print("__init__::connector.init printConnector:")
-      #_data.printConnector(self.shapeid)
 
       return
 
@@ -516,9 +477,7 @@ class Connector:
       # connector << shape
       if isinstance(shape, Group) or isinstance(shape, Item):
          _data.setConnectorSourceID(self.shapeid, shape.shapeid)
-         #_data.setConnectorTargetID(self.shapeid, self.sourceid)
          _data.setConnectorOperator(self.shapeid, self.operator)
-         #arrow = "double" if self.operator == "rshift" else "single" 
          if self.operator == "rshift":
             # Double arrow.
             _data.setConnectorStartArrow(self.shapeid, self.startarrow)
@@ -528,16 +487,9 @@ class Connector:
             _data.setConnectorOperator(self.shapeid, "lshift")
          else:
             # Single arrow.
-            #_data.setConnectorStartArrow(self.shapeid, self.startarrow)
-            #_data.setConnectorEndArrow(self.shapeid, self.endarrow)
-            #_data.setConnectorEndArrow(self.shapeid, "block")
-            _data.setConnectorStartArrow(self.shapeid, "block")
-            #_data.setConnectorStartFill(self.shapeid, self.startfill)
+            _data.setConnectorEndArrow(self.shapeid, "block")
             _data.setConnectorEndFill(self.shapeid, self.endfill)
             _data.setConnectorOperator(self.shapeid, "lshift")
-
-            #print("__init__::connector.lshift:")
-            #_data.printConnector(self.shapeid)
       else:
          print("Connector.__lshift__: connector << shape not supported")
          sys_exit()
@@ -546,23 +498,11 @@ class Connector:
    def __rshift__(self, shape = None):
       # connector >> shape
       if isinstance(shape, Group) or isinstance(shape, Item):
-         #_data.setConnectorSourceID(self.shapeid, self.shapeid)
          _data.setConnectorSourceID(self.shapeid, shape.shapeid)
-         #_data.setConnectorTargetID(self.shapeid, shape.shapeid)
-         #_data.setConnectorOperator(self.shapeid, self.operator)
-         #_data.setConnectorTargetID(self.shapeid, shape.shapeid)
          _data.setConnectorOperator(self.shapeid, "rshift")
-         #arrow = "double" if self.operator == "lshift" else "single" 
          if self.operator == "lshift":
             # Double arrow.
-            #_data.setConnectorStartArrow(self.shapeid, self.startarrow)
             _data.setConnectorStartArrow(self.shapeid, "block")
-            #_data.setConnectorEndArrow(self.shapeid, self.endarrow)
-            #_data.setConnectorStartFill(self.shapeid, self.startfill)
-            #_data.setConnectorEndFill(self.shapeid, self.endfill)
-
-            #print("__init__::connector.rshift shape=Group/Item lshift:")
-            #_data.printConnector(self.shapeid)
 
          else:
             # Single arrow.
@@ -572,12 +512,7 @@ class Connector:
             _data.setConnectorTargetID(self.shapeid, sourceid)
             _data.setConnectorStartArrow(self.shapeid, "")
             _data.setConnectorEndArrow(self.shapeid, "block")
-            #_data.setConnectorStartFill(self.shapeid, self.startfill)
             _data.setConnectorEndFill(self.shapeid, self.endfill)
-
-            #print("__init__::connector.rshift shape=Group/Item notLSHIFT:")
-            #_data.printConnector(self.shapeid)
-
 
       else:
          print("Connector.__rshift__: connector >> shape not supported")
