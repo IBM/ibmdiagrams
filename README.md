@@ -26,7 +26,7 @@ Icons are from the [icons repo](https://github.com/IBM-Cloud/architecture-icons)
 ### Terraform
 
 * Easily create diagrams of infrastructure provisioned with Terraform.
-* Quickly come up-to-speed on provisioned environments.
+* Quickly come up-to-speed on existing environments.
 </details>
 
 <details><summary>Features</summary>
