@@ -58,7 +58,7 @@ Icons are from the [icons repo](https://github.com/IBM-Cloud/architecture-icons)
 
 1. diagram-as-code in general does not have a mechanism for groups spanning other groups (e.g. in ibmdiagrams the same security group in two subnets has to be coded as two separate security groups with the same name) - improving this to some extent is a future consideration.  Similarly, manually creating diagrams can be problematic since all of the possible combinations can be difficult to represent.
 
-2. Connectors are direct point-to-point with the plan to improve the layout.  Similarly, manually creating connectors requires diligence to lay out connectors to not overlap and usins properties such as edgeStyle=orthogonalEdgeStyle, etc.
+2. Connectors are direct point-to-point with the plan to improve the layout and flexibility.  Similarly, manually creating connectors requires diligence to lay out connectors to not overlap and using properties such as edgeStyle=orthogonalEdgeStyle, etc.
 
 </details>
 
