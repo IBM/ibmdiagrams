@@ -16,7 +16,7 @@
 from . import _IBMConnector
 from .colors import Colors
 
-# linetype = Solid, Dashed, LongDashed, Dotted, Double, Tunnel
+# linetype = Solid, Dashed, Dotted, Double, Tunnel
 # startarrow/endarrow = Arrow, OpenArrow, Circle, OpenCircle, Diamond, OpenDiamond
 
 class _Connector(_IBMConnector):
@@ -58,14 +58,6 @@ class DashedEdge(_Connector):
                                          linetype="dashed", linewidth=2, linecolor="#000000",
                                          fontname=fontname, fontsize=fontsize,
                                          operator=operator, sourceid=sourceid, targetid=targetid)
-
-class LongDashedEdge(_Connector):
-    def __init__(self, label="", startarrow="", endarrow="", fontname="IBM Plex Sans", fontsize=14, operator="", sourceid=None, targetid=None):
-        super(LongDashedEdge, self).__init__(label,
-                                             startarrow=startarrow, endarrow=endarrow,
-                                             linetype="longdashed", linewidth=2, linecolor="#000000",
-                                             fontname=fontname, fontsize=fontsize,
-                                             operator=operator, sourceid=sourceid, targetid=targetid)
 
 class DottedEdge(_Connector):
     def __init__(self, label="", startarrow="", endarrow="", fontname="IBM Plex Sans", fontsize=14, operator="", sourceid=None, targetid=None):

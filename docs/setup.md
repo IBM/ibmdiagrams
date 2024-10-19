@@ -14,7 +14,7 @@
 ## Install
 
 1. Download wheel from Releases.
-2. pip install drawit*.whl
+2. pip install ibmdiagrams-x.y.z-py3-none-anywhl where x.y.z refers to the version number.
 3. Package is installed to /Library/Frameworks/Python.framework/Versions/VERSION/pythonVERSION/site-packages/ibmdiagrams
 4. Script is installed to /Library/Frameworks/Python.framework/Versions/VERSION/bin
 

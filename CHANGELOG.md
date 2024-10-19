@@ -2,6 +2,18 @@
 
 Notable changes to this project:
 
+## 1.0.28
+
+### Features
+
+- Added and verified all Terraform resources as of 10/19/24, subject to placement.
+
+## 1.0.27
+
+### Features
+
+- Completed connectors implementation for solid, dashed, dotted, double, and tunnel.
+
 ## 1.0.26
 
 ### Features

@@ -48,17 +48,17 @@ class Subnet(_CoreGroup):
                                      linecolor=Colors.lines["network"], fillcolor=Colors.fills["white"],
                                      icon="Subnet", direction=direction) 
 
-class PublicNetwork(_CoreGroup):
-    def __init__(self, label, sublabel="", direction="LR"):
-        super(PublicNetwork, self).__init__(label, sublabel=sublabel, 
-                                            linecolor=Colors.lines["network"], fillcolor=Colors.fills["white"],
-                                            icon="Public Network", direction="LR") 
-
 class EnterpriseNetwork(_CoreGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(EnterpriseNetwork, self).__init__(label, sublabel=sublabel, 
                                                 linecolor=Colors.lines["network"], fillcolor=Colors.fills["white"],
                                                 icon="Enterprise Network", direction=direction) 
+
+class PublicNetwork(_CoreGroup):
+    def __init__(self, label, sublabel="", direction="LR"):
+        super(PublicNetwork, self).__init__(label, sublabel=sublabel, 
+                                            linecolor=Colors.lines["network"], fillcolor=Colors.fills["white"],
+                                            icon="Public Network", direction="LR") 
 
 class CloudServices(_CoreGroup):
     def __init__(self, label, sublabel="", direction="LR"):
@@ -135,8 +135,20 @@ class ZContainers(_CoreGroup):
 class watsonx(_CoreGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(watsonx, self).__init__(label, sublabel=sublabel, 
-                                      linecolor=Colors.lines["network"], fillcolor=Colors.fills["white"],
+                                      linecolor=Colors.lines["applications"], fillcolor=Colors.fills["white"],
                                       icon="watsonx", direction="LR") 
+
+class watsonxCodeAssistant(_CoreGroup):
+    def __init__(self, label, sublabel="", direction="LR"):
+        super(watsonxCodeAssistant, self).__init__(label, sublabel=sublabel, 
+                                      linecolor=Colors.lines["applications"], fillcolor=Colors.fills["white"],
+                                      icon="watsonx Code Assistant", direction="LR") 
+
+class watsonxZCodeAssistant(_CoreGroup):
+    def __init__(self, label, sublabel="", direction="LR"):
+        super(watsonZxCodeAssistant, self).__init__(label, sublabel=sublabel, 
+                                      linecolor=Colors.lines["applications"], fillcolor=Colors.fills["white"],
+                                      icon="watsonx Z Code Assistant", direction="LR") 
 
 class AuthorizationBoundary(_CoreGroup):
     def __init__(self, label, sublabel="", direction="LR"):
@@ -230,12 +242,6 @@ class ExpandedVirtualServer(_ExpandedGroups):
                                                     linecolor=Colors.lines["compute"], fillcolor=Colors.fills["compute"],
                                                     icon="Virtual Server", direction="LR")
 
-class ExpandedBareMetalServer(_ExpandedGroups):
-    def __init__(self, label, sublabel="", direction="LR"):
-        super(ExpandedBareMetalServer, self).__init__(label, sublabel=sublabel,
-                                                      linecolor=Colors.lines["compute"], fillcolor=Colors.fills["compute"],
-                                                      icon="Bare Metal Server", direction="LR")
-
 class ExpandedPowerVirtualServer(_ExpandedGroups):
     def __init__(self, label, sublabel="", direction="LR"):
         super(ExpandedPowerVirtualServer, self).__init__(label, sublabel=sublabel,
@@ -247,6 +253,12 @@ class ExpandedClassicVirtualServer(_ExpandedGroups):
         super(ExpandedClassicVirtualServer, self).__init__(label, sublabel=sublabel,
                                                            linecolor=Colors.lines["compute"], fillcolor=Colors.fills["compute"],
                                                            icon="Classic Virtual Server", direction="LR")
+
+class ExpandedBareMetalServer(_ExpandedGroups):
+    def __init__(self, label, sublabel="", direction="LR"):
+        super(ExpandedBareMetalServer, self).__init__(label, sublabel=sublabel,
+                                                      linecolor=Colors.lines["compute"], fillcolor=Colors.fills["compute"],
+                                                      icon="Bare Metal Server", direction="LR")
 
 class ExpandedClassicBareMetalServer(_ExpandedGroups):
     def __init__(self, label, sublabel="", direction="LR"):

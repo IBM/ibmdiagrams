@@ -6,9 +6,18 @@
 
 Generate architecture diagrams following [IBM Diagram Standard](https://www.ibm.com/design/language/infographics/technical-diagrams/design).
 
-Input can be Python or Terraform.
+Input is Python or Terraform with output to drawio file.
 
-Output is a drawio file that can be opened and edited in drawio.
+Python usage example:
+- python cloud.py
+- Output to  cloud.drawio
+
+Terraform usage example:
+- ibmdiagrams -h
+- ibmdiagrams cloud.tfstate
+- Output to cloud.drawio
+
+Refer to Guides for complete details.
 
 Icons are from the [icons repo](https://github.com/IBM-Cloud/architecture-icons) for use in any drawio desktop. 
 
@@ -50,8 +59,8 @@ Icons are from the [icons repo](https://github.com/IBM-Cloud/architecture-icons)
 6. Fill colors:
 - ibmdiagrams generates shapes with fill colors that are either white or a light color from same color family as the corresponding primary color (e.g. Cyan 50 is primary and fill is Cyan 10 or white).
 7. Connectors (in progress):
-- Line styles can be solid, dashed2, dotted, double, and tunnel are supported according to existing styles in drawio - the dashed1 line style is deferred initially.   
-- Line ends can be arrow (filled or open), circle (filled or open), and diamond (filled or open) - the T-shape end is deferred initially.
+- Line styles can be solid, dashed, dotted, double, and tunnel are supported according to existing styles in drawio.
+- Line ends can be arrow (filled or open), circle (filled or open), and diamond (filled or open).
 </details>
 
 <details><summary>Limitations</summary>
