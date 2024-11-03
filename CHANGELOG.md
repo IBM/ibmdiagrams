@@ -2,6 +2,16 @@
 
 Notable changes to this project:
 
+## 1.0.29
+
+### Features
+
+- Added initial changes for implementation being published to drawio.
+
+### Fixes
+
+- Fixed incorrect check resulting in missing VPC error for Observability team.
+
 ## 1.0.28
 
 ### Features

@@ -532,6 +532,315 @@ class Types:
 
       return data
 
+   def buildDrawioShape(self, id, node, x, y, width, height, meta):
+      labelsize = 20
+      shape = node["shape"].lower()
+      name = node["label"]
+      subname = node["sublabel"]
+      shape = node["shape"].lower()
+
+      linecount = 0
+      if len(name) > 0:
+         linecount = linecount + 1 + name.count("<br")
+      if len(subname) > 0:
+         linecount = linecount + 1 + subname.count("<br")
+
+      if len(name) > 0:
+         name = self.common.truncateText(name, labelsize, '<br>')
+
+      if len(subname) > 0:
+         subname = self.common.truncateText(subname, labelsize, '<br>')
+
+      shapelabel = "<b style='font-weight:600'>" + name + "</b><br>" + subname
+
+      if shape == "actor":
+         data = self.buildActorShape(self, id, node, x, y, width, height, meta, shapelabel)
+      elif shape == "pnode":
+         data = self.buildPNodeShape(self, id, node, x, y, width, height, meta, shapelabel)
+      elif shape == "epnode":
+         data = self.buildEPNodeShape(self, id, node, x, y, width, height, meta, shapelabel)
+      elif shape == "ploc":
+         data = self.buildPLocShape(self, id, node, x, y, width, height, meta, shapelabel)
+      #elif shape == "gploc":
+      #   data = self.buildGPLocShape(self, id, node, x, y, width, height, meta, shapelabel)
+      elif shape == "zone":
+         data = self.buildZoneShape(self, id, node, x, y, width, height, meta, shapelabel)
+      #elif shape == "gzone":
+      #   data = self.buildGZoneShape(self, id, node, x, y, width, height, meta, shapelabel)
+      else:
+         data = self.buildPNodeShape(self, id, node, x, y, width, height, meta, shapelabel)
+         
+      return data
+
+   def buildActorShape(self, id, node, x, y, width, height, meta, shapelabel):
+      styleshape = "shape=ellipse;%FILL;aspect=fixed;resizable=0;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;strokeColor=none"
+      fillcolor = node["fillcolor"]
+      styleFill = "fillColor=" + fillcolor + ';' 
+      styleshape = styleshape.replace("%FILL", styleFill)
+
+      parentid = node["parentid"]
+      parentid = '1' if parentid == None else parentid
+
+      header = {'id': id,
+                'placeholders': '1'}
+
+      cell = {'parent': parentid,
+              'value': shapelabel,
+              'style': style,
+              'vertex': '1'}
+
+      geo = {'x': str(x),
+             'y': str(y),
+             'width': str(48),
+             'height': str(48),
+             'as': 'geometry'}
+
+      props = {}
+
+      if meta != None:
+         props.update(meta)
+
+      datashape = {'header': header, 'cell': cell, 'geo': geo, 'props':  props}
+
+      icon = node["icon"]
+      styleicon = "fillColor=#ffffff;strokeColor=none;dashed=0;outlineConnect=0;html=1;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;part=1;movable=0;resizable=0;rotatable=0;shape=mxgraph.ibm_cloud." + icon
+
+      header = {'id': id + '-icon',
+                'placeholders': '1'}
+
+      cell = {'parent': id,
+              'value': '',
+              'style': style,
+              'vertex': '1'}
+
+      geo = {'width': str(24),
+             'height': str(24),
+             'relative': str(1),
+             'as': 'geometry'}
+
+      point = {'x': str(12),
+               'y': str(12),
+               'as': 'offset'}
+
+      dataicon = {'header': header, 'cell': cell, 'geo': geo, 'point': point}
+
+      return [datashape, dataicon]
+
+   def buildPNodeShape(self, id, node, x, y, width, height, meta, shapelabel):
+      styleshape = "shape=rect;%FILL;aspect=fixed;resizable=0;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;strokeColor=none"
+      fillcolor = node["fillcolor"]
+      styleFill = "fillColor=" + fillcolor + ';' 
+      styleshape = styleshape.replace("%FILL", styleFill)
+
+      parentid = node["parentid"]
+      parentid = '1' if parentid == None else parentid
+
+      header = {'id': id,
+                'placeholders': '1'}
+
+      cell = {'parent': parentid,
+              'value': shapelabel,
+              'style': style,
+              'vertex': '1'}
+
+      geo = {'x': str(x),
+             'y': str(y),
+             'width': str(width),
+             'height': str(height),
+             'as': 'geometry'}
+
+      props = {}
+
+      if meta != None:
+         props.update(meta)
+
+      datashape = {'header': header, 'cell': cell, 'geo': geo, 'props':  props}
+
+      icon = node["icon"]
+      stylecion = "fillColor=#ffffff;strokeColor=none;dashed=0;outlineConnect=0;html=1;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;part=1;movable=0;resizable=0;rotatable=0;shape=mxgraph.ibm_cloud." + icon
+
+      header = {'id': id + '-icon',
+                'placeholders': '1'}
+
+      cell = {'parent': id,
+              'value': '',
+              'style': style,
+              'vertex': '1'}
+
+      geo = {'width': str(24),
+             'height': str(24),
+             'relative': str(1),
+             'as': 'geometry'}
+
+      point = {'x': str(12),
+               'y': str(12),
+               'as': 'offset'}
+
+      dataicon = {'header': header, 'cell': cell, 'geo': geo, 'point': point}
+
+      return [datashape, dataicon]
+
+   def buildEPNodeShape(self, id, node, x, y, width, height, meta, shapelabel):
+      styleshape = "container=1;collapsible=0;expand=0;recursiveResize=0;html=1;whiteSpace=wrap;image=;strokeColor=%STROKE;fillColor=none;"
+      strokecolor = node["strokecolor"]
+      styleStroke= "strokeColor=" + strokecolor + ';' 
+      styleshape = styleshape.replace("%STROKE", styleStroke)
+
+      parentid = node["parentid"]
+      parentid = '1' if parentid == None else parentid
+
+      header = {'id': id,
+                'placeholders': '1'}
+
+      cell = {'parent': parentid,
+              'value': '',
+              'style': style,
+              'vertex': '1'}
+
+      geo = {'x': str(x),
+             'y': str(y),
+             'width': str(width),
+             'height': str(height),
+             'as': 'geometry'}
+
+      props = {}
+
+      if meta != None:
+         props.update(meta)
+
+      datashape = {'header': header, 'cell': cell, 'geo': geo, 'props':  props}
+
+      icon = node["icon"]
+      styleicon = "fillColor=#ffffff;shape=mxgraph.ibm_cloud.ibm-cloud--virtual-server-vpc;strokeColor=none;dashed=0;outlineConnect=0;html=1;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;part=1;movable=0;resizable=0;rotatable=0;shape=mxgraph.ibm_cloud." + icon
+
+      header = {'id': id + '-icon',
+                'placeholders': '1'}
+
+      cell = {'parent': id,
+              'value': shapelabel,
+              'style': style,
+              'vertex': '1'}
+
+      geo = {'x': str(12),
+             'y': str(12),
+             'width': str(24),
+             'height': str(24),
+             'relative': str(1),
+             'as': 'geometry'}
+
+      point = {'x': str(12),
+               'y': str(12),
+               'as': 'offset'}
+
+      dataicon = {'header': header, 'cell': cell, 'geo': geo, 'point': point}
+
+      return [datashape, dataicon]
+
+   def buildPLocShape(self, id, node, x, y, width, height, meta, shapelabel):
+      styleshape = "container=1;collapsible=0;expand=0;recursiveResize=0;html=1;whiteSpace=wrap;image=;%STROKE;fillColor=none;strokeWidth=1"
+      strokecolor = node["strokecolor"]
+      styleStroke= "strokeColor=" + strokecolor + ';' 
+      styleshape = styleshape.replace("%STROKE", styleStroke)
+
+      parentid = node["parentid"]
+      parentid = '1' if parentid == None else parentid
+
+      header = {'id': id,
+                'placeholders': '1'}
+
+      cell = {'parent': parentid,
+              'value': '',
+              'style': style,
+              'vertex': '1'}
+
+      geo = {'x': str(x),
+             'y': str(y),
+             'width': str(width),
+             'height': str(height),
+             'as': 'geometry'}
+
+      props = {}
+
+      if meta != None:
+         props.update(meta)
+
+      datashape = {'header': header, 'cell': cell, 'geo': geo, 'props':  props}
+
+      icon = node["icon"]
+      styleicon = "shape=rect;fillColor=none;aspect=fixed;resizable=0;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;strokeColor=none;part=1;spacingLeft=5;"
+
+      header = {'id': id + '-icon',
+                'placeholders': '1'}
+
+      cell = {'parent': id,
+              'value': shapelabel,
+              'style': style,
+              'vertex': '1'}
+
+      geo = {'x': str(12),
+             'y': str(12),
+             'width': str(24),
+             'height': str(24),
+             'relative': str(1),
+             'as': 'geometry'}
+
+      dataicon = {'header': header, 'cell': cell, 'geo': geo}
+
+      return [datashape, dataicon]
+
+   def buildZoneShape(self, id, node, x, y, width, height, meta, shapelabel):
+      styleshape = "shape=ellipse;%FILL;aspect=fixed;resizable=0;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;strokeColor=none"
+      fillcolor = node["fillcolor"]
+      styleFill = "fillColor=" + fillcolor + ';' 
+      styleshape = styleshape.replace("%FILL", styleFill)
+      #styleStroke = "strokeColor=" + color + ';' 
+      #styleshape = style.replace("%STROKE", styleStroke)
+
+      parentid = node["parentid"]
+      parentid = '1' if parentid == None else parentid
+
+      header = {'id': id,
+                'label': shapelabel,
+                'placeholders': '1'}
+
+      cell = {'parent': parentid,
+              'style': style,
+              'vertex': '1'}
+
+      geo = {'x': str(x),
+             'y': str(y),
+             'width': str(width),
+             'height': str(height),
+             'as': 'geometry'}
+
+      props = {}
+
+      if meta != None:
+         props.update(meta)
+
+      datashape = {'header': header, 'cell': cell, 'geo': geo, 'props':  props}
+
+      icon = node["icon"]
+      styleicon = "fillColor=#ffffff;strokeColor=none;dashed=0;outlineConnect=0;html=1;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;part=1;movable=0;resizable=0;rotatable=0;shape=mxgraph.ibm_cloud." + icon
+
+      header = {'id': id + '-icon',
+                'label': shapelabel,
+                'placeholders': '1'}
+
+      cell = {'parent': id,
+              'style': style,
+              'vertex': '1'}
+
+      geo = {'x': str(12),
+             'y': str(12),
+             'width': str(24),
+             'height': str(24),
+             'as': 'geometry'}
+
+      dataicon = {'header': header, 'cell': cell, 'geo': geo}
+
+      return [datashape, dataicon]
+
    def buildValue(self, id, parentid, name, parent, subname, text, x, y, width, height):
       shape = ibmshapes['text']
       style = shape['style']  

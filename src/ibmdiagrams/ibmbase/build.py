@@ -266,6 +266,10 @@ class Build:
       if self.common.isStaticIcons() or self.common.isCatalogIcons():
          shapenode = self.shapes.buildStaticShape(groupid, properties, x, y, width, height, meta, items)
          items.append(shapenode)
+      elif self.common.isDrawioIcons():
+         shapenode = self.shapes.buildDrawioShape(groupid, properties, x, y, width, height, meta)
+         #items.append(shapenode)
+         items = items + shapenode
       else:
          shapenode = self.shapes.buildShape(groupid, properties, x, y, width, height, meta)
          items.append(shapenode)

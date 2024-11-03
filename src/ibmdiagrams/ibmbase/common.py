@@ -154,6 +154,9 @@ class Common:
    def isBuiltinIcons(self):
       return self.iconType == IconTypes.BUILTIN
 
+   def isDrawioIcons(self):
+      return self.iconType == IconTypes.DRAWIO
+
    def isStaticIcons(self):
       return self.iconType == IconTypes.STATIC
 

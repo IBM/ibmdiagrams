@@ -189,10 +189,10 @@ class Terraform:
                subnets = instanceattributes["subnets"]
                # TBD Duplicate VPCs with slzvsi, one with subnets, other with empty subnets, so skip empty subnets.
                #     No duplication VPCs with slzvpc (no VSIs), so keep empty subnets.
-               if not instanceInstances.empty:
-                  if subnets == []:
-                     #instancerow = {}
-                     continue
+               #if not instanceInstances.empty:
+               #   #@TEST if subnets == []:
+               #   #@TEST   #instancerow = {}
+               #   #@TEST   continue
                instancerow = {"id": instanceid} | instanceattributes
                tempvpcs[count] = instancerow
                count += 1
@@ -756,7 +756,7 @@ class Terraform:
       return self.reservedIPs
 
    def hasServices(self):
-      return not self.flowLogs.empty or not self.transitGateways.empty or not self.activityTrackers.empty or not self.keyManagement.empty or not self.objectBuckets.empty
+      return not self.flowLogs.empty or not self.transitGateways.empty or not self.activityTrackers.empty or not self.keyManagements.empty or not self.objectBuckets.empty
 
    def hasFlowLogs(self):
       return not self.flowLogs.empty

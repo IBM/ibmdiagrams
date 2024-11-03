@@ -18,12 +18,14 @@
 3. Package is installed to /Library/Frameworks/Python.framework/Versions/VERSION/pythonVERSION/site-packages/ibmdiagrams
 4. Script is installed to /Library/Frameworks/Python.framework/Versions/VERSION/bin
 
+<!--
 ## Build
 
 1. cd ibmdiagrams
 2. Update version number in pyproject.toml.
 3. python -m build
 4. Output is in dist
+-->
 
 ## License
 

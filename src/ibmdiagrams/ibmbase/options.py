@@ -34,6 +34,7 @@ class InputTypes(Enum):
 
 class IconTypes(Enum):
    BUILTIN = 'BUILTIN'
+   DRAWIO = 'DRAWIO'
    CATALOG = 'CATALOG'
    STATIC = 'STATIC'
 
@@ -221,6 +222,9 @@ class Options:
 
    def isBuiltinIcons(self):
       return self.iconType == IconTypes.BUILTIN
+
+   def isDrawioIcons(self):
+      return self.iconType == IconTypes.DRAWIO
 
    def isStaticIcons(self):
       return self.iconType == IconTypes.STATIC

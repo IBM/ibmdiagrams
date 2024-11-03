@@ -31,6 +31,10 @@ class Shapes:
       node = self.types.buildShape(id, properties, x, y, width, height, meta)
       return node
 
+   def buildDrawioShape(self, id, properties, x, y, width, height, meta):
+      node = self.types.buildDrawioShape(id, properties, x, y, width, height, meta)
+      return node
+
    def buildLink(self, id, label, source, target, startarrow, endarrow, startfill, endfill, linetype, linewidth, linecolor, fontname, fontsize, meta):
        return self.types.buildLink(id, label, source, target, startarrow, endarrow, startfill, endfill, linetype, linewidth, linecolor, fontname, fontsize, meta)
 
