@@ -6,11 +6,11 @@ Notable changes to this project:
 
 ### Features
 
-- Added initial changes for implementation being published to drawio.
+- Added initial changes for drawio implementation (not currently enabled).
 
 ### Fixes
 
-- Fixed incorrect check resulting in missing VPC error for Observability team.
+- Fixed incorrect check resulting in missing VPC error for Terraform.
 
 ## 1.0.28
 
