@@ -38,6 +38,10 @@ class IconTypes(Enum):
    CATALOG = 'CATALOG'
    STATIC = 'STATIC'
 
+class LabelTypes(Enum):
+   CUSTOM = 'CUSTOM'
+   GENERAL = 'GENERAL'
+
 class Directions(Enum):
    LR = 'LR'
    TB = 'TB'
@@ -71,6 +75,7 @@ class Options:
    outputFile = ''
    outputFolder = ''
    iconType = ''
+   labelType = ''
    icons = None
    direction = ''
    alternate = None
@@ -87,6 +92,7 @@ class Options:
       #self.iconType = IconTypes.BUILTIN
       self.iconType = IconTypes.STATIC
       #self.iconType = IconTypes.CATALOG
+      self.labelType = LabelTypes.CUSTOM
       self.direction = Directions.LR
       #self.inputFile = 'input.json'
       #self.inputFolder = path.join(path.expanduser('~'), 'Documents', toolName)
@@ -240,6 +246,18 @@ class Options:
 
    def setCatalogIcons(self):
       self.iconType = IconTypes.CATALOG
+
+   def isCustomLabels(self):
+      return self.labelType == LabelTypes.CUSTOM
+
+   def isGeneralLabels(self):
+      return self.labelType == LabelTypes.GENERAL
+
+   def setCustomLabels(self):
+      self.labelType = LabelTypes.CUSTOM
+
+   def setGeneralLabels(self):
+      self.labelType = LabelTypes.GENERAL
 
    def getIcons(self):
       return self.icons

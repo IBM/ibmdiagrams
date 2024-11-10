@@ -2,6 +2,12 @@
 
 Notable changes to this project:
 
+## 1.0.30
+
+### Features
+
+- Added general option in ibmdiagrams script for generalized Terraform output.
+
 ## 1.0.29
 
 ### Features

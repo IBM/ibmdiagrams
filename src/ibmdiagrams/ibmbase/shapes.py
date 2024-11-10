@@ -23,16 +23,16 @@ class Shapes:
       self.common = common
       self.types = Types(common)
 
-   def buildStaticShape(self, id, properties, x, y, width, height, meta, items):
-      node = self.types.buildStaticShape(id, properties, x, y, width, height, meta, items)
+   def buildStaticShape(self, id, properties, x, y, width, height, meta, general, items):
+      node = self.types.buildStaticShape(id, properties, x, y, width, height, meta, general, items)
       return node
 
-   def buildShape(self, id, properties, x, y, width, height, meta):
-      node = self.types.buildShape(id, properties, x, y, width, height, meta)
+   def buildShape(self, id, properties, x, y, width, height, meta, general):
+      node = self.types.buildShape(id, properties, x, y, width, height, meta, general)
       return node
 
-   def buildDrawioShape(self, id, properties, x, y, width, height, meta):
-      node = self.types.buildDrawioShape(id, properties, x, y, width, height, meta)
+   def buildDrawioShape(self, id, properties, x, y, width, height, meta, general):
+      node = self.types.buildDrawioShape(id, properties, x, y, width, height, meta,general)
       return node
 
    def buildLink(self, id, label, source, target, startarrow, endarrow, startfill, endfill, linetype, linewidth, linecolor, fontname, fontsize, meta):

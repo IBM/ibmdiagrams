@@ -263,15 +263,17 @@ class Build:
 
       shape = properties["shape"].lower()
 
+      genflag = self.common.isGeneralLabels()
+
       if self.common.isStaticIcons() or self.common.isCatalogIcons():
-         shapenode = self.shapes.buildStaticShape(groupid, properties, x, y, width, height, meta, items)
+         shapenode = self.shapes.buildStaticShape(groupid, properties, x, y, width, height, meta, genflag, items)
          items.append(shapenode)
       elif self.common.isDrawioIcons():
-         shapenode = self.shapes.buildDrawioShape(groupid, properties, x, y, width, height, meta)
+         shapenode = self.shapes.buildDrawioShape(groupid, properties, x, y, width, height, meta, genflag)
          #items.append(shapenode)
          items = items + shapenode
       else:
-         shapenode = self.shapes.buildShape(groupid, properties, x, y, width, height, meta)
+         shapenode = self.shapes.buildShape(groupid, properties, x, y, width, height, meta, genflag)
          items.append(shapenode)
 
       return items, links, values
@@ -538,6 +540,8 @@ class Build:
          else:
             groups[groupid]["icon"] = iconname
 
+         groups[groupid]["genname"] = icon
+
          hexlinecolor = self.checkLineColor(linecolor)
          if hexlinecolor == None:
             self.common.printInvalidLineColor(linecolor)
@@ -657,6 +661,8 @@ class Build:
             items[nodeid]["icon"] = ""
          else:
             items[nodeid]["icon"] = iconname
+
+         items[nodeid]["genname"] = icon
 
          hexlinecolor = self.checkLineColor(linecolor)
          if hexlinecolor == None:

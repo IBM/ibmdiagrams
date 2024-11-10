@@ -172,6 +172,18 @@ class Common:
    def setCatalogIcons(self):
       self.iconType = IconTypes.CATALOG
 
+   def isCustomLabels(self):
+      return self.labelType == LabelTypes.CUSTOM
+
+   def isGeneralLabels(self):
+      return self.labelType == LabelTypes.GENERAL
+
+   def setCustomLabels(self):
+      self.labelType = LabelTypes.CUSTOM
+
+   def setGeneralLabels(self):
+      self.labelType = LabelTypes.GENERAL
+
    def getTablesFolder(self):
       return self.options.getTablesFolder()
 
@@ -238,6 +250,9 @@ class Common:
    def isBuiltinIcons(self):
       return self.options.isBuiltinIcons()
 
+   def isDrawioIcons(self):
+      return self.options.isDrawioIcons()
+
    def isCatalogIcons(self):
       return self.options.isCatalogIcons()
 
@@ -279,6 +294,18 @@ class Common:
 
    def isAllIcons(self):
       return self.options.isAllIcons()
+
+   def setCustomLabels(self):
+      self.options.setCustomLabels()
+
+   def setGeneralLabels(self):
+      self.options.setGeneralLabels()
+
+   def isCustomLabels(self):
+      return self.options.isCustomLabels()
+
+   def isGeneralLabels(self):
+      return self.options.isGeneralLabels()
 
    def isDesignatedVPC(self, name):
       return self.options.isDesignatedVPC(name)

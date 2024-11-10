@@ -302,10 +302,11 @@ class Types:
 
       return data
 
-   def buildStaticShape(self, id, node, x, y, width, height, meta, items):
+   def buildStaticShape(self, id, node, x, y, width, height, meta, genflag, items):
       name = node["label"]
       subname = node["sublabel"]
       shape = node["shape"].lower()
+      genname = node["genname"]
 
       linecount = 0
       if len(name) > 0:
@@ -390,7 +391,10 @@ class Types:
       if len(subname) > 0:
          subname = self.common.truncateText(subname, labelsize, '<br>')
 
-      shapelabel = "<b style='font-weight:600'>" + name + "</b><br>" + subname
+      if genflag:
+         shapelabel = "<b style='font-weight:600'>" + genname
+      else:
+         shapelabel = "<b style='font-weight:600'>" + name + "</b><br>" + subname
 
       header = {'id': id,
                 'label': shapelabel,
@@ -415,11 +419,12 @@ class Types:
 
       return data
 
-   def buildShape(self, id, node, x, y, width, height, meta):
+   def buildShape(self, id, node, x, y, width, height, meta, genflag):
       shape = node["shape"].lower()
       name = node["label"]
       subname = node["sublabel"]
       shape = node["shape"].lower()
+      genname = node["genname"]
 
       linecount = 0
       if len(name) > 0:
@@ -507,7 +512,10 @@ class Types:
       if len(subname) > 0:
          subname = self.common.truncateText(subname, labelsize, '<br>')
 
-      shapelabel = "<b style='font-weight:600'>" + name + "</b><br>" + subname
+      if genflag:
+         shapelabel = "<b style='font-weight:600'>" + genname
+      else:
+         shapelabel = "<b style='font-weight:600'>" + name + "</b><br>" + subname
 
       header = {'id': id,
                 'label': shapelabel,
@@ -532,12 +540,13 @@ class Types:
 
       return data
 
-   def buildDrawioShape(self, id, node, x, y, width, height, meta):
+   def buildDrawioShape(self, id, node, x, y, width, height, meta, genflag):
       labelsize = 20
       shape = node["shape"].lower()
       name = node["label"]
       subname = node["sublabel"]
       shape = node["shape"].lower()
+      genname = node["genname"]
 
       linecount = 0
       if len(name) > 0:
@@ -551,7 +560,10 @@ class Types:
       if len(subname) > 0:
          subname = self.common.truncateText(subname, labelsize, '<br>')
 
-      shapelabel = "<b style='font-weight:600'>" + name + "</b><br>" + subname
+      if genflag:
+         shapelabel = "<b style='font-weight:600'>" + genname
+      else:
+         shapelabel = "<b style='font-weight:600'>" + name + "</b><br>" + subname
 
       if shape == "actor":
          data = self.buildActorShape(self, id, node, x, y, width, height, meta, shapelabel)

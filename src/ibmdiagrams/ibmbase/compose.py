@@ -593,6 +593,8 @@ class Compose:
    def composeSubnetIcons(self, subnetid, subnetname, subnetvpcname, vpcname, groups, items, connectors, internetid):
       properties = {}
 
+      genflag = self.common.isGeneralLabels()
+
       icons = self.data.getSubnetIconTable(subnetid)
 
       for iconframe in icons:
@@ -685,7 +687,10 @@ class Compose:
             if nicfipip != None:
                #if self.common.isLinks():
                routername = vpcname + '-router'
-               iplabel =  "fip:" + nicfipip
+               if genflag:
+                  iplabel =  "fip"
+               else: 
+                 iplabel =  "fip:" + nicfipip
                #fiplink = self.shapes.buildDoubleArrow(iplabel, instanceid, routername, None)
                #links.append(fiplink)
 

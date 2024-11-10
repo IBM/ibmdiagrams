@@ -15,7 +15,11 @@ Python usage example:
 Terraform usage example:
 - ibmdiagrams -h
 - ibmdiagrams cloud.tfstate
-- Output to cloud.drawio
+- Custom output to cloud.drawio
+<!--
+- ibmdiagrams --general cloud.tfstate
+- General output to cloud.drawio
+-->
 
 Refer to Guides for complete details.
 
