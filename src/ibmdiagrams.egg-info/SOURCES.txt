@@ -1,6 +1,7 @@
 LICENSE
 README.md
 pyproject.toml
+src/epnode.py
 src/ibmdiagrams/__init__.py
 src/ibmdiagrams.egg-info/PKG-INFO
 src/ibmdiagrams.egg-info/SOURCES.txt

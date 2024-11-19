@@ -230,49 +230,55 @@ Zone = AvailabilityZone
 
 # Expanded Groups
 
-class _ExpandedGroups(_IBMExpanded):
-    def __init__(self, label, sublabel="", linecolor="", fillcolor="", icon="", direction="LR"):
-        super(_ExpandedGroups, self).__init__(label, sublabel=sublabel, 
-                                              linecolor=linecolor, fillcolor=fillcolor, 
-                                              shape="epnode", icon=icon, direction=direction)
+#class _ExpandedGroups(_IBMExpanded):
+#    def __init__(self, label, sublabel="", linecolor="", fillcolor="", icon="", direction="LR"):
+#        super(_ExpandedGroups, self).__init__(label, sublabel=sublabel, 
+#                                              linecolor=linecolor, fillcolor=fillcolor, 
+#                                              shape="epnode", icon=icon, direction=direction)
 
-class ExpandedVirtualServer(_ExpandedGroups):
+class _ExpandedGroup(_Grouping):
+    def __init__(self, label, sublabel="", linecolor="", fillcolor="", icon="", direction="LR"):
+        super(_ExpandedGroup, self).__init__(label, sublabel=sublabel, 
+                                             linecolor=linecolor, fillcolor=fillcolor, 
+                                             shape="epnode", icon=icon, direction=direction)
+
+class ExpandedVirtualServer(_ExpandedGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(ExpandedVirtualServer, self).__init__(label, sublabel=sublabel,
                                                     linecolor=Colors.lines["compute"], fillcolor=Colors.fills["compute"],
                                                     icon="Virtual Server", direction="LR")
 
-class ExpandedPowerVirtualServer(_ExpandedGroups):
+class ExpandedPowerVirtualServer(_ExpandedGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(ExpandedPowerVirtualServer, self).__init__(label, sublabel=sublabel,
                                                          linecolor=Colors.lines["compute"], fillcolor=Colors.fills["compute"],
                                                          icon="Power Virtual Server", direction="LR")
 
-class ExpandedClassicVirtualServer(_ExpandedGroups):
+class ExpandedClassicVirtualServer(_ExpandedGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(ExpandedClassicVirtualServer, self).__init__(label, sublabel=sublabel,
                                                            linecolor=Colors.lines["compute"], fillcolor=Colors.fills["compute"],
                                                            icon="Classic Virtual Server", direction="LR")
 
-class ExpandedBareMetalServer(_ExpandedGroups):
+class ExpandedBareMetalServer(_ExpandedGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(ExpandedBareMetalServer, self).__init__(label, sublabel=sublabel,
                                                       linecolor=Colors.lines["compute"], fillcolor=Colors.fills["compute"],
                                                       icon="Bare Metal Server", direction="LR")
 
-class ExpandedClassicBareMetalServer(_ExpandedGroups):
+class ExpandedClassicBareMetalServer(_ExpandedGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(ExpandedClassicBareMetalServer, self).__init__(label, sublabel=sublabel,
                                                              linecolor=Colors.lines["compute"], fillcolor=Colors.fills["compute"],
                                                              icon="Classic Bare Metal Server", direction="LR")
 
-class ExpandedApplication(_ExpandedGroups):
+class ExpandedApplication(_ExpandedGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(ExpandedApplication, self).__init__(label, sublabel=sublabel,
                                                   linecolor=Colors.lines["applications"], fillcolor=Colors.fills["applications"],
                                                   icon="Application", direction="LR")
 
-class ExpandedMicroservice(_ExpandedGroups):
+class ExpandedMicroservice(_ExpandedGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(ExpandedMicroservice, self).__init__(label, sublabel=sublabel,
                                                    linecolor=Colors.lines["applications"], fillcolor=Colors.fills["applications"],

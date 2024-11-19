@@ -1,6 +1,12 @@
 # Change Log
 
-Notable changes to this project:
+Notable changes:
+
+## 2.0.0
+
+### Features
+
+- Completed move to drawio implementation.
 
 ## 1.0.30
 

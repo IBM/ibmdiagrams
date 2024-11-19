@@ -29,13 +29,19 @@ class Elements:
       ET.SubElement(self.root, "mxCell", data['cell1'])
 
    def addNode(self, data):
-      userObject = ET.SubElement(self.root, "UserObject", data['header'] | data['props'])
-      mxCell = ET.SubElement(userObject, "mxCell", data['cell'])
+      mxCell = ET.SubElement(self.root, "mxCell", data['cell'])
       mxGeometry = ET.SubElement(mxCell, "mxGeometry", data['geo'])
+      if data['point'] != {}:
+         mxPoint = ET.SubElement(mxGeometry, "mxPoint", data['point'])
+      #userObject = ET.SubElement(self.root, "UserObject", data['header'] | data['props'])
+      #mxCell = ET.SubElement(userObject, "mxCell", data['cell'])
+      #mxGeometry = ET.SubElement(mxCell, "mxGeometry", data['geo'])
 
    def addValue(self, data):
       mxCell = ET.SubElement(self.root, "mxCell", data['cell'])
       mxGeometry = ET.SubElement(mxCell, "mxGeometry", data['geo'])
+      if data['point'] != {}:
+         mxPoint = ET.SubElement(mxGeometry, "mxPoint", data['point'])
 
    def addLink(self, data):
       userObject = ET.SubElement(self.root, "UserObject", data['header'])

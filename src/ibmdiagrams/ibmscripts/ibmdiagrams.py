@@ -28,7 +28,7 @@ def main():
    yamlname = ''
    inputfile = ''
    outputfolder = ''
-   icontype = ''
+   labeltype = ''
    direction = ''
    #fontname = ''
    #fontsize = ''
@@ -44,7 +44,6 @@ def main():
 
    parser.add_argument('inputfile', help='required input file name (terraform file)')
    parser.add_argument('-output', dest='outputfolder', default='', help='output folder')
-   parser.add_argument('-icontype', dest='icontype', default='static', help='icon type (static only)')
    parser.add_argument('-direction', dest='direction', default='LR', help='layout direction (LR or TB)')
    parser.add_argument('--general', dest='labeltype', action='store_const', const='GENERAL', default='CUSTOM', help='general labels (default: custom labels)')
    #parser.add_argument('-fontname', dest='fontname', default=common.getFontName(), help='font name')
@@ -54,7 +53,6 @@ def main():
 
    inputfile = args.inputfile
    outputfolder = args.outputfolder
-   icontype = args.icontype
    labeltype = args.labeltype
    direction = args.direction
    #fontname = args.fontname
@@ -64,24 +62,10 @@ def main():
    common.setInputFile(inputfile)
    common.setOutputFolder(outputfolder)
 
-   #if icontype.upper() == "BUILTIN":
-   #   common.setBuiltinIcons()
-   #elif icontype.upper() == "CATALOG":
-   #   common.setCatalogIcons()
-   #elif icontype.upper() == "STATIC":
-   #   common.setStaticIcons()
-   #else:
-   #   common.setStaticIcons()
-
-   common.setStaticIcons()
-
    if labeltype.upper() == "GENERAL":
       common.setGeneralLabels()
    else:
       common.setCustomLabels()
-
-   #common.setFontName(fontname)
-   #common.setFontSize(fontsize)
 
    if inputfile != "chat":
       basename = path.basename(inputfile)

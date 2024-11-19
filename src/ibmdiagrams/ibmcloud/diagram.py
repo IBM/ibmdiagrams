@@ -17,12 +17,12 @@ from . import _IBMDiagram
 from .colors import Colors
 
 class IBMDiagram(_IBMDiagram):
-    def __init__(self, name, filename="", output="", direction="", icontype=""):
+    def __init__(self, name, filename="", output="", direction=""):
         if filename == "":
             filename = name
 
         super(IBMDiagram, self).__init__(name=name, filename=filename, output=output, 
-                                         direction=direction, icontype=icontype)
+                                         direction=direction)
 
 # Aliases
 Diagram = IBMDiagram

@@ -89,8 +89,9 @@ class Options:
       self.region = Regions.ALL
       self.alternate = Alternates.WHITE
       self.provider = Providers.IBM
+      self.iconType = IconTypes.DRAWIO
       #self.iconType = IconTypes.BUILTIN
-      self.iconType = IconTypes.STATIC
+      #self.iconType = IconTypes.STATIC
       #self.iconType = IconTypes.CATALOG
       self.labelType = LabelTypes.CUSTOM
       self.direction = Directions.LR

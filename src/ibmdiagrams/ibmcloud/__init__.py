@@ -16,10 +16,9 @@
 from ibmdiagrams import Diagram, Group, Item, Connector
 
 class _IBMDiagram(Diagram):
-    def __init__(self, name, filename="", direction="", output="", provider="ibm", icontype=""):
+    def __init__(self, name, filename="", direction="", output="", provider="ibm"):
         super(_IBMDiagram, self).__init__(name=name, filename=filename, output=output,
-                                          direction=direction, 
-                                          icontype=icontype)
+                                          direction=direction) 
 
 class _IBMGrouping(Group):
     def __init__(self, label, sublabel="", linecolor="", fillcolor="", shape="", icon="", fontname="IBM Plex Sans", fontsize=14, direction=""):

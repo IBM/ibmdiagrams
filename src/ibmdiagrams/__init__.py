@@ -114,21 +114,21 @@ class Diagram:
                 filename = "",
                 output = "",
                 #input = "",
-                direction = "LR",
-                icontype = "STATIC"):
+                #icontype = "STATIC",
+                direction = "LR"):
       self.common = Common()
       self.common.setInputPython()
       self.diagramid = randomid()
       self.name = name
 
-      if icontype.upper()  == "BUILTIN":
-         self.common.setBuiltinIcons()
-      elif icontype.upper() == "CATALOG":
-         self.common.setCatalogIcons()
-      elif icontype.upper() == "STATIC":
-         self.common.setStaticIcons()
-      else:
-         self.common.setStaticIcons()
+      #if icontype.upper()  == "BUILTIN":
+      #   self.common.setBuiltinIcons()
+      #elif icontype.upper() == "CATALOG":
+      #   self.common.setCatalogIcons()
+      #elif icontype.upper() == "STATIC":
+      #   self.common.setStaticIcons()
+      #else:
+      #   self.common.setStaticIcons()
 
       if direction.upper() == "LR":
          self.common.setDirectionLR()
@@ -140,7 +140,8 @@ class Diagram:
       if getDiagrams() != None:
          filename = "*"
 
-      self.properties = _data.getDiagramProperties(name=name, filename=filename, output=output, direction=direction, icontype=icontype)
+      #self.properties = _data.getDiagramProperties(name=name, filename=filename, output=output, direction=direction, icontype=icontype)
+      self.properties = _data.getDiagramProperties(name=name, filename=filename, output=output, direction=direction)
       #_diagrams[self.diagramid] = self.properties
       _data.addDiagram(self.diagramid, self.properties)
       _data.updateSequence(self.diagramid)
