@@ -23,8 +23,6 @@ Terraform usage example:
 
 Refer to Guides for complete details.
 
-Icons are from the [icons repo](https://github.com/IBM-Cloud/architecture-icons) for use in any drawio desktop. 
-
 <b><i>Note: Early release for testing - externals are subject to change.</i></b>
 
 <details><summary>Benefits</summary>
