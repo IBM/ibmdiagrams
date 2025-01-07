@@ -42,10 +42,3 @@ src/ibmdiagrams/ibmcloud/observability.py
 src/ibmdiagrams/ibmcloud/security.py
 src/ibmdiagrams/ibmcloud/storage.py
 src/ibmdiagrams/ibmscripts/ibmdiagrams.py
-src/ibmdiagrams/ibmshapes/__init__.py
-src/ibmdiagrams/ibmshapes/collapsed.py
-src/ibmdiagrams/ibmshapes/colors.py
-src/ibmdiagrams/ibmshapes/connectors.py
-src/ibmdiagrams/ibmshapes/diagram.py
-src/ibmdiagrams/ibmshapes/expanded.py
-src/ibmdiagrams/ibmshapes/grouping.py

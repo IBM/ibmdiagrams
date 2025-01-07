@@ -25,7 +25,7 @@ class Icons:
       'Subnet Group': {'icon': 'ibm-cloud--subnets', 'color': Colors.lines["network"], 'fill': Colors.fills["white"], 'resource': 'ibm_is_subnet', 'fields': {'label': 'name', 'sublabel': 'ipv4_cidr_block', 'id': 'id', 'VPC Group': 'vpc', 'Availability Zone Group': 'vpc+zone'}, 'direction': 'LR', 'deployedOn': 'VPC Group', 'deployedTo': 'Availability Zone Group'},
       'Enterprise Network Group': {'icon': 'network--enterprise', 'color': Colors.lines["network"], 'fill': Colors.fills["white"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
       'Public Network Group': {'icon': 'network--public', 'color': Colors.lines["network"], 'fill': Colors.fills["white"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
-      'Cloud Services Group': {'icon': 'cloud-services', 'color': Colors.lines["network"], 'fill': Colors.fills["white"], 'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Cloud Services Group': {'icon': 'cloud-services', 'color': Colors.lines["network"], 'fill': Colors.fills["white"], 'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'Region Group', 'deployedTo': 'none'},
       'Internet Services Group': {'icon': 'ibm-cloud--internet-services', 'color': Colors.lines["network"], 'fill': Colors.fills["white"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
       'Overlay Network Group': {'icon': 'network--overlay', 'color': Colors.lines["network"], 'fill': Colors.fills["white"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
       'Power Workspace Group': {'icon': 'ibm--power-vs', 'color': Colors.lines["network"], 'fill': Colors.fills["white"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
@@ -176,8 +176,7 @@ class Icons:
       'Block Storage Icon': {'icon': 'block-storage', 'color': Colors.lines["storage"], 'fill': Colors.lines["storage"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
       # Note: File Storage in process of being added to design center.
       'File Storage Icon': {'icon': 'undefined', 'color': Colors.lines["storage"], 'fill': Colors.lines["storage"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
-      #'Object Storage Icon': {'icon': 'object-storage', 'color': Colors.lines["storage"], 'fill': Colors.lines["storage"], 'resource': 'ibm_cos_bucket', 'fields': {'label': 'bucket_name', 'Region Group': 'region_location'}, 'direction': 'LR', 'deployedOn': 'Cloud Services Group', 'deployedTo': 'none'},
-      'Object Storage Icon': {'icon': 'object-storage', 'color': Colors.lines["storage"], 'fill': Colors.lines["storage"], 'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Object Storage Icon': {'icon': 'object-storage', 'color': Colors.lines["storage"], 'fill': Colors.lines["storage"], 'resource': 'ibm_cos_bucket', 'fields': {'label': 'bucket_name', 'id': 'id', 'Cloud Services Group': '@services+region_location'}, 'direction': 'LR', 'deployedOn': 'Cloud Services Group', 'deployedTo': 'none'},
       ' Cloud Backup Icon': {'icon': 'data-backup', 'color': Colors.lines["storage"], 'fill': Colors.lines["storage"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
 
       # Other
@@ -253,11 +252,19 @@ class Icons:
                   tempindex = 0
                   newdata = ""
                   while tempindex < len(templist): 
-                     tempdata = row[templist[tempindex]]
-                     if newdata == "":
-                        newdata = tempdata
+                     tempstring = templist[tempindex]
+                     if tempstring[0] == '@':
+                        tempdata = tempstring[1:]
+                        if newdata == "":
+                           newdata = tempdata
+                        else:
+                           newdata = newdata + "-" + tempdata
                      else:
-                        newdata = newdata + "-" + tempdata
+                       tempdata = row[tempstring]
+                       if newdata == "":
+                          newdata = tempdata
+                       else:
+                          newdata = newdata + "-" + tempdata
                      tempindex += 1
                   list[newname] = newdata
                else:
@@ -279,6 +286,7 @@ class Icons:
 
       self.addClouds()
       self.addRegions()
+      self.addServiceRegions()
       self.addZones()
 
       return True
@@ -306,6 +314,25 @@ class Icons:
         ]
 
       icon = self.iconDictionary['Region Group']
+      df = pd.DataFrame(data)
+      icon['data'] = df 
+
+      return
+
+   def addServiceRegions(self):
+      data = [
+          {'label': 'Cloud Services', 'id': 'services-au-syd',   'Region Group': 'au-syd',   'Cloud Services Group': 'Cloud Services Group'},  
+          {'label': 'Cloud Services', 'id': 'services-br-sao',   'Region Group': 'br-sao',   'Cloud Services Group': 'Cloud Services Group'},  
+          {'label': 'Cloud Services', 'id': 'services-ca-tor',   'Region Group': 'ca-tor',   'Cloud Services Group': 'Cloud Services Group'},  
+          {'label': 'Cloud Services', 'id': 'services-eu-de',    'Region Group': 'eu-de',    'Cloud Services Group': 'Cloud Services Group'},  
+          {'label': 'Cloud Services', 'id': 'services-eu-gb',    'Region Group': 'eu-gb',    'Cloud Services Group': 'Cloud Services Group'},  
+          {'label': 'Cloud Services', 'id': 'services-jp-osa',   'Region Group': 'jp-osa',   'Cloud Services Group': 'Cloud Services Group'},  
+          {'label': 'Cloud Services', 'id': 'services-jp-tok',   'Region Group': 'jp-tok',   'Cloud Services Group': 'Cloud Services Group'},  
+          {'label': 'Cloud Services', 'id': 'services-us-east',  'Region Group': 'us-east',  'Cloud Services Group': 'Cloud Services Group'},  
+          {'label': 'Cloud Services', 'id': 'services-us-south', 'Region Group': 'us-south', 'Cloud Services Group': 'Cloud Services Group'}  
+        ]
+
+      icon = self.iconDictionary['Cloud Services Group']
       df = pd.DataFrame(data)
       icon['data'] = df 
 

@@ -2,6 +2,12 @@
 
 Notable changes:
 
+## 3.0.1
+
+### Features
+
+- Added support for Cloud Services with Object Storage initially.
+
 ## 3.0.0
 
 ### Features
