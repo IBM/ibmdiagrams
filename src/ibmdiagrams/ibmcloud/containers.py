@@ -25,21 +25,21 @@ class _Containers(_IBMCollapsed):
 class OpenShift(_Containers):
     def __init__(self, label, sublabel=""):
         super(OpenShift, self).__init__(label, sublabel=sublabel, 
-                                        icon="OpenShift")
+                                        icon="OpenShift Icon")
 
 class KubernetesService(_Containers):
     def __init__(self, label, sublabel=""):
         super(KubernetesService, self).__init__(label, sublabel=sublabel, 
-                                                icon="Kubernetes Service")
+                                                icon="Kubernetes Service Icon")
 
 class ZContainers(_Containers):
     def __init__(self, label, sublabel=""):
         super(ZContainers, self).__init__(label, sublabel=sublabel, 
-                                          icon="Z Containers")
+                                          icon="Z Containers Icon")
 
 class ContainerRegistry(_Containers):
     def __init__(self, label, sublabel=""):
         super(ContainerRegistry, self).__init__(label, sublabel=sublabel, 
-                                                icon="Container Registry")
+                                                icon="Container Registry Icon")
 
 # Aliases

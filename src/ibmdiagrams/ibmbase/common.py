@@ -145,33 +145,6 @@ class Common:
    def getOutputBase(self):
       return self.options.getOutputBase()
 
-   def getIconType(self):
-      return self.options.getIconType()
-
-   def setIconType(self, value):
-      return self.options.setIconType(value)
-
-   def isBuiltinIcons(self):
-      return self.iconType == IconTypes.BUILTIN
-
-   def isDrawioIcons(self):
-      return self.iconType == IconTypes.DRAWIO
-
-   def isStaticIcons(self):
-      return self.iconType == IconTypes.STATIC
-
-   def isCatalogIcons(self):
-      return self.iconType == IconTypes.CATALOG
-
-   def setBuiltinIcons(self):
-      self.iconType = IconTypes.BUILTIN
-
-   def setStaticIcons(self):
-      self.iconType = IconTypes.STATIC
-
-   def setCatalogIcons(self):
-      self.iconType = IconTypes.CATALOG
-
    def isCustomLabels(self):
       return self.labelType == LabelTypes.CUSTOM
 
@@ -183,6 +156,18 @@ class Common:
 
    def setGeneralLabels(self):
       self.labelType = LabelTypes.GENERAL
+
+   def isDrawioCode(self):
+      return self.options.isDrawioCode()
+
+   def isPythonCode(self):
+      return self.options.isPythonCode()
+
+   def setDrawioCode(self):
+      self.options.setDrawioCode()
+
+   def setPythonCode(self):
+      self.options.setPythonCode()
 
    def getTablesFolder(self):
       return self.options.getTablesFolder()
@@ -247,18 +232,6 @@ class Common:
    def isInputTerraform(self):
       return self.options.isInputTerraform()
 
-   def isBuiltinIcons(self):
-      return self.options.isBuiltinIcons()
-
-   def isDrawioIcons(self):
-      return self.options.isDrawioIcons()
-
-   def isCatalogIcons(self):
-      return self.options.isCatalogIcons()
-
-   def isStaticIcons(self):
-      return self.options.isStaticIcons()
-
    def setInputPython(self):
       return self.options.setInputPython()
 
@@ -273,15 +246,6 @@ class Common:
 
    def setInputTerraform(self):
       return self.options.setInputTerraform()
-
-   def setBuiltinIcons(self):
-      self.options.setBuiltinIcons()
-
-   def setCatalogIcons(self):
-      self.options.setCatalogIcons()
-
-   def setStaticIcons(self):
-      self.options.setStaticIcons()
 
    def setIcons(self, icons):
       self.options.setIcons(icons)
@@ -386,6 +350,10 @@ class Common:
 
    def printExit(self):
       self.messages.printExit()
+
+   def printMissingAllRegions(self):
+      print("printMissingAllRegions:")
+      self.messages.printMissingAllRegions()
 
    def printMissingVPCs(self):
       print("printMissingVPCs:")

@@ -26,36 +26,36 @@ class User(_Actors):
     def __init__(self, label, sublabel=""):
         super(User, self).__init__(label, sublabel=sublabel, 
                                    linecolor=Colors.lines["user"], 
-                                   icon="User")
+                                   icon="User Icon")
 
 class Users(_Actors):
     def __init__(self, label, sublabel=""):
         super(Users, self).__init__(label, sublabel=sublabel, 
                                     linecolor=Colors.lines["user"], 
-                                    icon="Group")
+                                    icon="Users Icon")
 
 class Enterprise(_Actors):
     def __init__(self, label, sublabel=""):
         super(Enterprise, self).__init__(label, sublabel=sublabel, 
                                          linecolor=Colors.lines["user"], 
-                                         icon="Enterprise")
+                                         icon="Enterprise Icon")
 
 class Application(_Actors):
     def __init__(self, label, sublabel=""):
         super(Application, self).__init__(label, sublabel=sublabel,
                                           linecolor=Colors.lines["applications"], 
-                                          icon="Application")
+                                          icon="Application Icon")
 
 class WebApplication(_Actors):
     def __init__(self, label, sublabel=""):
         super(WebApplication, self).__init__(label, sublabel=sublabel,
                                              linecolor=Colors.lines["applications"], 
-                                             icon="Web Application")
+                                             icon="Web Application Icon")
 class Microservice(_Actors):
     def __init__(self, label, sublabel=""):
         super(Microservice, self).__init__(label, sublabel=sublabel,
                                            linecolor=Colors.lines["applications"], 
-                                           icon="Web Application")
+                                           icon="Web Application Icon")
 
 # Aliases
 App = Application

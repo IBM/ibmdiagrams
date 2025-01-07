@@ -62,6 +62,7 @@ class Messages:
    warningMissingMemberMessage = '(Warning) No member defined for Load Balancer: %s, Pool: %s'
    processingSheetMessage = 'Processing %s'
 
+   missingAllRegionsMessage = '(Error) No Regions were found'
    missingVPCsMessage = '(Error) No VPCs were found'
    missingSubnetsMessage = '(Error) No Subnets were found'
 
@@ -136,6 +137,9 @@ class Messages:
 
    def printExit(self):
       self.printError(self.exitMessage)
+
+   def printMissingAllRegions(self):
+      self.printError(self.missingAllRegionsMessage)
 
    def printMissingVPCs(self):
       self.printError(self.missingVPCsMessage)

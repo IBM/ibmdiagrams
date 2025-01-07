@@ -25,41 +25,41 @@ class _DevOps(_IBMCollapsed):
 class ContinuousDelivery(_DevOps):
     def __init__(self, label, sublabel=""):
         super(ContinuousDelivery, self).__init__(label, sublabel=sublabel, 
-                                                 icon="Continuous Delivery")
+                                                 icon="Continuous Delivery Icon")
 
 class ContinuousIntegration(_DevOps):
     def __init__(self, label, sublabel=""):
         super(ContinuousIntegration, self).__init__(label, sublabel=sublabel, 
-                                                    icon="Continuous Integration")
+                                                    icon="Continuous Integration Icon")
 
 class SourceCodeRepository(_DevOps):
     def __init__(self, label, sublabel=""):
         super(SourceCodeRepository, self).__init__(label, sublabel=sublabel, 
-                                                   icon="Source Code Repository")
+                                                   icon="Source Code Repository Icon")
 
 class Toolchain(_DevOps):
     def __init__(self, label, sublabel=""):
         super(Toolchain, self).__init__(label, sublabel=sublabel, 
-                                        icon="Toolchain")
+                                        icon="Toolchain Icon")
 
 class MQ(_DevOps):
     def __init__(self, label, sublabel=""):
         super(MQ, self).__init__(label, sublabel=sublabel, 
-                                 icon="MQ")
+                                 icon="MQ Icon")
 
 class Ansible(_DevOps):
     def __init__(self, label, sublabel=""):
         super(Ansible, self).__init__(label, sublabel=sublabel, 
-                                      icon="Ansible")
+                                      icon="Ansible Icon")
 
 class GitLab(_DevOps):
     def __init__(self, label, sublabel=""):
         super(GitLab, self).__init__(label, sublabel=sublabel, 
-                                     icon="GitLab")
+                                     icon="GitLab Icon")
 
 class IntegrationPak(_DevOps):
     def __init__(self, label, sublabel=""):
         super(IntegrationPak, self).__init__(label, sublabel=sublabel, 
-                                             icon="Integration Pak")
+                                             icon="Integration Pak Icon")
 
 # Aliases

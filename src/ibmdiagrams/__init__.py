@@ -23,6 +23,8 @@ from .ibmbase.build import Build
 from .ibmbase.common import Common
 from .ibmbase.compose import Compose
 from .ibmbase.load import Load
+from .ibmbase.composejson import ComposeJSON
+from .ibmbase.loadjson import LoadJSON
 
 
 _diagrams = ContextVar("diagrams")
@@ -121,15 +123,6 @@ class Diagram:
       self.diagramid = randomid()
       self.name = name
 
-      #if icontype.upper()  == "BUILTIN":
-      #   self.common.setBuiltinIcons()
-      #elif icontype.upper() == "CATALOG":
-      #   self.common.setCatalogIcons()
-      #elif icontype.upper() == "STATIC":
-      #   self.common.setStaticIcons()
-      #else:
-      #   self.common.setStaticIcons()
-
       if direction.upper() == "LR":
          self.common.setDirectionLR()
       elif direction.upper() == "TB":
@@ -140,7 +133,6 @@ class Diagram:
       if getDiagrams() != None:
          filename = "*"
 
-      #self.properties = _data.getDiagramProperties(name=name, filename=filename, output=output, direction=direction, icontype=icontype)
       self.properties = _data.getDiagramProperties(name=name, filename=filename, output=output, direction=direction)
       #_diagrams[self.diagramid] = self.properties
       _data.addDiagram(self.diagramid, self.properties)

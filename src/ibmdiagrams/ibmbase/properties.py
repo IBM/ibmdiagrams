@@ -382,11 +382,6 @@ class OutputFormats(Enum):
    SVG = 'SVG'
    XML = 'XML'
 
-class IconTypes(Enum):
-   BUILTIN = 'BUILTIN'
-   CATALOG = 'CATALOG'
-   STATIC = 'STATIC'
-
 class Fonts(Enum):
    IBM_PLEX_SANS = 'IBM Plex Sans'
    IBM_PLEX_SANS_ARABIC = 'IBM Plex Sans Arabic'

@@ -2,6 +2,12 @@
 
 Notable changes:
 
+## 3.0.0
+
+### Features
+
+- Initial automation of Terraform resources.
+
 ## 2.0.0
 
 ### Features

@@ -18,7 +18,7 @@ from configparser import ConfigParser
 from os import path
 from sys import exit as sys_exit
 
-from ibmdiagrams import Compose, Common, Load
+from ibmdiagrams import Common, Compose, Load, ComposeJSON, LoadJSON
 
 PROG = "ibmdiagrams"
 
@@ -29,7 +29,8 @@ def main():
    inputfile = ''
    outputfolder = ''
    labeltype = ''
-   direction = ''
+   codetype = ''
+   #direction = ''
    #fontname = ''
    #fontsize = ''
 
@@ -44,8 +45,9 @@ def main():
 
    parser.add_argument('inputfile', help='required input file name (terraform file)')
    parser.add_argument('-output', dest='outputfolder', default='', help='output folder')
-   parser.add_argument('-direction', dest='direction', default='LR', help='layout direction (LR or TB)')
+   #parser.add_argument('-direction', dest='direction', default='LR', help='layout direction (LR or TB)')
    parser.add_argument('--general', dest='labeltype', action='store_const', const='GENERAL', default='CUSTOM', help='general labels (default: custom labels)')
+   parser.add_argument('--python', dest='codetype', action='store_const', const='PYTHON', default='DRAWIO', help='code type (default: drawio)')
    #parser.add_argument('-fontname', dest='fontname', default=common.getFontName(), help='font name')
    #parser.add_argument('-fontsize', dest='fontsize', default=common.getFpntSize()', help='font size')
  
@@ -54,7 +56,8 @@ def main():
    inputfile = args.inputfile
    outputfolder = args.outputfolder
    labeltype = args.labeltype
-   direction = args.direction
+   codetype = args.codetype
+   #direction = args.direction
    #fontname = args.fontname
    #fontsize = args.fontsize
    outputtype = 'drawio'
@@ -66,6 +69,11 @@ def main():
       common.setGeneralLabels()
    else:
       common.setCustomLabels()
+
+   if codetype.upper() == "PYTHON":
+      common.setPythonCode()
+   else:
+      common.setDrawioCode()
 
    if inputfile != "chat":
       basename = path.basename(inputfile)
@@ -83,15 +91,26 @@ def main():
       outputfile = inputbase + '.' + outputtype
       common.setOutputFile(outputfile)
 
-      common.printStartFile(inputfile, common.getProvider().value.upper())
-
-      data = Load(common)
-      if data.loadData():
-         compose = Compose(common, data)
-         compose.composeDiagrams()
-         common.printDone(path.join(outputfolder, outputfile), common.getProvider().value.upper())
-      else:
-         common.printExit()
+      if inputtype == 'json':
+         common.printStartFile(inputfile, common.getProvider().value.upper())
+         data = LoadJSON(common)
+         if data.loadData():
+            compose = ComposeJSON(common, data)
+            compose.composeDiagrams()
+            common.printDone(path.join(outputfolder, outputfile), common.getProvider().value.upper())
+         else:
+            common.printExit()
+      elif inputtype == 'tfstate':
+         if common.isDrawioCode():
+            common.printStartFile(inputfile, common.getProvider().value.upper())
+         data = Load(common)
+         if data.loadData():
+            compose = Compose(common, data)
+            compose.composeDiagrams()
+            if common.isDrawioCode():
+               common.printDone(path.join(outputfolder, outputfile), common.getProvider().value.upper())
+         else:
+            common.printExit()
 
    else:
       print()

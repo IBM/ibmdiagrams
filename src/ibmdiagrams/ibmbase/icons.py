@@ -13,195 +13,181 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .colors import Colors
-from .staticicons import StaticIcons
-from .catalogicons import CatalogIcons
+import pandas as pd
 
-# There are three sets of icons: 
-# 1. Builtin Icons - icon is name from design center containing product icons and non-product icons.
-# 2. Static Icons - staticicon is name from static stencils in staticicons.py containing product icons and non-product icons.
-# 3. Catalog Icons - catalogicon is name from cloud catalog in catalogicons.py containing only product icons.
-#
-# For catalog icons, the non-product icons are reused from the static icons.
-# A single asterisk represents using a static icon.
-# A double asterisk represents using a static icon for a group.
+from .colors import Colors
 
 class Icons:
    iconDictionary = {
       # Core Groups
-      # Note: App icons has an IBM Cloud icon but too light so using UI icon. 
-      'IBM Cloud': {'icon': 'ibm-cloud', 'color': Colors.lines["network"], 'fill': Colors.fills["white"], 'staticicon': 'IBM Cloud', 'catalogicon': '**IBM Cloud'},
-      'VPC': {'icon': 'ibm-cloud--vpc', 'color': Colors.lines["network"], 'fill': Colors.fills["white"], 'staticicon': 'VPC', 'catalogicon': '**VPC'},
-      'Subnet': {'icon': 'ibm-cloud--subnets', 'color': Colors.lines["network"], 'fill': Colors.fills["white"], 'staticicon': 'Subnet', 'catalogicon': '**Subnet'},
-      'Enterprise Network': {'icon': 'network--enterprise', 'color': Colors.lines["network"], 'fill': Colors.fills["white"], 'staticicon': 'Enterprise Network', 'catalogicon': '**Undefined Group'},
-      'Public Network': {'icon': 'network--public', 'color': Colors.lines["network"], 'fill': Colors.fills["white"], 'staticicon': 'Public Network', 'catalogicon': '**Public Network'},
-      'Cloud Services': {'icon': 'cloud-services', 'color': Colors.lines["network"], 'fill': Colors.fills["white"], 'staticicon': 'Cloud Services', 'catalogicon': '**Cloud Services'},
-      'Internet Services': {'icon': 'ibm-cloud--internet-services', 'color': Colors.lines["network"], 'fill': Colors.fills["white"], 'staticicon': 'Internet Services', 'catalogicon': 'Undefined Group'},
-      'Overlay Network': {'icon': 'network--overlay', 'color': Colors.lines["network"], 'fill': Colors.fills["white"], 'staticicon': 'Network Overlay', 'catalogicon': 'Undefined Group'},
-      'Power Workspace': {'icon': 'ibm--power-vs', 'color': Colors.lines["network"], 'fill': Colors.fills["white"], 'staticicon': 'Power Workspace', 'catalogicon': 'Workspace for Power Virtual Server'},
-      'Z System': {'icon': 'z--systems', 'color': Colors.lines["network"], 'fill': Colors.fills["white"], 'staticicon': 'Undefined Group', 'catalogicon': 'Undefined Group'},
-      'Internet': {'icon': 'wikis', 'color': Colors.lines["network"], 'fill': Colors.fills["white"], 'staticicon': 'Internet', 'catalogicon': 'Undefined Group'},
-      'VLAN': {'icon': 'vlan', 'color': Colors.lines["network"], 'fill': Colors.fills["white"], 'staticicon': 'VLAN', 'catalogicon': 'Undefined Group'},
-      'Classic VLAN': {'icon': 'vlan--ibm', 'color': Colors.lines["network"], 'fill': Colors.fills["white"], 'staticicon': 'IBM Classic VLAN', 'catalogicon': 'VLAN'},
-      'Classic Infrastructure': {'icon': 'infrastructure--classic', 'color': Colors.lines["network"], 'fill': Colors.fills["white"], 'staticicon': 'Undefined Group', 'catalogicon': 'Undefined Group'},
-      'OpenShift': {'icon': 'logo--openshift', 'color': Colors.lines["compute"], 'fill': Colors.fills["white"], 'staticicon': 'OpenShift', 'catalogicon': 'Red Hat OpenShift on IBM Cloud'},
-      'Kubernetes Service': {'icon': 'ibm-cloud--kubernetes-service', 'color': Colors.lines["compute"], 'fill': Colors.fills["white"], 'staticicon': 'Kubernetes', 'catalogicon': 'Kubernetes Service'},
-      'Z Containers': {'icon': 'ibm-z-os--containers', 'color': Colors.lines["compute"], 'fill': Colors.fills["white"], 'staticicon': 'Z Containers', 'catalogicon': 'Undefined Group'},
-      'watsonx': {'icon': 'watsonx', 'color': Colors.lines["applications"], 'fill': Colors.fills["white"], 'staticicon': 'Watsonx', 'catalogicon': 'watsonx'},
-      'watsonx Code Assistant': {'icon': 'ibm-watsonx--code-assistant', 'color': Colors.lines["applications"], 'fill': Colors.fills["white"], 'staticicon': 'Undefined Group', 'catalogicon': 'watsonx'},
-      'watsonx Z Code Assistant': {'icon': 'ibm-watsonx--code-assistant-for-z', 'color': Colors.lines["applications"], 'fill': Colors.fills["white"], 'staticicon': 'Undefined Group', 'catalogicon': 'watsonx'},
-      'Authorization Boundary': {'icon': 'flag', 'color': Colors.lines["security"], 'fill': Colors.fills["white"], 'staticicon': 'Authorization Boundary', 'catalogicon': 'Undefined Group'},
-      'Point of Presence': {'icon': 'point-of-presence', 'color': Colors.lines["location"], 'fill': Colors.fills["white"], 'staticicon': 'Point of Presence', 'catalogicon': 'Undefined Group'},
-      'Region': {'icon': 'location', 'color': Colors.lines["location"], 'fill': Colors.fills["location"], 'staticicon': 'Region', 'catalogicon': '**Region'},
+      'IBM Cloud Group': {'icon': 'ibm-cloud', 'color': Colors.lines["network"], 'fill': Colors.fills["white"], 'resource': 'none', 'fields': {'label': 'IBM Cloud', 'id': 'IBM Cloud Group'}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'VPC Group': {'icon': 'ibm-cloud--vpc', 'color': Colors.lines["network"], 'fill': Colors.fills["white"], 'resource': 'ibm_is_vpc', 'fields': {'label': 'name', 'id': 'id', 'Region Group': ':5crn', 'Resource Group': 'resource_group_name'}, 'direction': 'LR', 'deployedOn': 'Region Group', 'deployedTo': 'none'},
+      'Subnet Group': {'icon': 'ibm-cloud--subnets', 'color': Colors.lines["network"], 'fill': Colors.fills["white"], 'resource': 'ibm_is_subnet', 'fields': {'label': 'name', 'sublabel': 'ipv4_cidr_block', 'id': 'id', 'VPC Group': 'vpc', 'Availability Zone Group': 'vpc+zone'}, 'direction': 'LR', 'deployedOn': 'VPC Group', 'deployedTo': 'Availability Zone Group'},
+      'Enterprise Network Group': {'icon': 'network--enterprise', 'color': Colors.lines["network"], 'fill': Colors.fills["white"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Public Network Group': {'icon': 'network--public', 'color': Colors.lines["network"], 'fill': Colors.fills["white"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Cloud Services Group': {'icon': 'cloud-services', 'color': Colors.lines["network"], 'fill': Colors.fills["white"], 'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Internet Services Group': {'icon': 'ibm-cloud--internet-services', 'color': Colors.lines["network"], 'fill': Colors.fills["white"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Overlay Network Group': {'icon': 'network--overlay', 'color': Colors.lines["network"], 'fill': Colors.fills["white"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Power Workspace Group': {'icon': 'ibm--power-vs', 'color': Colors.lines["network"], 'fill': Colors.fills["white"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Z System Group': {'icon': 'z--systems', 'color': Colors.lines["network"], 'fill': Colors.fills["white"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Internet Group': {'icon': 'wikis', 'color': Colors.lines["network"], 'fill': Colors.fills["white"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'VLAN Group': {'icon': 'vlan', 'color': Colors.lines["network"], 'fill': Colors.fills["white"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Classic VLAN Group': {'icon': 'vlan--ibm', 'color': Colors.lines["network"], 'fill': Colors.fills["white"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Classic Infrastructure Group': {'icon': 'infrastructure--classic', 'color': Colors.lines["network"], 'fill': Colors.fills["white"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'OpenShift Group': {'icon': 'logo--openshift', 'color': Colors.lines["compute"], 'fill': Colors.fills["white"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Kubernetes Service Group': {'icon': 'ibm-cloud--kubernetes-service', 'color': Colors.lines["compute"], 'fill': Colors.fills["white"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Z Containers Group': {'icon': 'ibm-z-os--containers', 'color': Colors.lines["compute"], 'fill': Colors.fills["white"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'watsonx Group': {'icon': 'watsonx', 'color': Colors.lines["applications"], 'fill': Colors.fills["white"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'watsonx Code Assistant Group': {'icon': 'ibm-watsonx--code-assistant', 'color': Colors.lines["applications"], 'fill': Colors.fills["white"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'watsonx Z Code Assistant Group': {'icon': 'ibm-watsonx--code-assistant-for-z', 'color': Colors.lines["applications"], 'fill': Colors.fills["white"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Authorization Boundary Group': {'icon': 'flag', 'color': Colors.lines["security"], 'fill': Colors.fills["white"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Point of Presence Group': {'icon': 'point-of-presence', 'color': Colors.lines["location"], 'fill': Colors.fills["white"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Region Group': {'icon': 'location', 'color': Colors.lines["location"], 'fill': Colors.fills["location"],  'resource': 'local', 'fields': {}, 'direction': 'TB', 'deployedOn': 'IBM Cloud Group', 'deployedTo': 'none'},
 
       # Zone Groups
-      'Access Group': {'icon': 'group--access', 'color': Colors.lines["security"], 'fill': Colors.fills["none"], 'staticicon': 'Access Group', 'catalogicon': 'Undefined Group'},
-      'Account Group': {'icon': 'group--account', 'color': Colors.lines["security"], 'fill': Colors.fills["none"], 'staticicon': 'Account Group', 'catalogicon': 'Undefined Group'},
-      'Instance Group': {'icon': 'autoscaling', 'color': Colors.lines["compute"], 'fill': Colors.fills["none"], 'staticicon': 'Instance Group', 'catalogicon': 'Undefined Group'},
-      # Note: App icons has a Placement Groups for VPC icon but too light so using UI icon. 
-      'Placement Group': {'icon': 'group-objects', 'color': Colors.lines["compute"], 'fill': Colors.fills["none"], 'staticicon': 'Undefined Group', 'catalogicon': '**Placement Group'},
-      'Resource Group': {'icon': 'group--resource', 'color': Colors.lines["security"], 'fill': Colors.fills["none"], 'staticicon': 'Resource Group', 'catalogicon': '**Resource Group'},
-      # Note: App has icon Security Group for VPC but not in App icons in design center so using UI icon.
-      'Security Group': {'icon': 'group--security', 'color': Colors.lines["security"], 'fill': Colors.fills["none"], 'staticicon': 'Security Group', 'catalogicon': '**Security Group'},
-      'Availability Zone': {'icon': 'data--center', 'color': Colors.lines["location"], 'fill': Colors.fills["location"], 'staticicon': 'Zone', 'catalogicon': '**Zone'},
+      'Access Group': {'icon': 'group--access', 'color': Colors.lines["security"], 'fill': Colors.fills["none"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Account Group': {'icon': 'group--account', 'color': Colors.lines["security"], 'fill': Colors.fills["none"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Instance Group': {'icon': 'autoscaling', 'color': Colors.lines["compute"], 'fill': Colors.fills["none"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Placement Group': {'icon': 'group-objects', 'color': Colors.lines["compute"], 'fill': Colors.fills["none"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Resource Group': {'icon': 'group--resource', 'color': Colors.lines["security"], 'fill': Colors.fills["none"], 'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Security Group': {'icon': 'group--security', 'color': Colors.lines["security"], 'fill': Colors.fills["none"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Availability Zone Group': {'icon': 'data--center', 'color': Colors.lines["location"], 'fill': Colors.fills["location"], 'resource': 'none', 'fields': {}, 'direction': 'TB', 'deployedOn': 'none', 'deployedTo': 'none'},
 
       # Expanded Groups
-      'Expanded Virtual Server': {'icon': 'ibm-cloud--virtual-server-vpc', 'color': Colors.lines["compute"], 'fill': Colors.fills["compute"], 'staticicon': 'Virtual Server for VPC', 'catalogicon': '**Virtual Server for VPC'},
-      'Expanded Power Virtual Server': {'icon': 'ibm--power-vs', 'color': Colors.lines["compute"], 'fill': Colors.fills["compute"], 'staticicon': 'Power Virtual Server', 'catalogicon': 'Power Virtual Server Virtual Machine'},
-      'Expanded Classic Virtual Server': {'icon': 'ibm-cloud--virtual-server-classic', 'color': Colors.lines["compute"], 'fill': Colors.fills["compute"], 'staticicon': 'Virtual Server Classic', 'catalogicon': 'Virtual Server for Classic'},
-      'Expanded Bare Metal Server': {'icon': 'ibm-cloud--bare-metal-servers-vpc', 'color': Colors.lines["compute"], 'fill': Colors.fills["compute"], 'staticicon': 'Bare Metal for VPC', 'catalogicon': 'Bare Metal Server for VPC'},
-      'Expanded Classic Bare Metal Server': {'icon': 'ibm-cloud--bare-metal-server', 'color': Colors.lines["compute"], 'fill': Colors.fills["compute"], 'staticicon': 'Bare Metal Server', 'catalogicon': 'Bare Metal Server for Classic'},
-      'Expanded Application': {'icon': 'application', 'color': Colors.lines["applications"], 'fill': Colors.fills["applications"], 'staticicon': 'Application', 'catalogicon': 'Undefined Node'},
-      'Expanded Microservice': {'icon': 'microservices--1', 'color': Colors.lines["applications"], 'fill': Colors.fills["compute"], 'staticicon': 'Undefined Node', 'catalogicon': 'Undefined Node'},
+      'Expanded Virtual Server Group': {'icon': 'ibm-cloud--virtual-server-vpc', 'color': Colors.lines["compute"], 'fill': Colors.fills["compute"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Expanded Power Virtual Server Group': {'icon': 'ibm--power-vs', 'color': Colors.lines["compute"], 'fill': Colors.fills["compute"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Expanded Classic Virtual Server Group': {'icon': 'ibm-cloud--virtual-server-classic', 'color': Colors.lines["compute"], 'fill': Colors.fills["compute"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Expanded Bare Metal Server Group': {'icon': 'ibm-cloud--bare-metal-servers-vpc', 'color': Colors.lines["compute"], 'fill': Colors.fills["compute"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Expanded Classic Bare Metal Server Group': {'icon': 'ibm-cloud--bare-metal-server', 'color': Colors.lines["compute"], 'fill': Colors.fills["compute"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Expanded Application Group': {'icon': 'application', 'color': Colors.lines["applications"], 'fill': Colors.fills["applications"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Expanded Microservice Group': {'icon': 'microservices--1', 'color': Colors.lines["applications"], 'fill': Colors.fills["compute"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
 
        # Actors
-      'User': {'icon': 'user', 'color': Colors.lines["user"], 'fill': Colors.lines["user"], 'staticicon': 'User', 'catalogicon': '*User'},
-      'Users': {'icon': 'group', 'color': Colors.lines["user"], 'fill': Colors.lines["user"], 'staticicon': 'Group', 'catalogicon': '*Group'},
-      'Enterprise': {'icon': 'enterprise', 'color': Colors.lines["user"], 'fill': Colors.lines["user"], 'fill': Colors.lines["compute"], 'staticicon': 'Enterprise', 'catalogicon': '*Enterprise'},
-      'Application': {'icon': 'application', 'color': Colors.lines["applications"], 'fill': Colors.lines["applications"], 'staticicon': 'Application', 'catalogicon': '*Application'},
-      'Web Application': {'icon': 'application--web', 'color': Colors.lines["applications"], 'fill': Colors.lines["applications"], 'staticicon': 'Web Application', 'catalogicon': '*Web Application'},
-      'Microservice': {'icon': 'microservices--1', 'color': Colors.lines["applications"], 'fill': Colors.lines["applications"], 'staticicon': 'Microservices', 'catalogicon': '*Undefined Actor'},
+      'User Icon': {'icon': 'user', 'color': Colors.lines["user"], 'fill': Colors.lines["user"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Users Icon': {'icon': 'group', 'color': Colors.lines["user"], 'fill': Colors.lines["user"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Enterprise Icon': {'icon': 'enterprise', 'color': Colors.lines["user"], 'fill': Colors.lines["user"], 'fill': Colors.lines["compute"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Application Icon': {'icon': 'application', 'color': Colors.lines["applications"], 'fill': Colors.lines["applications"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Web Application Icon': {'icon': 'application--web', 'color': Colors.lines["applications"], 'fill': Colors.lines["applications"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Microservice Icon': {'icon': 'microservices--1', 'color': Colors.lines["applications"], 'fill': Colors.lines["applications"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
 
        # AI
-      'watsonx': {'icon': 'watsonx', 'color': Colors.lines["applications"], 'fill': Colors.lines["applications"], 'staticicon': 'Watsonx', 'catalogicon': 'Undefined Node'},
-      'watsonx.ai': {'icon': 'watsonx-ai', 'color': Colors.lines["applications"], 'fill': Colors.lines["applications"], 'staticicon': 'Watsonx AI', 'catalogicon': 'Undefined Node'},
-      'watsonx.data': {'icon': 'watsonx-data', 'color': Colors.lines["applications"], 'fill': Colors.lines["applications"], 'staticicon': 'Watsonx Data', 'catalogicon': 'watsonx.data'},
-      'watsonx.governance': {'icon': 'watsonx-governance', 'color': Colors.lines["applications"], 'fill': Colors.lines["applications"], 'staticicon': 'Watsonx Governance', 'catalogicon': 'watsonx.governance'},
-      'watsonx Orchestrate': {'icon': 'ibm-watsonx--orchestrate', 'color': Colors.lines["applications"], 'fill': Colors.lines["applications"], 'staticicon': 'Watsonx Orchestrate', 'catalogicon': 'Undefined Node'},
-      'watsonx Assistant': {'icon': 'ibm-watsonx--assistant', 'color': Colors.lines["applications"], 'fill': Colors.lines["applications"], 'staticicon': 'Watsonx  Assistant', 'catalogicon': 'watsonx Assistant'},
-      'watsonx Code Assistant': {'icon': 'ibm-watsonx--code-assistant', 'color': Colors.lines["applications"], 'fill': Colors.lines["applications"], 'staticicon': 'Watsonx Code  Assistant', 'catalogicon': 'watsonx Code Assistant'},
-      'watsonx Z Code Assistant': {'icon': 'ibm-watsonx--code-assistant-for-z', 'color': Colors.lines["applications"], 'fill': Colors.lines["applications"], 'staticicon': 'Watsonx  Code  Assistant for Z', 'catalogicon': 'Undefined Node'},
-      'watsonx Z Refactor Code Assistant': {'icon': 'ibm-watsonx--code-assistant-for-z--refactor', 'color': Colors.lines["applications"], 'fill': Colors.lines["applications"], 'staticicon': 'Watsonx Code Assistant for Z Refactor', 'catalogicon': 'Undefined Node'},
-      'Watson Discovery': {'icon': 'ibm-watson--discovery', 'color': Colors.lines["applications"], 'fill': Colors.lines["applications"], 'staticicon': 'Watson Discovery', 'catalogicon': 'Watson Discovery'},
-      'Watson Machine Learning': {'icon': 'ibm-watson--machine-learning', 'color': Colors.lines["applications"], 'fill': Colors.lines["applications"], 'staticicon': 'Watsonx Machine Learning', 'catalogicon': 'Watson Machine Learning'},
-      'Watson Studio': {'icon': 'ibm-watson--studio', 'color': Colors.lines["applications"], 'fill': Colors.lines["applications"], 'staticicon': 'Watson Studio', 'catalogicon': 'Watson Studio'},
+      'watsonx Icon': {'icon': 'watsonx', 'color': Colors.lines["applications"], 'fill': Colors.lines["applications"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'watsonx.ai Icon': {'icon': 'watsonx-ai', 'color': Colors.lines["applications"], 'fill': Colors.lines["applications"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'watsonx.data Icon': {'icon': 'watsonx-data', 'color': Colors.lines["applications"], 'fill': Colors.lines["applications"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'watsonx.governance Icon': {'icon': 'watsonx-governance', 'color': Colors.lines["applications"], 'fill': Colors.lines["applications"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'watsonx Orchestrate Icon': {'icon': 'ibm-watsonx--orchestrate', 'color': Colors.lines["applications"], 'fill': Colors.lines["applications"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'watsonx Assistant Icon': {'icon': 'ibm-watsonx--assistant', 'color': Colors.lines["applications"], 'fill': Colors.lines["applications"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'watsonx Code Assistant Icon': {'icon': 'ibm-watsonx--code-assistant', 'color': Colors.lines["applications"], 'fill': Colors.lines["applications"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'watsonx Z Code Assistant Icon': {'icon': 'ibm-watsonx--code-assistant-for-z', 'color': Colors.lines["applications"], 'fill': Colors.lines["applications"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'watsonx Z Refactor Code Assistant Icon': {'icon': 'ibm-watsonx--code-assistant-for-z--refactor', 'color': Colors.lines["applications"], 'fill': Colors.lines["applications"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Watson Discovery Icon': {'icon': 'ibm-watson--discovery', 'color': Colors.lines["applications"], 'fill': Colors.lines["applications"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Watson Machine Learning Icon': {'icon': 'ibm-watson--machine-learning', 'color': Colors.lines["applications"], 'fill': Colors.lines["applications"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Watson Studio Icon': {'icon': 'ibm-watson--studio', 'color': Colors.lines["applications"], 'fill': Colors.lines["applications"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
 
        # Compute
-      'Virtual Server': {'icon': 'ibm-cloud--virtual-server-vpc', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"], 'staticicon': 'Virtual Server for VPC', 'catalogicon': 'Virtual Server for VPC'},
-      # Note: Need to correct static icon name.
-      'Power Virtual Server': {'icon': 'ibm--power-vs', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"], 'staticicon': 'Power Virtual Server', 'catalogicon': 'Power Virtual Server Virtual Machine'},
-      'Classic Virtual Server': {'icon': 'ibm-cloud--virtual-server-classic', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"], 'staticicon': 'Virtual Server Classic', 'catalogicon': 'Virtual Server for Classic'},
-      'Bare Metal Server': {'icon': 'ibm-cloud--bare-metal-servers-vpc', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"], 'staticicon': 'Bare Metal for VPC', 'catalogicon': 'Bare Metal Server for VPC'},
-      'Classic Bare Metal Server': {'icon': 'ibm-cloud--bare-metal-server', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"], 'staticicon': 'Bare Metal Server', 'catalogicon': 'Bare Metal Server for Classic'},
-      'Dedicated Host': {'icon': 'ibm-cloud--dedicated-host', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"], 'staticicon': 'Dedicated Host', 'catalogicon': 'Dedicated Host for VPC'},
-      'Image Service': {'icon': 'image-service', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"], 'staticicon': 'Image Service', 'catalogicon': 'Undefined Node'},
-      'Satellite': {'icon': 'cloud-satellite', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"], 'staticicon': 'Satellite', 'catalogicon': 'Undefined Node'},
+      'Virtual Server Icon': {'icon': 'ibm-cloud--virtual-server-vpc', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"], 'resource': 'ibm_is_instance', 'fields': 
+{'label': 'name', 'sublabel': 'primary_network_interface primary_ip address', 'id': 'id', 'Subnet Group': 'primary_network_interface subnet', 'Availability Zone Group': 'vpc+zone', 'VPC Group': 'vpc'}, 'direction': 'LR', 'deployedOn': 'Subnet Group', 'deployedTo': 'none'},
+      'Power Virtual Server Icon': {'icon': 'ibm--power-vs', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Classic Virtual Server Icon': {'icon': 'ibm-cloud--virtual-server-classic', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Bare Metal Server Icon': {'icon': 'ibm-cloud--bare-metal-servers-vpc', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"], 'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Classic Bare Metal Server Icon': {'icon': 'ibm-cloud--bare-metal-server', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Dedicated Host Icon': {'icon': 'ibm-cloud--dedicated-host', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Image Service Icon': {'icon': 'image-service', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Satellite Icon': {'icon': 'cloud-satellite', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
 
       # Containers
-      'OpenShift': {'icon': 'logo--openshift', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"], 'staticicon': 'OpenShift', 'catalogicon': 'Undefined Node'},
-      'Kubernetes Service': {'icon': 'ibm-cloud--kubernetes-service', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"], 'staticicon': 'Kubernetes', 'catalogicon': 'Undefined Node'},
-      'Z Containers': {'icon': 'ibm-z-os--containers', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"], 'staticicon': 'Undefined Node', 'catalogicon': 'Undefined Node'},
-      'Container Registry': {'icon': 'cloud-registry', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"], 'staticicon': 'Container Registry', 'catalogicon': 'Undefined Node'},
+      'OpenShift Icon': {'icon': 'logo--openshift', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Kubernetes Service Icon': {'icon': 'ibm-cloud--kubernetes-service', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Z Containers Icon': {'icon': 'ibm-z-os--containers', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Container Registry Icon': {'icon': 'cloud-registry', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
 
       # Data
-      'Db2': {'icon': 'ibm--db2', 'color': Colors.lines["data"], 'fill': Colors.lines["data"], 'staticicon': 'DB2 Database', 'catalogicon': 'Db2'},
-      'Db2 Warehouse': {'icon': 'ibm--db2-warehouse', 'color': Colors.lines["data"], 'fill': Colors.lines["data"], 'staticicon': 'DB2 Warehouse', 'catalogicon': 'Db2 Warehouse'},
-      'Cloudant': {'icon': 'ibm--cloudant', 'color': Colors.lines["data"], 'fill': Colors.lines["data"], 'staticicon': 'Cloudant Database', 'catalogicon': 'Cloudant'},
-      'DataStax': {'icon': 'database--datastax', 'color': Colors.lines["data"], 'fill': Colors.lines["data"], 'staticicon': 'DataStax Database', 'catalogicon': 'Undefined Node'},
-      'Elasticsearch': {'icon': 'database--elastic', 'color': Colors.lines["data"], 'fill': Colors.lines["data"], 'staticicon': 'Elasticsearch Database', 'catalogicon': 'Undefined Node'},
-      'EnterpriseDB': {'icon': 'database--enterprisedb', 'color': Colors.lines["data"], 'fill': Colors.lines["data"], 'staticicon': 'EDB Database', 'catalogicon': 'Undefined Node'},
-      'etcd': {'icon': 'database--etcd', 'color': Colors.lines["data"], 'fill': Colors.lines["data"], 'staticicon': 'etcd Database', 'catalogicon': 'Undefined Node'},
-      'MongoDB': {'icon': 'database--mongodb', 'color': Colors.lines["data"], 'fill': Colors.lines["data"], 'staticicon': 'Mongo Database', 'catalogicon': 'Undefined Node'},
-      'MySQL': {'icon': 'database--mysql', 'color': Colors.lines["data"], 'fill': Colors.lines["data"], 'staticicon': 'MySQL Database', 'catalogicon': 'Databases for MySQL'},
-      'PostgreSQL': {'icon': 'database--postgresql', 'color': Colors.lines["data"], 'fill': Colors.lines["data"], 'staticicon': 'PostgreSQL Database', 'catalogicon': 'Undefined Node'},
-      'Rabbit': {'icon': 'database--rabbit', 'color': Colors.lines["data"], 'fill': Colors.lines["data"], 'staticicon': 'Rabbit Database', 'catalogicon': 'Undefined Node'},
-      'Redis': {'icon': 'database--redis', 'color': Colors.lines["data"], 'fill': Colors.lines["data"], 'staticicon': 'Redis Database', 'catalogicon': 'Undefined Node'},
-      'Database': {'icon': 'data--base', 'color': Colors.lines["data"], 'fill': Colors.lines["data"], 'staticicon': 'Database', 'catalogicon': 'Undefined Node'},
-      'Event Streams': {'icon': 'ibm-cloud--event-streams', 'color': Colors.lines["data"], 'fill': Colors.lines["data"], 'staticicon': 'Undefined Node', 'catalogicon': 'Undefined Node'},
-      'Data Pak': {'icon': 'ibm-cloud-pak--data', 'color': Colors.lines["data"], 'fill': Colors.lines["data"], 'staticicon': 'Cloud Pak for Data', 'catalogicon': 'Undefined Node'},
+      'Db2 Icon': {'icon': 'ibm--db2', 'color': Colors.lines["data"], 'fill': Colors.lines["data"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Db2 Warehouse Icon': {'icon': 'ibm--db2-warehouse', 'color': Colors.lines["data"], 'fill': Colors.lines["data"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Cloudant Icon': {'icon': 'ibm--cloudant', 'color': Colors.lines["data"], 'fill': Colors.lines["data"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'DataStax Icon': {'icon': 'database--datastax', 'color': Colors.lines["data"], 'fill': Colors.lines["data"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Elasticsearch Icon': {'icon': 'database--elastic', 'color': Colors.lines["data"], 'fill': Colors.lines["data"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'EnterpriseDB Icon': {'icon': 'database--enterprisedb', 'color': Colors.lines["data"], 'fill': Colors.lines["data"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'etcd Icon': {'icon': 'database--etcd', 'color': Colors.lines["data"], 'fill': Colors.lines["data"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'MongoDB Icon': {'icon': 'database--mongodb', 'color': Colors.lines["data"], 'fill': Colors.lines["data"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'MySQL Icon': {'icon': 'database--mysql', 'color': Colors.lines["data"], 'fill': Colors.lines["data"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'PostgreSQL Icon': {'icon': 'database--postgresql', 'color': Colors.lines["data"], 'fill': Colors.lines["data"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Rabbit Icon': {'icon': 'database--rabbit', 'color': Colors.lines["data"], 'fill': Colors.lines["data"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Redis Icon': {'icon': 'database--redis', 'color': Colors.lines["data"], 'fill': Colors.lines["data"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Database Icon': {'icon': 'data--base', 'color': Colors.lines["data"], 'fill': Colors.lines["data"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Event Streams Icon': {'icon': 'ibm-cloud--event-streams', 'color': Colors.lines["data"], 'fill': Colors.lines["data"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Data Pak Icon': {'icon': 'ibm-cloud-pak--data', 'color': Colors.lines["data"], 'fill': Colors.lines["data"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
 
       # DevOps
-      'Continuous Delivery': {'icon': 'ibm-cloud--continuous-delivery', 'color': Colors.lines["devops"], 'fill': Colors.lines["devops"], 'staticicon': 'Continuous Delivery', 'catalogicon': 'Undefined Node'},
-      'Continuous Integration': {'icon': 'continuous-integration', 'color': Colors.lines["devops"], 'fill': Colors.lines["devops"], 'staticicon': 'Continuous Integration', 'catalogicon': 'Undefined Node'},
-      'Source Code Repository': {'icon': 'repo--source-code', 'color': Colors.lines["devops"], 'fill': Colors.lines["devops"], 'staticicon': 'Source Code Repo', 'catalogicon': 'Undefined Node'},
-      'Toolchain': {'icon': 'ibm--toolchain', 'color': Colors.lines["devops"], 'fill': Colors.lines["devops"], 'staticicon': 'Toolchain', 'catalogicon': 'Undefined Node'},
-      'MQ': {'icon': 'ibm--mq', 'color': Colors.lines["devops"], 'fill': Colors.lines["devops"], 'staticicon': 'Toolchain', 'catalogicon': 'MQ'},
-      'Ansible': {'icon': 'logo--ansible-community', 'color': Colors.lines["devops"], 'fill': Colors.lines["devops"], 'staticicon': 'Ansible', 'catalogicon': 'Undefined Node'},
-      'GitLab': {'icon': 'logo--gitlab', 'color': Colors.lines["devops"], 'fill': Colors.lines["devops"], 'staticicon': 'GitLabe', 'catalogicon': 'Undefined Node'},
-      'Integration Pak': {'icon': 'ibm-cloud-pak--integration', 'color': Colors.lines["devops"], 'fill': Colors.lines["devops"], 'staticicon': 'Cloud Pak for Integration', 'catalogicon': 'Undefined Node'},
+      'Continuous Delivery Icon': {'icon': 'ibm-cloud--continuous-delivery', 'color': Colors.lines["devops"], 'fill': Colors.lines["devops"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Continuous Integration Icon': {'icon': 'continuous-integration', 'color': Colors.lines["devops"], 'fill': Colors.lines["devops"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Source Code Repository Icon': {'icon': 'repo--source-code', 'color': Colors.lines["devops"], 'fill': Colors.lines["devops"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Toolchain Icon': {'icon': 'ibm--toolchain', 'color': Colors.lines["devops"], 'fill': Colors.lines["devops"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'MQ Icon': {'icon': 'ibm--mq', 'color': Colors.lines["devops"], 'fill': Colors.lines["devops"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Ansible Icon': {'icon': 'logo--ansible-community', 'color': Colors.lines["devops"], 'fill': Colors.lines["devops"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'GitLab Icon': {'icon': 'logo--gitlab', 'color': Colors.lines["devops"], 'fill': Colors.lines["devops"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Integration Pak Icon': {'icon': 'ibm-cloud-pak--integration', 'color': Colors.lines["devops"], 'fill': Colors.lines["devops"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
 
       # Network
-      'Load Balancer': {'icon': 'load-balancer--vpc', 'color': Colors.lines["network"], 'fill': Colors.lines["network"], 'staticicon': 'VPC Load Balancer', 'catalogicon': 'Load Balancer for VPC'},
-      'Application Load Balancer': {'icon': 'load-balancer--application', 'color': Colors.lines["network"], 'fill': Colors.lines["network"], 'staticicon': 'Application Load Balancer', 'catalogicon': '*Application Load Balancer'},
-      'Network Load Balancer': {'icon': 'load-balancer--network', 'color': Colors.lines["network"], 'fill': Colors.lines["network"], 'staticicon': 'Network Load Balancer', 'catalogicon': '*Network Load Balancer'},
-      'Global Load Balancer': {'icon': 'load-balancer--global', 'color': Colors.lines["network"], 'fill': Colors.lines["network"], 'staticicon': 'Global Load Balancer', 'catalogicon': '*Global Load Balancer'},
-      'Classic Load Balancer': {'icon': 'load-balancer--classic', 'color': Colors.lines["network"], 'fill': Colors.lines["network"], 'staticicon': 'Classic Load Balancer', 'catalogicon': '*Cloud Load Balancer'},
-      'Floating IP': {'icon': 'floating-ip', 'color': Colors.lines["network"], 'fill': Colors.lines["network"], 'staticicon': 'Floating IP', 'catalogicon': '**Floating IP'},
-      'Network Interface': {'icon': 'network-interface', 'color': Colors.lines["network"], 'fill': Colors.lines["network"], 'staticicon': 'Network Interface', 'catalogicon': 'Undefined Node'},
-      'Endpoint Gateway': {'icon': 'ibm-cloud--vpc-endpoints', 'color': Colors.lines["network"], 'fill': Colors.lines["network"], 'staticicon': 'VPC Endpoints', 'catalogicon': 'Virtual Private Endpoint for VPC'},
-      'Public Gateway': {'icon': 'gateway--public', 'color': Colors.lines["network"], 'fill': Colors.lines["network"], 'staticicon': 'Public Gateway', 'catalogicon': 'Public Gateway'},
-      'Transit Gateway': {'icon': 'ibm-cloud--transit-gateway', 'color': Colors.lines["network"], 'fill': Colors.lines["network"], 'staticicon': 'Transit Gateway', 'catalogicon': 'Transit Gateway'},
-      'Direct Link Connect': {'icon': 'ibm-cloud--direct-link-2--connect', 'color': Colors.lines["network"], 'fill': Colors.lines["network"], 'staticicon': 'Direct Link Connect', 'catalogicon': 'Direct Link Connect'},
-      'Direct Link Dedicated': {'icon': 'ibm-cloud--direct-link-2--dedicated', 'color': Colors.lines["network"], 'fill': Colors.lines["network"], 'staticicon': 'Direct Link Dedicated', 'catalogicon': 'Direct Link Dedicated'},
-      'DNS Services': {'icon': 'dns-services', 'color': Colors.lines["network"], 'fill': Colors.lines["network"], 'staticicon': 'DNS', 'catalogicon': 'Undefined Node'},
-      'Internet Services': {'icon': 'ibm-cloud--internet-services', 'color': Colors.lines["network"], 'fill': Colors.lines["network"], 'staticicon': 'Internet Services', 'catalogicon': 'Undefined Node'},
-      'Internet': {'icon': 'wikis', 'color': Colors.lines["network"], 'fill': Colors.lines["network"], 'staticicon': 'Internet', 'catalogicon': 'Undefined Node'},
+      'Load Balancer Icon': {'icon': 'load-balancer--vpc', 'color': Colors.lines["network"], 'fill': Colors.lines["network"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Application Load Balancer Icon': {'icon': 'load-balancer--application', 'color': Colors.lines["network"], 'fill': Colors.lines["network"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Network Load Balancer Icon': {'icon': 'load-balancer--network', 'color': Colors.lines["network"], 'fill': Colors.lines["network"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Global Load Balancer Icon': {'icon': 'load-balancer--global', 'color': Colors.lines["network"], 'fill': Colors.lines["network"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Classic Load Balancer Icon': {'icon': 'load-balancer--classic', 'color': Colors.lines["network"], 'fill': Colors.lines["network"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Floating IP Icon': {'icon': 'floating-ip', 'color': Colors.lines["network"], 'fill': Colors.lines["network"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Network Interface Icon': {'icon': 'network-interface', 'color': Colors.lines["network"], 'fill': Colors.lines["network"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Endpoint Gateway Icon': {'icon': 'ibm-cloud--vpc-endpoints', 'color': Colors.lines["network"], 'fill': Colors.lines["network"], 'resource': 'ibm_is_virtual_endpoint_gateway', 'fields': {'label': 'name', 'id': 'id'}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Public Gateway Icon': {'icon': 'gateway--public', 'color': Colors.lines["network"], 'fill': Colors.lines["network"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Transit Gateway Icon': {'icon': 'ibm-cloud--transit-gateway', 'color': Colors.lines["network"], 'fill': Colors.lines["network"], 'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Direct Link Connect Icon': {'icon': 'ibm-cloud--direct-link-2--connect', 'color': Colors.lines["network"], 'fill': Colors.lines["network"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Direct Link Dedicated Icon': {'icon': 'ibm-cloud--direct-link-2--dedicated', 'color': Colors.lines["network"], 'fill': Colors.lines["network"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'DNS Services Icon': {'icon': 'dns-services', 'color': Colors.lines["network"], 'fill': Colors.lines["network"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Internet Services Icon': {'icon': 'ibm-cloud--internet-services', 'color': Colors.lines["network"], 'fill': Colors.lines["network"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Internet Icon': {'icon': 'wikis', 'color': Colors.lines["network"], 'fill': Colors.lines["network"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
       # Note: NTP in process of being added to design center.
-      'NTP': {'icon': 'undefined', 'color': Colors.lines["network"], 'fill': Colors.lines["network"], 'staticicon': 'Undefined Node', 'catalogicon': 'Undefined Node'},
-      'Bridge': {'icon': 'arrows--horizontal', 'color': Colors.lines["network"], 'fill': Colors.lines["network"], 'staticicon': 'Undefined Node', 'catalogicon': 'Undefined Node'},
-      'Router': {'icon': 'router', 'color': Colors.lines["network"], 'fill': Colors.lines["network"], 'staticicon': 'Router', 'catalogicon': 'Undefined Node'},
-      'VLAN': {'icon': 'vlan', 'color': Colors.lines["network"], 'fill': Colors.lines["network"], 'staticicon': 'VLAN', 'catalogicon': 'Undefined Node'},
-      'Classic VLAN': {'icon': 'vlan--ibm', 'color': Colors.lines["network"], 'fill': Colors.lines["network"], 'staticicon': 'IBM Classic VLAN', 'catalogicon': 'Undefined Node'},
-      'Proxy Server': {'icon': 'server--proxy', 'color': Colors.lines["network"], 'fill': Colors.lines["network"], 'staticicon': 'Proxy Server', 'catalogicon': 'Undefined Node'},
-      'L2 Switch': {'icon': 'switch-layer-2', 'color': Colors.lines["network"], 'fill': Colors.lines["network"], 'staticicon': 'L2 Switch', 'catalogicon': 'Undefined Node'},
-      'L3 Switch': {'icon': 'switch-layer-3', 'color': Colors.lines["network"], 'fill': Colors.lines["network"], 'staticicon': 'L3 Switch', 'catalogicon': 'Undefined Node'},
+      'NTP Icon': {'icon': 'undefined', 'color': Colors.lines["network"], 'fill': Colors.lines["network"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Bridge Icon': {'icon': 'arrows--horizontal', 'color': Colors.lines["network"], 'fill': Colors.lines["network"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Router Icon': {'icon': 'router', 'color': Colors.lines["network"], 'fill': Colors.lines["network"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'VLAN Icon': {'icon': 'vlan', 'color': Colors.lines["network"], 'fill': Colors.lines["network"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Classic VLAN Icon': {'icon': 'vlan--ibm', 'color': Colors.lines["network"], 'fill': Colors.lines["network"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Proxy Server Icon': {'icon': 'server--proxy', 'color': Colors.lines["network"], 'fill': Colors.lines["network"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'L2 Switch Icon': {'icon': 'switch-layer-2', 'color': Colors.lines["network"], 'fill': Colors.lines["network"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'L3 Switch Icon': {'icon': 'switch-layer-3', 'color': Colors.lines["network"], 'fill': Colors.lines["network"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
 
       # Observability
-      'Cloud Logs': {'icon': 'ibm-cloud--logging', 'color': Colors.lines["management"], 'fill': Colors.lines["management"], 'staticicon': 'Cloud logs', 'catalogicon': 'Cloud Activity Tracker'},
-      'Flow Logs': {'icon': 'flow-logs-vpc', 'color': Colors.lines["management"], 'fill': Colors.lines["management"], 'staticicon': 'Flow Logs', 'catalogicon': 'Flow Logs for VPC'},
-      'Monitoring': {'icon': 'cloud--monitoring', 'color': Colors.lines["management"], 'fill': Colors.lines["management"], 'staticicon': 'Monitoring', 'catalogicon': 'Cloud Monitoring'},
+      'Cloud Logs Icon': {'icon': 'ibm-cloud--logging', 'color': Colors.lines["management"], 'fill': Colors.lines["management"], 'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Flow Logs Icon': {'icon': 'flow-logs-vpc', 'color': Colors.lines["management"], 'fill': Colors.lines["management"], 'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Monitoring Icon': {'icon': 'cloud--monitoring', 'color': Colors.lines["management"], 'fill': Colors.lines["management"], 'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
 
       # Security
-      'App ID': {'icon': 'ibm-cloud--app-id', 'color': Colors.lines["security"], 'fill': Colors.lines["security"], 'staticicon': 'Undefined Node', 'catalogicon': 'Undefined Node'},
-      'Key Protect': {'icon': 'ibm-cloud--key-protect', 'color': Colors.lines["security"], 'fill': Colors.lines["security"], 'staticicon': 'Key Protect', 'catalogicon': 'Key Protect'},
-      'Secrets Manager': {'icon': 'ibm-cloud--secrets-manager', 'color': Colors.lines["security"], 'fill': Colors.lines["security"], 'staticicon': 'Secrets Manager', 'catalogicon': 'Undefined Node'},
-      'Security Complance Center': {'icon': 'ibm-cloud--security-compliance-center', 'color': Colors.lines["security"], 'fill': Colors.lines["security"], 'staticicon': 'Undefined Node', 'catalogicon': 'Undefined Node'},
-      'SSH Key': {'icon': 'password', 'color': Colors.lines["network"], 'fill': Colors.lines["security"], 'staticicon': 'Key', 'catalogicon': 'SSH Key for VPC'},
-      'VPN Gateway': {'icon': 'ibm--vpn-for-vpc', 'color': Colors.lines["security"], 'fill': Colors.lines["security"], 'staticicon': 'VPN Gateway', 'catalogicon': 'VPN for VPC'},
-      'VPN Connection': {'icon': 'vpn--connection', 'color': Colors.lines["security"], 'fill': Colors.lines["security"], 'staticicon': 'VPN Connection', 'catalogicon': 'Undefined Node'},
-      'Bastion Host': {'icon': 'bastion-host', 'color': Colors.lines["security"], 'fill': Colors.lines["security"], 'staticicon': 'Bastion Host', 'catalogicon': '**Bastion Host'},
-      'ACL Rules': {'icon': 'subnet-acl-rules', 'color': Colors.lines["security"], 'fill': Colors.lines["security"], 'staticicon': 'Network ACL Rules', 'catalogicon': 'Undefined Node'},
-      'Security Pak': {'icon': 'ibm-cloud-pak--security', 'color': Colors.lines["security"], 'fill': Colors.lines["security"], 'staticicon': 'Cloud Pak for Security', 'catalogicon': 'Undefined Node'},
+      'App ID Icon': {'icon': 'ibm-cloud--app-id', 'color': Colors.lines["security"], 'fill': Colors.lines["security"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Key Protect Icon': {'icon': 'ibm-cloud--key-protect', 'color': Colors.lines["security"], 'fill': Colors.lines["security"], 'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Secrets Manager Icon': {'icon': 'ibm-cloud--secrets-manager', 'color': Colors.lines["security"], 'fill': Colors.lines["security"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Security Complance Center Icon': {'icon': 'ibm-cloud--security-compliance-center', 'color': Colors.lines["security"], 'fill': Colors.lines["security"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'SSH Key Icon': {'icon': 'password', 'color': Colors.lines["network"], 'fill': Colors.lines["security"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'VPN Gateway Icon': {'icon': 'ibm--vpn-for-vpc', 'color': Colors.lines["security"], 'fill': Colors.lines["security"],  'resource': 'ibm_is_vpn_gateway', 'fields': {'label': 'name', 'sublabel': 'public_ip_address', 'id': 'id', 'Subnet Group': 'subnet'}, 'direction': 'LR', 'deployedOn': 'Subnet Group', 'deployedTo': 'none'},
+      # TODO Add private_ip_address to sublabel of VPN Connection Icon.
+      'VPN Connection Icon': {'icon': 'vpn--connection', 'color': Colors.lines["security"], 'fill': Colors.lines["security"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Bastion Host Icon': {'icon': 'bastion-host', 'color': Colors.lines["security"], 'fill': Colors.lines["security"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'ACL Rules Icon': {'icon': 'subnet-acl-rules', 'color': Colors.lines["security"], 'fill': Colors.lines["security"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Security Pak Icon': {'icon': 'ibm-cloud-pak--security', 'color': Colors.lines["security"], 'fill': Colors.lines["security"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
 
       # Storage
-      'Block Storage': {'icon': 'block-storage', 'color': Colors.lines["storage"], 'fill': Colors.lines["storage"], 'staticicon': 'Block  Storage Application', 'catalogicon': 'Block Storage for VPC'},
+      'Block Storage Icon': {'icon': 'block-storage', 'color': Colors.lines["storage"], 'fill': Colors.lines["storage"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
       # Note: File Storage in process of being added to design center.
-      'File Storage': {'icon': 'undefined', 'color': Colors.lines["storage"], 'fill': Colors.lines["storage"], 'staticicon': 'Undefined Node', 'catalogicon': 'Undefined Node'},
-      'Object Storage': {'icon': 'object-storage', 'color': Colors.lines["storage"], 'fill': Colors.lines["storage"], 'staticicon': 'Object Storage Application', 'catalogicon': 'Cloud Object Storage'},
-      'Cloud Backup': {'icon': 'data-backup', 'color': Colors.lines["storage"], 'fill': Colors.lines["storage"], 'staticicon': 'Undefined Node', 'catalogicon': 'Cloud Backup for VPC'},
+      'File Storage Icon': {'icon': 'undefined', 'color': Colors.lines["storage"], 'fill': Colors.lines["storage"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      #'Object Storage Icon': {'icon': 'object-storage', 'color': Colors.lines["storage"], 'fill': Colors.lines["storage"], 'resource': 'ibm_cos_bucket', 'fields': {'label': 'bucket_name', 'Region Group': 'region_location'}, 'direction': 'LR', 'deployedOn': 'Cloud Services Group', 'deployedTo': 'none'},
+      'Object Storage Icon': {'icon': 'object-storage', 'color': Colors.lines["storage"], 'fill': Colors.lines["storage"], 'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      ' Cloud Backup Icon': {'icon': 'data-backup', 'color': Colors.lines["storage"], 'fill': Colors.lines["storage"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
 
       # Other
-      'Undefined': {'icon': 'undefined', 'color': Colors.lines["network"], 'fill': Colors.lines["network"], 'staticicon': 'Undefined Node', 'catalogicon': 'Undefined Node'}
+      'Undefined Icon': {'icon': 'undefined', 'color': Colors.lines["network"], 'fill': Colors.lines["network"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'}
    }
 
    common = None
-   staticicons = None
-   catalogicons = None
 
    def __init__(self, common):
       self.common = common
-      self.staticicons = StaticIcons(self.staticicons)
-      self.catalogicons = CatalogIcons(self.catalogicons)
 
    def getIconDictionary(self):
       return self.iconDictionary
@@ -212,95 +198,171 @@ class Icons:
          iconname = icon['icon']
          iconcolor = icon['color']
          iconfill = icon['fill']
-         iconstatic = icon['staticicon']
-         iconcatalog = icon['catalogicon']
       else:
-         icon = self.iconDictionary['Undefined']
+         icon = self.iconDictionary['Undefined Icon']
          iconname = icon['icon']
          iconcolor = icon['color']
          iconfill = icon['fill']
-         iconstatic = icon['staticicon']
-         iconcatalog = icon['catalogicon']
 
-      return iconname, iconcolor, iconfill, iconstatic, iconcatalog
+      return iconname, iconcolor, iconfill
 
-   def getStaticIcon(self, staticname):
-      staticimage = self.staticicons.getIcon(staticname)
-      return staticimage
-
-   def getCatalogIcon(self, staticname):
-      if staticname[0] == '*':
-         if staticname[1] == '*':
-            staticimage = self.staticicons.getIcon("(Group) " + staticname[2:])
-         else:
-            staticimage = self.staticicons.getIcon(staticname[1:])
+   def getResourceIcon(self, iconusage):
+      if iconusage in self.iconDictionary:
+         icon = self.iconDictionary[iconusage]
       else:
-        staticimage = self.catalogicons.getIcon(staticname)
-      return staticimage
+         icon = self.iconDictionary['Undefined Icon']
 
-   '''
-   def getIcon(self, iconusage):
-      if self.common.isProviderAny():
-         if iconusage in self.iconDictionary:
-            icon = self.iconDictionary[iconusage]
-            iconname = icon['icon']
-            iconcolor = icon['color']
-            #iconshape = icon['shape'] if 'shape' in icon else ""
-            #hideicon = icon['hideicon'] if 'hideicon' in icon else ""
-         elif iconusage + '-any' in selfs.iconDictionary:
-            icon = selfs.iconDictionary[iconusage + '-any']
-            iconname = icon['icon']
-            iconcolor = icon['color']
-            #iconshape = icon['shape'] if 'shape' in icon else ""
-            #hideicon = icon['hideicon'] if 'hideicon' in icon else ""
-         elif iconusage + '-ibm' in self.iconDictionary:
-            icon = self.iconDictionary[iconusage + '-ibm']
-            iconname = icon['icon']
-            iconcolor = icon['color']
-            #iconshape = icon['shape'] if 'shape' in icon else ""
-            #hideicon = icon['hideicon'] if 'hideicon' in icon else ""
-         else:
-            icon = self.iconDictionary['Undefined']
-            iconname = icon['icon']
-            iconcolor = icon['color']
-            #iconshape = icon['shape'] if 'shape' in icon else ""
-            #hideicon = icon['hideicon'] if 'hideicon' in icon else ""
-      else: # check prescribed
-         if iconusage in self.iconDictionary:
-            icon = self.iconDictionary[iconusage]
-            iconname = icon['icon']
-            iconcolor = icon['color']
-            #iconshape = icon['shape'] if 'shape' in icon else ""
-            #hideicon = icon['hideicon'] if 'hideicon' in icon else ""
-         elif iconusage + '-ibm' in self.iconDictionary:
-            icon = self.iconDictionary[iconusage + '-ibm']
-            iconname = icon['icon']
-            iconcolor = icon['color']
-            #iconshape = icon['shape'] if 'shape' in icon else ""
-            #hideicon = icon['hideicon'] if 'hideicon' in icon else ""
-         elif iconusage + '-any' in self.iconDictionary:
-            icon = self.iconDictionary[iconusage + '-any']
-            iconname = icon['icon']
-            iconcolor = icon['color']
-            #iconshape = icon['shape'] if 'shape' in icon else ""
-            #hideicon = icon['hideicon'] if 'hideicon' in icon else ""
-         else:
-            icon = self.iconDictionary['Undefined']
-            iconname = icon['icon']
-            iconcolor = icon['color']
-            #iconshape = icon['shape'] if 'shape' in icon else ""
-            #hideicon = icon['hideicon'] if 'hideicon' in icon else ""
-
-      #return iconname, iconcolor, iconshape, hideicon
-      return iconname, iconcolor
-   '''
+      return icon
 
    def validIcon(self, iconname):
       if iconname in self.iconDictionary:
          return True
-      if iconname + '-any' in self.iconDictionary:
-         return True
-      if iconname + '-ibm' in self.iconDictionary:
-         return True
-      return False
+      else:
+         return False
 
+   def printIcons(self):
+      for entry in self.iconDictionary:
+         icon = self.iconDictionary[entry]
+         print(icon)
+
+   def mapResources(self, resources):
+      for entry in self.iconDictionary:
+         icon = self.iconDictionary[entry]
+         resource = icon['resource']
+
+         if resource == 'none' or resource == 'local':
+            continue
+
+         resource = resources.getResource(resource)
+         fields = icon['fields']
+            
+         lists = []
+         for index, row in resource.iterrows():
+            list = {}
+            for newname, oldname in fields.items():
+               if oldname[0] == '*':
+                  list[newname] = oldname[1:]
+               elif oldname[0] == ':':
+                  tempindex = int(oldname[1])
+                  tempname = oldname[2:]
+                  tempstring = row[tempname]
+                  temparray = tempstring.split(':')
+                  list[newname] = temparray[tempindex]
+               elif oldname.find("+") > -1:
+                  templist = oldname.split("+")
+                  tempindex = 0
+                  newdata = ""
+                  while tempindex < len(templist): 
+                     tempdata = row[templist[tempindex]]
+                     if newdata == "":
+                        newdata = tempdata
+                     else:
+                        newdata = newdata + "-" + tempdata
+                     tempindex += 1
+                  list[newname] = newdata
+               else:
+                  templist = oldname.split()
+                  tempdata = row[templist[0]]
+                  if len(templist) == 1:
+                     element = tempdata
+                  else:
+                     tempindex = 1
+                     while tempindex < len(templist): 
+                        tempdata = tempdata[0]
+                        tempdata = tempdata[templist[tempindex]]
+                        tempindex += 1
+                  list[newname] = tempdata
+            lists.append(list)
+
+         df = pd.DataFrame(lists)
+         icon['data'] = df 
+
+      self.addClouds()
+      self.addRegions()
+      self.addZones()
+
+      return True
+
+   def addClouds(self):
+      data = [{'label': 'IBM Cloud', 'id': 'IBM Cloud Group'}]
+
+      icon = self.iconDictionary['IBM Cloud Group']
+      df = pd.DataFrame(data)
+      icon['data'] = df 
+
+      return
+
+   def addRegions(self):
+      data = [
+          {'label': 'Sydney',        'id': 'au-syd',   'IBM Cloud Group': 'IBM Cloud Group'},  
+          {'label': 'Sao Paulo',     'id': 'br-sao',   'IBM Cloud Group': 'IBM Cloud Group'},  
+          {'label': 'Toronto',       'id': 'ca-tor',   'IBM Cloud Group': 'IBM Cloud Group'},  
+          {'label': 'Frankfurt',     'id': 'eu-de',    'IBM Cloud Group': 'IBM Cloud Group'},  
+          {'label': 'London',        'id': 'eu-gb',    'IBM Cloud Group': 'IBM Cloud Group'},  
+          {'label': 'Osaka',         'id': 'jp-osa',   'IBM Cloud Group': 'IBM Cloud Group'},  
+          {'label': 'Tokyo',         'id': 'jp-tok',   'IBM Cloud Group': 'IBM Cloud Group'},  
+          {'label': 'Washington DC', 'id': 'us-east',  'IBM Cloud Group': 'IBM Cloud Group'},  
+          {'label': 'Dallas',        'id': 'us-south', 'IBM Cloud Group': 'IBM Cloud Group'}  
+        ]
+
+      icon = self.iconDictionary['Region Group']
+      df = pd.DataFrame(data)
+      icon['data'] = df 
+
+      return
+
+   def addZones(self):
+      data = [
+          {'label': 'Zone 1', 'sublabel': '10.245.0.0/18',   'id': 'au-syd-1'},
+          {'label': 'Zone 2', 'sublabel': '10.245.64.0/18',  'id': 'au-syd-2'}, 
+          {'label': 'Zone 3', 'sublabel': '10.245.128.0/18', 'id': 'au-syd-3'},
+
+          {'label': 'Zone 1', 'sublabel': '10.250.0.0/18',   'id': 'br-sao-1'},
+          {'label': 'Zone 2', 'sublabel': '10.250.64.0/18',  'id': 'br-sao-2'}, 
+          {'label': 'Zone 3', 'sublabel': '10.250.128.0/18', 'id': 'br-sao-3'},
+
+          {'label': 'Zone 1', 'sublabel': '10.249.0.0/18',   'id': 'ca-tor-1'},
+          {'label': 'Zone 2', 'sublabel': '10.249.64.0/18',  'id': 'ca-tor-2'}, 
+          {'label': 'Zone 3', 'sublabel': '10.249.128.0/18', 'id': 'ca-tor-3'},
+
+          {'label': 'Zone 1', 'sublabel': '10.243.0.0/18',   'id': 'eu-de-1'},
+          {'label': 'Zone 2', 'sublabel': '10.243.64.0/18',  'id': 'eu-de-2'}, 
+          {'label': 'Zone 3', 'sublabel': '10.243.128.0/18', 'id': 'eu-de-3'},
+
+          {'label': 'Zone 1', 'sublabel': '10.242.0.0/18',   'id': 'eu-gb-1'},
+          {'label': 'Zone 2', 'sublabel': '10.242.64.0/18',  'id': 'eu-gb-2'}, 
+          {'label': 'Zone 3', 'sublabel': '10.242.128.0/18', 'id': 'eu-gb-3'},
+
+          {'label': 'Zone 1', 'sublabel': '10.248.0.0/18',   'id': 'jp-osa-1'},
+          {'label': 'Zone 2', 'sublabel': '10.248.64.0/18',  'id': 'jp-osa-2'}, 
+          {'label': 'Zone 3', 'sublabel': '10.248.128.0/18', 'id': 'jp-osa-3'},
+
+          {'label': 'Zone 1', 'sublabel': '10.244.0.0/18',   'id': 'jp-tok-1'},
+          {'label': 'Zone 2', 'sublabel': '10.244.64.0/18',  'id': 'jp-tok-2'}, 
+          {'label': 'Zone 3', 'sublabel': '10.244.128.0/18', 'id': 'jp-tok 3'},
+
+          {'label': 'Zone 1', 'sublabel': '10.241.0.0/18',   'id': 'us-east-1'},
+          {'label': 'Zone 2', 'sublabel': '10.241.64.0/18',  'id': 'us-east-2'}, 
+          {'label': 'Zone 3', 'sublabel': '10.241.128.0/18', 'id': 'us-east-3'},
+
+          {'label': 'Zone 1', 'sublabel': '10.240.0.0/18',   'id': 'us-south-1'},
+          {'label': 'Zone 2', 'sublabel': '10.240.64.0/18',  'id': 'us-south-2'}, 
+          {'label': 'Zone 3', 'sublabel': '10.240.128.0/18', 'id': 'us-south-3'}
+        ]
+
+      vpcIcon = self.getResourceIcon('VPC Group')
+      vpcData = vpcIcon['data']
+      zoneData = []
+
+      for vpcKey, vpcRow in vpcData.iterrows():
+         vpcID = vpcRow['id']
+         for zoneRow in data:
+            newRow = zoneRow.copy()
+            newRow["id"] = vpcID + "-" + newRow["id"]
+            zoneData.append(newRow)
+
+      icon = self.iconDictionary['Availability Zone Group']
+      df = pd.DataFrame(zoneData)
+      icon['data'] = df 
+
+      return

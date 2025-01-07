@@ -34,139 +34,139 @@ class IBMCloud(_CoreGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(IBMCloud, self).__init__(label, sublabel=sublabel,
                                        linecolor=Colors.lines["network"], fillcolor=Colors.fills["white"],
-                                       icon="IBM Cloud", direction=direction)
+                                       icon="IBM Cloud Group", direction=direction)
 
 class VPC(_CoreGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(VPC, self).__init__(label, sublabel=sublabel, 
                                   linecolor=Colors.lines["network"], fillcolor=Colors.fills["white"],
-                                  icon="VPC", direction=direction)
+                                  icon="VPC Group", direction=direction)
 
 class Subnet(_CoreGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(Subnet, self).__init__(label, sublabel=sublabel, 
                                      linecolor=Colors.lines["network"], fillcolor=Colors.fills["white"],
-                                     icon="Subnet", direction=direction) 
+                                     icon="Subnet Group", direction=direction) 
 
 class EnterpriseNetwork(_CoreGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(EnterpriseNetwork, self).__init__(label, sublabel=sublabel, 
                                                 linecolor=Colors.lines["network"], fillcolor=Colors.fills["white"],
-                                                icon="Enterprise Network", direction=direction) 
+                                                icon="Enterprise Network Group", direction=direction) 
 
 class PublicNetwork(_CoreGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(PublicNetwork, self).__init__(label, sublabel=sublabel, 
                                             linecolor=Colors.lines["network"], fillcolor=Colors.fills["white"],
-                                            icon="Public Network", direction="LR") 
+                                            icon="Public Network Group", direction="LR") 
 
 class CloudServices(_CoreGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(CloudServices, self).__init__(label, sublabel=sublabel, 
                                             linecolor=Colors.lines["network"], fillcolor=Colors.fills["white"],
-                                            icon="Cloud Services", direction="LR") 
+                                            icon="Cloud Services Group", direction="LR") 
 
 class InternetServices(_CoreGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(InternetServices, self).__init__(label, sublabel=sublabel, 
                                                linecolor=Colors.lines["network"], fillcolor=Colors.fills["white"],
-                                               icon="Internet Services", direction="LR") 
+                                               icon="Internet Services Group", direction="LR") 
 
 class OverlayNetwork(_CoreGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(OverlayNetwork, self).__init__(label, sublabel=sublabel, 
                                              linecolor=Colors.lines["network"], fillcolor=Colors.fills["white"],
-                                             icon="Overlay Network", direction="LR") 
+                                             icon="Overlay Network Group", direction="LR") 
 
 class PowerWorkspace(_CoreGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(PowerWorkspace, self).__init__(label, sublabel=sublabel, 
                                              linecolor=Colors.lines["network"], fillcolor=Colors.fills["white"],
-                                             icon="Power Workspace", direction="LR") 
+                                             icon="Power Workspace Group", direction="LR") 
 
 class ZSystem(_CoreGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(ZSystem, self).__init__(label, sublabel=sublabel, 
                                       linecolor=Colors.lines["network"], fillcolor=Colors.fills["compute"],
-                                      icon="Z System", direction="LR") 
+                                      icon="Z System Group", direction="LR") 
 
 class Internet(_CoreGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(Internet, self).__init__(label, sublabel=sublabel, 
                                        linecolor=Colors.lines["network"], fillcolor=Colors.fills["white"],
-                                       icon="Internet", direction="LR") 
+                                       icon="Internet Group", direction="LR") 
 
 class VLAN(_CoreGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(VLAN, self).__init__(label, sublabel=sublabel, 
                                    linecolor=Colors.lines["network"], fillcolor=Colors.fills["white"],
-                                   icon="VLAN", direction="LR") 
+                                   icon="VLAN Group", direction="LR") 
 
 class ClassicVLAN(_CoreGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(Classic_VLAN, self).__init__(label, sublabel=sublabel, 
                                            linecolor=Colors.lines["network"], fillcolor=Colors.fills["white"],
-                                           icon="Classic VLAN", direction="LR") 
+                                           icon="Classic VLAN Group", direction="LR") 
 
 class ClassicInfrastructure(_CoreGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(ClassicInfrastructure, self).__init__(label, sublabel=sublabel, 
                                                     linecolor=Colors.lines["network"], fillcolor=Colors.fills["white"],
-                                                    icon="Classic Infrastructure", direction="LR") 
+                                                    icon="Classic Infrastructure Group", direction="LR") 
 
 class OpenShift(_CoreGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(OpenShift, self).__init__(label, sublabel=sublabel, 
                                         linecolor=Colors.lines["compute"], fillcolor=Colors.fills["compute"],
-                                        icon="OpenShift", direction="LR") 
+                                        icon="OpenShift Group", direction="LR") 
 
 class KubernetesServices(_CoreGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(KubernetesServices, self).__init__(label, sublabel=sublabel, 
                                                  linecolor=Colors.lines["compute"], fillcolor=Colors.fills["compute"],
-                                                 icon="Kubernetes Services", direction="LR") 
+                                                 icon="Kubernetes Services Group", direction="LR") 
 
 class ZContainers(_CoreGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(ZContainers, self).__init__(label, sublabel=sublabel, 
                                           linecolor=Colors.lines["compute"], fillcolor=Colors.fills["compute"],
-                                          icon="Z Containers", direction="LR") 
+                                          icon="Z Containers Group", direction="LR") 
 
 class watsonx(_CoreGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(watsonx, self).__init__(label, sublabel=sublabel, 
                                       linecolor=Colors.lines["applications"], fillcolor=Colors.fills["white"],
-                                      icon="watsonx", direction="LR") 
+                                      icon="watsonx Group", direction="LR") 
 
 class watsonxCodeAssistant(_CoreGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(watsonxCodeAssistant, self).__init__(label, sublabel=sublabel, 
                                       linecolor=Colors.lines["applications"], fillcolor=Colors.fills["white"],
-                                      icon="watsonx Code Assistant", direction="LR") 
+                                      icon="watsonx Code Assistant Group", direction="LR") 
 
 class watsonxZCodeAssistant(_CoreGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(watsonZxCodeAssistant, self).__init__(label, sublabel=sublabel, 
                                       linecolor=Colors.lines["applications"], fillcolor=Colors.fills["white"],
-                                      icon="watsonx Z Code Assistant", direction="LR") 
+                                      icon="watsonx Z Code Assistant Group", direction="LR") 
 
 class AuthorizationBoundary(_CoreGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(AuthorizationBoundary, self).__init__(label, sublabel=sublabel, 
                                                     linecolor=Colors.lines["security"], fillcolor=Colors.fills["security"],
-                                                    icon="Authorization Boundary", direction="LR") 
+                                                    icon="Authorization Boundary Group", direction="LR") 
 
 class PointOfPresence(_CoreGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(PointOfPresence, self).__init__(label, sublabel=sublabel, 
                                               linecolor=Colors.lines["location"], fillcolor=Colors.fills["white"],
-                                              icon="Point of Presence", direction="LR") 
+                                              icon="Point of Presence Group", direction="LR") 
 
 class Region(_CoreGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(Region, self).__init__(label, sublabel=sublabel, 
                                       linecolor=Colors.lines["location"], fillcolor=Colors.fills["location"], 
-                                      icon="Region", direction=direction) 
+                                      icon="Region Group", direction=direction) 
 
 # Core Group Aliases
 Enterprise = EnterpriseNetwork
@@ -222,7 +222,7 @@ class AvailabilityZone(_ControlGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(AvailabilityZone, self).__init__(label, sublabel=sublabel,
                                                linecolor=Colors.lines["location"], fillcolor=Colors.fills["location"], 
-                                               icon="Availability Zone", direction=direction) 
+                                               icon="Availability Zone Group", direction=direction) 
 
 # Zone Group Aliases
 Zone = AvailabilityZone
@@ -246,42 +246,42 @@ class ExpandedVirtualServer(_ExpandedGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(ExpandedVirtualServer, self).__init__(label, sublabel=sublabel,
                                                     linecolor=Colors.lines["compute"], fillcolor=Colors.fills["compute"],
-                                                    icon="Virtual Server", direction="LR")
+                                                    icon="Virtual Server Icon", direction="LR")
 
 class ExpandedPowerVirtualServer(_ExpandedGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(ExpandedPowerVirtualServer, self).__init__(label, sublabel=sublabel,
                                                          linecolor=Colors.lines["compute"], fillcolor=Colors.fills["compute"],
-                                                         icon="Power Virtual Server", direction="LR")
+                                                         icon="Power Virtual Server Icon", direction="LR")
 
 class ExpandedClassicVirtualServer(_ExpandedGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(ExpandedClassicVirtualServer, self).__init__(label, sublabel=sublabel,
                                                            linecolor=Colors.lines["compute"], fillcolor=Colors.fills["compute"],
-                                                           icon="Classic Virtual Server", direction="LR")
+                                                           icon="Classic Virtual Server Icon", direction="LR")
 
 class ExpandedBareMetalServer(_ExpandedGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(ExpandedBareMetalServer, self).__init__(label, sublabel=sublabel,
                                                       linecolor=Colors.lines["compute"], fillcolor=Colors.fills["compute"],
-                                                      icon="Bare Metal Server", direction="LR")
+                                                      icon="Bare Metal Server Icon", direction="LR")
 
 class ExpandedClassicBareMetalServer(_ExpandedGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(ExpandedClassicBareMetalServer, self).__init__(label, sublabel=sublabel,
                                                              linecolor=Colors.lines["compute"], fillcolor=Colors.fills["compute"],
-                                                             icon="Classic Bare Metal Server", direction="LR")
+                                                             icon="Classic Bare Metal Server Icon", direction="LR")
 
 class ExpandedApplication(_ExpandedGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(ExpandedApplication, self).__init__(label, sublabel=sublabel,
                                                   linecolor=Colors.lines["applications"], fillcolor=Colors.fills["applications"],
-                                                  icon="Application", direction="LR")
+                                                  icon="Application Icon", direction="LR")
 
 class ExpandedMicroservice(_ExpandedGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super(ExpandedMicroservice, self).__init__(label, sublabel=sublabel,
                                                    linecolor=Colors.lines["applications"], fillcolor=Colors.fills["applications"],
-                                                   icon="Microservice", direction="LR")
+                                                   icon="Microservice Icon", direction="LR")
 
 # Expanded Group Aliases

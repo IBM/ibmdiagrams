@@ -1,4 +1,4 @@
-# @file __init__.py
+# @file diagram.py
 #
 # Copyright contributors to the ibmdiagrams project
 #
@@ -13,10 +13,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .properties import Properties
-from .build import Build
-from .common import Common
-from .compose import Compose
-from .load import Load
-from .composejson import ComposeJSON
-from .loadjson import LoadJSON
+from . import _IBMDiagram
+from .colors import Colors
+
+class IBMDiagram(_IBMDiagram):
+    def __init__(self, name, filename="", output="", direction=""):
+        if filename == "":
+            filename = name
+
+        super(IBMDiagram, self).__init__(name=name, filename=filename, output=output,
+                                         direction=direction)
+
+# Aliases
+Diagram = IBMDiagram

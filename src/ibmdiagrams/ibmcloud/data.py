@@ -25,77 +25,77 @@ class _Data(_IBMCollapsed):
 class Db2(_Data):
     def __init__(self, label, sublabel=""):
         super(Db2, self).__init__(label, sublabel=sublabel, 
-                                  icon="Db2")
+                                  icon="Db2 Icon")
 
 class Db2Warehouse(_Data):
     def __init__(self, label, sublabel=""):
         super(Db2Warehouse, self).__init__(label, sublabel=sublabel, 
-                                           icon="Db2 Warehouse")
+                                           icon="Db2 Warehouse Icon")
 
 class Cloudant(_Data):
     def __init__(self, label, sublabel=""):
         super(Cloudant, self).__init__(label, sublabel=sublabel, 
-                                       icon="Cloudant")
+                                       icon="Cloudant Icon")
 
 class DataStax(_Data):
     def __init__(self, label, sublabel=""):
         super(DataStax, self).__init__(label, sublabel=sublabel, 
-                                       icon="DataStax")
+                                       icon="DataStax Icon")
 
 class Elasticsearch(_Data):
     def __init__(self, label, sublabel=""):
         super(Elasticsearch, self).__init__(label, sublabel=sublabel, 
-                                            icon="Elasticsearch")
+                                            icon="Elasticsearch Icon")
 
 class EnterpriseDB(_Data):
     def __init__(self, label, sublabel=""):
         super(EnterpriseDB, self).__init__(label, sublabel=sublabel, 
-                                           icon="EnterpriseDB")
+                                           icon="EnterpriseDB Icon")
 
 class etcd(_Data):
     def __init__(self, label, sublabel=""):
         super(etcd, self).__init__(label, sublabel=sublabel, 
-                                   icon="etcd")
+                                   icon="etcd Icon")
 
 class MongoDB(_Data):
     def __init__(self, label, sublabel=""):
         super(MongoDB, self).__init__(label, sublabel=sublabel, 
-                                      icon="Mongo DB")
+                                      icon="Mongo DB Icon")
 
 class MySQL(_Data):
     def __init__(self, label, sublabel=""):
         super(MySQL, self).__init__(label, sublabel=sublabel, 
-                                     icon="MySQL")
+                                     icon="MySQL Icon")
 
 class PostgreSQL(_Data):
     def __init__(self, label, sublabel=""):
         super(PostgreSQL, self).__init__(label, sublabel=sublabel, 
-                                         icon="PostgreSQL")
+                                         icon="PostgreSQL Icon")
 
 class Rabbit(_Data):
     def __init__(self, label, sublabel=""):
         super(Rabbit, self).__init__(label, sublabel=sublabel, 
-                                     icon="Rabbit")
+                                     icon="Rabbit Icon")
 
 class Redis(_Data):
     def __init__(self, label, sublabel=""):
         super(Redis, self).__init__(label, sublabel=sublabel, 
-                                    icon="Redis")
+                                    icon="Redis Icon")
 
 class Database(_Data):
     def __init__(self, label, sublabel=""):
         super(Database, self).__init__(label, sublabel=sublabel, 
-                                       icon="Database")
+                                       icon="Database Icon")
 
 class EventStreams(_Data):
     def __init__(self, label, sublabel=""):
         super(EventStreams, self).__init__(label, sublabel=sublabel,
-                                           icon="Event Streams")
+                                           icon="Event Streams Icon")
 
 class DataPak(_Data):
     def __init__(self, label, sublabel=""):
         super(DataPak, self).__init__(label, sublabel=sublabel,
-                                      icon="Data Pak")
+                                      icon="Data Pak Icon")
 
 # Aliases
 Ds = DataStax

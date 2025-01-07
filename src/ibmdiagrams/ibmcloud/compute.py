@@ -25,37 +25,37 @@ class _Compute(_IBMCollapsed):
 class VirtualServer(_Compute):
     def __init__(self, label, sublabel=""):
         super(VirtualServer, self).__init__(label, sublabel=sublabel, 
-                                            icon="Virtual Server")
+                                            icon="Virtual Server Icon")
 
 class PowerVirtualServer(_Compute):
     def __init__(self, label, sublabel=""):
         super(PowerVirtualServer, self).__init__(label, sublabel=sublabel, 
-                                                 icon="Power Virtual Server")
+                                                 icon="Power Virtual Server Icon")
 class ClassicVirtualServer(_Compute):
     def __init__(self, label, sublabel=""):
         super(ClassicVirtualServer, self).__init__(label, sublabel=sublabel, 
-                                                   icon="Classic Virtual Server")
+                                                   icon="Classic Virtual Server Icon")
 class BareMetalServer(_Compute):
     def __init__(self, label, sublabel=""):
         super(BareMetalServer, self).__init__(label, sublabel=sublabel, 
-                                              icon="Bare Metal Server")
+                                              icon="Bare Metal Server Icon")
 class ClassicBareMetalServer(_Compute):
     def __init__(self, label, sublabel=""):
         super(ClassicBareMetalServer, self).__init__(label, sublabel=sublabel, 
-                                                     icon="Classic Bare Metal Server")
+                                                     icon="Classic Bare Metal Server Icon")
 class DedicatedHost(_Compute):
     def __init__(self, label, sublabel=""):
         super(DedicatedHost, self).__init__(label, sublabel=sublabel, 
-                                            icon="Dedicated Host")
+                                            icon="Dedicated Host Icon")
 
 class ImageService(_Compute):
     def __init__(self, label, sublabel=""):
         super(ImageService, self).__init__(label, sublabel=sublabel, 
-                                           icon="Image Service")
+                                           icon="Image Service Icon")
 
 class Satellite(_Compute):
     def __init__(self, label, sublabel=""):
         super(Satellite, self).__init__(label, sublabel=sublabel, 
-                                        icon="Satellite")
+                                        icon="Satellite Icon")
 
 # Aliases

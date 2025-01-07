@@ -25,26 +25,26 @@ class _Storage(_IBMCollapsed):
 class BlockStorage(_Storage):
     def __init__(self, label, sublabel=""):
         super(BlockStorage, self).__init__(label, sublabel=sublabel, 
-                                           icon="Block Storage")
+                                           icon="Block Storage Icon")
 
 class BlockStorageSnapshots(_Storage):
     def __init__(self, label, sublabel=""):
         super(BlockStorageSnapshots, self).__init__(label, sublabel=sublabel, 
-                                                    icon="Block Storage Snapshots")
+                                                    icon="Block Storage Snapshotsi Icon")
 
 class FileStorage(_Storage):
     def __init__(self, label, sublabel=""):
         super(FileStorage, self).__init__(label, sublabel=sublabel, 
-                                          icon="Undefined")
+                                          icon="Undefined Icon")
 
 class ObjectStorage(_Storage):
     def __init__(self, label, sublabel=""):
         super(ObjectStorage, self).__init__(label, sublabel=sublabel, 
-                                            icon="Object Storage")
+                                            icon="Object Storage Icon")
 
 class CloudBackup(_Storage):
     def __init__(self, label, sublabel=""):
         super(CloudBackup, self).__init__(label, sublabel=sublabel, 
-                                          icon="Cloud Backup")
+                                          icon="Cloud Backup Icon")
 
 # Aliases

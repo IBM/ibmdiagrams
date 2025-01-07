@@ -25,117 +25,117 @@ class _Network(_IBMCollapsed):
 class LoadBalancer(_Network):
     def __init__(self, label, sublabel=""):
         super(LoadBalancer, self).__init__(label, sublabel=sublabel, 
-                                           icon="Load Balancer")
+                                           icon="Load Balancer Icon")
 
 class ApplicationLoadBalancer(_Network):
     def __init__(self, label, sublabel=""):
         super(ApplicationLoadBalancer, self).__init__(label, sublabel=sublabel, 
-                                                      icon="Application Load Balancer")
+                                                      icon="Application Load Balancer Icon")
 
 class NetworkLoadBalancer(_Network):
     def __init__(self, label, sublabel=""):
         super(NetworkLoadBalancer, self).__init__(label, sublabel=sublabel, 
-                                                  icon="Network Load Balancer")
+                                                  icon="Network Load Balancer Icon")
 
 class GlobalLoadBalancer(_Network):
     def __init__(self, label, sublabel=""):
         super(GlobalLoadBalancer, self).__init__(label, sublabel=sublabel, 
-                                                 icon="Global Load Balancer")
+                                                 icon="Global Load Balancer Icon")
 
 class ClassicLoadBalancer(_Network):
     def __init__(self, label, sublabel=""):
         super(ClassicLoadBalancer, self).__init__(label, sublabel=sublabel, 
-                                                  icon="Classic Load Balancer")
+                                                  icon="Classic Load Balancer Icon")
 
 class FloatingIP(_Network):
     def __init__(self, label, sublabel=""):
         super(FloatingIP, self).__init__(label, sublabel=sublabel, 
-                                         icon="Floating IP")
+                                         icon="Floating IP Icon")
 
 class NetworkInterface(_Network):
     def __init__(self, label, sublabel=""):
         super(NetworkInterface, self).__init__(label, sublabel=sublabel, 
-                                               icon="Network Interface")
+                                               icon="Network Interface Icon")
 
 class EndpointGateway(_Network):
     def __init__(self, label, sublabel=""):
         super(EndpointGateway, self).__init__(label, sublabel=sublabel, 
-                                              icon="Endpoint Gateway")
+                                              icon="Endpoint Gateway Icon")
 
 class PublicGateway(_Network):
     def __init__(self, label, sublabel=""):
         super(PublicGateway, self).__init__(label, sublabel=sublabel, 
-                                            icon="Public Gateway")
+                                            icon="Public Gateway Icon")
 
 class TransitGateway(_Network):
     def __init__(self, label, sublabel=""):
         super(TransitGateway, self).__init__(label, sublabel=sublabel, 
-                                             icon="Transit Gateway")
+                                             icon="Transit Gateway Icon")
 
 class DirectLinkConnect(_Network):
     def __init__(self, label, sublabel=""):
         super(DirectLinkConnect, self).__init__(label, sublabel=sublabel, 
-                                                icon="Direct Link Connect")
+                                                icon="Direct Link Connect Icon")
 
 class DirectLinkDedicated(_Network):
     def __init__(self, label, sublabel=""):
         super(DirectLinkDedicated, self).__init__(label, sublabel=sublabel, 
-                                                  icon="Direct Link Dedicated")
+                                                  icon="Direct Link Dedicated Icon")
 
 class DNSServices(_Network):
     def __init__(self, label, sublabel=""):
         super(DNSServices, self).__init__(label, sublabel=sublabel, 
-                                                  icon="DNS Services")
+                                                  icon="DNS Services Icon")
 
 class InternetServices(_Network):
     def __init__(self, label, sublabel=""):
         super(InternetServices, self).__init__(label, sublabel=sublabel, 
-                                               icon="Internet Services")
+                                               icon="Internet Services Icon")
 
 class Internet(_Network):
     def __init__(self, label, sublabel=""):
         super(Internet, self).__init__(label, sublabel=sublabel, 
-                                              icon="Internet")
+                                              icon="Internet Icon")
 
 class NTP(_Network):
     def __init__(self, label, sublabel=""):
         super(NTP, self).__init__(label, sublabel=sublabel, 
-                                  icon="Undefined")
+                                  icon="Undefined Icon")
 
 class Bridge(_Network):
     def __init__(self, label, sublabel=""):
         super(Bridge, self).__init__(label, sublabel=sublabel, 
-                                            icon="Bridge")
+                                            icon="Bridge Icon")
 
 class Router(_Network):
     def __init__(self, label, sublabel=""):
         super(Router, self).__init__(label, sublabel=sublabel, 
-                                            icon="Router")
+                                            icon="Router Icon")
 
 class VLAN(_Network):
     def __init__(self, label, sublabel=""):
         super(VLAN, self).__init__(label, sublabel=sublabel, 
-                                          icon="VLAN")
+                                          icon="VLAN Icon")
 
 class ClassicVLAN(_Network):
     def __init__(self, label, sublabel=""):
         super(ClassicVLAN, self).__init__(label, sublabel=sublabel, 
-                                          icon="Classic VLAN")
+                                          icon="Classic VLAN Icon")
 
 class ProxyServer(_Network):
     def __init__(self, label, sublabel=""):
         super(ProxyServer, self).__init__(label, sublabel=sublabel, 
-                                          icon="Proxy Server")
+                                          icon="Proxy Server Icon")
 
 class L2Switch(_Network):
     def __init__(self, label, sublabel=""):
         super(L2Switch, self).__init__(label, sublabel=sublabel, 
-                                       icon="L2 Switch")
+                                       icon="L2 Switch Icon")
 
 class L3Switch(_Network):
     def __init__(self, label, sublabel=""):
         super(L3Switch, self).__init__(label, sublabel=sublabel, 
-                                       icon="L3 Switch")
+                                       icon="L3 Switch Icon")
 
 # Aliases
 DNS = DNSServices

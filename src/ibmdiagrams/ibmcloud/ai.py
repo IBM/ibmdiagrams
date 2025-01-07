@@ -25,60 +25,60 @@ class _AI(_IBMCollapsed):
 class watsonx(_AI):
     def __init__(self, label, sublabel=""):
         super(watsonx, self).__init__(label, sublabel=sublabel, 
-                                      icon="watsonx")
+                                      icon="watsonx Icon")
 
 class watsonxAI(_AI):
     def __init__(self, label, sublabel=""):
         super(watsonxAI, self).__init__(label, sublabel=sublabel, 
-                                        icon="watsonx.ai")
+                                        icon="watsonx.ai Icon")
 
 class watsonxData(_AI):
     def __init__(self, label, sublabel=""):
         super(watsonxData, self).__init__(label, sublabel=sublabel, 
-                                           icon="watsonx.data")
+                                           icon="watsonx.data Icon")
 
 class watsonxGovernance(_AI):
     def __init__(self, label, sublabel=""):
         super(watsonxGovernance, self).__init__(label, sublabel=sublabel, 
-                                                 icon="watsonx.governance")
+                                                 icon="watsonx.governance Icon")
 
 class watsonxOrchestrate(_AI):
     def __init__(self, label, sublabel=""):
         super(watsonxOrchestrate, self).__init__(label, sublabel=sublabel, 
-                                                 icon="watsonx Orchestrate")
+                                                 icon="watsonx Orchestrate Icon")
 
 class watsonxAssistant(_AI):
     def __init__(self, label, sublabel=""):
         super(watsonxAssistant, self).__init__(label, sublabel=sublabel, 
-                                               icon="watsonx Assistant")
+                                               icon="watsonx Assistant Icon")
 
 class watsonxCodeAssistant(_AI):
     def __init__(self, label, sublabel=""):
         super(watsonxCodeAssistant, self).__init__(label, sublabel=sublabel, 
-                                                   icon="watsonx Code Assistant")
+                                                   icon="watsonx Code Assistant Icon")
 
 class watsonxZCodeAssistant(_AI):
     def __init__(self, label, sublabel=""):
         super(watsonxZCodeAssistant, self).__init__(label, sublabel=sublabel, 
-                                                    icon="watsonx Z Code Assistant")
+                                                    icon="watsonx Z Code Assistant Icon")
 
 class watsonxZRefactorCodeAssistant(_AI):
     def __init__(self, label, sublabel=""):
         super(watsonxZRefactorCodeAssistant, self).__init__(label, sublabel=sublabel, 
-                                                            icon="watsonx Z Refactor Code Assistant")
+                                                            icon="watsonx Z Refactor Code Assistant Icon")
 
 class WatsonDiscovery(_AI):
     def __init__(self, label, sublabel=""):
         super(WatsonDiscovery, self).__init__(label, sublabel=sublabel, 
-                                              icon="Watson Discovery")
+                                              icon="Watson Discovery Icon")
 
 class WatsonMachineLearning(_AI):
     def __init__(self, label, sublabel=""):
         super(WatsonMachineLearning, self).__init__(label, sublabel=sublabel, 
-                                                    icon="Watson Machine Learning")
+                                                    icon="Watson Machine Learning Icon")
 class WatsonStudio(_AI):
     def __init__(self, label, sublabel=""):
         super(WatsonStudio, self).__init__(label, sublabel=sublabel, 
-                                           icon="Watson Studio")
+                                           icon="Watson Studio Icon")
 
 # Aliases

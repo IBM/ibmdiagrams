@@ -32,15 +32,13 @@ class InputTypes(Enum):
    YAML = 'yaml'
    Terraform = 'terraform'
 
-class IconTypes(Enum):
-   BUILTIN = 'BUILTIN'
-   DRAWIO = 'DRAWIO'
-   CATALOG = 'CATALOG'
-   STATIC = 'STATIC'
-
 class LabelTypes(Enum):
    CUSTOM = 'CUSTOM'
    GENERAL = 'GENERAL'
+
+class CodeTypes(Enum):
+   DRAWIO = 'DRAWIO'
+   PYTHON = 'PYTHON'
 
 class Directions(Enum):
    LR = 'LR'
@@ -76,24 +74,21 @@ class Options:
    outputFolder = ''
    iconType = ''
    labelType = ''
+   codeType = ''
    icons = None
    direction = ''
    alternate = None
    provider = None
    allicons = False
 
-   #def __init__(self, toolName):
    def __init__(self):
       self.runMode = RunMode.BATCH
       self.inputType = InputTypes.JSON
       self.region = Regions.ALL
       self.alternate = Alternates.WHITE
       self.provider = Providers.IBM
-      self.iconType = IconTypes.DRAWIO
-      #self.iconType = IconTypes.BUILTIN
-      #self.iconType = IconTypes.STATIC
-      #self.iconType = IconTypes.CATALOG
       self.labelType = LabelTypes.CUSTOM
+      self.codeType = CodeTypes.DRAWIO
       self.direction = Directions.LR
       #self.inputFile = 'input.json'
       #self.inputFolder = path.join(path.expanduser('~'), 'Documents', toolName)
@@ -227,27 +222,6 @@ class Options:
    def setIconType(self, value):
        self.iconType = value
 
-   def isBuiltinIcons(self):
-      return self.iconType == IconTypes.BUILTIN
-
-   def isDrawioIcons(self):
-      return self.iconType == IconTypes.DRAWIO
-
-   def isStaticIcons(self):
-      return self.iconType == IconTypes.STATIC
-
-   def isCatalogIcons(self):
-      return self.iconType == IconTypes.CATALOG
-
-   def setBuiltinIcons(self):
-      self.iconType = IconTypes.BUILTIN
-
-   def setStaticIcons(self):
-      self.iconType = IconTypes.STATIC
-
-   def setCatalogIcons(self):
-      self.iconType = IconTypes.CATALOG
-
    def isCustomLabels(self):
       return self.labelType == LabelTypes.CUSTOM
 
@@ -259,6 +233,18 @@ class Options:
 
    def setGeneralLabels(self):
       self.labelType = LabelTypes.GENERAL
+
+   def isDrawioCode(self):
+      return self.codeType == CodeTypes.DRAWIO
+
+   def isPythonCode(self):
+      return self.codeType == CodeTypes.PYTHON
+
+   def setPythonCode(self):
+      self.codeType = CodeTypes.PYTHON
+
+   def setDrawioCode(self):
+      self.codeType = CodeTypes.DRAWIO
 
    def getIcons(self):
       return self.icons

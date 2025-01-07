@@ -27,7 +27,7 @@ from copy import copy
 
 from .colors import Colors
 from .common import Common
-from .properties import Properties, Alternates, GroupTypes, Directions, ConnectorArrows, ConnectorStyles, Fonts, ItemTypes, OutputFormats, IconTypes, Providers
+from .properties import Properties, Alternates, GroupTypes, Directions, ConnectorArrows, ConnectorStyles, Fonts, ItemTypes, OutputFormats, Providers
 from .constants import ComponentFill, FillPalette, ShapeKind, ShapeName, ShapePos, ZoneCIDR
 from .shapes import Shapes
 from .icons import Icons
@@ -85,7 +85,6 @@ class Build:
       self.common = common
       self.shapes = Shapes(self.common)
       self.icons = Icons(self.common)
-      self.icontype = common.getIconType()
       self.diagrams = data.getDiagrams()
       self.groups = data.getGroups()
       self.items = data.getItems()
@@ -265,16 +264,9 @@ class Build:
 
       genflag = self.common.isGeneralLabels()
 
-      if self.common.isStaticIcons() or self.common.isCatalogIcons():
-         shapenode = self.shapes.buildStaticShape(groupid, properties, x, y, width, height, meta, genflag, items)
-         items.append(shapenode)
-      elif self.common.isDrawioIcons():
-         shapenode = self.shapes.buildDrawioShape(groupid, properties, x, y, width, height, meta, genflag)
-         #items.append(shapenode)
-         items = items + shapenode
-      else:
-         shapenode = self.shapes.buildShape(groupid, properties, x, y, width, height, meta, genflag)
-         items.append(shapenode)
+      shapenode = self.shapes.buildDrawioShape(groupid, properties, x, y, width, height, meta, genflag)
+      #items.append(shapenode)
+      items = items + shapenode
 
       return items, links, values
 
@@ -377,24 +369,6 @@ class Build:
          #   return None
          #diagrams[diagramid]["outformat"] = outformat
 
-         #icontype = properties["icontype"]
-         #if icontype == "":
-         #   icontype = DIAGRAM_ICONS_DEFAULT
-         #elif not icontype.upper() in [parm.value for parm in IconTypes]:
-         #   self.common.printInvalidIconType(icontype)
-         #   return None
-         #diagrams[diagramid]["icontype"] = icontype
-         diagrams[diagramid]["icontype"] = self.common.getIconType()
-
-         #if icontype.upper() == "BUILTIN":
-         #   self.common.setBuiltinIcons()
-         #elif icontype.upper() == "CATALOG":
-         #   self.common.setCatalogIcons()
-         #elif icontype.upper() == "STATIC":
-         #   self.common.setStaticIcons()
-
-         #if direction.upper() == "LR":
-         #   self.common.setDirectionLR()
          #elif direction.upper() == "TB":
          #   self.common.setDirectionTB()
 
@@ -420,17 +394,6 @@ class Build:
          if label == "":
             label = GROUP_LABEL_DEFAULT
          groups[groupid]["label"] = label
-
-         #icose = properties["icons"]
-         #if icons == "":
-         #   icons = GROUP_ICONS_DEFAULT
-         #elif not icons.upper() in [parm.value for parm in IconTypes]:
-         #   self.common.printInvalidIcons(icons)
-         #   return None
-         #groups[groupid]["icons"] = icons
-
-         iconType = self.common.getIconType()
-         groups[groupid]["icontype"] = iconType
 
          direction = properties["direction"]
          # TBD if groups direction not set then use diagram direction if set.
@@ -486,22 +449,15 @@ class Build:
             self.common.printInvalidIcon(icon)
             return None
 
-         iconname, linecolor, fillcolor, staticicon, catalogicon = self.icons.getIcon(icon)
+         iconname, linecolor, fillcolor = self.icons.getIcon(icon)
          userlinecolor = properties["linecolor"]
          if userlinecolor != "":
-            #iconname, linecolor, iconshape, hideicon = self.icons.getIcon(icon)
             linecolor = userlinecolor
          userfillcolor = properties["fillcolor"]
          if userfillcolor != "":
             fillcolor = userfillcolor
 
          iconimage = ""
-         if self.common.isStaticIcons():
-            if staticicon != "":
-               iconimage = self.icons.getStaticIcon("(Group) " + staticicon)
-         elif self.common.isCatalogIcons():
-            if catalogicon != "":
-               iconimage = self.icons.getCatalogIcon(catalogicon)
          properties["image"] = iconimage
 
          shape = properties["shape"]
@@ -569,17 +525,6 @@ class Build:
             label = ITEM_LABEL_DEFAULT
          items[nodeid]["label"] = label
 
-         #icons = properties["icons"]
-         #if icons == "":
-         #   icons = ITEM_ICONS_DEFAULT
-         #elif not icons.upper() in [parm.value for parm in IconTypes]:
-         #   self.common.printInvalidIconType(icons)
-         #   return None
-         #items[nodeid]["icons"] = icons
-
-         icons = self.common.getIcons()
-         items[nodeid]["icons"] = icons
-
          #direction = properties["direction"]
          #if direction == "":
          #   direction = ITEM_DIRECTION_DEFAULT
@@ -617,20 +562,12 @@ class Build:
             self.common.printInvalidIcon(icon)
             return None
 
-         iconname, linecolor, fillcolor, staticicon, catalogicon = self.icons.getIcon(icon)
+         iconname, linecolor, fillcolor = self.icons.getIcon(icon)
          userlinecolor = properties["linecolor"]
          if userlinecolor != "":
-            #iconname, linecolor, iconshape, hideicon  = self.icons.getIcon(icon)
-            #iconname, linecolor = self.icons.getIcon(icon)
             linecolor = userlinecolor
 
          iconimage = ""
-         if self.common.isStaticIcons():
-            if staticicon != "":
-               iconimage = self.icons.getStaticIcon(staticicon)
-         elif self.common.isCatalogIcons():
-            if catalogicon != "":
-               iconimage = self.icons.getCatalogIcon(catalogicon)
          properties["image"] = iconimage
 
          shape = properties["shape"]

@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: ibmdiagrams
-Version: 2.0.0
+Version: 3.0.0
 Summary: Generate architecture diagrams following IBM Diagram Standard
 Author-email: Jay Warfield <jay.warfield@us.ibm.com>
 Maintainer-email: Jay Warfield <jay.warfield@us.ibm.com>
@@ -245,8 +245,6 @@ Terraform usage example:
 -->
 
 Refer to Guides for complete details.
-
-Icons are from the [icons repo](https://github.com/IBM-Cloud/architecture-icons) for use in any drawio desktop. 
 
 <b><i>Note: Early release for testing - externals are subject to change.</i></b>
 

@@ -25,16 +25,16 @@ class _Observability(_IBMCollapsed):
 class CloudLogs(_Observability):
     def __init__(self, label, sublabel=""):
         super(CloudLogs, self).__init__(label, sublabel=sublabel, 
-                                        icon="Cloud Logs")
+                                        icon="Cloud Logs Icon")
 
 class FlowLogs(_Observability):
     def __init__(self, label, sublabel=""):
         super(FlowLogs, self).__init__(label, sublabel=sublabel, 
-                                       icon="Flow Logs")
+                                       icon="Flow Logs Icon")
 
 class Monitoring(_Observability):
     def __init__(self, label, sublabel=""):
         super(Monitoring, self).__init__(label, sublabel=sublabel, 
-                                         icon="Monitoring")
+                                         icon="Monitoring Icon")
 
 # Aliases

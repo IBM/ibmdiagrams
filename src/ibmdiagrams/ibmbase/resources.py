@@ -12,7 +12,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+import os.path
  
+from json import loads as json_load, dumps as json_dumps
+from pandas import concat, DataFrame, json_normalize, read_json
+from tabulate import tabulate
+
 class Resources:
    resourceDictionary = {
       # Activity Tracker API
@@ -499,27 +505,50 @@ class Resources:
       'ibm_is_vpn_server': {},
       'ibm_is_vpn_server_client': {},
       'ibm_is_vpn_server_route': {},
-      'lastmarker': {}
    }
  
    common = None
  
-   def __init__(self, common, df):
+   def __init__(self, common):
       self.common = common
-      for resource in self.resourceDictionary:
-         if resource != 'finalmarker':
-            self.resourceDictionary[resource] = df[df["type"] == resource]["instances"]
  
    def getResourceDictionary(self):
       return self.resourceDictionary
- 
-   def setResource(self, name, df):
-      if name in self.resourceDictionary:
-         self.resourceDictionary[name] = df[df["type"] == name]["instances"]
  
    def getResource(self, name):
       if name in self.resourceDictionary:
          resource = self.resourceDictionary[name]
       else:
-         resource = None
+         resource = {}
       return resource
+
+   def loadResources(self):
+      if not os.path.isfile(self.common.getInputFile()):
+         return False
+      
+      stream = open(self.common.getInputFile(), 'r', encoding='utf-8-sig')
+      data = json_load(stream.read())
+      resourcedata = data['resources']
+      df = json_normalize(resourcedata)
+
+      for resource in self.resourceDictionary:
+         count = 0
+         table = {}
+
+         for instances in df[df["type"] == resource]["instances"]:
+            for instance in instances:
+               attributes = instance["attributes"]
+               id = attributes["id"]
+               row = {"id": id} | attributes
+               table[count] = row
+               count += 1
+
+         if table != {}:
+            #print(json_dumps(table, indent=4))
+            frame = DataFrame.from_dict(table, orient="index")
+         else:
+            frame = DataFrame()
+
+         self.resourceDictionary[resource] = frame
+
+      return True
