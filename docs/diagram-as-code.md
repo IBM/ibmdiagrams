@@ -27,6 +27,7 @@
 
 </details>
 
+<!---
 <details><summary>IBM Cloud Types</summary>
 
 1. Connectors (connectors.py)
@@ -39,7 +40,9 @@
 - Tunnel Edge 
 
 </details>
+--->
 
+<!---
 <details><summary>IBM Shapes (if available) Parameters</summary>
 
 1. Diagram
@@ -75,7 +78,9 @@
 - fontsize = 14 (default) 
 
 </details>
+--->
 
+<!---
 <details><summary>IBM Shapes (if available) Types</summary>
 
 1. Connectors (connectors.py)
@@ -87,6 +92,7 @@
 - Tunnel Edge 
 
 </details>
+--->
 
 <details><summary>Examples</summary>
 

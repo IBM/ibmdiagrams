@@ -2,6 +2,12 @@
 
 Notable changes:
 
+## 3.0.2
+
+### Features
+
+- Added Transit Gateway, Endpoint Gateway, and Flow Log to Cloud/VPC Services.
+
 ## 3.0.1
 
 ### Features

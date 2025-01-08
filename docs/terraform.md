@@ -11,7 +11,11 @@
 
 ## Features Implemented
 
+Features are being added but limited features initially.
+
+<!---
 [Terraform Checklist](terraform-checklist.md)
+--->
 
 ## License
 
