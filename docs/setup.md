@@ -1,6 +1,6 @@
 # Setup
 
-## Prereqs
+## Install prereqs
 
 1. Install Python (3.11.3+):
 - Install [Python](https://www.python.org/downloads/).
@@ -11,12 +11,26 @@
 - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 - python get-pip.py
 
-## Install
+## Install ibmdiagrams
 
 1. Download wheel from Releases.
 2. pip install ibmdiagrams-x.y.z-py3-none-anywhl where x.y.z refers to the version number.
 3. Package is installed to /Library/Frameworks/Python.framework/Versions/VERSION/pythonVERSION/site-packages/ibmdiagrams
 4. Script is installed to /Library/Frameworks/Python.framework/Versions/VERSION/bin
+
+## Install IBM Plex Fonts
+
+- For online drawio: 
+1. Set fontFamily=IBM Plex Sans in properties or Format Panel (global fonts not supported in online drawio).
+2. Verify that a lower case L in a label has a slight right bend at bottom.
+- For drawio desktop on Mac:
+1. Go to: https://fonts.google.com/?query=Plex
+2. Select IBM Plex Sans (first font listed), select Get font, select Download all.
+3. Unpack IBM_Plex_Sans.zip.
+4. Open Font Book app.
+5. Select File, select Add Fonts to Current User, select unpacked IBM_Plex_Sans.
+6. Set fontFamily=IBM Plex Sans in properties (already included by ibmdiagrams) or Format Panel. 
+7. Verify that a lower case L in a label has a slight right bend at bottom.
 
 <!--
 ## Build

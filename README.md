@@ -6,22 +6,21 @@
 
 Generate architecture diagrams following [IBM Diagram Standard](https://www.ibm.com/design/language/infographics/technical-diagrams/design).
 
-Input is Python or Terraform with output to drawio file.
-
-Python usage example:
-- python cloud.py
-- Output to  cloud.drawio
-
-Terraform usage example:
-- ibmdiagrams -h
-- ibmdiagrams cloud.tfstate
-- Custom output to cloud.drawio
-<!--
-- ibmdiagrams --general cloud.tfstate
-- General output to cloud.drawio
--->
-
-Refer to Guides for complete details.
+Use cases:
+1. Python (diagram as code) to drawio file:
+   - python cloud.py
+   - Output cloud.drawio
+2. Terraform to drawio file:
+   - ibmdiagrams cloud.tfstate
+   - Output cloud.drawio (custom labels)
+   - ibmdiagrams --general cloud.tfstate
+   - Output cloud.drawio (general labels)
+3. Terraform to Python file:
+   - ibmdiagrams --python cloud.tfstate
+   - Output cloud.py
+4. Internal JSON (not available externally) to drawio file:
+   - ibmdiagrams cloud.json
+   - Output cloud.drawio
 
 <b><i>Note: Early release for testing - externals are subject to change.</i></b>
 
