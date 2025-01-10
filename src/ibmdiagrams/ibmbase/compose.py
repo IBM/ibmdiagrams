@@ -74,7 +74,8 @@ class Compose:
    def composeTree(self):
       diagramdata = {"label": [self.diagramname]}
       frame = pd.DataFrame(diagramdata)
-      diagram = TreeNode("Diagram Group", randomid(), 'LR', frame.iloc[0])
+      fontname = self.common.getFontName()
+      diagram = TreeNode("Diagram Group", randomid(), 'LR', fontname, frame.iloc[0])
       top = self.composeIconTree(diagram)
       return top
 
@@ -101,7 +102,7 @@ class Compose:
 
          for childKey, childRow in childData.iterrows():
             childID = childRow['id']
-            childNode = TreeNode(childName, childID, childDirection, childRow)
+            childNode = TreeNode(childName, childID, childDirection, None, childRow)
             parentNode = self.composeGroupTree(childNode, childIcon)
             if parentNode != None:
                top.addNode(parentNode)
@@ -139,7 +140,7 @@ class Compose:
                deployedOnNode.addNode(childNode)
                deployedOnNode = None
             else:
-               deployedOnNode = TreeNode(deployedOnGroup, deployedOnID, deployedOnDirection, deployedOnRow)
+               deployedOnNode = TreeNode(deployedOnGroup, deployedOnID, deployedOnDirection, None, deployedOnRow)
                self.savegroups[deployedOnID] = deployedOnNode
                deployedOnNode.addNode(childNode)
                if nextDeployedOnGroup != "none":
@@ -157,7 +158,7 @@ class Compose:
                deployedToNode = self.savegroups[deployedToID]
                deployedToNode.addNode(childNode)
             else:
-               deployedToNode = TreeNode(deployedToGroup, deployedToID, deployedToDirection, deployedToRow)
+               deployedToNode = TreeNode(deployedToGroup, deployedToID, deployedToDirection, None, deployedToRow)
                self.savegroups[deployedToID] = deployedToNode
                deployedToNode.addNode(childNode)
             break
@@ -187,7 +188,13 @@ class Compose:
       name = parent.name
       id = parent.id
       direction = parent.direction
+      fontname = parent.fontname
       data =  parent.data
+
+      if fontname == None:
+         fontname = ""
+      else:
+         fontname = ", fontname='" + fontname + "'"
 
       index = name.find("Group")
       if index != -1:
@@ -196,7 +203,7 @@ class Compose:
          if self.common.isCustomLabels() or useCustomLabel:
             label = data["label"]
             if "sublabel" in data:
-               sublabel = data["sublabel"]
+               sublabel = ", '" + data["sublabel"] + "'"
             else:
                sublabel = ""
          else:
@@ -210,11 +217,7 @@ class Compose:
          else:
             direction = ", direction='" + direction + "'"
 
-
-         if sublabel != "":
-            print(" " * self.indent + "with " + name + "('" + label + "', '" + sublabel + "'" + direction + "):", file=pythonfile)
-         else:
-            print(" " * self.indent + "with " + name + "('" + label + "'" + direction + "):", file=pythonfile)
+         print(" " * self.indent + "with " + name + "('" + label + "'" + sublabel + direction + fontname + "):", file=pythonfile)
 
       index = name.find("Icon")
       if index != -1:
@@ -223,7 +226,7 @@ class Compose:
          if self.common.isCustomLabels() or useCustomLabel:
             label = data["label"]
             if "sublabel" in data:
-               sublabel = data["sublabel"]
+               sublabel = ", '" + data["sublabel"] + "'"
             else:
                sublabel = ""
          else:
@@ -232,10 +235,7 @@ class Compose:
 
          name = name.replace(" ", "") 
 
-         if sublabel != "":
-            print(" " * self.indent + name + "('" + label + "', '" + sublabel + "')", file=pythonfile)
-         else:
-            print(" " * self.indent + name + "('" + label + "')", file=pythonfile)
+         print(" " * self.indent + name + "('" + label + "'" + sublabel + fontname + ")", file=pythonfile)
 
       for child in parent.children:
          self.composeResources(child, False, pythonfile)
@@ -245,10 +245,11 @@ class Compose:
       return
 
 class TreeNode:
-   def __init__(self, name, id, direction, data):
+   def __init__(self, name, id, direction, fontname, data):
       self.name = name
       self.id = id
       self.direction = direction
+      self.fontname = fontname
       self.data = data
       self.children = []
 
@@ -266,6 +267,8 @@ class TreeNode:
       print(self.id)
       print("TreeNode::direction:")
       print(self.direction)
+      print("TreeNode::fontname:")
+      print(self.fontname)
       print("TreeNode::data:")
       print(self.data)
       print("TreeNode::children:")

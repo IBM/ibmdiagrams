@@ -145,6 +145,12 @@ class Common:
    def getOutputBase(self):
       return self.options.getOutputBase()
 
+   def getFontName(self):
+      return self.options.getFontName()
+
+   def setFontName(self, fontName):
+      self.options.setFontName(fontName)
+
    def isCustomLabels(self):
       return self.labelType == LabelTypes.CUSTOM
 

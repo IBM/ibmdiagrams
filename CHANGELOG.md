@@ -2,6 +2,12 @@
 
 Notable changes:
 
+## 3.0.3
+
+### Features
+
+- Enabled fontFamily for global IBM Plex languages.
+
 ## 3.0.2
 
 ### Features

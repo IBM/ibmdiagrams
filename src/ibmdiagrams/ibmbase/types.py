@@ -605,10 +605,11 @@ class Types:
       return data
 
    def buildActorShape(self, id, node, x, y, width, height, meta, shapelabel):
-      styleshape = "shape=ellipse;%FILL;aspect=fixed;resizable=0;html=1;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;strokeColor=none;fontFamily=IBM Plex Sans;fontSize=14;"
+      styleshape = "shape=ellipse;%FILL;aspect=fixed;resizable=0;html=1;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;strokeColor=none;fontFamily=%FONT;fontSize=14;"
       fillcolor = node["fillcolor"]
       styleFill = "fillColor=" + fillcolor + ';' 
       styleshape = styleshape.replace("%FILL", styleFill)
+      styleshape = styleshape.replace("%FONT", self.common.getFontName())
 
       parentid = node["parentid"]
       parentid = '1' if parentid == None else parentid
@@ -663,10 +664,11 @@ class Types:
       return [datashape, dataicon]
 
    def buildPNodeShape(self, id, node, x, y, width, height, meta, shapelabel):
-      styleshape = "shape=rect;%FILL;aspect=fixed;resizable=0;html=1;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;strokeColor=none;fontFamily=IBM Plex Sans;fontSize=14;"
+      styleshape = "shape=rect;%FILL;aspect=fixed;resizable=0;html=1;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;strokeColor=none;fontFamily=%FONT;fontSize=14;"
       fillcolor = node["fillcolor"]
       styleFill = "fillColor=" + fillcolor + ';' 
       styleshape = styleshape.replace("%FILL", styleFill)
+      styleshape = styleshape.replace("%FONT", self.common.getFontName())
 
       parentid = node["parentid"]
       parentid = '1' if parentid == None else parentid
@@ -749,7 +751,8 @@ class Types:
 
       datashape = {'cell': cell, 'geo': geo, 'props':  props, 'point': {}}
 
-      stylelabel = "shape=rect;strokeColor=none;fillColor=" + linecolor + ";aspect=fixed;resizable=0;html=1;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;part=1;spacingLeft=5;fontFamily=IBM Plex Sans;fontSize=14;"
+      stylelabel = "shape=rect;strokeColor=none;fillColor=" + linecolor + ";aspect=fixed;resizable=0;html=1;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;part=1;spacingLeft=5;fontFamily=%FONT;fontSize=14;"
+      stylelabel = stylelabel.replace("%FONT", self.common.getFontName())
 
       cell = {'id': id + '-label',
               'value': shapelabel,
@@ -816,7 +819,8 @@ class Types:
       #datashape = {'header': header, 'cell': cell, 'geo': geo, 'props':  props, 'point': {}}
       datashape = {'cell': cell, 'geo': geo, 'props':  props, 'point': {}}
 
-      stylelabel = "shape=rect;strokeColor=none;fillColor=none;aspect=fixed;resizable=0;html=1;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;part=1;spacingLeft=5;fontFamily=IBM Plex Sans;fontSize=14;"
+      stylelabel = "shape=rect;strokeColor=none;fillColor=none;aspect=fixed;resizable=0;html=1;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;part=1;spacingLeft=5;fontFamily=%FONT;fontSize=14;"
+      stylelabel = stylelabel.replace("%FONT", self.common.getFontName())
 
       cell = {'id': id + '-label',
               'value': shapelabel,
@@ -897,7 +901,8 @@ class Types:
 
       datashape = {'cell': cell, 'geo': geo, 'props':  props, 'point': {}}
 
-      stylelabel = "shape=rect;fillColor=none;aspect=fixed;resizable=0;html=1;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;strokeColor=none;part=1;spacingLeft=5;fontFamily=IBM Plex Sans;fontSize=14;"
+      stylelabel = "shape=rect;fillColor=none;aspect=fixed;resizable=0;html=1;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;strokeColor=none;part=1;spacingLeft=5;fontFamily=%FONT;fontSize=14;"
+      stylelabel = stylelabel.replace("%FONT", self.common.getFontName())
 
       cell = {'id': id + '-label',
               'value': shapelabel,

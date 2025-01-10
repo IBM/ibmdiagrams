@@ -44,6 +44,15 @@ class Directions(Enum):
    LR = 'LR'
    TB = 'TB'
 
+class FontNames(Enum):
+   IBM_PLEX_SANS = 'IBM Plex Sans'
+   IBM_PLEX_SANS_ARABIC = 'IBM Plex Sans Arabic'
+   IBM_PLEX_SANS_DEVANAGARI = 'IBM Plex Sans Devanagari'
+   IBM_PLEX_SANS_HEBREW = 'IBM Plex Sans Hebrew'
+   IBM_PLEX_SANS_JP = 'IBM Plex Sans JP'
+   IBM_PLEX_SANS_KR = 'IBM Plex Sans KR'
+   IBM_PLEX_SANS_THAI = 'IBM Plex Sans Thai'
+
 class Alternates(Enum):
    WHITE = 'WHITE'
    LIGHT = 'LIGHT'
@@ -75,6 +84,7 @@ class Options:
    iconType = ''
    labelType = ''
    codeType = ''
+   fontFamily = ''
    icons = None
    direction = ''
    alternate = None
@@ -90,6 +100,7 @@ class Options:
       self.labelType = LabelTypes.CUSTOM
       self.codeType = CodeTypes.DRAWIO
       self.direction = Directions.LR
+      self.fontName = FontNames.IBM_PLEX_SANS
       #self.inputFile = 'input.json'
       #self.inputFolder = path.join(path.expanduser('~'), 'Documents', toolName)
       #self.outputFile = 'diagram.xml'
@@ -245,6 +256,28 @@ class Options:
 
    def setDrawioCode(self):
       self.codeType = CodeTypes.DRAWIO
+
+   def getFontName(self):
+      return self.fontName.value
+
+   def setFontName(self, fontName):
+      fontName = fontName.upper()
+      if fontName == 'IBM PLEX SANS':
+         self.fontName = FontNames.IBM_PLEX_SANS
+      elif fontName == 'IBM PLEX SANS ARABIC':
+         self.fontName = FontNames.IBM_PLEX_SANS_ARABIC
+      elif fontName == 'IBM PLEX SANS DEVANAGARI':
+         self.fontName = FontNames.IBM_PLEX_SANS_DEVANAGARI
+      elif fontName == 'IBM PLEX SANS HEBREW':
+         self.fontName = FontNames.IBM_PLEX_SANS_HEBREW
+      elif fontName == 'IBM PLEX SANS JP':
+         self.fontName = FontNames.IBM_PLEX_SANS_JP
+      elif fontName == 'IBM PLEX SANS KR':
+         self.fontName = FontNames.IBM_PLEX_SANS_KR
+      elif fontName == 'IBM PLEX SANS THAI':
+         self.fontName = FontNames.IBM_PLEX_SANS_THAI
+      else:
+         self.fontName = FontNames.IBM_PLEX_SANS
 
    def getIcons(self):
       return self.icons

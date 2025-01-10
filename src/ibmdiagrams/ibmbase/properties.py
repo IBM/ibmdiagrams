@@ -189,8 +189,9 @@ class Properties:
       direction = "",
       #alternate = "",
       #provider = "",
-      icontype = ""):
-      #outformat = ""):
+      #outformat = "",
+      icontype = "",
+      fontname = ""):
     return {
       "type": attrtype,
       "name": name,
@@ -198,7 +199,8 @@ class Properties:
       "output": output,
       "input": input,
       "direction": direction,
-      "icontype": icontype}
+      "icontype": icontype,
+      "fontname": fontname}
 
    def getGroupProperties(self,
       attrtype = "group",
@@ -358,6 +360,15 @@ class Alternates(Enum):
    NONE = 'NONE'     # all transparent
    USER = 'USER'     # all user-defined
 
+class FontNames(Enum):
+   IBM_PLEX_SANS = 'IBM Plex Sans'
+   IBM_PLEX_SANS_ARABIC = 'IBM Plex Sans Arabic'
+   IBM_PLEX_SANS_DEVANAGARI = 'IBM Plex Sans Devanagari'
+   IBM_PLEX_SANS_HEBREW = 'IBM Plex Sans Hebrew'
+   IBM_PLEX_SANS_JP = 'IBM Plex Sans JP'
+   IBM_PLEX_SANS_KR = 'IBM Plex Sans KR'
+   IBM_PLEX_SANS_THAI = 'IBM Plex Sans Thai'
+
 class Providers(Enum):
    ANY = 'ANY'  # logical
    IBM = 'IBM'  # prescribed-ibm
@@ -381,15 +392,6 @@ class OutputFormats(Enum):
    PNG = 'PNG'
    SVG = 'SVG'
    XML = 'XML'
-
-class Fonts(Enum):
-   IBM_PLEX_SANS = 'IBM Plex Sans'
-   IBM_PLEX_SANS_ARABIC = 'IBM Plex Sans Arabic'
-   IBM_PLEX_SANS_DEVANAGARI = 'IBM Plex Sans Devanagari'
-   IBM_PLEX_SANS_HEBREW = 'IBM Plex Sans Hebrew'
-   IBM_PLEX_SANS_JP = 'IBM Plex Sans JP'
-   IBM_PLEX_SANS_KR = 'IBM Plex Sans KR'
-   IBM_PLEX_SANS_THAI = 'IBM Plex Sans Thai'
 
 class ConnectorArrows(Enum):
    NONE = 'NONE'

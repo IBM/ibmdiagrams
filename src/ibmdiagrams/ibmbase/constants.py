@@ -48,7 +48,7 @@ class ShapeFormat(Enum):
 
 class BaseStyle(Enum):
    # Font properties.
-   FONT = 'fontFamily=IBM Plex Sans;fontSize=14;fontColor=#000000;html=1;'
+   FONT = 'fontFamily=%FONT;fontSize=14;fontColor=#000000;html=1;'
 
    # Container properties.
    CONTAINER = 'container=1;collapsible=0;expand=0;recursiveResize=0;'

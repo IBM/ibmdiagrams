@@ -27,7 +27,7 @@ from copy import copy
 
 from .colors import Colors
 from .common import Common
-from .properties import Properties, Alternates, GroupTypes, Directions, ConnectorArrows, ConnectorStyles, Fonts, ItemTypes, OutputFormats, Providers
+from .properties import Properties, Alternates, GroupTypes, Directions, ConnectorArrows, ConnectorStyles, ItemTypes, OutputFormats, FontNames, Providers
 from .constants import ComponentFill, FillPalette, ShapeKind, ShapeName, ShapePos, ZoneCIDR
 from .shapes import Shapes
 from .icons import Icons
@@ -351,7 +351,7 @@ class Build:
          #fontname = properties["fontname"]
          #if fontname == "":
          #   fontname = DIAGRAM_FONTNAME_DEFAULT
-         #elif not fontname in [parm.value for parm in Fonts]:
+         #elif not fontname in [parm.value for parm in FontNames]:
          #   self.common.printInvalidFontName(fontname)
          #   return None
          #diagrams[diagramid]["fontname"] = fontname
@@ -423,7 +423,7 @@ class Build:
          fontname = properties["fontname"]
          if fontname == "":
             fontname = GROUP_FONTNAME_DEFAULT
-         elif not fontname in [parm.value for parm in Fonts]:
+         elif not fontname in [parm.value for parm in FontNames]:
             self.common.printInvalidFont(fontname)
             return None
          groups[groupid]["fontname"] = fontname
@@ -536,7 +536,7 @@ class Build:
          fontname = properties["fontname"]
          if fontname == "":
             fontname = ITEM_FONTNAME_DEFAULT
-         elif not fontname in [parm.value for parm in Fonts]:
+         elif not fontname in [parm.value for parm in FontNames]:
             self.common.printInvalidFont(fontname)
             return None
          items[nodeid]["fontname"] = fontname
@@ -671,7 +671,7 @@ class Build:
          fontname = properties["fontname"]
          if fontname == "":
             fontname = CONNECTOR_FONTNAME_DEFAULT
-         elif not fontname in [parm.value for parm in Fonts]:
+         elif not fontname in [parm.value for parm in FontNames]:
             self.common.printInvalidFont(fontname)
             return None
          connectors[connectorid]["fontname"] = fontname

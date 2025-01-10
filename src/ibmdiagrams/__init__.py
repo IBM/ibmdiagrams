@@ -82,15 +82,20 @@ class Diagrams:
    common = None
    properties = {}
    diagramid = None
+   fontname = None
 
    def __init__(self, 
                 name = "",
-                filename = ""):
+                filename = "", 
+                fontname = "IBM Plex Sans"):
       self.common = Common()
       self.common.setInputPython()
       self.diagramid = randomid()
 
-      self.properties = _data.getDiagramsProperties(name=name, filename=filename)
+      self.fontname = fontname
+      self.common.setFontName(self.fontname)
+
+      self.properties = _data.getDiagramsProperties(name=name, filename=filename, fontname=self.ffontname)
       _data.addSheets(self.diagramid, self.properties)
       return
 
@@ -109,6 +114,7 @@ class Diagram:
    common = None
    properties = {}
    diagramid = None
+   fontname = None
    name = ""
 
    def __init__(self, 
@@ -117,11 +123,15 @@ class Diagram:
                 output = "",
                 #input = "",
                 #icontype = "STATIC",
+                fontname = "IBM Plex Sans",
                 direction = "LR"):
       self.common = Common()
       self.common.setInputPython()
       self.diagramid = randomid()
       self.name = name
+
+      self.fontname = fontname
+      self.common.setFontName(self.fontname)
 
       if direction.upper() == "LR":
          self.common.setDirectionLR()
@@ -133,7 +143,7 @@ class Diagram:
       if getDiagrams() != None:
          filename = "*"
 
-      self.properties = _data.getDiagramProperties(name=name, filename=filename, output=output, direction=direction)
+      self.properties = _data.getDiagramProperties(name=name, filename=filename, output=output, fontname=self.fontname, direction=direction)
       #_diagrams[self.diagramid] = self.properties
       _data.addDiagram(self.diagramid, self.properties)
       _data.updateSequence(self.diagramid)
@@ -166,6 +176,8 @@ class Group:
    parent = None
    item = None
    connector = None
+   fontname = None
+   fontsize = 14
    properties = {}
 
    def __init__(self, 
@@ -176,11 +188,11 @@ class Group:
                 shape = "",
                 icon = "",
                 hideicon = "",
-                fontname = "IBM Plex Sans",
-                fontsize = 14,
                 direction = ""):
       self.common = Common()
       self.shapeid = randomid()
+
+      self.fontname = self.common.getFontName()
 
       self.parent = getGroup()
       if self.parent:
@@ -192,7 +204,7 @@ class Group:
          #else:
          self.parent = None
 
-      self.properties = _data.getGroupProperties(label=label, sublabel=sublabel, linecolor=linecolor, fillcolor=fillcolor, shape=shape, icon=icon, hideicon=hideicon, fontname=fontname, fontsize=fontsize, direction=direction, parentid=self.parentid)
+      self.properties = _data.getGroupProperties(label=label, sublabel=sublabel, linecolor=linecolor, fillcolor=fillcolor, shape=shape, icon=icon, hideicon=hideicon, fontname=self.fontname, fontsize=self.fontsize, direction=direction, parentid=self.parentid)
       _data.updateSequence(self.shapeid)
 
       return
@@ -254,6 +266,8 @@ class Item:
    style = ""
    item = None
    connector = None
+   fontname = None
+   fontsize = 14
    properties = {}
 
    def __init__(self, 
@@ -263,9 +277,7 @@ class Item:
                 fillcolor = "",
                 shape = "",
                 icon = "",
-                hideicon = "",
-                fontname = "IBM Plex Sans",
-                fontsize = 14):
+                hideicon = ""):
                 #many = False,
                 #provider = ""):      # Not currently used.
       self.common = Common()
@@ -275,7 +287,9 @@ class Item:
       self.parentid = self.parent.shapeid
       setGroup(self.parent)
 
-      self.properties = _data.getItemProperties(label=label, sublabel=sublabel, linecolor=linecolor, fillcolor=fillcolor, shape=shape, icon=icon, hideicon=hideicon, fontname=fontname, fontsize=fontsize, parentid=self.parentid)
+      self.fontname = self.common.getFontName()
+
+      self.properties = _data.getItemProperties(label=label, sublabel=sublabel, linecolor=linecolor, fillcolor=fillcolor, shape=shape, icon=icon, hideicon=hideicon, fontname=self.fontname, fontsize=self.fontsize, parentid=self.parentid)
 
       #_items[self.shapeid] = self.properties
       _data.addItem(self.shapeid, self.properties)
@@ -370,6 +384,8 @@ class Connector:
    #operator = ""
    item = None
    connector = None
+   fontname = None
+   fontsize = 14
    properties = {}
 
    def __init__(self, 
@@ -379,8 +395,6 @@ class Connector:
                 linetype = "solid",
                 linewidth = 1,
                 linecolor = "#000000",
-                fontname = "IBM Plex Sans",
-                fontsize = 14,
                 operator = "",     # Internal use only.
                 sourceid = None,   # Internal use only.
                 targetid = None):  # Internal use only.
@@ -388,6 +402,8 @@ class Connector:
       self.shapeid = randomid()
 
       self.linecolor = linecolor
+
+      self.fontname = self.common.getFontName()
 
       if startarrow != "":
          if not startarrow.upper() in [parm.value for parm in EndTypes]:
@@ -427,7 +443,7 @@ class Connector:
          else:
             self.endarrow = ""
 
-      self.properties = _data.getConnectorProperties(label=label, sourceid=sourceid, targetid=targetid, startarrow=self.startarrow, endarrow=self.endarrow, startfill=self.startfill, endfill=self.endfill, linetype=linetype, linewidth=linewidth, linecolor=linecolor, fontname=fontname, fontsize=fontsize)
+      self.properties = _data.getConnectorProperties(label=label, sourceid=sourceid, targetid=targetid, startarrow=self.startarrow, endarrow=self.endarrow, startfill=self.startfill, endfill=self.endfill, linetype=linetype, linewidth=linewidth, linecolor=linecolor, fontname=self.fontname, fontsize=self.fontsize)
 
       _data.addConnector(self.shapeid, self.properties)
       _data.updateSequence(self.shapeid)
