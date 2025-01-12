@@ -1,6 +1,6 @@
 [project]
 name = "ibmdiagrams"
-version = "3.0.3"
+version = "3.0.4"
 description = "Generate architecture diagrams following IBM Diagram Standard"
 readme = "README.md"
 requires-python = ">=3.11.0"

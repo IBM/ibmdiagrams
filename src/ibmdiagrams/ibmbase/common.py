@@ -148,8 +148,8 @@ class Common:
    def getFontName(self):
       return self.options.getFontName()
 
-   def setFontName(self, fontName):
-      self.options.setFontName(fontName)
+   def setFontName(self, fontname):
+      self.options.setFontName(fontname)
 
    def isCustomLabels(self):
       return self.labelType == LabelTypes.CUSTOM

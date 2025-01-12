@@ -31,7 +31,7 @@ def main():
    labeltype = ''
    codetype = ''
    #direction = ''
-   #fontname = ''
+   fontname = ''
    #fontsize = ''
 
    outputtype = 'drawio'
@@ -43,13 +43,13 @@ def main():
                            description='Generate architecture diagrams following IBM Diagram Standard.',
                            epilog='https://github.com/IBM/ibmdiagrams')
 
+
    parser.add_argument('inputfile', help='required input file name (terraform file)')
    parser.add_argument('-output', dest='outputfolder', default='', help='output folder')
    #parser.add_argument('-direction', dest='direction', default='LR', help='layout direction (LR or TB)')
    parser.add_argument('--general', dest='labeltype', action='store_const', const='GENERAL', default='CUSTOM', help='general labels (default: custom labels)')
    parser.add_argument('--python', dest='codetype', action='store_const', const='PYTHON', default='DRAWIO', help='code type (default: drawio)')
-   #parser.add_argument('-fontname', dest='fontname', default=common.getFontName(), help='font name')
-   #parser.add_argument('-fontsize', dest='fontsize', default=common.getFpntSize()', help='font size')
+   parser.add_argument('-font', dest='fontname', default='IBM Plex Sans', help='font name')
  
    args = parser.parse_args()
 
@@ -57,13 +57,13 @@ def main():
    outputfolder = args.outputfolder
    labeltype = args.labeltype
    codetype = args.codetype
-   #direction = args.direction
-   #fontname = args.fontname
+   fontname = args.fontname
    #fontsize = args.fontsize
    outputtype = 'drawio'
 
    common.setInputFile(inputfile)
    common.setOutputFolder(outputfolder)
+   common.setFontName(fontname)
 
    if labeltype.upper() == "GENERAL":
       common.setGeneralLabels()
@@ -101,14 +101,16 @@ def main():
          else:
             common.printExit()
       elif inputtype == 'tfstate':
-         if common.isDrawioCode():
-            common.printStartFile(inputfile, common.getProvider().value.upper())
+         common.printStartFile(inputfile, common.getProvider().value.upper())
          data = Load(common)
          if data.loadData():
             compose = Compose(common, data)
             compose.composeDiagrams()
             if common.isDrawioCode():
                common.printDone(path.join(outputfolder, outputfile), common.getProvider().value.upper())
+            elif common.isPythonCode():
+               splitfile = path.splitext(outputfile)
+               common.printDone(path.join(outputfolder, splitfile[0] + ".py"), common.getProvider().value.upper())
          else:
             common.printExit()
 

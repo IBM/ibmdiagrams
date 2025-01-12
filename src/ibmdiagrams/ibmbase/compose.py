@@ -22,6 +22,8 @@
 #   ibmdiagrams/ibmbase/elements.py - build drawio objects
 
 import pandas as pd
+import subprocess
+import sys
 
 from os import path, remove
 from math import isnan
@@ -67,7 +69,10 @@ class Compose:
       self.composeResources(self.top, True, pythonfile)
       pythonfile.close()
       if self.common.isDrawioCode():
-         exec(open(filelocation).read())
+         #exec(open(filelocation).read())
+         result = subprocess.run([sys.executable, filelocation], capture_output=True, text=True)
+         #print(result.stdout)
+         #print(result.stderr)
          remove(filelocation)
       return
 
@@ -194,7 +199,7 @@ class Compose:
       if fontname == None:
          fontname = ""
       else:
-         fontname = ", fontname='" + fontname + "'"
+         fontname = ", font='" + fontname + "'"
 
       index = name.find("Group")
       if index != -1:

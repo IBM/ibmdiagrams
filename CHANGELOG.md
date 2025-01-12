@@ -2,6 +2,12 @@
 
 Notable changes:
 
+## 3.0.4
+
+### Features
+
+- Eliminated unnecessary start and done statements to prevent confusion.
+
 ## 3.0.3
 
 ### Features

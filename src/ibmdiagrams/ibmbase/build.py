@@ -101,10 +101,8 @@ class Build:
       outputfile = outputfile if outputfile != "" else diagramname + ".drawio"
       outputfolder = self.common.getOutputFolder()
       
-      if (self.common.isInputPython()):
-         self.common.printStartDiagram(diagramname + ".py", provider)
-      else:
-         self.common.printStartDiagram(diagramname, provider)
+      if self.common.isInputPython():
+            self.common.printStartDiagram(diagramname + ".py", provider)
 
       for name, diagram in diagrams.items():
          self.shapes.buildXML(diagram, name)
@@ -112,7 +110,8 @@ class Build:
       self.shapes.dumpXML(outputfile, outputfolder)
       self.shapes.resetXML()
 
-      self.common.printDone(path.join(outputfolder, outputfile), provider)
+      if self.common.isInputPython():
+         self.common.printDone(path.join(outputfolder, outputfile), provider)
 
       return
 
@@ -131,10 +130,8 @@ class Build:
       if properties["filename"] != "*":
          outputfile = properties["filename"] + ".drawio"
          diagramname = properties["name"]
-         if (self.common.isInputPython()):
+         if self.common.isInputPython():
             self.common.printStartDiagram(diagramname + ".py", provider)
-         else:
-            self.common.printStartDiagram(diagramname, provider)
 
       self.setupAll()
 

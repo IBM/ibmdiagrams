@@ -84,7 +84,8 @@ class Options:
    iconType = ''
    labelType = ''
    codeType = ''
-   fontFamily = ''
+   fontname = ''
+   quietmode = ''
    icons = None
    direction = ''
    alternate = None
@@ -100,7 +101,7 @@ class Options:
       self.labelType = LabelTypes.CUSTOM
       self.codeType = CodeTypes.DRAWIO
       self.direction = Directions.LR
-      self.fontName = FontNames.IBM_PLEX_SANS
+      self.fontname = FontNames.IBM_PLEX_SANS
       #self.inputFile = 'input.json'
       #self.inputFolder = path.join(path.expanduser('~'), 'Documents', toolName)
       #self.outputFile = 'diagram.xml'
@@ -258,26 +259,26 @@ class Options:
       self.codeType = CodeTypes.DRAWIO
 
    def getFontName(self):
-      return self.fontName.value
+      return self.fontname.value
 
-   def setFontName(self, fontName):
-      fontName = fontName.upper()
-      if fontName == 'IBM PLEX SANS':
-         self.fontName = FontNames.IBM_PLEX_SANS
-      elif fontName == 'IBM PLEX SANS ARABIC':
-         self.fontName = FontNames.IBM_PLEX_SANS_ARABIC
-      elif fontName == 'IBM PLEX SANS DEVANAGARI':
-         self.fontName = FontNames.IBM_PLEX_SANS_DEVANAGARI
-      elif fontName == 'IBM PLEX SANS HEBREW':
-         self.fontName = FontNames.IBM_PLEX_SANS_HEBREW
-      elif fontName == 'IBM PLEX SANS JP':
-         self.fontName = FontNames.IBM_PLEX_SANS_JP
-      elif fontName == 'IBM PLEX SANS KR':
-         self.fontName = FontNames.IBM_PLEX_SANS_KR
-      elif fontName == 'IBM PLEX SANS THAI':
-         self.fontName = FontNames.IBM_PLEX_SANS_THAI
+   def setFontName(self, fontname):
+      fontname = fontname.upper()
+      if fontname == 'IBM PLEX SANS':
+         self.fontname = FontNames.IBM_PLEX_SANS
+      elif fontname == 'IBM PLEX SANS ARABIC':
+         self.fontname = FontNames.IBM_PLEX_SANS_ARABIC
+      elif fontname == 'IBM PLEX SANS DEVANAGARI':
+         self.fontname = FontNames.IBM_PLEX_SANS_DEVANAGARI
+      elif fontname == 'IBM PLEX SANS HEBREW':
+         self.fontname = FontNames.IBM_PLEX_SANS_HEBREW
+      elif fontname == 'IBM PLEX SANS JP':
+         self.fontname = FontNames.IBM_PLEX_SANS_JP
+      elif fontname == 'IBM PLEX SANS KR':
+         self.fontname = FontNames.IBM_PLEX_SANS_KR
+      elif fontname == 'IBM PLEX SANS THAI':
+         self.fontname = FontNames.IBM_PLEX_SANS_THAI
       else:
-         self.fontName = FontNames.IBM_PLEX_SANS
+         self.fontname = FontNames.IBM_PLEX_SANS
 
    def getIcons(self):
       return self.icons

@@ -82,20 +82,15 @@ class Diagrams:
    common = None
    properties = {}
    diagramid = None
-   fontname = None
 
    def __init__(self, 
                 name = "",
-                filename = "", 
-                fontname = "IBM Plex Sans"):
+                filename = ""):
       self.common = Common()
       self.common.setInputPython()
       self.diagramid = randomid()
 
-      self.fontname = fontname
-      self.common.setFontName(self.fontname)
-
-      self.properties = _data.getDiagramsProperties(name=name, filename=filename, fontname=self.ffontname)
+      self.properties = _data.getDiagramsProperties(name=name, filename=filename)
       _data.addSheets(self.diagramid, self.properties)
       return
 
@@ -123,14 +118,14 @@ class Diagram:
                 output = "",
                 #input = "",
                 #icontype = "STATIC",
-                fontname = "IBM Plex Sans",
+                font = "IBM Plex Sans",
                 direction = "LR"):
       self.common = Common()
       self.common.setInputPython()
       self.diagramid = randomid()
       self.name = name
 
-      self.fontname = fontname
+      self.fontname = font
       self.common.setFontName(self.fontname)
 
       if direction.upper() == "LR":
