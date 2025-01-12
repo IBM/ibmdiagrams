@@ -20,17 +20,22 @@
 
 ## Install IBM Plex Fonts
 
-- For online drawio: 
-1. Set fontFamily=IBM Plex Sans in properties or Format Panel (global fonts not supported in online drawio).
-2. Verify that a lower case L in a label has a slight right bend at bottom.
-- For drawio desktop on Mac:
+- IBM Plex Sans fonts:
+1. IBM Plex Sans (default)
+2. IBM Plex Sans Arabic
+3. IBM Plex Sans Devanagari
+4. IBM Plex Sans Hebrew
+5. IBM Plex Sans JP
+6. IBM Plex Sans KR
+7. IBM Plex Sans Thai
+- Install on Mac for use with drawio desktop:
 1. Go to: https://fonts.google.com/?query=Plex
-2. Select IBM Plex Sans (first font listed), select Get font, select Download all.
-3. Unpack IBM_Plex_Sans.zip.
+2. Select IBM Plex Sans (or global IBM Plex Sans), select Get font, select Download all.
+3. Unpack IBM_Plex_Sans.zip (or global zip).
 4. Open Font Book app.
-5. Select File, select Add Fonts to Current User, select unpacked IBM_Plex_Sans.
-6. Set fontFamily=IBM Plex Sans in properties (already included by ibmdiagrams) or Format Panel. 
-7. Verify that a lower case L in a label has a slight right bend at bottom.
+5. Select File, select Add Fonts to Current User, select unpacked folder.
+6. Set fontFamily=IBM Plex Sans (or global IBM Plex Sans).
+7. For default IBM Plex Sans, verify that a lower case L in a label has a slight right bend at bottom.
 
 <!--
 ## Build
