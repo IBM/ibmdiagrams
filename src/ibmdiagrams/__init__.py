@@ -23,8 +23,8 @@ from .ibmbase.build import Build
 from .ibmbase.common import Common
 from .ibmbase.compose import Compose
 from .ibmbase.load import Load
-from .ibmbase.composejson import ComposeJSON
-from .ibmbase.loadjson import LoadJSON
+#from .ibmbase.composejson import ComposeJSON
+#from .ibmbase.loadjson import LoadJSON
 
 
 _diagrams = ContextVar("diagrams")

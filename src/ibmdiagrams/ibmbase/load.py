@@ -30,48 +30,19 @@ class Load:
       self.resources = Resources(common)
 
    def loadData(self):
-      if not self.resources.loadResources():
+      if self.common.isInputTerraform():
+         if not self.resources.loadResources():
+            return False
+      elif self.common.isInputJSON():
+         if not self.resources.loadJSON():
+            return False
+      else:
          return False
 
       if not self.icons.mapResources(self.resources):
          return False
 
-      #if not self.icons.groupResources(self.resources):
-      #   return False
-
       return True
-
-   '''
-   def mapData(self):
-      for entry in self.icons.iconDictionary:
-         icon = self.icons.iconDictionary[entry]
-         resource = icon['resource']
-         if resource != 'none':
-            resource = self.resources.getResource(resource)
-            fields = icon['fields']
-
-            lists = []
-            for index, row in resource.iterrows():
-               list = {}
-               for newname, oldname in fields.items():
-                  templist = oldname.split()
-                  tempdata = row[templist[0]]
-                  if len(templist) == 1:
-                     element = tempdata
-                  else:
-                     tempindex = 1
-                     while tempindex < len(templist):
-                        tempdata = tempdata[0]
-                        tempdata = tempdata[templist[tempindex]]
-                        tempindex += 1
-                  list[newname] = tempdata
-               lists.append(list)
-
-            df = pd.DataFrame(lists)
-            icon['data'] = df
-
-      return True
-   '''
 
    def getIcons(self):
       return self.icons

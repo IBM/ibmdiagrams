@@ -18,7 +18,8 @@ from configparser import ConfigParser
 from os import path
 from sys import exit as sys_exit
 
-from ibmdiagrams import Common, Compose, Load, ComposeJSON, LoadJSON
+#from ibmdiagrams import Common, Compose, Load, ComposeJSON, LoadJSON
+from ibmdiagrams import Common, Compose, Load
 
 PROG = "ibmdiagrams"
 
@@ -42,7 +43,6 @@ def main():
    parser = ArgumentParser(prog='ibmdiagrams', 
                            description='Generate architecture diagrams following IBM Diagram Standard.',
                            epilog='https://github.com/IBM/ibmdiagrams')
-
 
    parser.add_argument('inputfile', help='required input file name (terraform file)')
    parser.add_argument('-output', dest='outputfolder', default='', help='output folder')
@@ -91,28 +91,41 @@ def main():
       outputfile = inputbase + '.' + outputtype
       common.setOutputFile(outputfile)
 
-      if inputtype == 'json':
-         common.printStartFile(inputfile, common.getProvider().value.upper())
-         data = LoadJSON(common)
-         if data.loadData():
-            compose = ComposeJSON(common, data)
-            compose.composeDiagrams()
+      common.printStartFile(inputfile, common.getProvider().value.upper())
+      data = Load(common)
+      if data.loadData():
+         compose = Compose(common, data)
+         compose.composeDiagrams()
+         if common.isDrawioCode():
             common.printDone(path.join(outputfolder, outputfile), common.getProvider().value.upper())
-         else:
-            common.printExit()
-      elif inputtype == 'tfstate':
-         common.printStartFile(inputfile, common.getProvider().value.upper())
-         data = Load(common)
-         if data.loadData():
-            compose = Compose(common, data)
-            compose.composeDiagrams()
-            if common.isDrawioCode():
-               common.printDone(path.join(outputfolder, outputfile), common.getProvider().value.upper())
-            elif common.isPythonCode():
-               splitfile = path.splitext(outputfile)
-               common.printDone(path.join(outputfolder, splitfile[0] + ".py"), common.getProvider().value.upper())
-         else:
-            common.printExit()
+         elif common.isPythonCode():
+            splitfile = path.splitext(outputfile)
+            common.printDone(path.join(outputfolder, splitfile[0] + ".py"), common.getProvider().value.upper())
+      else:
+         common.printExit()
+
+      #if inputtype == 'json':
+      #   common.printStartFile(inputfile, common.getProvider().value.upper())
+      #   data = LoadJSON(common)
+      #   if data.loadData():
+      #      compose = ComposeJSON(common, data)
+      #      compose.composeDiagrams()
+      #      common.printDone(path.join(outputfolder, outputfile), common.getProvider().value.upper())
+      #   else:
+      #      common.printExit()
+      #elif inputtype == 'tfstate':
+      #   common.printStartFile(inputfile, common.getProvider().value.upper())
+      #   data = Load(common)
+      #   if data.loadData():
+      #      compose = Compose(common, data)
+      #      compose.composeDiagrams()
+      #      if common.isDrawioCode():
+      #         common.printDone(path.join(outputfolder, outputfile), common.getProvider().value.upper())
+      #      elif common.isPythonCode():
+      #         splitfile = path.splitext(outputfile)
+      #         common.printDone(path.join(outputfolder, splitfile[0] + ".py"), common.getProvider().value.upper())
+      #   else:
+      #      common.printExit()
 
    else:
       print()

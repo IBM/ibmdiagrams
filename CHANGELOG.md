@@ -2,6 +2,12 @@
 
 Notable changes:
 
+## 3.1.0
+
+### Features
+
+- Initial move of internal JSON use case to new base design with VPC, Subnet, Virtual Server initially.
+
 ## 3.0.4
 
 ### Features

@@ -21,7 +21,7 @@ class Icons:
    iconDictionary = {
       # Core Groups
       'IBM Cloud Group': {'icon': 'ibm-cloud', 'color': Colors.lines["network"], 'fill': Colors.fills["white"], 'resource': 'none', 'fields': {'label': 'IBM Cloud', 'id': 'IBM Cloud Group'}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
-      'VPC Group': {'icon': 'ibm-cloud--vpc', 'color': Colors.lines["network"], 'fill': Colors.fills["white"], 'resource': 'ibm_is_vpc', 'fields': {'label': 'name', 'id': 'id', 'Region Group': ':5crn', 'Resource Group': 'resource_group_name'}, 'direction': 'LR', 'deployedOn': 'Region Group', 'deployedTo': 'none'},
+      'VPC Group': {'icon': 'ibm-cloud--vpc', 'color': Colors.lines["network"], 'fill': Colors.fills["white"], 'resource': 'ibm_is_vpc', 'fields': {'label': 'name', 'id': 'id', 'Region Group': ':5crn'}, 'direction': 'LR', 'deployedOn': 'Region Group', 'deployedTo': 'none'},
       'Subnet Group': {'icon': 'ibm-cloud--subnets', 'color': Colors.lines["network"], 'fill': Colors.fills["white"], 'resource': 'ibm_is_subnet', 'fields': {'label': 'name', 'sublabel': 'ipv4_cidr_block', 'id': 'id', 'VPC Group': 'vpc', 'Availability Zone Group': 'vpc+zone'}, 'direction': 'LR', 'deployedOn': 'VPC Group', 'deployedTo': 'Availability Zone Group'},
       'Enterprise Network Group': {'icon': 'network--enterprise', 'color': Colors.lines["network"], 'fill': Colors.fills["white"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
       'Public Network Group': {'icon': 'network--public', 'color': Colors.lines["network"], 'fill': Colors.fills["white"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
@@ -227,15 +227,22 @@ class Icons:
 
    def mapResources(self, resources):
       for entry in self.iconDictionary:
-         icon = self.iconDictionary[entry]
-         resource = icon['resource']
+         # TODO: Temporary check until JSON versionis updated.
+         #if self.common.isInputJSON():
+         #   if entry == "Endpoint Gateway Icon" or entry == "Flow Logs Icon" or entry == "Object Storage Icon" or entry == "Transit Gateway Icon" or entry == "VPN Gateway Icon":
+         #      continue
 
+         icon = self.iconDictionary[entry]
+
+         resource = icon['resource']
          if resource == 'none' or resource == 'local':
             continue
 
          resource = resources.getResource(resource)
-         fields = icon['fields']
+         if resource.empty:
+            continue
             
+         fields = icon['fields']
          lists = []
          for index, row in resource.iterrows():
             list = {}
