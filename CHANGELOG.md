@@ -2,6 +2,16 @@
 
 Notable changes:
 
+## 3.1.1
+
+### Features
+
+- Combined services to reduce space.
+
+### Fixes
+
+- Fixed overlapping labels, print error if input not found.
+
 ## 3.1.0
 
 ### Features

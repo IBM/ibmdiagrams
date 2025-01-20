@@ -1,6 +1,6 @@
 # ibmdiagrams
 
-![collage](docs/images/collage.drawio.png)
+![collage](docs/images/ibmdiagrams-collage.png)
 
 ## Overview
 
@@ -61,6 +61,12 @@ Use cases:
 7. Connectors (in progress):
 - Line styles can be solid, dashed, dotted, double, and tunnel are supported according to existing styles in drawio.
 - Line ends can be arrow (filled or open), circle (filled or open), and diamond (filled or open).
+</details>
+
+<details><summary>Flow</summary>
+
+![flow](docs/images/ibmdiagrams-flow.png)
+
 </details>
 
 <details><summary>Limitations</summary>

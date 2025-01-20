@@ -88,6 +88,10 @@ def main():
          common.printInvalidFile(inputfile)
          return
    
+      if not path.isfile(common.getInputFile()):
+         common.printInvalidFile(inputfile)
+         return
+
       outputfile = inputbase + '.' + outputtype
       common.setOutputFile(outputfile)
 

@@ -1,3 +1,4 @@
+
 # @file compose.py
 #
 # Copyright contributors to the ibmdiagrams project
@@ -82,6 +83,7 @@ class Compose:
       fontname = self.common.getFontName()
       diagram = TreeNode("Diagram Group", randomid(), 'LR', fontname, frame.iloc[0])
       top = self.composeIconTree(diagram)
+      self.combineServiceIcons(top, False)
       return top
 
    def composeIconTree(self, top):
@@ -169,6 +171,49 @@ class Compose:
             break
 
       return deployedToNode
+
+   def combineServiceIcons(self, parent, useCustomLabel):
+      name = parent.name
+      id = parent.id
+      data =  parent.data
+
+      index = name.find("Services Group")
+      if index != -1:
+         combinedIcons = {}
+         for child in parent.children:
+            name = child.name
+            id = child.id
+            direction = child.direction
+            fontname = child.fontname
+            data = child.data
+            label = data["label"]
+
+            if name in combinedIcons:
+               entry = combinedIcons[name]
+               newname = entry["name"]
+               newdirection = entry["direction"]
+               newfontname = entry["fontname"]
+
+               newdata = entry["data"]
+               newlabel = newdata["label"] + '<br>' + label
+               newdata["label"] = newlabel
+               newid = newdata["id"] + ' ' + id
+               newdata["id"] = newid
+               combinedIcons[name] = {"name": newname, "id": newid, "direction": newdirection, "fontname": newfontname, "data": newdata}
+            else:
+               combinedIcons[name] = {"name": name, "id": id, "direction": direction, "fontname": fontname, "data": data}
+
+         parent.children = []
+
+         for name in combinedIcons:
+            entry = combinedIcons[name] 
+            node = TreeNode(name, entry["id"], entry["direction"], None, entry["data"])
+            parent.addNode(node)
+      else:
+         for child in parent.children:
+            self.combineServiceIcons(child, False)
+
+      return
 
    def composeIncludes(self, pythonfile):
       print("from ibmdiagrams.ibmcloud.diagram import *", file=pythonfile)
