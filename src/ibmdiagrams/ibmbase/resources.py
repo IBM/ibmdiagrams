@@ -541,6 +541,7 @@ class Resources:
                attributes = instance["attributes"]
                id = attributes["id"]
                row = {"id": id} | attributes
+               #print(row)
                table[count] = row
                count += 1
 

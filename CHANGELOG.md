@@ -2,6 +2,12 @@
 
 Notable changes:
 
+## 3.1.2
+
+### Features
+
+- Completed combining services.
+
 ## 3.1.1
 
 ### Features

@@ -21,12 +21,12 @@ class Icons:
    iconDictionary = {
       # Core Groups
       'IBM Cloud Group': {'icon': 'ibm-cloud', 'color': Colors.lines["network"], 'fill': Colors.fills["white"], 'resource': 'none', 'fields': {'label': 'IBM Cloud', 'id': 'IBM Cloud Group'}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
-      'VPC Group': {'icon': 'ibm-cloud--vpc', 'color': Colors.lines["network"], 'fill': Colors.fills["white"], 'resource': 'ibm_is_vpc', 'fields': {'label': 'name', 'id': 'id', 'Region Group': ':5crn'}, 'direction': 'LR', 'deployedOn': 'Region Group', 'deployedTo': 'none'},
+      'VPC Group': {'icon': 'ibm-cloud--vpc', 'color': Colors.lines["network"], 'fill': Colors.fills["white"], 'resource': 'ibm_is_vpc', 'fields': {'label': 'name', 'id': 'id', 'Region Group': 'crn[5]'}, 'direction': 'LR', 'deployedOn': 'Region Group', 'deployedTo': 'none'},
       'Subnet Group': {'icon': 'ibm-cloud--subnets', 'color': Colors.lines["network"], 'fill': Colors.fills["white"], 'resource': 'ibm_is_subnet', 'fields': {'label': 'name', 'sublabel': 'ipv4_cidr_block', 'id': 'id', 'VPC Group': 'vpc', 'Availability Zone Group': 'vpc+zone'}, 'direction': 'LR', 'deployedOn': 'VPC Group', 'deployedTo': 'Availability Zone Group'},
       'Enterprise Network Group': {'icon': 'network--enterprise', 'color': Colors.lines["network"], 'fill': Colors.fills["white"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
       'Public Network Group': {'icon': 'network--public', 'color': Colors.lines["network"], 'fill': Colors.fills["white"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
       'Cloud Services Group': {'icon': 'cloud-services', 'color': Colors.lines["network"], 'fill': Colors.fills["white"], 'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'Region Group', 'deployedTo': 'none'},
-      'VPC Services Group': {'icon': 'cloud-services', 'color': Colors.lines["network"], 'fill': Colors.fills["white"], 'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'VPC Group', 'deployedTo': 'none'},
+      #'VPC Services Group': {'icon': 'cloud-services', 'color': Colors.lines["network"], 'fill': Colors.fills["white"], 'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'VPC Group', 'deployedTo': 'none'},
       'Internet Services Group': {'icon': 'ibm-cloud--internet-services', 'color': Colors.lines["network"], 'fill': Colors.fills["white"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
       'Overlay Network Group': {'icon': 'network--overlay', 'color': Colors.lines["network"], 'fill': Colors.fills["white"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
       'Power Workspace Group': {'icon': 'ibm--power-vs', 'color': Colors.lines["network"], 'fill': Colors.fills["white"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
@@ -87,7 +87,7 @@ class Icons:
 
        # Compute
       'Virtual Server Icon': {'icon': 'ibm-cloud--virtual-server-vpc', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"], 'resource': 'ibm_is_instance', 'fields': 
-{'label': 'name', 'sublabel': 'primary_network_interface primary_ip address', 'id': 'id', 'Subnet Group': 'primary_network_interface subnet', 'Availability Zone Group': 'vpc+zone', 'VPC Group': 'vpc'}, 'direction': 'LR', 'deployedOn': 'Subnet Group', 'deployedTo': 'none'},
+{'label': 'name', 'sublabel': 'primary_network_interface:primary_ip:address', 'id': 'id', 'Subnet Group': 'primary_network_interface:subnet', 'Availability Zone Group': 'vpc+zone', 'VPC Group': 'vpc'}, 'direction': 'LR', 'deployedOn': 'Subnet Group', 'deployedTo': 'none'},
       'Power Virtual Server Icon': {'icon': 'ibm--power-vs', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
       'Classic Virtual Server Icon': {'icon': 'ibm-cloud--virtual-server-classic', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
       'Bare Metal Server Icon': {'icon': 'ibm-cloud--bare-metal-servers-vpc', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"], 'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
@@ -137,7 +137,8 @@ class Icons:
       'Classic Load Balancer Icon': {'icon': 'load-balancer--classic', 'color': Colors.lines["network"], 'fill': Colors.lines["network"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
       'Floating IP Icon': {'icon': 'floating-ip', 'color': Colors.lines["network"], 'fill': Colors.lines["network"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
       'Network Interface Icon': {'icon': 'network-interface', 'color': Colors.lines["network"], 'fill': Colors.lines["network"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
-      'Endpoint Gateway Icon': {'icon': 'ibm-cloud--vpc-endpoints', 'color': Colors.lines["network"], 'fill': Colors.lines["network"], 'resource': 'ibm_is_virtual_endpoint_gateway', 'fields': {'label': 'name', 'id': 'id', 'VPC Services Group': '@services+vpc'}, 'direction': 'LR', 'deployedOn': 'VPC Services Group', 'deployedTo': 'none'},
+      #'Endpoint Gateway Icon': {'icon': 'ibm-cloud--vpc-endpoints', 'color': Colors.lines["network"], 'fill': Colors.lines["network"], 'resource': 'ibm_is_virtual_endpoint_gateway', 'fields': {'label': 'name', 'id': 'id', 'VPC Services Group': '@services+vpc'}, 'direction': 'LR', 'deployedOn': 'VPC Services Group', 'deployedTo': 'none'},
+      'Endpoint Gateway Icon': {'icon': 'ibm-cloud--vpc-endpoints', 'color': Colors.lines["network"], 'fill': Colors.lines["network"], 'resource': 'ibm_is_virtual_endpoint_gateway', 'fields': {'label': 'name', 'id': 'id', 'Cloud Services Group': '@services+crn[5]'}, 'direction': 'LR', 'deployedOn': 'Cloud Services Group', 'deployedTo': 'none'},
       'Public Gateway Icon': {'icon': 'gateway--public', 'color': Colors.lines["network"], 'fill': Colors.lines["network"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
       'Transit Gateway Icon': {'icon': 'ibm-cloud--transit-gateway', 'color': Colors.lines["network"], 'fill': Colors.lines["network"], 'resource': 'ibm_tg_gateway', 'fields': {'label': 'name', 'id': 'id', 'Cloud Services Group': '@services+location'}, 'direction': 'LR', 'deployedOn': 'Cloud Services Group', 'deployedTo': 'none'},
       'Direct Link Connect Icon': {'icon': 'ibm-cloud--direct-link-2--connect', 'color': Colors.lines["network"], 'fill': Colors.lines["network"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
@@ -157,7 +158,8 @@ class Icons:
 
       # Observability
       'Cloud Logs Icon': {'icon': 'ibm-cloud--logging', 'color': Colors.lines["management"], 'fill': Colors.lines["management"], 'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
-      'Flow Logs Icon': {'icon': 'flow-logs-vpc', 'color': Colors.lines["management"], 'fill': Colors.lines["management"], 'resource': 'ibm_is_flow_log', 'fields': {'label': 'name', 'id': 'id', 'VPC Services Group': '@services+vpc'}, 'direction': 'LR', 'deployedOn': 'VPC Services Group', 'deployedTo': 'none'},
+      #'Flow Logs Icon': {'icon': 'flow-logs-vpc', 'color': Colors.lines["management"], 'fill': Colors.lines["management"], 'resource': 'ibm_is_flow_log', 'fields': {'label': 'name', 'id': 'id', 'VPC Services Group': '@services+vpc'}, 'direction': 'LR', 'deployedOn': 'VPC Services Group', 'deployedTo': 'none'},
+      'Flow Logs Icon': {'icon': 'flow-logs-vpc', 'color': Colors.lines["management"], 'fill': Colors.lines["management"], 'resource': 'ibm_is_flow_log', 'fields': {'label': 'name', 'id': 'id', 'Cloud Services Group': '@services+crn[5]'}, 'direction': 'LR', 'deployedOn': 'Cloud Services Group', 'deployedTo': 'none'},
       'Monitoring Icon': {'icon': 'cloud--monitoring', 'color': Colors.lines["management"], 'fill': Colors.lines["management"], 'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
 
       # Security
@@ -227,11 +229,6 @@ class Icons:
 
    def mapResources(self, resources):
       for entry in self.iconDictionary:
-         # TODO: Temporary check until JSON versionis updated.
-         #if self.common.isInputJSON():
-         #   if entry == "Endpoint Gateway Icon" or entry == "Flow Logs Icon" or entry == "Object Storage Icon" or entry == "Transit Gateway Icon" or entry == "VPN Gateway Icon":
-         #      continue
-
          icon = self.iconDictionary[entry]
 
          resource = icon['resource']
@@ -244,39 +241,18 @@ class Icons:
             
          fields = icon['fields']
          lists = []
+
+         # Field Options:
+         #   a. "name1:name2:nameN" to drill down into substructures 
+         #   b. "name1+name2+nameN" to concatenate names 
+         #   c. "@name" to leave name as is 
+         #   d. "name[d]" to retrieve array index d starting at 0 where d is 0 to 9
+
          for index, row in resource.iterrows():
             list = {}
             for newname, oldname in fields.items():
-               if oldname[0] == '*':
-                  list[newname] = oldname[1:]
-               elif oldname[0] == ':':
-                  tempindex = int(oldname[1])
-                  tempname = oldname[2:]
-                  tempstring = row[tempname]
-                  temparray = tempstring.split(':')
-                  list[newname] = temparray[tempindex]
-               elif oldname.find("+") > -1:
-                  templist = oldname.split("+")
-                  tempindex = 0
-                  newdata = ""
-                  while tempindex < len(templist): 
-                     tempstring = templist[tempindex]
-                     if tempstring[0] == '@':
-                        tempdata = tempstring[1:]
-                        if newdata == "":
-                           newdata = tempdata
-                        else:
-                           newdata = newdata + "-" + tempdata
-                     else:
-                       tempdata = row[tempstring]
-                       if newdata == "":
-                          newdata = tempdata
-                       else:
-                          newdata = newdata + "-" + tempdata
-                     tempindex += 1
-                  list[newname] = newdata
-               else:
-                  templist = oldname.split()
+               if oldname.find(":") > -1:
+                  templist = oldname.split(":")
                   tempdata = row[templist[0]]
                   if len(templist) == 1:
                      element = tempdata
@@ -286,7 +262,37 @@ class Icons:
                         tempdata = tempdata[0]
                         tempdata = tempdata[templist[tempindex]]
                         tempindex += 1
-                  list[newname] = tempdata
+               else:
+                  if oldname.find("+") > -1:
+                     templist = oldname.split("+")
+                  else:
+                     templist = [oldname]
+
+                  tempindex = 0
+                  tempstring = ""
+
+                  while tempindex < len(templist): 
+                     tempvalue = templist[tempindex]
+                     if tempvalue.find("[") > -1:
+                        temploc = tempvalue.find("[")
+                        tempindex = int(tempvalue[temploc+1])
+                        tempname = tempvalue[:temploc]
+                        temprow = row[tempname]
+                        temparray = temprow.split(':')
+                        tempvalue = temparray[tempindex]
+                        tempstring = tempstring + tempvalue
+                     elif tempvalue[0] == '@':
+                        tempname = tempvalue[1:]
+                        tempstring = tempstring + tempname
+                     else:
+                        tempname = row[tempvalue]
+                        tempstring = tempstring + tempname
+                     tempindex += 1
+
+                  tempdata = tempstring
+
+               list[newname] = tempdata
+
             lists.append(list)
 
          df = pd.DataFrame(lists)
@@ -295,9 +301,8 @@ class Icons:
       self.addClouds()
       self.addRegions()
       self.addZones()
-
       self.addCloudServices()
-      self.addVPCServices()
+      #self.addVPCServices()
 
       return True
 
@@ -376,7 +381,8 @@ class Icons:
          vpcID = vpcRow['id']
          for zoneRow in data:
             newRow = zoneRow.copy()
-            newRow["id"] = vpcID + "-" + newRow["id"]
+            #newRow["id"] = vpcID + "-" + newRow["id"]
+            newRow["id"] = vpcID + newRow["id"]
             zoneData.append(newRow)
 
       icon = self.iconDictionary['Availability Zone Group']
@@ -387,15 +393,15 @@ class Icons:
 
    def addCloudServices(self):
       data = [
-          {'label': 'Cloud Services', 'id': 'services-au-syd',   'Region Group': 'au-syd',   'Cloud Services Group': 'Cloud Services Group'},  
-          {'label': 'Cloud Services', 'id': 'services-br-sao',   'Region Group': 'br-sao',   'Cloud Services Group': 'Cloud Services Group'},  
-          {'label': 'Cloud Services', 'id': 'services-ca-tor',   'Region Group': 'ca-tor',   'Cloud Services Group': 'Cloud Services Group'},  
-          {'label': 'Cloud Services', 'id': 'services-eu-de',    'Region Group': 'eu-de',    'Cloud Services Group': 'Cloud Services Group'},  
-          {'label': 'Cloud Services', 'id': 'services-eu-gb',    'Region Group': 'eu-gb',    'Cloud Services Group': 'Cloud Services Group'},  
-          {'label': 'Cloud Services', 'id': 'services-jp-osa',   'Region Group': 'jp-osa',   'Cloud Services Group': 'Cloud Services Group'},  
-          {'label': 'Cloud Services', 'id': 'services-jp-tok',   'Region Group': 'jp-tok',   'Cloud Services Group': 'Cloud Services Group'},  
-          {'label': 'Cloud Services', 'id': 'services-us-east',  'Region Group': 'us-east',  'Cloud Services Group': 'Cloud Services Group'},  
-          {'label': 'Cloud Services', 'id': 'services-us-south', 'Region Group': 'us-south', 'Cloud Services Group': 'Cloud Services Group'}  
+          {'label': 'Cloud Services', 'id': 'servicesau-syd',   'Region Group': 'au-syd',   'Cloud Services Group': 'Cloud Services Group'},  
+          {'label': 'Cloud Services', 'id': 'servicesbr-sao',   'Region Group': 'br-sao',   'Cloud Services Group': 'Cloud Services Group'},  
+          {'label': 'Cloud Services', 'id': 'servicesca-tor',   'Region Group': 'ca-tor',   'Cloud Services Group': 'Cloud Services Group'},  
+          {'label': 'Cloud Services', 'id': 'serviceseu-de',    'Region Group': 'eu-de',    'Cloud Services Group': 'Cloud Services Group'},  
+          {'label': 'Cloud Services', 'id': 'serviceseu-gb',    'Region Group': 'eu-gb',    'Cloud Services Group': 'Cloud Services Group'},  
+          {'label': 'Cloud Services', 'id': 'servicesjp-osa',   'Region Group': 'jp-osa',   'Cloud Services Group': 'Cloud Services Group'},  
+          {'label': 'Cloud Services', 'id': 'servicesjp-tok',   'Region Group': 'jp-tok',   'Cloud Services Group': 'Cloud Services Group'},  
+          {'label': 'Cloud Services', 'id': 'servicesus-east',  'Region Group': 'us-east',  'Cloud Services Group': 'Cloud Services Group'},  
+          {'label': 'Cloud Services', 'id': 'servicesus-south', 'Region Group': 'us-south', 'Cloud Services Group': 'Cloud Services Group'}  
         ]
 
       icon = self.iconDictionary['Cloud Services Group']
@@ -404,6 +410,7 @@ class Icons:
 
       return
 
+   '''
    def addVPCServices(self):
       vpcIcon = self.getResourceIcon('VPC Group')
       vpcData = vpcIcon['data']
@@ -418,3 +425,4 @@ class Icons:
       icon['data'] = df 
 
       return
+   '''

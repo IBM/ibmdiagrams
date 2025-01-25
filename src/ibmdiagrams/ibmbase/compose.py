@@ -96,7 +96,7 @@ class Compose:
             continue
 
          childData = childIcon['data'] 
-        
+         
          if not 'deployedOn' in childIcon:
             continue
 

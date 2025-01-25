@@ -107,30 +107,6 @@ def main():
             common.printDone(path.join(outputfolder, splitfile[0] + ".py"), common.getProvider().value.upper())
       else:
          common.printExit()
-
-      #if inputtype == 'json':
-      #   common.printStartFile(inputfile, common.getProvider().value.upper())
-      #   data = LoadJSON(common)
-      #   if data.loadData():
-      #      compose = ComposeJSON(common, data)
-      #      compose.composeDiagrams()
-      #      common.printDone(path.join(outputfolder, outputfile), common.getProvider().value.upper())
-      #   else:
-      #      common.printExit()
-      #elif inputtype == 'tfstate':
-      #   common.printStartFile(inputfile, common.getProvider().value.upper())
-      #   data = Load(common)
-      #   if data.loadData():
-      #      compose = Compose(common, data)
-      #      compose.composeDiagrams()
-      #      if common.isDrawioCode():
-      #         common.printDone(path.join(outputfolder, outputfile), common.getProvider().value.upper())
-      #      elif common.isPythonCode():
-      #         splitfile = path.splitext(outputfile)
-      #         common.printDone(path.join(outputfolder, splitfile[0] + ".py"), common.getProvider().value.upper())
-      #   else:
-      #      common.printExit()
-
    else:
       print()
 

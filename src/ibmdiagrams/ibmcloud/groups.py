@@ -66,11 +66,11 @@ class CloudServices(_CoreGroup):
                                             linecolor=Colors.lines["network"], fillcolor=Colors.fills["white"],
                                             icon="Cloud Services Group", direction="LR") 
 
-class VPCServices(_CoreGroup):
-    def __init__(self, label, sublabel="", direction="LR"):
-        super(VPCServices, self).__init__(label, sublabel=sublabel, 
-                                          linecolor=Colors.lines["network"], fillcolor=Colors.fills["white"],
-                                          icon="VPC Services Group", direction="LR") 
+#class VPCServices(_CoreGroup):
+#    def __init__(self, label, sublabel="", direction="LR"):
+#        super(VPCServices, self).__init__(label, sublabel=sublabel, 
+#                                          linecolor=Colors.lines["network"], fillcolor=Colors.fills["white"],
+#                                          icon="VPC Services Group", direction="LR") 
 
 class InternetServices(_CoreGroup):
     def __init__(self, label, sublabel="", direction="LR"):
