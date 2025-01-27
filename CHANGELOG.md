@@ -2,6 +2,12 @@
 
 Notable changes:
 
+## 3.1.3
+
+### Features
+
+- Added Key Protect and Cloud Logs services.
+
 ## 3.1.2
 
 ### Features

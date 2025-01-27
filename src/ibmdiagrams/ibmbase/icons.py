@@ -157,14 +157,15 @@ class Icons:
       'L3 Switch Icon': {'icon': 'switch-layer-3', 'color': Colors.lines["network"], 'fill': Colors.lines["network"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
 
       # Observability
-      'Cloud Logs Icon': {'icon': 'ibm-cloud--logging', 'color': Colors.lines["management"], 'fill': Colors.lines["management"], 'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      # Note: Activity Tracker is deprecated, replaced with Cloud Logs.
+      'Cloud Logs Icon': {'icon': 'ibm-cloud--logging', 'color': Colors.lines["management"], 'fill': Colors.lines["management"], 'resource': 'ibm_atracker_target', 'fields': {'label': 'name', 'id': 'id', 'Cloud Services Group': '@services+crn[5]'}, 'direction': 'LR', 'deployedOn': 'Cloud Services Group', 'deployedTo': 'none'},
       #'Flow Logs Icon': {'icon': 'flow-logs-vpc', 'color': Colors.lines["management"], 'fill': Colors.lines["management"], 'resource': 'ibm_is_flow_log', 'fields': {'label': 'name', 'id': 'id', 'VPC Services Group': '@services+vpc'}, 'direction': 'LR', 'deployedOn': 'VPC Services Group', 'deployedTo': 'none'},
       'Flow Logs Icon': {'icon': 'flow-logs-vpc', 'color': Colors.lines["management"], 'fill': Colors.lines["management"], 'resource': 'ibm_is_flow_log', 'fields': {'label': 'name', 'id': 'id', 'Cloud Services Group': '@services+crn[5]'}, 'direction': 'LR', 'deployedOn': 'Cloud Services Group', 'deployedTo': 'none'},
       'Monitoring Icon': {'icon': 'cloud--monitoring', 'color': Colors.lines["management"], 'fill': Colors.lines["management"], 'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
 
       # Security
       'App ID Icon': {'icon': 'ibm-cloud--app-id', 'color': Colors.lines["security"], 'fill': Colors.lines["security"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
-      'Key Protect Icon': {'icon': 'ibm-cloud--key-protect', 'color': Colors.lines["security"], 'fill': Colors.lines["security"], 'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'Key Protect Icon': {'icon': 'ibm-cloud--key-protect', 'color': Colors.lines["security"], 'fill': Colors.lines["security"], 'resource': 'ibm_kms_key', 'fields': {'label': 'key_name', 'id': 'id', 'Cloud Services Group': '@services+crn[5]'}, 'direction': 'LR', 'deployedOn': 'Cloud Services Group', 'deployedTo': 'none'},
       'Secrets Manager Icon': {'icon': 'ibm-cloud--secrets-manager', 'color': Colors.lines["security"], 'fill': Colors.lines["security"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
       'Security Complance Center Icon': {'icon': 'ibm-cloud--security-compliance-center', 'color': Colors.lines["security"], 'fill': Colors.lines["security"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
       'SSH Key Icon': {'icon': 'password', 'color': Colors.lines["network"], 'fill': Colors.lines["security"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
