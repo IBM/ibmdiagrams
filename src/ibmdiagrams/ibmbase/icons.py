@@ -109,7 +109,8 @@ class Icons:
       'DataStax Icon': {'icon': 'database--datastax', 'color': Colors.lines["data"], 'fill': Colors.lines["data"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
       'Elasticsearch Icon': {'icon': 'database--elastic', 'color': Colors.lines["data"], 'fill': Colors.lines["data"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
       'EnterpriseDB Icon': {'icon': 'database--enterprisedb', 'color': Colors.lines["data"], 'fill': Colors.lines["data"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
-      'etcd Icon': {'icon': 'database--etcd', 'color': Colors.lines["data"], 'fill': Colors.lines["data"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      # Note: etcd is deprecated as of 10/15/25.
+      #'etcd Icon': {'icon': 'database--etcd', 'color': Colors.lines["data"], 'fill': Colors.lines["data"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
       'MongoDB Icon': {'icon': 'database--mongodb', 'color': Colors.lines["data"], 'fill': Colors.lines["data"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
       'MySQL Icon': {'icon': 'database--mysql', 'color': Colors.lines["data"], 'fill': Colors.lines["data"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
       'PostgreSQL Icon': {'icon': 'database--postgresql', 'color': Colors.lines["data"], 'fill': Colors.lines["data"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},

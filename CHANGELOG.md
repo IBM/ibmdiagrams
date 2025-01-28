@@ -2,6 +2,12 @@
 
 Notable changes:
 
+## 3.1.4
+
+### Features
+
+- Removed icon for deprecated etcd offering.
+
 ## 3.1.3
 
 ### Features

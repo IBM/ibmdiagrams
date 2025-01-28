@@ -52,10 +52,10 @@ class EnterpriseDB(_Data):
         super(EnterpriseDB, self).__init__(label, sublabel=sublabel, 
                                            icon="EnterpriseDB Icon")
 
-class etcd(_Data):
-    def __init__(self, label, sublabel=""):
-        super(etcd, self).__init__(label, sublabel=sublabel, 
-                                   icon="etcd Icon")
+#class etcd(_Data):
+#    def __init__(self, label, sublabel=""):
+#        super(etcd, self).__init__(label, sublabel=sublabel, 
+#                                   icon="etcd Icon")
 
 class MongoDB(_Data):
     def __init__(self, label, sublabel=""):
@@ -101,7 +101,7 @@ class DataPak(_Data):
 Ds = DataStax
 Es = Elasticsearch
 En = EnterpriseDB
-Et = etcd
+#Et = etcd
 Mg = MongoDB
 My = MySQL
 Ra = Rabbit 
