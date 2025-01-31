@@ -17,6 +17,7 @@ import os.path
 import pandas as pd
 from json import loads as json_load, dumps as json_dumps
 from tabulate import tabulate
+from ipaddress import ip_network, ip_address
 
 import pandas as pd
 
@@ -555,7 +556,51 @@ class Resources:
 
          self.resourceDictionary[resource] = frame
 
+      self.combineResources()
+
       return True
+
+   def combineResources(self):
+      self.combineEndpointGatewayIP()
+      return
+
+   # Combine needed fields in endpoint gateway IP with fields in endpoint gateway.
+   # Note that (number of resources in ipresource) > (number of resources in mainresource), 
+   # therefore (number of resources in mainresource) is increased to (number of resources in ipresource).
+   def combineEndpointGatewayIP(self):
+      mainresource = self.resourceDictionary["ibm_is_virtual_endpoint_gateway"]
+      ipresource = self.resourceDictionary["ibm_is_virtual_endpoint_gateway_ip"]
+      subnetresource = self.resourceDictionary["ibm_is_subnet"]
+
+      if mainresource.empty or ipresource.empty or subnetresource.empty:
+         return
+
+      maintable = mainresource.to_dict('index')
+      newtable = {}
+      count = 0
+
+      for ipindex, iprow in ipresource.iterrows():
+         for mainkey, mainvalue in maintable.items():
+            mainid = mainvalue["id"]
+            if mainid == iprow["gateway"]:
+               for subnetindex, subnetrow in subnetresource.iterrows():
+                  ipaddress = iprow["address"]
+                  subnetcidr = subnetrow["ipv4_cidr_block"]
+                  subnetid = subnetrow["id"]
+                  if ip_address(ipaddress) in ip_network(subnetcidr):
+                     mainvalue["subnet"] = subnetid
+                     mainvalue["address"] = ipaddress
+                     if newtable == {}:
+                        newtable = {count:  mainvalue.copy()}
+                     else:
+                        newtable.update({count:  mainvalue.copy()})
+                     count = count + 1
+                     break
+
+      frame = pd.DataFrame.from_dict(newtable, orient="index")
+      self.resourceDictionary["ibm_is_virtual_endpoint_gateway"] = frame
+
+      return
 
    def loadJSON(self):
       if not os.path.isfile(self.common.getInputFile()):

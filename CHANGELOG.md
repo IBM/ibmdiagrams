@@ -2,6 +2,12 @@
 
 Notable changes:
 
+## 3.1.5
+
+### Features
+
+- Completed endpoint gateway implementation.
+
 ## 3.1.4
 
 ### Features
