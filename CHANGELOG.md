@@ -2,6 +2,12 @@
 
 Notable changes:
 
+## 3.1.6
+
+### Features
+
+- Removed icon for deprecated EnterpriseDB offering.
+
 ## 3.1.5
 
 ### Features

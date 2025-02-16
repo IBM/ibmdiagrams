@@ -47,10 +47,10 @@ class Elasticsearch(_Data):
         super(Elasticsearch, self).__init__(label, sublabel=sublabel, 
                                             icon="Elasticsearch Icon")
 
-class EnterpriseDB(_Data):
-    def __init__(self, label, sublabel=""):
-        super(EnterpriseDB, self).__init__(label, sublabel=sublabel, 
-                                           icon="EnterpriseDB Icon")
+#class EnterpriseDB(_Data):
+#    def __init__(self, label, sublabel=""):
+#        super(EnterpriseDB, self).__init__(label, sublabel=sublabel, 
+#                                           icon="EnterpriseDB Icon")
 
 #class etcd(_Data):
 #    def __init__(self, label, sublabel=""):
@@ -100,7 +100,7 @@ class DataPak(_Data):
 # Aliases
 Ds = DataStax
 Es = Elasticsearch
-En = EnterpriseDB
+#En = EnterpriseDB
 #Et = etcd
 Mg = MongoDB
 My = MySQL
