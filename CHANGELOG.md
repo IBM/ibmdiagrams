@@ -2,6 +2,12 @@
 
 Notable changes:
 
+## 3.1.7
+
+### Features
+
+- Added support for OpenShift.
+
 ## 3.1.6
 
 ### Features

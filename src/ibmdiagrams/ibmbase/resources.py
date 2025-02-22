@@ -557,6 +557,7 @@ class Resources:
          self.resourceDictionary[resource] = frame
 
       self.combineResources()
+      self.splitResources()
 
       return True
 
@@ -599,6 +600,41 @@ class Resources:
 
       frame = pd.DataFrame.from_dict(newtable, orient="index")
       self.resourceDictionary["ibm_is_virtual_endpoint_gateway"] = frame
+
+      return
+
+   def splitResources(self):
+      self.splitContainerSubnets()
+      return
+
+   # Split subnets in container for display of separate OpenShift icons.
+   def splitContainerSubnets(self):
+      mainresource = self.resourceDictionary["ibm_container_vpc_cluster"]
+      #subnetresource = self.resourceDictionary["ibm_is_subnet"]
+
+      #if mainresource.empty or subnetresource.empty:
+      if mainresource.empty:
+         return
+
+      maintable = mainresource.to_dict('index')
+      newtable = {}
+      count = 0
+
+      for mainkey, mainvalue in maintable.items():
+         mainid = mainvalue["id"]
+         mainname = mainvalue["name"]
+         mainvpc = mainvalue["vpc_id"]
+         mainzones = mainvalue["zones"]
+         for zone in mainzones:
+            newvalue = {'id': mainid, 'name': mainname, 'vpc_id': mainvpc, 'zones': [{ 'name': zone['name'], 'subnet_id': zone['subnet_id']}] }
+            if newtable == {}:
+               newtable = {count:  newvalue}
+            else:
+               newtable.update({count:  newvalue})
+            count = count + 1
+
+      frame = pd.DataFrame.from_dict(newtable, orient="index")
+      self.resourceDictionary["ibm_container_vpc_cluster"] = frame
 
       return
 

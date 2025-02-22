@@ -86,8 +86,7 @@ class Icons:
       'Watson Studio Icon': {'icon': 'ibm-watson--studio', 'color': Colors.lines["applications"], 'fill': Colors.lines["applications"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
 
        # Compute
-      'Virtual Server Icon': {'icon': 'ibm-cloud--virtual-server-vpc', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"], 'resource': 'ibm_is_instance', 'fields': 
-{'label': 'name', 'sublabel': 'primary_network_interface:primary_ip:address', 'id': 'id', 'Subnet Group': 'primary_network_interface:subnet', 'Availability Zone Group': 'vpc+zone', 'VPC Group': 'vpc'}, 'direction': 'LR', 'deployedOn': 'Subnet Group', 'deployedTo': 'none'},
+      'Virtual Server Icon': {'icon': 'ibm-cloud--virtual-server-vpc', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"], 'resource': 'ibm_is_instance', 'fields': {'label': 'name', 'sublabel': 'primary_network_interface:primary_ip:address', 'id': 'id', 'Subnet Group': 'primary_network_interface:subnet', 'Availability Zone Group': 'vpc+zone', 'VPC Group': 'vpc'}, 'direction': 'LR', 'deployedOn': 'Subnet Group', 'deployedTo': 'none'},
       'Power Virtual Server Icon': {'icon': 'ibm--power-vs', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
       'Classic Virtual Server Icon': {'icon': 'ibm-cloud--virtual-server-classic', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
       'Bare Metal Server Icon': {'icon': 'ibm-cloud--bare-metal-servers-vpc', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"], 'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
@@ -97,7 +96,7 @@ class Icons:
       'Satellite Icon': {'icon': 'cloud-satellite', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
 
       # Containers
-      'OpenShift Icon': {'icon': 'logo--openshift', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
+      'OpenShift Icon': {'icon': 'logo--openshift', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"],  'resource': 'ibm_container_vpc_cluster', 'fields': {'label': 'name', 'id': 'id', 'Subnet Group': 'zones:subnet_id', 'Availability Zone Group': 'zones:name', 'VPC Group': 'vpc_id'}, 'direction': 'LR', 'deployedOn': 'Subnet Group', 'deployedTo': 'none'},
       'Kubernetes Service Icon': {'icon': 'ibm-cloud--kubernetes-service', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
       'Z Containers Icon': {'icon': 'ibm-z-os--containers', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
       'Container Registry Icon': {'icon': 'cloud-registry', 'color': Colors.lines["compute"], 'fill': Colors.lines["compute"],  'resource': 'none', 'fields': {}, 'direction': 'LR', 'deployedOn': 'none', 'deployedTo': 'none'},
