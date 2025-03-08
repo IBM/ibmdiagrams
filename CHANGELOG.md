@@ -2,6 +2,12 @@
 
 Notable changes:
 
+## 3.1.8
+
+### Fixes
+
+- Fixed output parameter.
+
 ## 3.1.7
 
 ### Features

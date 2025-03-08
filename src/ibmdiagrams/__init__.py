@@ -128,6 +128,9 @@ class Diagram:
       self.fontname = font
       self.common.setFontName(self.fontname)
 
+      if output != "":
+         self.common.setOutputFolder(output)
+
       if direction.upper() == "LR":
          self.common.setDirectionLR()
       elif direction.upper() == "TB":

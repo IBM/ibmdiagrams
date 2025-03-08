@@ -32,6 +32,7 @@ from uuid import uuid4
 
 from .common import Common
 from .build import Build
+from .load import Load
 from .properties import Properties
 
 @staticmethod
@@ -81,7 +82,8 @@ class Compose:
       diagramdata = {"label": [self.diagramname]}
       frame = pd.DataFrame(diagramdata)
       fontname = self.common.getFontName()
-      diagram = TreeNode("Diagram Group", randomid(), 'LR', fontname, frame.iloc[0])
+      outputfolder = self.common.getOutputFolder()
+      diagram = TreeNode("Diagram Group", randomid(), outputfolder, 'LR', fontname, frame.iloc[0])
       top = self.composeIconTree(diagram)
       self.combineServiceIcons(top, False)
       return top
@@ -109,7 +111,7 @@ class Compose:
 
          for childKey, childRow in childData.iterrows():
             childID = childRow['id']
-            childNode = TreeNode(childName, childID, childDirection, None, childRow)
+            childNode = TreeNode(childName, childID, None, childDirection, None, childRow)
             parentNode = self.composeGroupTree(childNode, childIcon)
             if parentNode != None:
                top.addNode(parentNode)
@@ -147,7 +149,7 @@ class Compose:
                deployedOnNode.addNode(childNode)
                deployedOnNode = None
             else:
-               deployedOnNode = TreeNode(deployedOnGroup, deployedOnID, deployedOnDirection, None, deployedOnRow)
+               deployedOnNode = TreeNode(deployedOnGroup, deployedOnID, None, deployedOnDirection, None, deployedOnRow)
                self.savegroups[deployedOnID] = deployedOnNode
                deployedOnNode.addNode(childNode)
                if nextDeployedOnGroup != "none":
@@ -165,7 +167,7 @@ class Compose:
                deployedToNode = self.savegroups[deployedToID]
                deployedToNode.addNode(childNode)
             else:
-               deployedToNode = TreeNode(deployedToGroup, deployedToID, deployedToDirection, None, deployedToRow)
+               deployedToNode = TreeNode(deployedToGroup, deployedToID, None, deployedToDirection, None, deployedToRow)
                self.savegroups[deployedToID] = deployedToNode
                deployedToNode.addNode(childNode)
             break
@@ -207,7 +209,7 @@ class Compose:
 
          for name in combinedIcons:
             entry = combinedIcons[name] 
-            node = TreeNode(name, entry["id"], entry["direction"], None, entry["data"])
+            node = TreeNode(name, entry["id"], None, entry["direction"], None, entry["data"])
             parent.addNode(node)
       else:
          for child in parent.children:
@@ -237,6 +239,7 @@ class Compose:
       #print(" " * self.indent + self.top.id)
       name = parent.name
       id = parent.id
+      output = parent.output
       direction = parent.direction
       fontname = parent.fontname
       data =  parent.data
@@ -262,12 +265,17 @@ class Compose:
 
          name = name.replace(" ", "") 
 
+         if output == None:
+            output = ""
+         else:
+            output = ", output='" + output + "'"
+
          if direction == 'LR':
             direction = ""
          else:
             direction = ", direction='" + direction + "'"
 
-         print(" " * self.indent + "with " + name + "('" + label + "'" + sublabel + direction + fontname + "):", file=pythonfile)
+         print(" " * self.indent + "with " + name + "('" + label + "'" + sublabel + output + direction + fontname + "):", file=pythonfile)
 
       index = name.find("Icon")
       if index != -1:
@@ -295,9 +303,10 @@ class Compose:
       return
 
 class TreeNode:
-   def __init__(self, name, id, direction, fontname, data):
+   def __init__(self, name, id, output, direction, fontname, data):
       self.name = name
       self.id = id
+      self.output = output
       self.direction = direction
       self.fontname = fontname
       self.data = data
@@ -315,6 +324,8 @@ class TreeNode:
       print(self.name)
       print("TreeNode::id:")
       print(self.id)
+      print("TreeNode::output:")
+      print(self.output)
       print("TreeNode::direction:")
       print(self.direction)
       print("TreeNode::fontname:")
