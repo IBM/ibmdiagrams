@@ -2,6 +2,12 @@
 
 Notable changes:
 
+## 3.1.9
+
+### Fixes
+
+- Ensure directories are created for output parameter.
+
 ## 3.1.8
 
 ### Fixes

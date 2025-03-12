@@ -26,7 +26,7 @@ import pandas as pd
 import subprocess
 import sys
 
-from os import path, remove
+from os import path, remove, makedirs
 from math import isnan
 from uuid import uuid4
 
@@ -65,6 +65,8 @@ class Compose:
 
    def composeDiagrams(self):
       self.top = self.composeTree()
+      if not path.exists(self.outputfolder):
+         makedirs(self.outputfolder)
       filelocation = path.join(self.outputfolder, self.outputfile)
       pythonfile = open(filelocation, "w")
       self.composeIncludes(pythonfile)
