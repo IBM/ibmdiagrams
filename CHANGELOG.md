@@ -2,6 +2,12 @@
 
 Notable changes:
 
+## 3.1.10
+
+### Fixed output parameter is null. 
+
+- TBD
+
 ## 3.1.9
 
 ### Fixes

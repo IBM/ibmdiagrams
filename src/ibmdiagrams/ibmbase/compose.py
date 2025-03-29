@@ -65,7 +65,7 @@ class Compose:
 
    def composeDiagrams(self):
       self.top = self.composeTree()
-      if not path.exists(self.outputfolder):
+      if self.outputfolder != '' and not path.exists(self.outputfolder):
          makedirs(self.outputfolder)
       filelocation = path.join(self.outputfolder, self.outputfile)
       pythonfile = open(filelocation, "w")
