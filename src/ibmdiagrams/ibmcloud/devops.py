@@ -18,48 +18,84 @@ from .colors import Colors
 
 class _DevOps(_IBMCollapsed):
     def __init__(self, label, sublabel="", icon=""):
-        super(_DevOps, self).__init__(label=label, sublabel=sublabel, 
-                                      linecolor=Colors.lines["devops"], 
-                                      shape="pnode", icon=icon)
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            linecolor=Colors.lines["devops"],
+            shape="pnode",
+            icon=icon,
+        )
+
 
 class ContinuousDelivery(_DevOps):
     def __init__(self, label, sublabel=""):
-        super(ContinuousDelivery, self).__init__(label, sublabel=sublabel, 
-                                                 icon="Continuous Delivery Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="Continuous Delivery Icon",
+        )
+
 
 class ContinuousIntegration(_DevOps):
     def __init__(self, label, sublabel=""):
-        super(ContinuousIntegration, self).__init__(label, sublabel=sublabel, 
-                                                    icon="Continuous Integration Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="Continuous Integration Icon",
+        )
+
 
 class SourceCodeRepository(_DevOps):
     def __init__(self, label, sublabel=""):
-        super(SourceCodeRepository, self).__init__(label, sublabel=sublabel, 
-                                                   icon="Source Code Repository Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="Source Code Repository Icon",
+        )
+
 
 class Toolchain(_DevOps):
     def __init__(self, label, sublabel=""):
-        super(Toolchain, self).__init__(label, sublabel=sublabel, 
-                                        icon="Toolchain Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="Toolchain Icon",
+        )
+
 
 class MQ(_DevOps):
     def __init__(self, label, sublabel=""):
-        super(MQ, self).__init__(label, sublabel=sublabel, 
-                                 icon="MQ Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="MQ Icon",
+        )
+
 
 class Ansible(_DevOps):
     def __init__(self, label, sublabel=""):
-        super(Ansible, self).__init__(label, sublabel=sublabel, 
-                                      icon="Ansible Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="Ansible Icon",
+        )
+
 
 class GitLab(_DevOps):
     def __init__(self, label, sublabel=""):
-        super(GitLab, self).__init__(label, sublabel=sublabel, 
-                                     icon="GitLab Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="GitLab Icon",
+        )
+
 
 class IntegrationPak(_DevOps):
     def __init__(self, label, sublabel=""):
-        super(IntegrationPak, self).__init__(label, sublabel=sublabel, 
-                                             icon="Integration Pak Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="Integration Pak Icon",
+        )
 
 # Aliases

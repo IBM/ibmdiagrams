@@ -18,33 +18,57 @@ from .colors import Colors
 
 class _Storage(_IBMCollapsed):
     def __init__(self, label, sublabel="", icon=""):
-        super(_Storage, self).__init__(label=label, sublabel=sublabel, 
-                                       linecolor=Colors.lines["storage"], 
-                                       shape="pnode", icon=icon)
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            linecolor=Colors.lines["storage"],
+            shape="pnode",
+            icon=icon,
+        )
+
 
 class BlockStorage(_Storage):
     def __init__(self, label, sublabel=""):
-        super(BlockStorage, self).__init__(label, sublabel=sublabel, 
-                                           icon="Block Storage Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="Block Storage Icon",
+        )
+
 
 class BlockStorageSnapshots(_Storage):
     def __init__(self, label, sublabel=""):
-        super(BlockStorageSnapshots, self).__init__(label, sublabel=sublabel, 
-                                                    icon="Block Storage Snapshotsi Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="Block Storage Snapshots Icon",
+        )
+
 
 class FileStorage(_Storage):
     def __init__(self, label, sublabel=""):
-        super(FileStorage, self).__init__(label, sublabel=sublabel, 
-                                          icon="Undefined Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="Undefined Icon",
+        )
+
 
 class ObjectStorage(_Storage):
     def __init__(self, label, sublabel=""):
-        super(ObjectStorage, self).__init__(label, sublabel=sublabel, 
-                                            icon="Object Storage Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="Object Storage Icon",
+        )
+
 
 class CloudBackup(_Storage):
     def __init__(self, label, sublabel=""):
-        super(CloudBackup, self).__init__(label, sublabel=sublabel, 
-                                          icon="Cloud Backup Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="Cloud Backup Icon",
+        )
 
 # Aliases

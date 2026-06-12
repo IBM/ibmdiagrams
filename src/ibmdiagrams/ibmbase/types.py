@@ -13,6 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# ruff: noqa: F401
+
 import random
 import time
 
@@ -639,7 +641,14 @@ class Types:
       datashape = {'cell': cell, 'geo': geo, 'props':  props, 'point': {}}
 
       icon = node["icon"]
-      styleicon = "shape=mxgraph.ibm_cloud." + icon + ";fillColor=#ffffff;strokeColor=none;dashed=0;outlineConnect=0;part=1;movable=0;resizable=0;rotatable=0;"
+      custom_icon = node.get("custom_icon")
+      if custom_icon:
+         resource_name = node.get("label", "")
+         resource_class = node.get("classname", self.__class__.__name__)
+         print(f"Using custom_icon for {resource_class}" + (f": {resource_name}" if resource_name else ""))
+         styleicon = "shape=image;image=" + custom_icon + ";fillColor=#ffffff;strokeColor=none;dashed=0;outlineConnect=0;part=1;movable=0;resizable=0;rotatable=0;"
+      else:
+         styleicon = "shape=mxgraph.ibm_cloud." + (icon if icon else "undefined") + ";fillColor=#ffffff;strokeColor=none;dashed=0;outlineConnect=0;part=1;movable=0;resizable=0;rotatable=0;"
 
       #header = {'id': id + '-icon',
       #          'placeholders': '1'}
@@ -650,8 +659,10 @@ class Types:
               'vertex': '1',
               'parent': id}
 
-      geo = {'width': str(24),
-             'height': str(24),
+      # Use 48x48 for custom icons, 24x24 for standard icons
+      icon_size = 48 if custom_icon else 24
+      geo = {'width': str(icon_size),
+             'height': str(icon_size),
              'relative': str(1),
              'as': 'geometry'}
 
@@ -698,7 +709,14 @@ class Types:
       datashape = {'cell': cell, 'geo': geo, 'props':  props, 'point': {}}
 
       icon = node["icon"]
-      styleicon = "shape=mxgraph.ibm_cloud." + icon + ";fillColor=#ffffff;strokeColor=none;dashed=0;outlineConnect=0;part=1;movable=0;resizable=0;rotatable=0;"
+      custom_icon = node.get("custom_icon")
+      if custom_icon:
+         resource_name = node.get("label", "")
+         resource_class = node.get("classname", self.__class__.__name__)
+         print(f"Using custom_icon for {resource_class}" + (f": {resource_name}" if resource_name else ""))
+         styleicon = "shape=image;image=" + custom_icon + ";fillColor=#ffffff;strokeColor=none;dashed=0;outlineConnect=0;part=1;movable=0;resizable=0;rotatable=0;"
+      else:
+         styleicon = "shape=mxgraph.ibm_cloud." + (icon if icon else "undefined") + ";fillColor=#ffffff;strokeColor=none;dashed=0;outlineConnect=0;part=1;movable=0;resizable=0;rotatable=0;"
 
       #header = {'id': id + '-icon',
       #          'placeholders': '1'}
@@ -709,13 +727,17 @@ class Types:
               'vertex': '1',
               'parent': id}
 
-      geo = {'width': str(24),
-             'height': str(24),
+      # Use 48x48 for custom icons, 24x24 for standard icons
+      icon_size = 48 if custom_icon else 24
+      geo = {'width': str(icon_size),
+             'height': str(icon_size),
              'relative': str(1),
              'as': 'geometry'}
 
-      point = {'x': str(12),
-               'y': str(12),
+      # Custom icons align to top-left (0,0), standard icons centered (12,12)
+      offset = 0 if custom_icon else 12
+      point = {'x': str(offset),
+               'y': str(offset),
                'as': 'offset'}
 
       #dataicon = {'header': header, 'cell': cell, 'geo': geo, 'props': {}, 'point': point}
@@ -769,7 +791,14 @@ class Types:
       datalabel = {'cell': cell, 'geo': geo, 'props': {}, 'point': {}}
 
       icon = node["icon"]
-      styleicon = "shape=mxgraph.ibm_cloud." + icon + ";fillColor=#ffffff;strokeColor=none;dashed=0;outlineConnect=0;html=1;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;part=1;movable=0;resizable=0;rotatable=0;"
+      custom_icon = node.get("custom_icon")
+      if custom_icon:
+         resource_name = node.get("label", "")
+         resource_class = node.get("classname", self.__class__.__name__)
+         print(f"Using custom_icon for {resource_class}" + (f": {resource_name}" if resource_name else ""))
+         styleicon = "shape=image;image=" + custom_icon + ";fillColor=#ffffff;strokeColor=none;dashed=0;outlineConnect=0;html=1;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;part=1;movable=0;resizable=0;rotatable=0;"
+      else:
+         styleicon = "shape=mxgraph.ibm_cloud." + (icon if icon else "undefined") + ";fillColor=#ffffff;strokeColor=none;dashed=0;outlineConnect=0;html=1;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;part=1;movable=0;resizable=0;rotatable=0;"
 
       cell = {'id': id + '-icon',
               'value': '',
@@ -777,13 +806,17 @@ class Types:
               'vertex': '1',
               'parent': id + '-label'}
 
-      geo = {'width': str(24),
-             'height': str(24),
+      # Use 48x48 for custom icons, 24x24 for standard icons
+      icon_size = 48 if custom_icon else 24
+      geo = {'width': str(icon_size),
+             'height': str(icon_size),
              'relative': str(1),
              'as': 'geometry'}
 
-      point = {'x': str(12),
-               'y': str(12),
+      # Custom icons align to top-left (0,0), standard icons centered (12,12)
+      offset = 0 if custom_icon else 12
+      point = {'x': str(offset),
+               'y': str(offset),
                'as': 'offset'}
 
       dataicon = {'cell': cell, 'geo': geo, 'props': {}, 'point': point}
@@ -795,6 +828,7 @@ class Types:
       if fillcolor == "":
          fillcolor = "none"
       linecolor = node["linecolor"]
+      iconcolor = node.get("iconcolor", linecolor)  # Use iconcolor if available, fallback to linecolor
       styleshape = "container=1;collapsible=0;expand=0;recursiveResize=0;image=;strokeColor=" + linecolor + ";fillColor=" + fillcolor + ";strokeWidth=1;"
 
       parentid = node["parentid"]
@@ -837,7 +871,14 @@ class Types:
       datalabel = {'cell': cell, 'geo': geo, 'props': {}, 'point': {}}
 
       icon = node["icon"]
-      styleicon = "shape=mxgraph.ibm_cloud." + icon + ";strokeColor=none;fillColor=" + linecolor + ";aspect=fixed;resizable=0;rotatable=0;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;part=1;dashed=0;outlineConnect=0;spacingLeft=5;"
+      custom_icon = node.get("custom_icon")
+      if custom_icon:
+         resource_name = node.get("label", "")
+         resource_class = node.get("classname", self.__class__.__name__)
+         print(f"Using custom_icon for {resource_class}" + (f": {resource_name}" if resource_name else ""))
+         styleicon = "shape=image;image=" + custom_icon + ";strokeColor=none;fillColor=" + iconcolor + ";aspect=fixed;resizable=0;rotatable=0;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;part=1;dashed=0;outlineConnect=0;spacingLeft=5;"
+      else:
+         styleicon = "shape=mxgraph.ibm_cloud." + (icon if icon else "undefined") + ";strokeColor=none;fillColor=" + iconcolor + ";aspect=fixed;resizable=0;rotatable=0;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;part=1;dashed=0;outlineConnect=0;spacingLeft=5;"
 
       cell = {'id': id + '-icon',
               'value': '',
@@ -845,13 +886,17 @@ class Types:
               'vertex': '1',
               'parent': id + '-label'}
 
-      geo = {'width': str(24),
-             'height': str(24),
+      # Use 48x48 for custom icons, 24x24 for standard icons
+      icon_size = 48 if custom_icon else 24
+      geo = {'width': str(icon_size),
+             'height': str(icon_size),
              'relative': str(1),
              'as': 'geometry'}
 
-      point = {'x': str(12),
-               'y': str(12),
+      # Custom icons align to top-left (0,0), standard icons centered (12,12)
+      offset = 0 if custom_icon else 12
+      point = {'x': str(offset),
+               'y': str(offset),
                'as': 'offset'}
 
       dataicon = {'cell': cell, 'geo': geo, 'props': {}, 'point': point}
@@ -878,6 +923,7 @@ class Types:
       if fillcolor == "":
          fillcolor = "none"
       linecolor = node["linecolor"]
+      iconcolor = node.get("iconcolor", linecolor)
       styleshape = "container=0;collapsible=0;expand=0;recursiveResize=0;image=;strokeColor=" + linecolor + ";fillColor=" + fillcolor + ";dashed=1;dashPattern=1 3;strokeWidth=2;"
 
       parentid = node["parentid"]
@@ -919,7 +965,14 @@ class Types:
       datalabel = {'cell': cell, 'geo': geo, 'props': {}, 'point': {}}
 
       icon = node["icon"]
-      styleicon = "shape=mxgraph.ibm_cloud." + icon + ";fillColor=" + linecolor + ";strokeColor=none;dashed=0;outlineConnect=0;part=1;movable=0;resizable=0;rotatable=0;"
+      custom_icon = node.get("custom_icon")
+      if custom_icon:
+         resource_name = node.get("label", "")
+         resource_class = node.get("classname", self.__class__.__name__)
+         print(f"Using custom_icon for {resource_class}" + (f": {resource_name}" if resource_name else ""))
+         styleicon = "shape=image;image=" + custom_icon + ";fillColor=" + linecolor + ";strokeColor=none;dashed=0;outlineConnect=0;part=1;movable=0;resizable=0;rotatable=0;"
+      else:
+         styleicon = "shape=mxgraph.ibm_cloud." + (icon if icon else "undefined") + ";fillColor=" + iconcolor + ";strokeColor=none;dashed=0;outlineConnect=0;part=1;movable=0;resizable=0;rotatable=0;"
 
       header = {'id': id + '-icon',
                 'label': shapelabel,
@@ -931,13 +984,17 @@ class Types:
               'vertex': '1',
               'parent': id + '-label'}
 
-      geo = {'width': str(24),
-             'height': str(24),
+      # Use 48x48 for custom icons, 24x24 for standard icons
+      icon_size = 48 if custom_icon else 24
+      geo = {'width': str(icon_size),
+             'height': str(icon_size),
              'relative': str(1),
              'as': 'geometry'}
 
-      point = {'x': str(12),
-               'y': str(12),
+      # Custom icons align to top-left (0,0), standard icons centered (12,12)
+      offset = 0 if custom_icon else 12
+      point = {'x': str(offset),
+               'y': str(offset),
                'as': 'offset'}
 
       dataicon = {'cell': cell, 'geo': geo, 'props': {}, 'point': point}

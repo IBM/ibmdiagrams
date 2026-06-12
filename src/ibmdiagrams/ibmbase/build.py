@@ -21,6 +21,8 @@
 #   ibmdiagrams/ibmbase/types.py - build drawio types, invokes elements.py
 #   ibmdiagrams/ibmbase/elements.py - build drawio objects  
 
+# ruff: noqa: F401
+
 from os import path
 from math import isnan, floor
 from copy import copy
@@ -396,7 +398,7 @@ class Build:
          # TBD if groups direction not set then use diagram direction if set.
          if direction == "":
             direction = GROUP_DIRECTION_DEFAULT
-         elif not direction.upper() in [parm.value for parm in Directions]:
+         elif direction.upper() not in [parm.value for parm in Directions]:
             self.common.printInvalidDirection(direction)
             return None
          groups[groupid]["direction"] = direction
@@ -420,7 +422,7 @@ class Build:
          fontname = properties["fontname"]
          if fontname == "":
             fontname = GROUP_FONTNAME_DEFAULT
-         elif not fontname in [parm.value for parm in FontNames]:
+         elif fontname not in [parm.value for parm in FontNames]:
             self.common.printInvalidFont(fontname)
             return None
          groups[groupid]["fontname"] = fontname
@@ -446,7 +448,13 @@ class Build:
             self.common.printInvalidIcon(icon)
             return None
 
-         iconname, linecolor, fillcolor = self.icons.getIcon(icon)
+         iconname, iconcolor, fillcolor = self.icons.getIcon(icon)
+         # Get full icon dictionary to access custom_icon
+         icon_dict = self.icons.getResourceIcon(icon)
+         custom_icon = icon_dict.get("custom_icon")
+         
+         # Store the icon's default color separately
+         linecolor = iconcolor
          userlinecolor = properties["linecolor"]
          if userlinecolor != "":
             linecolor = userlinecolor
@@ -490,10 +498,19 @@ class Build:
 
          if hideicon == True:
             groups[groupid]["icon"] = ""
+            groups[groupid]["custom_icon"] = None
          else:
             groups[groupid]["icon"] = iconname
+            groups[groupid]["custom_icon"] = custom_icon
 
          groups[groupid]["genname"] = icon
+
+         # Store icon color separately from line color
+         hexiconcolor = self.checkLineColor(iconcolor)
+         if hexiconcolor == None:
+            self.common.printInvalidLineColor(iconcolor)
+            return None
+         groups[groupid]["iconcolor"] = hexiconcolor
 
          hexlinecolor = self.checkLineColor(linecolor)
          if hexlinecolor == None:
@@ -533,7 +550,7 @@ class Build:
          fontname = properties["fontname"]
          if fontname == "":
             fontname = ITEM_FONTNAME_DEFAULT
-         elif not fontname in [parm.value for parm in FontNames]:
+         elif fontname not in [parm.value for parm in FontNames]:
             self.common.printInvalidFont(fontname)
             return None
          items[nodeid]["fontname"] = fontname
@@ -551,15 +568,19 @@ class Build:
             if parentid == None:
               icon = ITEM_ICON_DEFAULT
             else:
-              parentproperties = groups[parentid]
+              parentproperties = self.groups[parentid]
               icon = parentproperties["icon"]
-              groups[groupid]["hideicon"] = True
+              self.groups[parentid]["hideicon"] = True
               hideicon = True
          elif not self.icons.validIcon(icon):
             self.common.printInvalidIcon(icon)
             return None
 
          iconname, linecolor, fillcolor = self.icons.getIcon(icon)
+         # Get full icon dictionary to access custom_icon
+         icon_dict = self.icons.getResourceIcon(icon)
+         custom_icon = icon_dict.get("custom_icon")
+         
          userlinecolor = properties["linecolor"]
          if userlinecolor != "":
             linecolor = userlinecolor
@@ -593,8 +614,10 @@ class Build:
 
          if hideicon == True:
             items[nodeid]["icon"] = ""
+            items[nodeid]["custom_icon"] = None
          else:
             items[nodeid]["icon"] = iconname
+            items[nodeid]["custom_icon"] = custom_icon
 
          items[nodeid]["genname"] = icon
 
@@ -628,7 +651,7 @@ class Build:
          linetype = properties["linetype"]
          if linetype == "":
             linetype = CONNECTOR_STYLE_DEFAULT
-         elif not linetype.upper() in [parm.value for parm in ConnectorStyles]:
+         elif linetype.upper() not in [parm.value for parm in ConnectorStyles]:
             self.common.printInvalidConnectorStyle(style)
             return None
          connectors[connectorid]["linetype"] = linetype
@@ -644,7 +667,7 @@ class Build:
          '''
          startarrow = properties["startarrow"]
          if startarrow != "": 
-            if not startarrow.upper() in [parm.value for parm in ConnectorArrows]:
+            if startarrow.upper() not in [parm.value for parm in ConnectorArrows]:
                self.common.printInvalidConnectorArrow(startarrow)
                return None
             connectors[connectorid]["startarrow"] = startarrow.lower()
@@ -660,7 +683,7 @@ class Build:
          '''
          endarrow = properties["endarrow"]
          if endarrow != "":
-            if not endarrow.upper() in [parm.value for parm in ConnectorArrows]:
+            if endarrow.upper() not in [parm.value for parm in ConnectorArrows]:
                self.common.printInvalidConnectorArrow(endarrow)
                return None
             connectors[connectorid]["endarrow"] = endarrow.lower()
@@ -668,7 +691,7 @@ class Build:
          fontname = properties["fontname"]
          if fontname == "":
             fontname = CONNECTOR_FONTNAME_DEFAULT
-         elif not fontname in [parm.value for parm in FontNames]:
+         elif fontname not in [parm.value for parm in FontNames]:
             self.common.printInvalidFont(fontname)
             return None
          connectors[connectorid]["fontname"] = fontname
@@ -740,7 +763,7 @@ class Build:
       for groupid, properties in self.groups.items():
          children = properties["children"] 
          parentid = properties["parentid"]
-         if len(children) == 0 and not parentid in parents:
+         if len(children) == 0 and parentid not in parents:
             # Add group to innermost list since no children and not same parent.
             self.bottoms.append(groupid)
             parents.append(groupid)

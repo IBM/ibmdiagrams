@@ -18,44 +18,84 @@ from .colors import Colors
 
 class _Compute(_IBMCollapsed):
     def __init__(self, label, sublabel="", icon=""):
-        super(_Compute, self).__init__(label=label, sublabel=sublabel, 
-                                      linecolor=Colors.lines["compute"], 
-                                      shape="pnode", icon=icon)
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            linecolor=Colors.lines["compute"],
+            shape="pnode",
+            icon=icon,
+        )
+
 
 class VirtualServer(_Compute):
     def __init__(self, label, sublabel=""):
-        super(VirtualServer, self).__init__(label, sublabel=sublabel, 
-                                            icon="Virtual Server Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="Virtual Server Icon",
+        )
+
 
 class PowerVirtualServer(_Compute):
     def __init__(self, label, sublabel=""):
-        super(PowerVirtualServer, self).__init__(label, sublabel=sublabel, 
-                                                 icon="Power Virtual Server Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="Power Virtual Server Icon",
+        )
+
+
 class ClassicVirtualServer(_Compute):
     def __init__(self, label, sublabel=""):
-        super(ClassicVirtualServer, self).__init__(label, sublabel=sublabel, 
-                                                   icon="Classic Virtual Server Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="Classic Virtual Server Icon",
+        )
+
+
 class BareMetalServer(_Compute):
     def __init__(self, label, sublabel=""):
-        super(BareMetalServer, self).__init__(label, sublabel=sublabel, 
-                                              icon="Bare Metal Server Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="Bare Metal Server Icon",
+        )
+
+
 class ClassicBareMetalServer(_Compute):
     def __init__(self, label, sublabel=""):
-        super(ClassicBareMetalServer, self).__init__(label, sublabel=sublabel, 
-                                                     icon="Classic Bare Metal Server Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="Classic Bare Metal Server Icon",
+        )
+
+
 class DedicatedHost(_Compute):
     def __init__(self, label, sublabel=""):
-        super(DedicatedHost, self).__init__(label, sublabel=sublabel, 
-                                            icon="Dedicated Host Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="Dedicated Host Icon",
+        )
+
 
 class ImageService(_Compute):
     def __init__(self, label, sublabel=""):
-        super(ImageService, self).__init__(label, sublabel=sublabel, 
-                                           icon="Image Service Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="Image Service Icon",
+        )
+
 
 class Satellite(_Compute):
     def __init__(self, label, sublabel=""):
-        super(Satellite, self).__init__(label, sublabel=sublabel, 
-                                        icon="Satellite Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="Satellite Icon",
+        )
 
 # Aliases

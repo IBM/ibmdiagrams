@@ -18,23 +18,39 @@ from .colors import Colors
 
 class _Observability(_IBMCollapsed):
     def __init__(self, label, sublabel="", icon=""):
-        super(_Observability, self).__init__(label=label, sublabel=sublabel, 
-                                             linecolor=Colors.lines["management"], 
-                                             shape="pnode", icon=icon)
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            linecolor=Colors.lines["management"],
+            shape="pnode",
+            icon=icon,
+        )
+
 
 class CloudLogs(_Observability):
     def __init__(self, label, sublabel=""):
-        super(CloudLogs, self).__init__(label, sublabel=sublabel, 
-                                        icon="Cloud Logs Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="Cloud Logs Icon",
+        )
+
 
 class FlowLogs(_Observability):
     def __init__(self, label, sublabel=""):
-        super(FlowLogs, self).__init__(label, sublabel=sublabel, 
-                                       icon="Flow Logs Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="Flow Logs Icon",
+        )
+
 
 class Monitoring(_Observability):
     def __init__(self, label, sublabel=""):
-        super(Monitoring, self).__init__(label, sublabel=sublabel, 
-                                         icon="Monitoring Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="Monitoring Icon",
+        )
 
 # Aliases
