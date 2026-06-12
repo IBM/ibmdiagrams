@@ -1,308 +1,440 @@
-# Change Log
+# 📝 Change Log
 
-Notable changes:
+All notable changes to ibmdiagrams are documented here.
 
-## 3.1.10
+---
 
-### Fixed output parameter is null. 
+## 🎉 [3.2.0] - 2026-04-20
 
-- TBD
+### ✨ Features
 
-## 3.1.9
+- 📦 Added LayoutGroup component for invisible layout containers
+- 📏 Equalized heights of sibling top-level groups in diagram layout
+- 🤖 Added new diagram components including watsonx and watson AI components
+- 🎨 Added custom icon support
+- 👥 Updated team contacts and maintainers
 
-### Fixes
+### 🐛 Fixes
 
-- Ensure directories are created for output parameter.
+- 📐 Improved multi-line label layout and height calculations
+- ✏️ Corrected InstanceGroup class name typo in super call
 
-## 3.1.8
+### 🧪 Testing
 
-### Fixes
+- ✅ Added comprehensive test coverage for new components
 
-- Fixed output parameter.
+---
 
-## 3.1.7
+## 🎉 [3.1.10]
 
-### Features
+### 🐛 Fixes
 
-- Added support for OpenShift.
+- 🔧 Fixed output parameter is null issue
 
-## 3.1.6
+---
 
-### Features
+## 🎉 [3.1.9]
 
-- Removed icon for deprecated EnterpriseDB offering.
+### 🐛 Fixes
 
-## 3.1.5
+- 📁 Ensure directories are created for output parameter
 
-### Features
+---
 
-- Completed endpoint gateway implementation.
+## 🎉 [3.1.8]
 
-## 3.1.4
+### 🐛 Fixes
 
-### Features
+- 🔧 Fixed output parameter
 
-- Removed icon for deprecated etcd offering.
+---
 
-## 3.1.3
+## 🎉 [3.1.7]
 
-### Features
+### ✨ Features
 
-- Added Key Protect and Cloud Logs services.
+- 🚀 Added support for OpenShift
 
-## 3.1.2
+---
 
-### Features
+## 🎉 [3.1.6]
 
-- Completed combining services.
+### ✨ Features
 
-## 3.1.1
+- 🗑️ Removed icon for deprecated EnterpriseDB offering
 
-### Features
+---
 
-- Combined services to reduce space.
+## 🎉 [3.1.5]
 
-### Fixes
+### ✨ Features
 
-- Fixed overlapping labels, print error if input not found.
+- 🔌 Completed endpoint gateway implementation
 
-## 3.1.0
+---
 
-### Features
+## 🎉 [3.1.4]
 
-- Initial move of internal JSON use case to new base design with VPC, Subnet, Virtual Server initially.
+### ✨ Features
 
-## 3.0.4
+- 🗑️ Removed icon for deprecated etcd offering
 
-### Features
+---
 
-- Eliminated unnecessary start and done statements to prevent confusion.
+## 🎉 [3.1.3]
 
-## 3.0.3
+### ✨ Features
 
-### Features
+- 🔑 Added Key Protect and Cloud Logs services
 
-- Enabled fontFamily for global IBM Plex languages.
+---
 
-## 3.0.2
+## 🎉 [3.1.2]
 
-### Features
+### ✨ Features
 
-- Added Transit Gateway, Endpoint Gateway, and Flow Log to Cloud/VPC Services.
+- 🔗 Completed combining services
 
-## 3.0.1
+---
 
-### Features
+## 🎉 [3.1.1]
 
-- Added support for Cloud Services with Object Storage initially.
+### ✨ Features
 
-## 3.0.0
+- 📦 Combined services to reduce space
 
-### Features
+### 🐛 Fixes
 
-- Initial automation of Terraform resources.
+- 🏷️ Fixed overlapping labels, print error if input not found
 
-## 2.0.0
+---
 
-### Features
+## 🎉 [3.1.0]
 
-- Completed move to drawio implementation.
+### ✨ Features
 
-## 1.0.30
+- 🏗️ Initial move of internal JSON use case to new base design with VPC, Subnet, Virtual Server initially
 
-### Features
+---
 
-- Added general option in ibmdiagrams script for generalized Terraform output.
+## 🎉 [3.0.4]
 
-## 1.0.29
+### ✨ Features
 
-### Features
+- 🧹 Eliminated unnecessary start and done statements to prevent confusion
 
-- Added initial changes for drawio implementation (not currently enabled).
+---
 
-### Fixes
+## 🎉 [3.0.3]
 
-- Fixed incorrect check resulting in missing VPC error for Terraform.
+### ✨ Features
 
-## 1.0.28
+- 🌐 Enabled fontFamily for global IBM Plex languages
 
-### Features
+---
 
-- Added and verified all Terraform resources as of 10/19/24, subject to placement.
+## 🎉 [3.0.2]
 
-## 1.0.27
+### ✨ Features
 
-### Features
+- 🌉 Added Transit Gateway, Endpoint Gateway, and Flow Log to Cloud/VPC Services
 
-- Completed connectors implementation for solid, dashed, dotted, double, and tunnel.
+---
 
-## 1.0.26
+## 🎉 [3.0.1]
 
-### Features
+### ✨ Features
 
-- Base connectors parameter simplification.  
+- ☁️ Added support for Cloud Services with Object Storage initially
 
-## 1.0.25
+---
 
-### Features
+## 🚀 [3.0.0]
 
-- Base connectors implementation for solid, dashed, dotted, double, and tunnel.
+### ✨ Features
 
-### Fixes
+- 🤖 Initial automation of Terraform resources
 
-- (John Pape) Typos fixed in PublicNetwork and AccessGroup.
-- Fixes in conjunction with base connectors implementation.
+---
 
-## 1.0.24
+## 🚀 [2.0.0]
 
-### Fixes
+### ✨ Features
 
-- Fixed Power icon.
-- Updated diagram examples and collage with corrected label positions.
+- 🎨 Completed move to drawio implementation
 
-## 1.0.23
+---
 
-### Fixes
+## 🎉 [1.0.30]
 
-- Fixed and redesigned static support.
-- (Internal issue #4) Fixed vertical label position on group shapes, zone shapes, and expanded shapes.
+### ✨ Features
 
-## 1.0.22
+- ⚙️ Added general option in ibmdiagrams script for generalized Terraform output
 
-### Features
+---
 
-- External preparation.
+## 🎉 [1.0.29]
 
-## 1.0.21
+### ✨ Features
 
-### Features
+- 🎨 Added initial changes for drawio implementation (not currently enabled)
 
-- External preparation.
-- Added hideicon externals.
+### 🐛 Fixes
 
-## 1.0.20
+- 🔧 Fixed incorrect check resulting in missing VPC error for Terraform
 
-### Features
+---
 
-- External preparation.
+## 🎉 [1.0.28]
 
-## 1.0.19
+### ✨ Features
 
-### Features
+- ✅ Added and verified all Terraform resources as of 10/19/24, subject to placement
 
-- External preparation.
+---
 
-## 1.0.18
+## 🎉 [1.0.27]
 
-### Features
+### ✨ Features
 
-- Added additional icons.
-- Added additional Terraform resources.
+- 🔗 Completed connectors implementation for solid, dashed, dotted, double, and tunnel
 
-## 1.0.17
+---
 
-### Features
+## 🎉 [1.0.26]
 
-- External prepration.
+### ✨ Features
 
-## 1.0.16
+- 🔧 Base connectors parameter simplification
 
-### Features
+---
 
-- Make input filename a required argument (no need to specify -input).
+## 🎉 [1.0.25]
 
-## 1.0.15
+### ✨ Features
 
-### Features
+- 🔗 Base connectors implementation for solid, dashed, dotted, double, and tunnel
 
-- Changed filetype to drawio.
+### 🐛 Fixes
 
-## 1.0.14
+- ✏️ (John Pape) Typos fixed in PublicNetwork and AccessGroup
+- 🔧 Fixes in conjunction with base connectors implementation
 
-### Features
+---
 
-- Added benefits to README.
+## 🎉 [1.0.24]
 
-## 1.0.13
+### 🐛 Fixes
 
-### Features
+- 🎨 Fixed Power icon
+- 📊 Updated diagram examples and collage with corrected label positions
 
-- Added catalog icons.
+---
 
-## 1.0.12
+## 🎉 [1.0.23]
 
-### Features
+### 🐛 Fixes
 
-- Changed script from ibmdiagramscli to ibmdiagrams.
+- 🔧 Fixed and redesigned static support
+- 📐 (Internal issue #4) Fixed vertical label position on group shapes, zone shapes, and expanded shapes
 
-## 1.0.11
+---
 
-### Features
+## 🎉 [1.0.22]
 
-- Added additional icons.
+### ✨ Features
 
-## 1.0.10
+- 📦 External preparation
 
-### Features
+---
 
-- Added automation of Terraform resources.
+## 🎉 [1.0.21]
 
-## 1.0.9
+### ✨ Features
 
-### Features
+- 📦 External preparation
+- 🎨 Added hideicon externals
 
-- Uupdated copyrights.
+---
 
-## 1.0.8
+## 🎉 [1.0.20]
 
-### Fixes
+### ✨ Features
 
-- Fixed options for cli.
+- 📦 External preparation
 
-## 1.0.7
+---
 
-### Features
+## 🎉 [1.0.19]
 
-- Changed import to ibmdiagrams.
+### ✨ Features
 
-## 1.0.6
+- 📦 External preparation
 
-### Features
+---
 
-- Added watsonx icons.
+## 🎉 [1.0.18]
 
-## 1.0.5
+### ✨ Features
 
-### Features
+- 🎨 Added additional icons
+- 🤖 Added additional Terraform resources
 
-- Added additional icons.
+---
 
-## 1.0.4
+## 🎉 [1.0.17]
 
-### Fixes
+### ✨ Features
 
-- Fixed fillcolor.
+- 📦 External preparation
 
-## 1.0.3
+---
 
-### Features
+## 🎉 [1.0.16]
 
-- Created process for building wheel.
+### ✨ Features
 
-## 1.0.2
+- ⚙️ Make input filename a required argument (no need to specify -input)
 
-### Features
+---
 
-- Changed AZ from container group shape to non-container Zone shape.
+## 🎉 [1.0.15]
 
-## 1.0.1
+### ✨ Features
 
-### Features
+- 📄 Changed filetype to drawio
 
-- Added additional icons.
+---
 
-## 1.0.0
+## 🎉 [1.0.14]
 
-### Features
+### ✨ Features
 
-- Initial release.
+- 📚 Added benefits to README
+
+---
+
+## 🎉 [1.0.13]
+
+### ✨ Features
+
+- 🎨 Added catalog icons
+
+---
+
+## 🎉 [1.0.12]
+
+### ✨ Features
+
+- 🔄 Changed script from ibmdiagramscli to ibmdiagrams
+
+---
+
+## 🎉 [1.0.11]
+
+### ✨ Features
+
+- 🎨 Added additional icons
+
+---
+
+## 🎉 [1.0.10]
+
+### ✨ Features
+
+- 🤖 Added automation of Terraform resources
+
+---
+
+## 🎉 [1.0.9]
+
+### ✨ Features
+
+- ©️ Updated copyrights
+
+---
+
+## 🎉 [1.0.8]
+
+### 🐛 Fixes
+
+- 🔧 Fixed options for cli
+
+---
+
+## 🎉 [1.0.7]
+
+### ✨ Features
+
+- 📦 Changed import to ibmdiagrams
+
+---
+
+## 🎉 [1.0.6]
+
+### ✨ Features
+
+- 🤖 Added watsonx icons
+
+---
+
+## 🎉 [1.0.5]
+
+### ✨ Features
+
+- 🎨 Added additional icons
+
+---
+
+## 🎉 [1.0.4]
+
+### 🐛 Fixes
+
+- 🎨 Fixed fillcolor
+
+---
+
+## 🎉 [1.0.3]
+
+### ✨ Features
+
+- 🏗️ Created process for building wheel
+
+---
+
+## 🎉 [1.0.2]
+
+### ✨ Features
+
+- 🔄 Changed AZ from container group shape to non-container Zone shape
+
+---
+
+## 🎉 [1.0.1]
+
+### ✨ Features
+
+- 🎨 Added additional icons
+
+---
+
+## 🚀 [1.0.0]
+
+### ✨ Features
+
+- 🎊 Initial release
+
+---
+
+## 📖 Legend
+
+- 🎉 Minor/Patch Release
+- 🚀 Major Release
+- ✨ New Features
+- 🐛 Bug Fixes
+- 🧪 Testing
+- 📚 Documentation
+- 🔧 Maintenance
+- ⚙️ Configuration
+- 🎨 UI/Design
+- 🔐 Security

@@ -16,30 +16,61 @@
 from . import _IBMCollapsed
 from .colors import Colors
 
+
 class _Containers(_IBMCollapsed):
     def __init__(self, label, sublabel="", icon=""):
-        super(_Containers, self).__init__(label=label, sublabel=sublabel, 
-                                          linecolor=Colors.lines["compute"], 
-                                          shape="pnode", icon=icon)
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            linecolor=Colors.lines["compute"],
+            shape="pnode",
+            icon=icon,
+        )
+
 
 class OpenShift(_Containers):
     def __init__(self, label, sublabel=""):
-        super(OpenShift, self).__init__(label, sublabel=sublabel, 
-                                        icon="OpenShift Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="OpenShift Icon",
+        )
+
+
+class CodeEngine(_Containers):
+    def __init__(self, label, sublabel="", icon=""):
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="Code Engine Icon",
+        )
+
 
 class KubernetesService(_Containers):
     def __init__(self, label, sublabel=""):
-        super(KubernetesService, self).__init__(label, sublabel=sublabel, 
-                                                icon="Kubernetes Service Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="Kubernetes Service Icon",
+        )
+
 
 class ZContainers(_Containers):
     def __init__(self, label, sublabel=""):
-        super(ZContainers, self).__init__(label, sublabel=sublabel, 
-                                          icon="Z Containers Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="Z Containers Icon",
+        )
+
 
 class ContainerRegistry(_Containers):
     def __init__(self, label, sublabel=""):
-        super(ContainerRegistry, self).__init__(label, sublabel=sublabel, 
-                                                icon="Container Registry Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="Container Registry Icon",
+        )
+
 
 # Aliases

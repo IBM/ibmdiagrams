@@ -18,59 +18,103 @@ from .colors import Colors
 
 class _Security(_IBMCollapsed):
     def __init__(self, label, sublabel="", icon=""):
-        super(_Security, self).__init__(label=label, sublabel=sublabel, 
-                                        linecolor=Colors.lines["security"], 
-                                        shape="pnode", icon=icon)
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            linecolor=Colors.lines["security"],
+            shape="pnode",
+            icon=icon,
+        )
+
 
 class AppID(_Security):
     def __init__(self, label, sublabel=""):
-        super(AppID, self).__init__(label, sublabel=sublabel, 
-                                    icon="App ID Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="App ID Icon",
+        )
+
 
 class KeyProtect(_Security):
     def __init__(self, label, sublabel=""):
-        super(KeyProtect, self).__init__(label, sublabel=sublabel, 
-                                         icon="Key Protect Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="Key Protect Icon",
+        )
+
 
 class SecretsManager(_Security):
     def __init__(self, label, sublabel=""):
-        super(SecretsManager, self).__init__(label, sublabel=sublabel, 
-                                             icon="Secrets Manager Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="Secrets Manager Icon",
+        )
+
 
 class SecurityComplianceCenter(_Security):
     def __init__(self, label, sublabel=""):
-        super(SecurityComplianceCenter, self).__init__(label, sublabel=sublabel, 
-                                                       icon="Security Compliance Center Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="Security Compliance Center Icon",
+        )
+
 
 class SSHKey(_Security):
     def __init__(self, label, sublabel=""):
-        super(SSHKey, self).__init__(label, sublabel=sublabel, 
-                                     icon="SSH Key Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="SSH Key Icon",
+        )
+
 
 class VPNGateway(_Security):
     def __init__(self, label, sublabel=""):
-        super(VPNGateway, self).__init__(label, sublabel=sublabel, 
-                                         icon="VPN Gateway Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="VPN Gateway Icon",
+        )
+
 
 class VPNConnection(_Security):
     def __init__(self, label, sublabel=""):
-        super(VPNConnection, self).__init__(label, sublabel=sublabel, 
-                                            icon="VPN Connection Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="VPN Connection Icon",
+        )
+
 
 class BastionHost(_Security):
     def __init__(self, label, sublabel=""):
-        super(BastionHost, self).__init__(label, sublabel=sublabel, 
-                                          icon="Bastion Host Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="Bastion Host Icon",
+        )
+
 
 class ACLRules(_Security):
     def __init__(self, label, sublabel=""):
-        super(ACLRules, self).__init__(label, sublabel=sublabel, 
-                                       icon="ACL Rules Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="ACL Rules Icon",
+        )
+
 
 class SecurityPak(_Security):
     def __init__(self, label, sublabel=""):
-        super(SecurityPak, self).__init__(label, sublabel=sublabel, 
-                                          icon="Security Pak Icon")
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="Security Pak Icon",
+        )
 
 # Aliases
 SCC = SecurityComplianceCenter

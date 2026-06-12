@@ -160,7 +160,7 @@ class Colors:
       "industry": names["lightcoolgray"],
       "location": names["lightcoolgray"],
       "management": names["lightteal"],
-      "network": names["lightcyan"],
+      "network": names["lightblue"],
       "security": names["lightred"],
       "services": names["lightgreen"],
       "storage": names["lightblue"],

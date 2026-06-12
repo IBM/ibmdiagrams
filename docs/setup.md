@@ -1,6 +1,69 @@
 # Setup
 
-## Install prereqs
+## Installation with uv (Recommended)
+
+[uv](https://github.com/astral-sh/uv) is a fast Python package manager that provides 10-100x faster installation and dependency resolution compared to pip.
+
+### Install uv
+
+**macOS and Linux:**
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+**Windows:**
+```powershell
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+**Alternative (using pip):**
+```bash
+pip install uv
+```
+
+### Quick Start with uv
+
+1. Clone or download the repository
+2. Navigate to the project directory
+3. Install dependencies:
+```bash
+uv sync
+```
+
+This will automatically:
+- Create a virtual environment
+- Install Python 3.11+ if needed
+- Install all project dependencies
+
+4. Run ibmdiagrams:
+```bash
+uv run ibmdiagrams --help
+```
+
+5. Run example diagrams:
+```bash
+# Run the SLZ VSI example
+uv run python docs/examples/slzvsi.py
+
+# Output: slzvsi.drawio (can be opened in draw.io desktop)
+```
+
+### Command Comparison: uv vs pip
+
+| Task | uv | pip |
+|------|-----|-----|
+| Install dependencies | `uv sync` | `pip install -r requirements.txt` |
+| Run a script | `uv run python script.py` | `python script.py` |
+| Install package | `uv pip install package` | `pip install package` |
+| Create environment | Automatic with `uv sync` | `python -m venv venv` |
+
+---
+
+## Alternative: Using pip
+
+If you prefer traditional pip-based installation:
+
+### Install prereqs
 
 1. Install Python (3.11.3+):
 - Install [Python](https://www.python.org/downloads/).

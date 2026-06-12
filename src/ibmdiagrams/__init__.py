@@ -382,6 +382,7 @@ class Connector:
    #operator = ""
    item = None
    connector = None
+   font = None
    fontname = None
    fontsize = 14
    properties = {}
