@@ -16,6 +16,7 @@
 from . import _IBMCollapsed
 from .colors import Colors
 
+
 class _Network(_IBMCollapsed):
     def __init__(self, label, sublabel="", icon=""):
         super().__init__(
@@ -232,6 +233,7 @@ class L3Switch(_Network):
             sublabel=sublabel,
             icon="L3 Switch Icon",
         )
+
 
 # Aliases
 DNS = DNSServices

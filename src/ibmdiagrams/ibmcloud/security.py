@@ -16,6 +16,7 @@
 from . import _IBMCollapsed
 from .colors import Colors
 
+
 class _Security(_IBMCollapsed):
     def __init__(self, label, sublabel="", icon=""):
         super().__init__(
@@ -115,6 +116,7 @@ class SecurityPak(_Security):
             sublabel=sublabel,
             icon="Security Pak Icon",
         )
+
 
 # Aliases
 SCC = SecurityComplianceCenter

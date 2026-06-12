@@ -15,43 +15,170 @@
 
 from .types import Types
 
+
 class Shapes:
-   common = None
-   types = None
+    common = None
+    types = None
 
-   def __init__(self, common):
-      self.common = common
-      self.types = Types(common)
+    def __init__(self, common):
+        self.common = common
+        self.types = Types(common)
 
-   def buildStaticShape(self, id, properties, x, y, width, height, meta, general, items):
-      node = self.types.buildStaticShape(id, properties, x, y, width, height, meta, general, items)
-      return node
+    def buildStaticShape(self, id, properties, x, y, width, height, meta, general, items):
+        node = self.types.buildStaticShape(
+            id, properties, x, y, width, height, meta, general, items
+        )
+        return node
 
-   def buildShape(self, id, properties, x, y, width, height, meta, general):
-      node = self.types.buildShape(id, properties, x, y, width, height, meta, general)
-      return node
+    def buildShape(self, id, properties, x, y, width, height, meta, general):
+        node = self.types.buildShape(id, properties, x, y, width, height, meta, general)
+        return node
 
-   def buildDrawioShape(self, id, properties, x, y, width, height, meta, general):
-      node = self.types.buildDrawioShape(id, properties, x, y, width, height, meta, general)
-      return node
+    def buildDrawioShape(self, id, properties, x, y, width, height, meta, general):
+        node = self.types.buildDrawioShape(id, properties, x, y, width, height, meta, general)
+        return node
 
-   def buildLink(self, id, label, source, target, startarrow, endarrow, startfill, endfill, linetype, linewidth, linecolor, fontname, fontsize, meta):
-       return self.types.buildLink(id, label, source, target, startarrow, endarrow, startfill, endfill, linetype, linewidth, linecolor, fontname, fontsize, meta)
+    def buildLink(
+        self,
+        id,
+        label,
+        source,
+        target,
+        startarrow,
+        endarrow,
+        startfill,
+        endfill,
+        linetype,
+        linewidth,
+        linecolor,
+        fontname,
+        fontsize,
+        meta,
+    ):
+        return self.types.buildLink(
+            id,
+            label,
+            source,
+            target,
+            startarrow,
+            endarrow,
+            startfill,
+            endfill,
+            linetype,
+            linewidth,
+            linecolor,
+            fontname,
+            fontsize,
+            meta,
+        )
 
-   def buildSolidLink(self, id, label, source, target, startarrow, endarrow, startfill, endfill, linetype, linewidth, linecolor, fontname, fontsize, meta):
-       return self.types.buildSolidLink(id, label, source, target, startarrow, endarrow, startfill, endfill, linetype, linewidth, linecolor, fontname, fontsize, meta)
+    def buildSolidLink(
+        self,
+        id,
+        label,
+        source,
+        target,
+        startarrow,
+        endarrow,
+        startfill,
+        endfill,
+        linetype,
+        linewidth,
+        linecolor,
+        fontname,
+        fontsize,
+        meta,
+    ):
+        return self.types.buildSolidLink(
+            id,
+            label,
+            source,
+            target,
+            startarrow,
+            endarrow,
+            startfill,
+            endfill,
+            linetype,
+            linewidth,
+            linecolor,
+            fontname,
+            fontsize,
+            meta,
+        )
 
-   def buildDoubleArrow(self, id, label, source, target, startarrow, endarrow, startfill, endfill, linetype, linewidth, linecolor, fontname, fontsize, meta):
-       return self.types.buildSolidLinkDoubleArrow(id, label, source, target, startarrow, endarrow, startfill, endfill, linetype, linewidth, linecolor, fontname, fontsize, meta)
+    def buildDoubleArrow(
+        self,
+        id,
+        label,
+        source,
+        target,
+        startarrow,
+        endarrow,
+        startfill,
+        endfill,
+        linetype,
+        linewidth,
+        linecolor,
+        fontname,
+        fontsize,
+        meta,
+    ):
+        return self.types.buildSolidLinkDoubleArrow(
+            id,
+            label,
+            source,
+            target,
+            startarrow,
+            endarrow,
+            startfill,
+            endfill,
+            linetype,
+            linewidth,
+            linecolor,
+            fontname,
+            fontsize,
+            meta,
+        )
 
-   def buildSingleArrow(self, id, label, source, target, startarrow, endarrow, startfill, endfill, linetype, linewidth, linecolor, fontname, fontsize, meta):
-       return self.types.buildSolidLinkSingleArrow(id, label, source, target, startarrow, endarrow, startfill, endfill, linetype, linewidth, linecolor, fontname, fontsize, meta)
+    def buildSingleArrow(
+        self,
+        id,
+        label,
+        source,
+        target,
+        startarrow,
+        endarrow,
+        startfill,
+        endfill,
+        linetype,
+        linewidth,
+        linecolor,
+        fontname,
+        fontsize,
+        meta,
+    ):
+        return self.types.buildSolidLinkSingleArrow(
+            id,
+            label,
+            source,
+            target,
+            startarrow,
+            endarrow,
+            startfill,
+            endfill,
+            linetype,
+            linewidth,
+            linecolor,
+            fontname,
+            fontsize,
+            meta,
+        )
 
-   def buildXML(self, vpcdata, pagename):
-      self.types.buildXML(vpcdata, self.types.buildPage(pagename))
+    def buildXML(self, vpcdata, pagename):
+        self.types.buildXML(vpcdata, self.types.buildPage(pagename))
 
-   def dumpXML(self, file, folder):
-      self.types.dumpXML(file, folder)
+    def dumpXML(self, file, folder):
+        self.types.dumpXML(file, folder)
 
-   def resetXML(self):
-      self.types.resetXML()
+    def resetXML(self):
+        self.types.resetXML()

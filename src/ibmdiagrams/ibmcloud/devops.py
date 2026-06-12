@@ -16,6 +16,7 @@
 from . import _IBMCollapsed
 from .colors import Colors
 
+
 class _DevOps(_IBMCollapsed):
     def __init__(self, label, sublabel="", icon=""):
         super().__init__(
@@ -97,5 +98,6 @@ class IntegrationPak(_DevOps):
             sublabel=sublabel,
             icon="Integration Pak Icon",
         )
+
 
 # Aliases

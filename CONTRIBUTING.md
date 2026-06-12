@@ -22,6 +22,60 @@ Want to work on an issue? Be sure to assign it to yourself and branch from main.
 
 ## Pull requests
 
+## Development Setup
+
+### Pre-commit Hooks
+
+This project uses pre-commit hooks to ensure code quality and security. The hooks run automatically before each commit.
+
+**Installation:**
+
+```bash
+# Install pre-commit (if not already installed)
+pip install pre-commit
+
+# Or with uv
+uv pip install pre-commit
+
+# Install the git hooks
+pre-commit install
+```
+
+**Configured Hooks:**
+
+1. **Ruff** - Fast Python linter and formatter
+   - Automatically fixes issues when possible
+   - Enforces code style consistency
+
+2. **Detect Secrets** - Prevents committing sensitive information
+   - Scans for API keys, passwords, tokens, etc.
+   - Uses baseline file (`.secrets.baseline`) for known false positives
+
+**Manual Execution:**
+
+```bash
+# Run all hooks on all files
+pre-commit run --all-files
+
+# Run specific hook
+pre-commit run ruff --all-files
+pre-commit run detect-secrets --all-files
+
+# Skip hooks for a commit (use sparingly)
+git commit --no-verify
+```
+
+**Updating Secrets Baseline:**
+
+If detect-secrets flags a false positive:
+
+```bash
+# Regenerate the baseline
+detect-secrets scan > .secrets.baseline
+
+# Or update with new findings
+detect-secrets scan --baseline .secrets.baseline
+```
 
 ## Testing
 

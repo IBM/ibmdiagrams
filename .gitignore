@@ -7,11 +7,16 @@
 _site
 Gemfile.lock
 node_modules
-__pycache__/ 
+__pycache__/
 .venv/
 .bob/
 .vscode
 openspec
+
+# Coverage reports
+.coverage
+.coverage.*
+htmlcov/
 
 **/*.drawio
 examples

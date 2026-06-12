@@ -15,454 +15,426 @@
 
 from hashlib import md5
 
-from .options import Options
 from .messages import Messages
+from .options import Options
+
 
 class Common:
-   #toolName = 'ibmdiagrams'
-   #toolVersion = '1.0.10'
-   #toolTitle = toolName + ' ' + toolVersion
+    # toolName = 'ibmdiagrams'
+    # toolVersion = '1.0.10'
+    # toolTitle = toolName + ' ' + toolVersion
 
-   options = None
-   messages = None
+    options = None
+    messages = None
 
-   def __init__(self):
-      #self.options = Options(self.toolName)
-      self.options = Options()
-      self.messages = Messages(self.options)
-      return
+    def __init__(self):
+        # self.options = Options(self.toolName)
+        self.options = Options()
+        self.messages = Messages(self.options)
+        return
 
-   # Utilities
+    # Utilities
 
-   def compress(self, string):
-      hash = md5(string.encode())
-      return hash.hexdigest()
+    def compress(self, string):
+        hash = md5(string.encode())
+        return hash.hexdigest()
 
-   def truncateText(self, text, size, linebreak):
-      if text.find(linebreak) == -1:
-         if len(text) > size:
-            return text[0:size-1] + '...'
-         else:
-            return text
-      else:
-         textsplit = text.split(linebreak)
-         newtext = ''
-         count = 0
-         for name in textsplit:
-            count = count + 1
-            if len(name) == 0:
-               continue
-            elif len(name) > size:
-               if count == 1:
-                  newtext = name[0:size-1] + '...'
-               else:
-                  newtext = newtext + linebreak + name[0:size-1] + '...'
+    def truncateText(self, text, size, linebreak):
+        if text.find(linebreak) == -1:
+            if len(text) > size:
+                return text[0 : size - 1] + "..."
             else:
-               if count == 1:
-                  newtext = name
-               else:
-                  newtext = newtext + linebreak + name
+                return text
+        else:
+            textsplit = text.split(linebreak)
+            newtext = ""
+            count = 0
+            for name in textsplit:
+                count = count + 1
+                if len(name) == 0:
+                    continue
+                elif len(name) > size:
+                    if count == 1:
+                        newtext = name[0 : size - 1] + "..."
+                    else:
+                        newtext = newtext + linebreak + name[0 : size - 1] + "..."
+                else:
+                    newtext = name if count == 1 else newtext + linebreak + name
 
-      if len(newtext) > 0:
-         return newtext
-      else:
-         return text
+        if len(newtext) > 0:
+            return newtext
+        else:
+            return text
 
-   # Options
+    # Options
 
-   def getAccountID(self):
-      return self.options.getAccountID()
+    def getAccountID(self):
+        return self.options.getAccountID()
 
-   def setAccountID(self, value):
-      self.options.setAccountID(value)
+    def setAccountID(self, value):
+        self.options.setAccountID(value)
 
-   def getAPIKey(self):
-      return self.options.getAPIKey()
+    def getAPIKey(self):
+        return self.options.getAPIKey()
 
-   def setAPIKey(self, value):
-      self.options.setAPIKey(value)
+    def setAPIKey(self, value):
+        self.options.setAPIKey(value)
 
-   def setAllRegion(self):
-      self.options.setAllRegion()
+    def setAllRegion(self):
+        self.options.setAllRegion()
 
-   def setGermanyRegion(self):
-      self.options.setGermanyRegion()
+    def setGermanyRegion(self):
+        self.options.setGermanyRegion()
 
-   def setOsakaRegion(self):
-      self.options.setOsakaRegion()
+    def setOsakaRegion(self):
+        self.options.setOsakaRegion()
 
-   def setSaoPauloRegion(self):
-      self.options.setSaoPauloRegion()
+    def setSaoPauloRegion(self):
+        self.options.setSaoPauloRegion()
 
-   def setSydneyRegion(self):
-      self.options.setSydneyRegion()
+    def setSydneyRegion(self):
+        self.options.setSydneyRegion()
 
-   def setTokyoRegion(self):
-      self.options.setTokyoRegion()
+    def setTokyoRegion(self):
+        self.options.setTokyoRegion()
 
-   def setTorontoRegion(self):
-      self.options.setTorontoRegion()
+    def setTorontoRegion(self):
+        self.options.setTorontoRegion()
 
-   def setUnitedKingdomRegion(self):
-      self.options.setUnitedKingdomRegion()
+    def setUnitedKingdomRegion(self):
+        self.options.setUnitedKingdomRegion()
 
-   def setUSEastRegion(self):
-      self.options.setUSEastRegion()
+    def setUSEastRegion(self):
+        self.options.setUSEastRegion()
 
-   def setUSSouthRegion(self):
-      self.options.setUSSouthRegion()
+    def setUSSouthRegion(self):
+        self.options.setUSSouthRegion()
 
-   def getRegion(self):
-      return self.options.getRegion()
+    def getRegion(self):
+        return self.options.getRegion()
 
-   def setRegion(self, value):
-      self.options.setRegion(value)
+    def setRegion(self, value):
+        self.options.setRegion(value)
 
-   def getInputFile(self):
-      return self.options.getInputFile()
+    def getInputFile(self):
+        return self.options.getInputFile()
 
-   def setInputFile(self, value):
-      self.options.setInputFile(value)
+    def setInputFile(self, value):
+        self.options.setInputFile(value)
 
-   def getInputFolder(self):
-      return self.options.getInputFolder()
+    def getInputFolder(self):
+        return self.options.getInputFolder()
 
-   def setInputFolder(self, value):
-      self.options.setInputFolder(value)
+    def setInputFolder(self, value):
+        self.options.setInputFolder(value)
 
-   def getOutputFile(self):
-      return self.options.getOutputFile()
+    def getOutputFile(self):
+        return self.options.getOutputFile()
 
-   def setOutputFile(self, value):
-      self.options.setOutputFile(value)
+    def setOutputFile(self, value):
+        self.options.setOutputFile(value)
 
-   def getOutputFolder(self):
-      return self.options.getOutputFolder()
+    def getOutputFolder(self):
+        return self.options.getOutputFolder()
 
-   def setOutputFolder(self, value):
-      self.options.setOutputFolder(value)
+    def setOutputFolder(self, value):
+        self.options.setOutputFolder(value)
 
-   def getOutputBase(self):
-      return self.options.getOutputBase()
+    def getOutputBase(self):
+        return self.options.getOutputBase()
 
-   def getFontName(self):
-      return self.options.getFontName()
+    def getFontName(self):
+        return self.options.getFontName()
 
-   def setFontName(self, fontname):
-      self.options.setFontName(fontname)
+    def setFontName(self, fontname):
+        self.options.setFontName(fontname)
 
-   def isCustomLabels(self):
-      return self.labelType == LabelTypes.CUSTOM
+    def isCustomLabels(self):
+        return self.labelType == LabelTypes.CUSTOM
 
-   def isGeneralLabels(self):
-      return self.labelType == LabelTypes.GENERAL
+    def isGeneralLabels(self):
+        return self.labelType == LabelTypes.GENERAL
 
-   def setCustomLabels(self):
-      self.labelType = LabelTypes.CUSTOM
+    def setCustomLabels(self):
+        self.labelType = LabelTypes.CUSTOM
 
-   def setGeneralLabels(self):
-      self.labelType = LabelTypes.GENERAL
+    def setGeneralLabels(self):
+        self.labelType = LabelTypes.GENERAL
 
-   def isDrawioCode(self):
-      return self.options.isDrawioCode()
+    def isDrawioCode(self):
+        return self.options.isDrawioCode()
 
-   def isPythonCode(self):
-      return self.options.isPythonCode()
+    def isPythonCode(self):
+        return self.options.isPythonCode()
 
-   def setDrawioCode(self):
-      self.options.setDrawioCode()
+    def setDrawioCode(self):
+        self.options.setDrawioCode()
 
-   def setPythonCode(self):
-      self.options.setPythonCode()
+    def setPythonCode(self):
+        self.options.setPythonCode()
 
-   def getTablesFolder(self):
-      return self.options.getTablesFolder()
+    def getTablesFolder(self):
+        return self.options.getTablesFolder()
 
-   def setTablesFolder(self, value):
-      self.options.setTablesFolder(value)
+    def setTablesFolder(self, value):
+        self.options.setTablesFolder(value)
 
-   def getProvider(self):
-      return self.options.getProvider()
+    def getProvider(self):
+        return self.options.getProvider()
 
-   def setProvider(self, provider):
-      self.options.setProvider(provider)
+    def setProvider(self, provider):
+        self.options.setProvider(provider)
 
-   def setProviderIBM(self):
-      self.options.setProviderIBM()
+    def setProviderIBM(self):
+        self.options.setProviderIBM()
 
-   def setProviderAny(self):
-      self.options.setAnyProviderAny()
+    def setProviderAny(self):
+        self.options.setAnyProviderAny()
 
-   def isProviderIBM(self):
-      return self.options.isProviderIBM()
+    def isProviderIBM(self):
+        return self.options.isProviderIBM()
 
-   def isProviderAny(self):
-      return self.options.isProviderAny()
+    def isProviderAny(self):
+        return self.options.isProviderAny()
 
-   def isBatchMode(self):
-      return self.options.isBatchMode()
+    def isBatchMode(self, value=None):
+        return self.options.isBatchMode(value)
 
-   def isGUIMode(self):
-      return self.options.isGUIMode()
+    def isGUIMode(self, value=None):
+        return self.options.isGUIMode(value)
 
-   def isWebMode(self):
-      return self.options.isWebMode()
+    def isWebMode(self, value=None):
+        return self.options.isWebMode(value)
 
-   def isBatchMode(self, value):
-      return self.options.isBatchMode(value)
+    def getRunMode(self):
+        return self.options.getRunMode()
 
-   def isGUIMode(self, value):
-      return self.options.isGUIMode(value)
+    def setRunMode(self, value):
+        self.options.setRunMode(value)
 
-   def isWebMode(self, value):
-      return self.options.isWebMode(value)
+    def isInputPython(self):
+        return self.options.isInputPython()
 
-   def getRunMode(self):
-      return self.options.getRunMode()
+    def isInputRIAS(self):
+        return self.options.isInputRIAS()
 
-   def setRunMode(self, value):
-      self.options.setRunMode(value)
+    def isInputJSON(self):
+        return self.options.isInputJSON()
 
-   def isInputPython(self):
-      return self.options.isInputPython()
+    def isInputYAML(self):
+        return self.options.isInputYAML()
 
-   def isInputRIAS(self):
-      return self.options.isInputRIAS()
+    def isInputTerraform(self):
+        return self.options.isInputTerraform()
 
-   def isInputJSON(self):
-      return self.options.isInputJSON()
+    def setInputPython(self):
+        return self.options.setInputPython()
 
-   def isInputYAML(self):
-      return self.options.isInputYAML()
+    def setInputRIAS(self):
+        return self.options.setInputRIAS()
 
-   def isInputTerraform(self):
-      return self.options.isInputTerraform()
+    def setInputJSON(self):
+        return self.options.setInputJSON()
 
-   def setInputPython(self):
-      return self.options.setInputPython()
+    def setInputYAML(self):
+        return self.options.setInputYAML()
 
-   def setInputRIAS(self):
-      return self.options.setInputRIAS()
+    def setInputTerraform(self):
+        return self.options.setInputTerraform()
 
-   def setInputJSON(self):
-      return self.options.setInputJSON()
+    def setIcons(self, icons):
+        self.options.setIcons(icons)
 
-   def setInputYAML(self):
-      return self.options.setInputYAML()
+    def getIcons(self):
+        return self.options.getIcons()
 
-   def setInputTerraform(self):
-      return self.options.setInputTerraform()
+    def setAllIcons(self):
+        self.options.setAllIcons()
 
-   def setIcons(self, icons):
-      self.options.setIcons(icons)
+    def isAllIcons(self):
+        return self.options.isAllIcons()
 
-   def getIcons(self):
-      return self.options.getIcons()
+    def setCustomLabels(self):
+        self.options.setCustomLabels()
 
-   def setAllIcons(self):
-      self.options.setAllIcons()
+    def setGeneralLabels(self):
+        self.options.setGeneralLabels()
 
-   def isAllIcons(self):
-      return self.options.isAllIcons()
+    def isCustomLabels(self):
+        return self.options.isCustomLabels()
 
-   def setCustomLabels(self):
-      self.options.setCustomLabels()
+    def isGeneralLabels(self):
+        return self.options.isGeneralLabels()
 
-   def setGeneralLabels(self):
-      self.options.setGeneralLabels()
+    def isDesignatedVPC(self, name):
+        return self.options.isDesignatedVPC(name)
 
-   def isCustomLabels(self):
-      return self.options.isCustomLabels()
+    def getDirection(self):
+        self.options.getDirection()
 
-   def isGeneralLabels(self):
-      return self.options.isGeneralLabels()
+    def setDirection(self, value):
+        self.options.setDirection(value)
 
-   def isDesignatedVPC(self, name):
-      return self.options.isDesignatedVPC(name)
+    def setDirectionLR(self):
+        self.options.setDirectionLR()
 
-   def getDirection(self):
-      self.options.getDirection()
+    def setDirectionTB(self):
+        self.options.setDirectionTB()
 
-   def setDirection(self, value):
-      self.options.setDirection(value)
+    def isDirectionLR(self):
+        return self.options.isDirectionLR()
 
-   def setDirectionLR(self):
-      self.options.setDirectionLR()
+    def isDirectionTB(self):
+        return self.options.isDirectionTB()
 
-   def setDirectionTB(self):
-      self.options.setDirectionTB()
+    def setAlternateWhite(self):
+        self.options.setAlternateWhite()
 
-   def isDirectionLR(self):
-      return self.options.isDirectionLR()
+    def setAlternateLight(self):
+        self.options.setAlternateLight()
 
-   def isDirectionTB(self):
-      return self.options.isDirectionTB()
+    def setAlternateNone(self):
+        self.options.setAlternateNone()
 
-   def setAlternateWhite(self):
-      self.options.setAlternateWhite()
+    def setAlternateUser(self):
+        self.options.setAlternateUser()
 
-   def setAlternateLight(self):
-      self.options.setAlternateLight()
+    def isAlternateWhite(self):
+        return self.options.isAlternateWhite()
 
-   def setAlternateNone(self):
-      self.options.setAlternateNone()
+    def isAlternateLight(self):
+        return self.options.isAlternateLight()
 
-   def setAlternateUser(self):
-      self.options.setAlternateUser()
+    def isAlternateNone(self):
+        return self.options.isAlternateNone()
 
-   def isAlternateWhite(self):
-      return self.options.isAlternateWhite()
+    def isAlternateUser(self):
+        return self.options.isAlternateUser()
 
-   def isAlternateLight(self):
-      return self.options.isAlternateLight()
+    # Messages
 
-   def isAlternateNone(self):
-      return self.options.isAlternateNone()
+    def printStartDiagram(self, diagramname, cloud):
+        self.messages.printStartDiagram(diagramname, cloud)
 
-   def isAlternateUser(self):
-      return self.options.isAlternateUser()
+    def printStartFile(self, filename, cloud):
+        self.messages.printStartFile(filename, cloud)
 
-   def getProvider(self):
-      return self.options.getProvider()
+    def printStartRIASwithKey(self, apikey, region):
+        self.messages.printStartRIASwithKey(apikey, region)
 
-   def setProviderAny(self):
-      self.options.setProviderAny()
+    def printStartRIASwithAccount(self, apikey, accountid, region):
+        self.messages.printStartRIASwithAccount(apikey, accountid, region)
 
-   def setProviderIBM(self):
-      self.options.setProviderIBM()
+    def printDone(self, filename, cloud):
+        self.messages.printDone(filename, cloud)
 
-   def isProviderAny(self):
-      return self.options.isProviderAny()
+    def printExit(self):
+        self.messages.printExit()
 
-   def isProviderIBM(self):
-      return self.options.isProviderIBM()
+    def printMissingAllRegions(self):
+        self.messages.printMissingAllRegions()
 
-   # Messages
+    def printMissingVPCs(self):
+        self.messages.printMissingVPCs()
 
-   def printStartDiagram(self, diagramname, cloud):
-      self.messages.printStartDiagram(diagramname, cloud)
+    def printMissingSubnets(self):
+        self.messages.printMissingSubnets()
 
-   def printStartFile(self, filename, cloud):
-      self.messages.printStartFile(filename, cloud)
+    def printMissingZone(self, subnetname):
+        self.messages.printMissingZone(subnetname)
 
-   def printStartRIASwithKey(self, apikey, region):
-      self.messages.printStartRIASwithKey(apikey, region)
+    def printInvalidMode(self, mode):
+        self.messages.printInvalidMode(mode)
 
-   def printStartRIASwithAccount(self, apikey, accountid, region):
-      self.messages.printStartRIASwithAccount(apikey, accountid, region)
+    def printInvalidProvider(self, provider):
+        self.messages.printInvalidProvider(provider)
 
-   def printDone(self, filename, cloud):
-      self.messages.printDone(filename, cloud)
+    def printInvalidInput(self):
+        self.messages.printInvalidInput()
 
-   def printExit(self):
-      self.messages.printExit()
+    def printInvalidFile(self, inputfile):
+        self.messages.printInvalidFile(inputfile)
 
-   def printMissingAllRegions(self):
-      print("printMissingAllRegions:")
-      self.messages.printMissingAllRegions()
+    def printInvalidInstance(self, instanceid):
+        self.messages.printInvalidInstance(instanceid)
 
-   def printMissingVPCs(self):
-      print("printMissingVPCs:")
-      self.messages.printMissingVPCs()
+    def printInvalidLoadBalancer(self, lbname):
+        self.messages.printInvalidLoadBalancer(lbname)
 
-   def printMissingSubnets(self):
-      self.messages.printMissingSubnets()
+    def printInvalidPrivateLoadBalancer(self, lbname):
+        self.messages.printInvalidPrivateLoadBalancer(lbname)
 
-   def printMissingZone(self, subnetname):
-      self.messages.printMissingZone(subnetname)
+    def printInvalidPublicGateway(self, pubgateid):
+        self.messages.printInvalidPublicGateway(pubgateid)
 
-   def printInvalidMode(self, mode):
-      self.messages.printInvalidMode(mode)
+    def printInvalidSubnet(self, subnetid):
+        self.messages.printInvalidSubnet(subnetid)
 
-   def printInvalidProvider(self, provider):
-      self.messages.printInvalidProvider(provider)
+    def printInvalidVPC(self, vpcid):
+        self.messages.printInvalidVPC(vpcid)
 
-   def printInvalidInput(self):
-      self.messages.printInvalidInput()
+    def printInvalidVPE(self, vpeid):
+        self.messages.printInvalidVPE(vpeid)
 
-   def printInvalidFile(self, inputfile):
-      self.messages.printInvalidFile(inputfile)
+    def printMissingPool(self, lbname):
+        self.messages.printMissingPool(lbname)
 
-   def printInvalidInstance(self, instanceid):
-      self.messages.printInvalidInstance(instanceid)
+    def printMissingMember(self, lbname, lbpoolname):
+        self.messages.printMissingMember(lbname, lbpoolname)
 
-   def printInvalidLoadBalancer(self, lbname):
-      self.messages.printInvalidLoadBalancer(lbname)
+    def printInvalidInstanceMember(self, lbname, lbpoolname, instanceid):
+        self.messages.printInvalidInstanceMember(lbname, lbpoolname, instanceid)
 
-   def printInvalidPrivateLoadBalancer(self, lbname):
-      self.messages.printInvalidPrivateLoadBalancer(lbname)
+    def printRequestMessage(self, code, message, href):
+        self.messages.printRequestMessage(code, message, href)
 
-   def printInvalidPublicGateway(self, pubgateid):
-      self.messages.printInvalidPublicGateway(pubgateid)
+    def printResponseMessage(self, code, message):
+        self.messages.printResponseMessage(code, message)
 
-   def printInvalidSubnet(self, subnetid):
-      self.messages.printInvalidSubnet(subnetid)
+    def printInvalidDirection(self, direction):
+        self.messages.printInvalidDirection(direction)
 
-   def printInvalidVPC(self, vpcid):
-      self.messages.printInvalidVPC(vpcid)
+    def printInvalidOutputFormat(self, outputformat):
+        self.messages.printInvalidOutputFormat(outputformat)
 
-   def printInvalidVPE(self, vpeid):
-      self.messages.printInvalidVPE(vpeid)
+    def printInvalidIcons(self, icons):
+        self.messages.printInvalidIcons(icons)
 
-   def printMissingPool(self, lbname):
-      self.messages.printMissingPool(lbname)
+    def printInvalidFont(self, font):
+        self.messages.printInvalidFont(font)
 
-   def printMissingMember(self, lbname, lbpoolname):
-      self.messages.printMissingMember(lbname, lbpoolname)
+    def printInvalidIcon(self, icon):
+        self.messages.printInvalidIcon(icon)
 
-   def printInvalidInstanceMember(self, lbname, lbpoolname, instanceid):
-      self.messages.printInvalidInstanceMember(lbname, lbpoolname, instanceid)
+    def printInvalidGroupShape(self, shape):
+        self.messages.printInvalidGroupShape(shape)
 
-   def printRequestMessage(self, code, message, href):
-      self.messages.printRequestMessage(code, message, href)
+    def printInvalidNodeShape(self, shape):
+        self.messages.printInvalidNodeShape(shape)
 
-   def printResponseMessage(self, code, message):
-      self.messages.printResponseMessage(code, message)
+    def printInvalidProvider(self, provider):
+        self.messages.printInvalidProvider(provider)
 
-   def printInvalidDirection(self, direction):
-      self.messages.printInvalidDirection(direction)
+    def printInvalidAlternate(self, alternate):
+        self.messages.printInvalidAlternate(alternate)
 
-   def printInvalidOutputFormat(self, outputformat):
-      self.messages.printInvalidOutputFormat(outputformat)
+    def printInvalidConnectorArrow(self, arrow):
+        self.messages.printInvalidConnectorArrow(arrow)
 
-   def printInvalidIcons(self, icons):
-      self.messages.printInvalidIcons(icons)
+    def printInvalidConnectorStyle(self, style):
+        self.messages.printInvalidConnectorStyle(style)
 
-   def printInvalidFont(self, font):
-      self.messages.printInvalidFont(font)
+    def printInvalidFillColor(self, color):
+        self.messages.printInvalidFillColor(color)
 
-   def printInvalidIcon(self, icon):
-      self.messages.printInvalidIcon(icon)
+    def printInvalidLineColor(self, color):
+        self.messages.printInvalidLineColor(color)
 
-   def printInvalidGroupShape(self, shape):
-      self.messages.printInvalidGroupShape(shape)
+    # def getToolName(self):
+    #   return self.toolName
 
-   def printInvalidNodeShape(self, shape):
-      self.messages.printInvalidNodeShape(shape)
+    # def getToolVersion(self):
+    #   return self.toolVersion
 
-   def printInvalidProvider(self, provider):
-      self.messages.printInvalidProvider(provider)
-
-   def printInvalidAlternate(self, alternate):
-      self.messages.printInvalidAlternate(alternate)
-
-   def printInvalidConnectorArrow(self, arrow):
-      self.messages.printInvalidConnectorArrow(arrow)
-
-   def printInvalidConnectorStyle(self, style):
-      self.messages.printInvalidConnectorStyle(style)
-
-   def printInvalidFillColor(self, color):
-      self.messages.printInvalidFillColor(color)
-
-   def printInvalidLineColor(self, color):
-      self.messages.printInvalidLineColor(color)
-
-   #def getToolName(self):
-   #   return self.toolName
-
-   #def getToolVersion(self):
-   #   return self.toolVersion
-
-   #def getToolTitle(self):
-   #   return self.toolTitle
+    # def getToolTitle(self):
+    #   return self.toolTitle

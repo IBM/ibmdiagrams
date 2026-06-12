@@ -9,7 +9,6 @@ import logging
 from pathlib import Path
 
 import pytest
-
 from utils.image_comparison import (
     ImageComparisonError,
     ImageLoadError,
@@ -24,7 +23,7 @@ logger = logging.getLogger(__name__)
 
 def slzpowervs_diagram_code() -> str:
     """Return the code for the slzpowervs diagram."""
-    return '''
+    return """
 from ibmdiagrams.ibmcloud.diagram import Diagram
 from ibmdiagrams.ibmcloud.groups import IBMCloud, Region, VPC, Zone, Subnet, CloudServices, PowerWorkspace, ResourceGroup, SecurityGroup, ExpandedVirtualServer, ExpandedPowerVirtualServer
 from ibmdiagrams.ibmcloud.actors import User, Application
@@ -90,12 +89,12 @@ with Diagram("slzpowervs"):
           keyprotect = KeyProtect("Key Management")
           objectstorage = ObjectStorage("Object Storage", "Installation Files")
           objectstoragelogs = ObjectStorage("Object Storage", "Activity Tracker")
-'''
+"""
 
 
 def cloud_diagram_code() -> str:
     """Return the code for the cloud diagram."""
-    return '''
+    return """
 from ibmdiagrams.ibmcloud.diagram import Diagram
 from ibmdiagrams.ibmcloud.groups import IBMCloud, Region, VPC, Zone, Subnet, PublicNetwork, EnterpriseNetwork, ExpandedVirtualServer
 from ibmdiagrams.ibmcloud.actors import User
@@ -128,7 +127,7 @@ with Diagram("cloud"):
                             sublabel="Type: Dedicated",
                         ):
                             pass
-                        
+
 
                 NetworkLoadBalancer("Public load<br>balancer")
                 NetworkLoadBalancer("Private load<br>balancer")
@@ -152,7 +151,7 @@ with Diagram("cloud"):
 
     with EnterpriseNetwork("Enterprise<br>network", direction="TB"):
         User(label="Enterprise<br>user")
-'''
+"""
 
 
 def generate_complete_diagram(
@@ -184,17 +183,19 @@ def generate_complete_diagram(
 
     # Execute the diagram code to generate .drawio file
     drawio_file = drawio_dir / f"{diagram_name}.drawio"
-    
+
     # Create a temporary Python file and execute it
     import tempfile
-    with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
+
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".py", delete=False) as f:
         f.write(diagram_code)
         temp_py_file = Path(f.name)
-    
+
     try:
         # Execute the diagram generation code
         import subprocess
         import sys
+
         result = subprocess.run(
             [sys.executable, str(temp_py_file)],
             cwd=drawio_dir,
@@ -202,25 +203,22 @@ def generate_complete_diagram(
             text=True,
             timeout=30,
         )
-        
+
         if result.returncode != 0:
-            raise RuntimeError(
-                f"Failed to generate diagram: {result.stderr}"
-            )
-        
+            raise RuntimeError(f"Failed to generate diagram: {result.stderr}")
+
         # Check if drawio file was created
         if not drawio_file.exists():
-            raise RuntimeError(
-                f"Diagram file not created: {drawio_file}"
-            )
-        
+            raise RuntimeError(f"Diagram file not created: {drawio_file}")
+
         # Convert to PNG using draw.io
         if drawio_path is None:
             raise RuntimeError("draw.io executable not found")
-        
+
         png_file = png_dir / f"{diagram_name}.png"
-        
-        from utils.baseline_utils import convert_drawio, PNG_SCALE, PNG_QUALITY
+
+        from utils.baseline_utils import PNG_QUALITY, PNG_SCALE, convert_drawio
+
         convert_drawio(
             drawio_file,
             png_file,
@@ -229,12 +227,12 @@ def generate_complete_diagram(
             scale=PNG_SCALE,
             quality=PNG_QUALITY,
         )
-        
+
         if not png_file.exists():
             raise RuntimeError(f"PNG file not created: {png_file}")
-        
+
         return png_file
-        
+
     finally:
         # Clean up temporary file
         temp_py_file.unlink(missing_ok=True)
@@ -300,6 +298,7 @@ def test_slzpowervs_diagram(
     if update_baselines:
         baseline_png_dir.mkdir(parents=True, exist_ok=True)
         import shutil
+
         shutil.copy2(generated_png, baseline_png)
         logger.info(f"Updated baseline: {baseline_png}")
         pytest.skip(f"Baseline updated: {baseline_png}")
@@ -419,6 +418,7 @@ def test_cloud_diagram(
     if update_baselines:
         baseline_png_dir.mkdir(parents=True, exist_ok=True)
         import shutil
+
         shutil.copy2(generated_png, baseline_png)
         logger.info(f"Updated baseline: {baseline_png}")
         pytest.skip(f"Baseline updated: {baseline_png}")

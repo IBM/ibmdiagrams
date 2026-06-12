@@ -4,7 +4,24 @@ All notable changes to ibmdiagrams are documented here.
 
 ---
 
-## 🎉 [3.2.0] - 2026-04-20
+## 🎉 [3.2.1] - 2026-04-29
+
+### ✨ Features
+
+- 🪝 Added pre-commit hooks and development tooling for code quality
+- 🎨 Improved development workflow with ruff linting and formatting
+- 🔐 Added detect-secrets for security scanning
+
+### 🧪 Testing
+
+- 📸 Added visual regression testing framework
+- 🖼️ Added PNG baselines for visual regression testing
+- ⚙️ Adjusted visual regression defaults for cross-platform compatibility
+- 📊 Increased visual regression threshold to 1.25%
+
+---
+
+## 🎉 [3.2.0] - 2026-04-29
 
 ### ✨ Features
 

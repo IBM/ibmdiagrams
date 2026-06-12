@@ -16,26 +16,50 @@
 from . import _IBMCollapsed
 from .colors import Colors
 
+
 class _Actors(_IBMCollapsed):
     def __init__(self, label, sublabel="", linecolor=Colors.lines["backend"], icon=""):
-        super(_Actors, self).__init__(label=label, sublabel=sublabel, 
-                                      linecolor=linecolor, 
-                                      shape="actor", icon=icon)
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            linecolor=linecolor,
+            shape="actor",
+            icon=icon,
+        )
+
 
 class Actor(_Actors):
     def __init__(self, label, sublabel="", linecolor="", icon="Undefined Icon"):
-        super(Actor, self).__init__(label, sublabel=sublabel, linecolor=linecolor, icon=icon)
+        super().__init__(
+            label,
+            sublabel=sublabel,
+            linecolor=linecolor,
+            icon=icon,
+        )
 
 
 class _PrescribedNodes(_IBMCollapsed):
     def __init__(self, label, sublabel="", linecolor="", icon=""):
-        super(_PrescribedNodes, self).__init__(label=label, sublabel=sublabel, 
-                                               linecolor=linecolor, 
-                                               shape="pnode", icon=icon)
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            linecolor=linecolor,
+            shape="pnode",
+            icon=icon,
+        )
+
 
 class PrescribedNode(_PrescribedNodes):
-    def __init__(self, label, sublabel="", linecolor=Colors.lines["backend"], icon="Undefined Icon"):
-        super(PrescribedNode, self).__init__(label, sublabel=sublabel, linecolor=linecolor, icon=icon)
+    def __init__(
+        self, label, sublabel="", linecolor=Colors.lines["backend"], icon="Undefined Icon"
+    ):
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            linecolor=linecolor,
+            icon=icon,
+        )
+
 
 # Aliases
 PNode = PrescribedNode

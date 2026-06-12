@@ -13,36 +13,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import pandas as pd
 
-from .common import Common
 from .icons import Icons
 from .resources import Resources
 
+
 class Load:
-   common = None
-   icons = None
-   resources = None
+    common = None
+    icons = None
+    resources = None
 
-   def __init__(self, common):
-      self.common = common
-      self.icons = Icons(common)
-      self.resources = Resources(common)
+    def __init__(self, common):
+        self.common = common
+        self.icons = Icons(common)
+        self.resources = Resources(common)
 
-   def loadData(self):
-      if self.common.isInputTerraform():
-         if not self.resources.loadResources():
+    def loadData(self):
+        if self.common.isInputTerraform():
+            if not self.resources.loadResources():
+                return False
+        elif self.common.isInputJSON():
+            if not self.resources.loadJSON():
+                return False
+        else:
             return False
-      elif self.common.isInputJSON():
-         if not self.resources.loadJSON():
-            return False
-      else:
-         return False
 
-      if not self.icons.mapResources(self.resources):
-         return False
+        return self.icons.mapResources(self.resources)
 
-      return True
-
-   def getIcons(self):
-      return self.icons
+    def getIcons(self):
+        return self.icons
