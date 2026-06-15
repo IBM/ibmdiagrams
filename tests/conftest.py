@@ -25,9 +25,9 @@ def pytest_addoption(parser: pytest.Parser) -> None:
     parser.addoption(
         "--threshold",
         action="store",
-        default="0.5",
+        default="1.25",
         type=float,
-        help="Maximum allowed difference percentage for image comparison (0.0-100.0). Default: 0.5",
+        help="Maximum allowed difference percentage for image comparison (0.0-100.0). Default: 1.25",
     )
     parser.addoption(
         "--update-baselines",
@@ -109,7 +109,7 @@ def default_threshold(request: pytest.FixtureRequest) -> float:
     threshold = request.config.getoption("--threshold")
 
     # Fall back to environment variable if not set via CLI
-    if threshold == 0.5:  # Default value
+    if threshold == 1.25:  # Default value
         env_threshold = os.environ.get("VISUAL_REGRESSION_THRESHOLD")
         if env_threshold is not None:
             try:

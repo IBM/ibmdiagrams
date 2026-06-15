@@ -59,7 +59,7 @@ with Diagram("slzvsi"):
           tg = TransitGateway("Transit Gateway")
 ```
 
-![diagram](slzvsi.drawio.png)
+![diagram](slzvsi.drawio.svg)
 </details>
 
 ## License

@@ -744,6 +744,17 @@ class Icons:
             "deployedOn": "none",
             "deployedTo": "none",
         },
+        "Chart Line Data Icon": {
+            "icon": None,
+            "custom_icon": "data:image/svg+xml,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNDlweCIgaGVpZ2h0PSI0OXB4IiB2aWV3Qm94PSIwIDAgNDkgNDkiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8dGl0bGU+Q2hhcnQgRGF0YSBJY29uPC90aXRsZT4KICAgIDxnIGlkPSJQYWdlLTEiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxnIGlkPSJjaGFydC1pY29uIj4KICAgICAgICAgICAgPGcgaWQ9ImJhY2tncm91bmQiIGZpbGw9IiMxOTgwMzgiPgogICAgICAgICAgICAgICAgPHBvbHlnb24gaWQ9IkZpbGwtYmciIHBvaW50cz0iMCA0OCA0OCA0OCA0OCAwIDAgMCI+PC9wb2x5Z29uPgogICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDxnIGlkPSJjaGFydC1saW5lIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg4LCA4KSI+CiAgICAgICAgICAgICAgICA8cGF0aCBmaWxsPSIjRkZGRkZGIiBkPSJNMTAuMDYsMTcuODhBNC4yNSw0LjI1LDAsMCwwLDExLDE4YTQsNCwwLDAsMCwyLjIzLS42OGwzLjIyLDIuODdhMy44OCwzLjg4LDAsMCwwLS4yLDMuMTdBNCw0LDAsMSwwLDIyLjYyLDE5bDIuNTQtNS4wOWEzLjc4LDMuNzgsMCwwLDAsMi45MS0uNTNBNCw0LDAsMSwwLDIzLjM4LDEzbC0yLjU0LDUuMDlBMy44NiwzLjg2LDAsMCwwLDIwLDE4YTQsNCwwLDAsMC0yLjIzLjY4bC0zLjIyLTIuODdhMy44OCwzLjg4LDAsMCwwLC4yLTMuMTdBNCw0LDAsMSwwLDguMywxNi45M0w0LDI1VjJIMlYyOGEyLDIsMCwwLDAsMiwySDMwVjI4SDQuNjdaTTI2LDhhMiwyLDAsMSwxLTIsMkEyLDIsMCwwLDEsMjYsOFpNMjIsMjJhMiwyLDAsMSwxLTItMkEyLDIsMCwwLDEsMjIsMjJaTTExLDEyYTIsMiwwLDEsMS0yLDJBMiwyLDAsMCwxLDExLDEyWiIvPgogICAgICAgICAgICA8L2c+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4KCjwhLS0gTWFkZSB3aXRoIEJvYiAtLT4K",
+            "color": Colors.lines["black"],
+            "fill": Colors.fills["white"],
+            "resource": "none",
+            "fields": {},
+            "direction": "LR",
+            "deployedOn": "none",
+            "deployedTo": "none",
+        },
         # Containers
         "OpenShift Icon": {
             "icon": "logo--openshift",

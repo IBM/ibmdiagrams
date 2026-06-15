@@ -691,7 +691,7 @@ class Resources:
             for vpc in vpcs:
                 name = vpc["name"]
                 id = vpc["id"]
-                region = subnet["region"]
+                region = vpc["region"]
                 attributes = {"name": name, "id": id, "crn": "crn:v1:bluemix:public:vpc:" + region}
                 row = {"id": id} | attributes
                 table[count] = row

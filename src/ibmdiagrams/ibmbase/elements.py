@@ -77,6 +77,10 @@ class Elements:
             tree = ET.ElementTree(self.xml)
             tree.write(file.replace(" ", ""))
 
+    def getXMLString(self) -> str:
+        """Return XML as a string instead of writing to file"""
+        return ET.tostring(self.xml, encoding="unicode")
+
     def resetXML(self, data):
         self.xml = ET.Element("mxfile", data["header"])
         self.root = None

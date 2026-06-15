@@ -3,3 +3,5 @@ PyYAML>=6.0
 requests>=2.31.0
 tabulate>=0.10.0
 urllib3>=1.26.9
+fastmcp>=3.2.4
+rich>=15.0.0

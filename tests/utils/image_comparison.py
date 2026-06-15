@@ -175,6 +175,107 @@ def _generate_diff_image(
     return diff_img
 
 
+def generate_size_mismatch_diff(image1_path: Path, image2_path: Path) -> Image.Image:
+    """
+    Generate a visual diff for images with different dimensions.
+
+    Creates a side-by-side comparison with differences highlighted in red.
+    For the overlapping region, pixel differences are shown. For non-overlapping
+    regions (due to size mismatch), those areas are highlighted with a red tint.
+
+    Args:
+        image1_path: Path to first image (baseline).
+        image2_path: Path to second image (generated).
+
+    Returns:
+        PIL Image showing the size comparison with differences highlighted.
+
+    Raises:
+        ImageLoadError: If either image cannot be loaded.
+    """
+    try:
+        img1 = Image.open(image1_path).convert("RGB")
+    except Exception as e:
+        raise ImageLoadError(f"Failed to load image {image1_path}: {e}") from e
+
+    try:
+        img2 = Image.open(image2_path).convert("RGB")
+    except Exception as e:
+        raise ImageLoadError(f"Failed to load image {image2_path}: {e}") from e
+
+    # Calculate dimensions
+    max_width = max(img1.width, img2.width)
+    max_height = max(img1.height, img2.height)
+    min_width = min(img1.width, img2.width)
+    min_height = min(img1.height, img2.height)
+
+    # Create canvas with space for both images side by side
+    diff_img = Image.new("RGB", (max_width * 2 + 20, max_height), color=(240, 240, 240))
+
+    # Paste first image
+    diff_img.paste(img1, (0, 0))
+
+    # Create a copy of img2 for highlighting differences
+    img2_highlighted = img2.copy()
+
+    # Convert overlapping region to numpy for comparison
+    if min_width > 0 and min_height > 0:
+        arr1 = np.array(img1.crop((0, 0, min_width, min_height)))
+        arr2 = np.array(img2.crop((0, 0, min_width, min_height)))
+
+        # Find different pixels in overlapping region
+        pixel_diff = np.any(arr1 != arr2, axis=2)
+
+        # Highlight differences in red on img2
+        arr2_highlighted = arr2.copy()
+        arr2_highlighted[pixel_diff] = [255, 0, 0]  # Red for differences
+
+        # Paste highlighted overlapping region back
+        img2_highlighted.paste(Image.fromarray(arr2_highlighted), (0, 0))
+
+    # Highlight non-overlapping regions with red tint
+    draw = ImageDraw.Draw(img2_highlighted, "RGBA")
+
+    # Highlight extra width (if img2 is wider)
+    if img2.width > img1.width:
+        draw.rectangle(
+            [(img1.width, 0), (img2.width, img2.height)],
+            fill=(255, 0, 0, 80),  # Semi-transparent red
+        )
+
+    # Highlight extra height (if img2 is taller)
+    if img2.height > img1.height:
+        draw.rectangle(
+            [(0, img1.height), (img2.width, img2.height)],
+            fill=(255, 0, 0, 80),  # Semi-transparent red
+        )
+
+    # Paste highlighted img2
+    diff_img.paste(img2_highlighted, (max_width + 20, 0))
+
+    # Draw a dividing line
+    draw = ImageDraw.Draw(diff_img)
+    draw.line([(max_width + 10, 0), (max_width + 10, max_height)], fill=(200, 0, 0), width=2)
+
+    # Highlight missing regions on img1 side if img1 is smaller
+    if img1.width < max_width or img1.height < max_height:
+        # Highlight extra width area (if img1 is narrower)
+        if img1.width < max_width:
+            draw.rectangle(
+                [(img1.width, 0), (max_width, max_height)],
+                fill=(255, 200, 200),  # Light red for missing area
+            )
+
+        # Highlight extra height area (if img1 is shorter)
+        if img1.height < max_height:
+            draw.rectangle(
+                [(0, img1.height), (max_width, max_height)],
+                fill=(255, 200, 200),  # Light red for missing area
+            )
+
+    return diff_img
+
+
 def save_diff_image(diff_image: Image.Image, output_path: Path) -> None:
     """
     Save a diff image to disk.

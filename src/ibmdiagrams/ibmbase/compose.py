@@ -55,7 +55,6 @@ class Compose:
     outputfile = None
     outputfolder = None
     diagramname = None
-    savegroups = {}
     indent = -2
 
     def __init__(self, common, data):
@@ -68,6 +67,7 @@ class Compose:
         self.diagramname = path.splitext(path.basename(self.common.getOutputFile()))[0]
         self.outputfile = self.diagramname + ".py"
         self.outputfolder = self.common.getOutputFolder()
+        self.savegroups = {}  # Initialize as instance variable to avoid state persistence
 
     def composeDiagrams(self):
         self.top = self.composeTree()
@@ -80,7 +80,12 @@ class Compose:
         pythonfile.close()
         if self.common.isDrawioCode():
             # exec(open(filelocation).read())
-            result = subprocess.run([sys.executable, filelocation], capture_output=True, text=True)  # noqa: F841
+            result = subprocess.run([sys.executable, filelocation], capture_output=True, text=True)
+            if result.returncode != 0:
+                logger.error(f"Failed to execute generated Python file: {filelocation}")
+                logger.error(f"stdout: {result.stdout}")
+                logger.error(f"stderr: {result.stderr}")
+                raise RuntimeError(f"Diagram generation failed: {result.stderr}")
             # logger.debug(result.stdout)
             # logger.debug(result.stderr)
             remove(filelocation)

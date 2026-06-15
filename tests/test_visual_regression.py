@@ -16,6 +16,7 @@ from utils.image_comparison import (
     ImageSizeMismatchError,
     compare_images,
     compare_images_with_tolerance,
+    generate_size_mismatch_diff,
     save_diff_image,
 )
 
@@ -225,11 +226,26 @@ def test_element_visual_regression(
             )
 
     except ImageSizeMismatchError as e:
-        pytest.fail(
+        # Generate size mismatch diff if save_diffs is enabled
+        diff_path = None
+        if save_diffs:
+            try:
+                diff_image = generate_size_mismatch_diff(baseline_png, generated_png)
+                diff_path = diff_output_dir / f"{element.slug}_diff.png"
+                save_diff_image(diff_image, diff_path)
+                logger.info(f"Saved size mismatch diff to {diff_path}")
+            except Exception as diff_error:
+                logger.warning(f"Failed to generate size mismatch diff: {diff_error}")
+
+        failure_msg = (
             f"Image size mismatch for {element.slug}: {e}\n"
             f"This usually indicates a significant change in diagram generation.\n"
-            f"Review the changes and update baselines if intentional."
         )
+        if diff_path:
+            failure_msg += f"Diff image saved to: {diff_path}\n"
+        failure_msg += "Review the changes and update baselines if intentional."
+
+        pytest.fail(failure_msg)
     except ImageLoadError as e:
         pytest.fail(f"Failed to load images for {element.slug}: {e}")
     except ImageComparisonError as e:

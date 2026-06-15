@@ -19,7 +19,6 @@ openspec
 htmlcov/
 
 **/*.drawio
-examples
 visual_regression_diffs
 
 innersource.yaml

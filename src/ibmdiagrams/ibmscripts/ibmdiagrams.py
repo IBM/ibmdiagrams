@@ -14,12 +14,22 @@
 # limitations under the License.
 
 from argparse import ArgumentParser
+from importlib.metadata import version
 from os import path
 
 # from ibmdiagrams import Common, Compose, Load, ComposeJSON, LoadJSON
 from ibmdiagrams import Common, Compose, Load
+from ibmdiagrams.ibmscripts.mcp import main as mcp_main
 
 PROG = "ibmdiagrams"
+
+
+def get_version():
+    """Get version from package metadata."""
+    try:
+        return version("ibmdiagrams")
+    except Exception:
+        return "unknown"
 
 
 def main():
@@ -45,7 +55,12 @@ def main():
         epilog="https://github.com/IBM/ibmdiagrams",
     )
 
-    parser.add_argument("inputfile", help="required input file name (terraform file)")
+    parser.add_argument(
+        "--version",
+        action="version",
+        version=f"%(prog)s {get_version()}",
+    )
+    parser.add_argument("inputfile", nargs="?", help="required input file name (terraform file)")
     parser.add_argument("-output", dest="outputfolder", default="", help="output folder")
     # parser.add_argument('-direction', dest='direction', default='LR', help='layout direction (LR or TB)')
     parser.add_argument(
@@ -65,8 +80,22 @@ def main():
         help="code type (default: drawio)",
     )
     parser.add_argument("-font", dest="fontname", default="IBM Plex Sans", help="font name")
+    parser.add_argument(
+        "--mcp",
+        dest="run_mcp",
+        action="store_true",
+        help="run the FastMCP server instead of generating a diagram file",
+    )
 
     args = parser.parse_args()
+
+    if args.run_mcp:
+        mcp_main()
+        return
+
+    if not args.inputfile:
+        parser.error("the following arguments are required: inputfile")
+        return
 
     inputfile = args.inputfile
     outputfolder = args.outputfolder
@@ -110,21 +139,19 @@ def main():
         outputfile = inputbase + "." + outputtype
         common.setOutputFile(outputfile)
 
-        common.printStartFile(inputfile, common.getProvider().value.upper())
+        provider = common.getProvider()
+        provider_name = provider.value.upper() if provider else "UNKNOWN"
+
+        common.printStartFile(inputfile, provider_name)
         data = Load(common)
         if data.loadData():
             compose = Compose(common, data)
             compose.composeDiagrams()
             if common.isDrawioCode():
-                common.printDone(
-                    path.join(outputfolder, outputfile), common.getProvider().value.upper()
-                )
+                common.printDone(path.join(outputfolder, outputfile), provider_name)
             elif common.isPythonCode():
                 splitfile = path.splitext(outputfile)
-                common.printDone(
-                    path.join(outputfolder, splitfile[0] + ".py"),
-                    common.getProvider().value.upper(),
-                )
+                common.printDone(path.join(outputfolder, splitfile[0] + ".py"), provider_name)
         else:
             common.printExit()
     else:
