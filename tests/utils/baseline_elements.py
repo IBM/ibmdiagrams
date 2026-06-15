@@ -5,10 +5,6 @@ This module contains all diagram elements used for baseline generation,
 organized for easy maintenance and reuse across test modules.
 """
 
-# ruff: noqa: F403, F405
-from utils.baseline_utils import DiagramElement
-
-from ibmdiagrams.ibmcloud.connectors import *
 from ibmdiagrams.ibmcloud import (
     actors,
     ai,
@@ -22,6 +18,8 @@ from ibmdiagrams.ibmcloud import (
     security,
     storage,
 )
+from utils.baseline_utils import DiagramElement
+
 
 def get_baseline_elements() -> list[DiagramElement]:
     """
@@ -39,7 +37,6 @@ def get_baseline_elements() -> list[DiagramElement]:
         ###################################
         # Groups
         ###################################
-
         # Core Groups (_CoreGroup) - ordered as in groups.py
         DiagramElement(
             obj=groups.IBMCloud,
@@ -234,11 +231,9 @@ def get_baseline_elements() -> list[DiagramElement]:
             slug="group:enterprise",
             label="Enterprise",
         ),
-
         ###################################
         # Actors
         ###################################
-
         DiagramElement(
             obj=actors.User,
             slug="actor:user",
@@ -281,11 +276,9 @@ def get_baseline_elements() -> list[DiagramElement]:
             wrapper_obj=groups.EnterpriseNetwork,
             wrapper_label="Enterprise<br>Network",
         ),
-
         ###################################
         # AI
         ###################################
-
         DiagramElement(
             obj=ai.watsonx,
             slug="ai:watsonx",
@@ -384,11 +377,9 @@ def get_baseline_elements() -> list[DiagramElement]:
             wrapper_obj=groups.EnterpriseNetwork,
             wrapper_label="Enterprise<br>Network",
         ),
-
         ###################################
         # Compute
         ###################################
-
         DiagramElement(
             obj=compute.VirtualServer,
             slug="compute:virtual-server",
@@ -445,11 +436,9 @@ def get_baseline_elements() -> list[DiagramElement]:
             wrapper_obj=groups.VPC,
             wrapper_label="VPC",
         ),
-
         ###################################
         # Containers
         ###################################
-
         DiagramElement(
             obj=containers.OpenShift,
             slug="containers:openshift",
@@ -485,11 +474,9 @@ def get_baseline_elements() -> list[DiagramElement]:
             wrapper_obj=groups.KubernetesServices,
             wrapper_label="Kubernetes<br>services",
         ),
-
         ###################################
         # Data
         ###################################
-
         DiagramElement(
             obj=data.Db2,
             slug="data:db2",
@@ -581,11 +568,9 @@ def get_baseline_elements() -> list[DiagramElement]:
             wrapper_obj=groups.VPC,
             wrapper_label="VPC",
         ),
-
         ###################################
         # DevOps
         ###################################
-
         DiagramElement(
             obj=devops.ContinuousDelivery,
             slug="devops:continuous-delivery",
@@ -642,11 +627,9 @@ def get_baseline_elements() -> list[DiagramElement]:
             wrapper_obj=groups.VPC,
             wrapper_label="VPC",
         ),
-
         ###################################
         # Network
         ###################################
-
         DiagramElement(
             obj=network.LoadBalancer,
             slug="network:load-balancer",
@@ -808,11 +791,9 @@ def get_baseline_elements() -> list[DiagramElement]:
             wrapper_obj=groups.VLAN,
             wrapper_label="VLAN",
         ),
-
         ###################################
         # Observability
         ###################################
-
         DiagramElement(
             obj=observability.CloudLogs,
             slug="observability:cloud-logs",
@@ -834,11 +815,9 @@ def get_baseline_elements() -> list[DiagramElement]:
             wrapper_obj=groups.VPC,
             wrapper_label="VPC",
         ),
-
         ###################################
         # Security
         ###################################
-
         DiagramElement(
             obj=security.AppID,
             slug="security:app-id",
@@ -909,11 +888,9 @@ def get_baseline_elements() -> list[DiagramElement]:
             wrapper_obj=groups.SecurityGroup,
             wrapper_label="Security<br>group",
         ),
-
         ###################################
         # Storage
         ###################################
-
         DiagramElement(
             obj=storage.BlockStorage,
             slug="storage:block-storage",

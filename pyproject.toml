@@ -1,10 +1,10 @@
 [project]
 name = "ibmdiagrams"
-version = "3.2.0"
+version = "3.2.1"
 description = "Generate architecture diagrams following IBM Diagram Standard"
 readme = "README.md"
 requires-python = ">=3.11.0"
-license = {file = "LICENSE"}
+license = "Apache-2.0"
 keywords = ["cloud", "diagrams", "ibm"]
 authors = [
   {name = "John Pape", email = "jtpape@us.ibm.com" },
@@ -15,11 +15,10 @@ maintainers = [
   {name = "John Pape", email = "jtpape@us.ibm.com" }
 ]
 # For a list of valid classifiers, see https://pypi.org/classifiers/
-classifiers = [ 
-  "Development Status :: 3 - Alpha", 
+classifiers = [
+  "Development Status :: 3 - Alpha",
   "Intended Audience :: Software Architects :: Cloud Architects || Developers",
   "Topic :: Diagrams :: Cloud :: Development",
-  "License :: OSI Approved :: Apache License 2.0",
   "Programming Language :: Python :: 3.11",
 ]
 # For an analysis of this field vs pip's requirements files see:
@@ -64,7 +63,11 @@ dev = [
     "numpy>=1.24.0",
     "Pillow>=10.0.0",
     "pytest>=9.0.3",
+    "pytest-cov>=7.1.0",
     "pytest-xdist>=3.0.0",
+    "ruff>=0.15.12",
+    "pre-commit>=4.6.0",
+    "detect-secrets>=1.5.0"
 ]
 
 [build-system]
@@ -75,3 +78,77 @@ build-backend = "setuptools.build_meta"
 
 [project.scripts]
 ibmdiagrams = "ibmdiagrams.ibmscripts.ibmdiagrams:main"
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+
+[tool.ruff.lint]
+select = [
+    "E",      # pycodestyle errors
+    "W",      # pycodestyle warnings
+    "F",      # Pyflakes
+    "I",      # isort
+    "B",      # flake8-bugbear
+    "C4",     # flake8-comprehensions
+    "UP",     # pyupgrade
+    "SIM",    # flake8-simplify
+    "S",      # flake8-bandit (security checks)
+    "T20",    # flake8-print (prevent print statements in prod)
+]
+ignore = [
+    "E501",   # line too long (handled by formatter)
+    "B008",   # function call in default argument (FastAPI pattern)
+    "SIM117", # nested with statements (needed for httpx websocket tests)
+    "S101",   # allow assert in tests
+    "S324",   # insecure hash function (md5 used for non-security purposes)
+    "S603",   # subprocess without shell=True (intentional for running Python scripts)
+    "SIM113", # enumerate suggestions (existing code pattern)
+    "SIM115", # context manager suggestions (existing code pattern)
+    "SIM108", # ternary operator suggestions (readability preference)
+    "B007",   # unused loop variable (existing code pattern)
+    "F821",   # undefined name (legacy code issues to be fixed separately)
+    "F811",   # redefinition of unused (legacy code issues to be fixed separately)
+    "F601",   # dictionary key repeated (legacy code issues to be fixed separately)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101", "SIM117"]  # allow asserts and nested with in tests
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "--verbose",
+    "--strict-markers",
+    "--tb=short",
+]
+
+[tool.coverage.run]
+source = ["src/ibmdiagrams"]
+omit = [
+    "*/tests/*",
+    "*/test_*.py",
+    "*/__pycache__/*",
+    "*/site-packages/*",
+]
+branch = true
+
+[tool.coverage.report]
+precision = 2
+show_missing = true
+skip_covered = false
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "@abstractmethod",
+]
+
+[tool.coverage.html]
+directory = "htmlcov"

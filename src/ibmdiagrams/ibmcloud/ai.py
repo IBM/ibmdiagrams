@@ -16,23 +16,26 @@
 from . import _IBMCollapsed
 from .colors import Colors
 
+
 class _AI(_IBMCollapsed):
     def __init__(self, label, sublabel="", icon=""):
         super().__init__(
             label=label,
-            sublabel=sublabel, 
-            linecolor=Colors.lines["applications"], 
+            sublabel=sublabel,
+            linecolor=Colors.lines["applications"],
             shape="pnode",
             icon=icon,
         )
+
 
 class watsonx(_AI):
     def __init__(self, label, sublabel=""):
         super().__init__(
             label=label,
-            sublabel=sublabel, 
+            sublabel=sublabel,
             icon="watsonx Icon",
         )
+
 
 class watsonxAI(_AI):
     def __init__(self, label, sublabel=""):
@@ -149,5 +152,6 @@ class WatsonStudio(_AI):
             sublabel=sublabel,
             icon="Watson Studio Icon",
         )
+
 
 # Aliases

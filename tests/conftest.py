@@ -7,11 +7,10 @@ tests on IBM Cloud diagram elements.
 
 import os
 import tempfile
+from collections.abc import Generator
 from pathlib import Path
-from typing import Generator
 
 import pytest
-
 from utils.baseline_elements import get_baseline_elements
 from utils.baseline_utils import find_drawio_executable, setup_baseline_directories
 
@@ -26,9 +25,9 @@ def pytest_addoption(parser: pytest.Parser) -> None:
     parser.addoption(
         "--threshold",
         action="store",
-        default="1.25",
+        default="0.5",
         type=float,
-        help="Maximum allowed difference percentage for image comparison (0.0-100.0). Default: 1.25",
+        help="Maximum allowed difference percentage for image comparison (0.0-100.0). Default: 0.5",
     )
     parser.addoption(
         "--update-baselines",
@@ -110,7 +109,7 @@ def default_threshold(request: pytest.FixtureRequest) -> float:
     threshold = request.config.getoption("--threshold")
 
     # Fall back to environment variable if not set via CLI
-    if threshold == 1.25:  # Default value
+    if threshold == 0.5:  # Default value
         env_threshold = os.environ.get("VISUAL_REGRESSION_THRESHOLD")
         if env_threshold is not None:
             try:
@@ -235,14 +234,13 @@ def test_threshold(request: pytest.FixtureRequest, default_threshold: float) -> 
     """
     # Check for test-specific threshold marker
     marker = request.node.get_closest_marker("threshold")
-    if marker is not None:
-        if len(marker.args) > 0:
-            threshold = marker.args[0]
-            if not isinstance(threshold, (int, float)):
-                pytest.fail(f"Threshold marker must have a numeric value, got {type(threshold)}")
-            if not 0.0 <= threshold <= 100.0:
-                pytest.fail(f"Threshold must be between 0.0 and 100.0, got {threshold}")
-            return float(threshold)
+    if marker is not None and len(marker.args) > 0:
+        threshold = marker.args[0]
+        if not isinstance(threshold, int | float):
+            pytest.fail(f"Threshold marker must have a numeric value, got {type(threshold)}")
+        if not 0.0 <= threshold <= 100.0:
+            pytest.fail(f"Threshold must be between 0.0 and 100.0, got {threshold}")
+        return float(threshold)
 
     return default_threshold
 

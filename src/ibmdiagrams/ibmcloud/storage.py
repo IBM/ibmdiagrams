@@ -16,6 +16,7 @@
 from . import _IBMCollapsed
 from .colors import Colors
 
+
 class _Storage(_IBMCollapsed):
     def __init__(self, label, sublabel="", icon=""):
         super().__init__(
@@ -70,5 +71,6 @@ class CloudBackup(_Storage):
             sublabel=sublabel,
             icon="Cloud Backup Icon",
         )
+
 
 # Aliases

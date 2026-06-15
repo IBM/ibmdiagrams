@@ -18,18 +18,41 @@ from .colors import Colors
 
 # Expanded Groups
 
+
 class _ExpandedGroups(_IBMExpanded):
-    def __init__(self, label, sublabel="", linecolor=Colors.lines["backend"], fillcolor=Colors.fills["white"], icon="", direction="LR"):
-        super(_ExpandedGroups, self).__init__(label, sublabel=sublabel,
-                                              linecolor=linecolor, fillcolor=fillcolor, 
-                                              shape="epnode",  
-                                              icon=icon, direction=direction)
+    def __init__(
+        self,
+        label,
+        sublabel="",
+        linecolor=Colors.lines["backend"],
+        fillcolor=Colors.fills["white"],
+        icon="",
+        direction="LR",
+    ):
+        super().__init__(
+            label,
+            sublabel=sublabel,
+            linecolor=linecolor,
+            fillcolor=fillcolor,
+            shape="epnode",
+            icon=icon,
+            direction=direction,
+        )
+
 
 class ExpandedPrescribedNode(_ExpandedGroups):
-    def __init__(self, label, sublabel="", linecolor="", fillcolor="", icon="Undefined Icon", direction="LR"):
-        super(ExpandedPrescribedNode, self).__init__(label, sublabel=sublabel, 
-                                                     linecolor=linecolor, fillcolor=fillcolor,
-                                                     icon=icon, direction=direction)
+    def __init__(
+        self, label, sublabel="", linecolor="", fillcolor="", icon="Undefined Icon", direction="LR"
+    ):
+        super().__init__(
+            label,
+            sublabel=sublabel,
+            linecolor=linecolor,
+            fillcolor=fillcolor,
+            icon=icon,
+            direction=direction,
+        )
+
 
 # Expanded Group Aliases
 ExpandedPNode = ExpandedPrescribedNode

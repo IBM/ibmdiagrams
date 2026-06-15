@@ -356,6 +356,7 @@ def create_drawio_diagram(element: DiagramElement, drawio_file: Path) -> bool:
         True if creation succeeded, False otherwise.
     """
     import inspect
+
     from ibmdiagrams import Group, Item
     from ibmdiagrams.ibmcloud import groups
 
@@ -383,7 +384,9 @@ def create_drawio_diagram(element: DiagramElement, drawio_file: Path) -> bool:
             else:
                 wrapper_obj = element.wrapper_obj or groups.IBMCloud
                 wrapper_sig = inspect.signature(wrapper_obj.__init__)
-                wrapper_kwargs = {"direction": "TB"} if "direction" in wrapper_sig.parameters else {}
+                wrapper_kwargs = (
+                    {"direction": "TB"} if "direction" in wrapper_sig.parameters else {}
+                )
                 with wrapper_obj(element.wrapper_label, **wrapper_kwargs):
                     element.obj(element.label)
         logger.debug(f"Created .drawio file: {drawio_file}")

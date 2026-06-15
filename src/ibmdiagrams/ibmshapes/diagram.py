@@ -14,15 +14,22 @@
 # limitations under the License.
 
 from . import _IBMDiagram
-from .colors import Colors
+from .colors import Colors  # noqa: F401
+
 
 class IBMDiagram(_IBMDiagram):
     def __init__(self, name, filename="", output="", font="IBM Plex Sans", direction=""):
         if filename == "":
             filename = name
 
-        super(IBMDiagram, self).__init__(name=name, filename=filename, output=output,
-                                         font=font, direction=direction)
+        super().__init__(
+            name=name,
+            filename=filename,
+            output=output,
+            font=font,
+            direction=direction,
+        )
+
 
 # Aliases
 Diagram = IBMDiagram

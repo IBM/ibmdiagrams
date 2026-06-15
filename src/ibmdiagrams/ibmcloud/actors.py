@@ -16,68 +16,77 @@
 from . import _IBMCollapsed
 from .colors import Colors
 
+
 class _Actors(_IBMCollapsed):
     def __init__(self, label, sublabel="", linecolor="", icon=""):
         super().__init__(
             label=label,
-            sublabel=sublabel, 
-            linecolor=linecolor, 
+            sublabel=sublabel,
+            linecolor=linecolor,
             shape="actor",
             icon=icon,
         )
+
 
 class User(_Actors):
     def __init__(self, label, sublabel=""):
         super().__init__(
             label=label,
-            sublabel=sublabel, 
-            linecolor=Colors.lines["user"], 
+            sublabel=sublabel,
+            linecolor=Colors.lines["user"],
             icon="User Icon",
         )
+
 
 class Users(_Actors):
     def __init__(self, label, sublabel=""):
         super().__init__(
             label=label,
-            sublabel=sublabel, 
-            linecolor=Colors.lines["user"], 
+            sublabel=sublabel,
+            linecolor=Colors.lines["user"],
             icon="Users Icon",
         )
+
 
 class Enterprise(_Actors):
     def __init__(self, label, sublabel=""):
         super().__init__(
             label=label,
-            sublabel=sublabel, 
-            linecolor=Colors.lines["user"], 
+            sublabel=sublabel,
+            linecolor=Colors.lines["user"],
             icon="Enterprise Icon",
         )
+
 
 class Application(_Actors):
     def __init__(self, label, sublabel=""):
         super().__init__(
             label=label,
             sublabel=sublabel,
-            linecolor=Colors.lines["applications"], 
+            linecolor=Colors.lines["applications"],
             icon="Application Icon",
         )
+
 
 class WebApplication(_Actors):
     def __init__(self, label, sublabel=""):
         super().__init__(
             label=label,
             sublabel=sublabel,
-            linecolor=Colors.lines["applications"], 
+            linecolor=Colors.lines["applications"],
             icon="Web Application Icon",
         )
+
+
 class Microservice(_Actors):
     def __init__(self, label, sublabel=""):
         super().__init__(
             label=label,
             sublabel=sublabel,
-            linecolor=Colors.lines["applications"], 
+            linecolor=Colors.lines["applications"],
             icon="Web Application Icon",
         )
+
 
 # Aliases
 App = Application

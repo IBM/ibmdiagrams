@@ -13,9 +13,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
+
 import pandas as pd
 
 from .colors import Colors
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
+logger = logging.getLogger(__name__)
 
 
 class Icons:
@@ -1569,15 +1579,12 @@ class Icons:
         return icon
 
     def validIcon(self, iconname):
-        if iconname in self.iconDictionary:
-            return True
-        else:
-            return False
+        return iconname in self.iconDictionary
 
     def printIcons(self):
         for entry in self.iconDictionary:
             icon = self.iconDictionary[entry]
-            print(icon)
+            logger.debug(icon)
 
     def mapResources(self, resources):
         for entry in self.iconDictionary:
@@ -1600,14 +1607,14 @@ class Icons:
             #   c. "@name" to leave name as is
             #   d. "name[d]" to retrieve array index d starting at 0 where d is 0 to 9
 
-            for index, row in resource.iterrows():
+            for _index, row in resource.iterrows():
                 list = {}
                 for newname, oldname in fields.items():
                     if oldname.find(":") > -1:
                         templist = oldname.split(":")
                         tempdata = row[templist[0]]
                         if len(templist) == 1:
-                            element = tempdata
+                            element = tempdata  # noqa: F841
                         else:
                             tempindex = 1
                             while tempindex < len(templist):
@@ -1615,10 +1622,7 @@ class Icons:
                                 tempdata = tempdata[templist[tempindex]]
                                 tempindex += 1
                     else:
-                        if oldname.find("+") > -1:
-                            templist = oldname.split("+")
-                        else:
-                            templist = [oldname]
+                        templist = oldname.split("+") if oldname.find("+") > -1 else [oldname]
 
                         tempindex = 0
                         tempstring = ""
@@ -1729,7 +1733,7 @@ class Icons:
         vpcData = vpcIcon["data"]
         zoneData = []
 
-        for vpcKey, vpcRow in vpcData.iterrows():
+        for _vpcKey, vpcRow in vpcData.iterrows():
             vpcID = vpcRow["id"]
             for zoneRow in data:
                 newRow = zoneRow.copy()
@@ -1819,7 +1823,7 @@ class Icons:
 
       icon = self.iconDictionary['VPC Services Group']
       df = pd.DataFrame(data)
-      icon['data'] = df 
+      icon['data'] = df
 
       return
    """

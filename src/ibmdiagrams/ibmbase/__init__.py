@@ -13,10 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .properties import Properties
-from .build import Build
-from .common import Common
-from .compose import Compose
-from .load import Load
-#from .composejson import ComposeJSON
-#from .loadjson import LoadJSON
+from .build import Build as Build
+from .common import Common as Common
+from .compose import Compose as Compose
+from .load import Load as Load
+from .properties import Properties as Properties
+# from .composejson import ComposeJSON as ComposeJSON
+# from .loadjson import LoadJSON as LoadJSON

@@ -85,6 +85,21 @@ Use cases:
 
 ## Development
 
+### Pre-commit Hooks
+
+This project uses pre-commit hooks for code quality and security:
+
+```bash
+# Install pre-commit hooks
+pip install pre-commit
+pre-commit install
+
+# Run manually
+pre-commit run --all-files
+```
+
+See [CONTRIBUTING.md](CONTRIBUTING.md#development-setup) for detailed setup instructions.
+
 ### Visual Regression Testing
 
 Visual regression tests ensure that diagram elements render consistently and detect unintended visual changes. The tests compare generated diagrams against baseline images with configurable thresholds.

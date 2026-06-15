@@ -9,7 +9,6 @@ import logging
 from pathlib import Path
 
 import pytest
-
 from utils.baseline_utils import generate_baseline_diagram
 from utils.image_comparison import (
     ImageComparisonError,
@@ -137,13 +136,14 @@ def update_baseline(
 def pytest_generate_tests(metafunc):
     """
     Dynamically parametrize tests with baseline elements.
-    
+
     This hook is called for each test function and allows us to
     parametrize the test with all baseline elements.
     """
     if "element" in metafunc.fixturenames:
         # Get baseline elements from the session
         from utils.baseline_elements import get_baseline_elements
+
         elements = get_baseline_elements()
         metafunc.parametrize("element", elements, ids=lambda e: e.slug)
 
@@ -237,13 +237,12 @@ def test_element_visual_regression(
 
     # Save diff image if requested and test failed
     diff_path = None
-    if not is_match and (save_diffs or diff_image is not None):
-        if diff_image is not None:
-            diff_path = diff_output_dir / f"{element.slug}_diff.png"
-            try:
-                save_diff_image(diff_image, diff_path)
-            except ImageComparisonError as e:
-                logger.warning(f"Failed to save diff image: {e}")
+    if not is_match and (save_diffs or diff_image is not None) and diff_image is not None:
+        diff_path = diff_output_dir / f"{element.slug}_diff.png"
+        try:
+            save_diff_image(diff_image, diff_path)
+        except ImageComparisonError as e:
+            logger.warning(f"Failed to save diff image: {e}")
 
     # Assert match
     if not is_match:

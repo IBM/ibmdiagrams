@@ -8,7 +8,6 @@ generate visual diffs, and calculate image hashes for quick exact matching.
 import hashlib
 import logging
 from pathlib import Path
-from typing import Optional
 
 import numpy as np
 from PIL import Image, ImageDraw
@@ -58,7 +57,7 @@ def compare_images(
     image1_path: Path,
     image2_path: Path,
     threshold: float = 0.0,
-) -> tuple[bool, float, Optional[Image.Image]]:
+) -> tuple[bool, float, Image.Image | None]:
     """
     Compare two images with configurable threshold.
 
@@ -102,7 +101,7 @@ def compare_images(
     # Check dimensions match
     if img1.size != img2.size:
         raise ImageSizeMismatchError(
-            f"Image dimensions don't match: {img1.size} vs {img2.size}"
+            f"Image dimensions don't match: {img1.size} vs {img2.size}",
         )
 
     # Quick exact match check using hash
@@ -204,7 +203,7 @@ def compare_images_with_tolerance(
     image2_path: Path,
     pixel_tolerance: int = 0,
     threshold: float = 0.0,
-) -> tuple[bool, float, Optional[Image.Image]]:
+) -> tuple[bool, float, Image.Image | None]:
     """
     Compare images with per-pixel tolerance for color differences.
 
@@ -245,7 +244,7 @@ def compare_images_with_tolerance(
     # Check dimensions match
     if img1.size != img2.size:
         raise ImageSizeMismatchError(
-            f"Image dimensions don't match: {img1.size} vs {img2.size}"
+            f"Image dimensions don't match: {img1.size} vs {img2.size}",
         )
 
     # Convert to numpy arrays

@@ -16,6 +16,7 @@
 from . import _IBMCollapsed
 from .colors import Colors
 
+
 class _Compute(_IBMCollapsed):
     def __init__(self, label, sublabel="", icon=""):
         super().__init__(
@@ -97,5 +98,6 @@ class Satellite(_Compute):
             sublabel=sublabel,
             icon="Satellite Icon",
         )
+
 
 # Aliases

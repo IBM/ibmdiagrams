@@ -16,6 +16,7 @@
 from . import _IBMCollapsed
 from .colors import Colors
 
+
 class _Observability(_IBMCollapsed):
     def __init__(self, label, sublabel="", icon=""):
         super().__init__(
@@ -52,5 +53,6 @@ class Monitoring(_Observability):
             sublabel=sublabel,
             icon="Monitoring Icon",
         )
+
 
 # Aliases

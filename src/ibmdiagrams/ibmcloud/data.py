@@ -16,6 +16,7 @@
 from . import _IBMCollapsed
 from .colors import Colors
 
+
 class _Data(_IBMCollapsed):
     def __init__(self, label, sublabel="", icon=""):
         super().__init__(
@@ -71,11 +72,12 @@ class Elasticsearch(_Data):
             icon="Elasticsearch Icon",
         )
 
+
 # class EnterpriseDB(_Data):
 #    def __init__(self, label, sublabel=""):
 #        super().__init__(
 #         label=label,
-#         sublabel=sublabel, 
+#         sublabel=sublabel,
 #         icon="EnterpriseDB Icon",
 #     )
 
@@ -83,9 +85,10 @@ class Elasticsearch(_Data):
 #    def __init__(self, label, sublabel=""):
 #        super().__init__(
 #         label=label,
-#         sublabel=sublabel, 
+#         sublabel=sublabel,
 #         icon="etcd Icon",
 #     )
+
 
 class MongoDB(_Data):
     def __init__(self, label, sublabel=""):
@@ -158,13 +161,14 @@ class DataPak(_Data):
             icon="Data Pak Icon",
         )
 
+
 # Aliases
 Ds = DataStax
 Es = Elasticsearch
-#En = EnterpriseDB
-#Et = etcd
+# En = EnterpriseDB
+# Et = etcd
 Mg = MongoDB
 My = MySQL
-Ra = Rabbit 
+Ra = Rabbit
 Rd = Redis
 DB = Database

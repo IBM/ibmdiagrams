@@ -23,9 +23,9 @@ PROG = "ibmdiagrams"
 
 
 def main():
-    tfname = ""
-    jsonname = ""
-    yamlname = ""
+    tfname = ""  # noqa: F841
+    jsonname = ""  # noqa: F841
+    yamlname = ""  # noqa: F841
     inputfile = ""
     outputfolder = ""
     labeltype = ""
@@ -46,9 +46,7 @@ def main():
     )
 
     parser.add_argument("inputfile", help="required input file name (terraform file)")
-    parser.add_argument(
-        "-output", dest="outputfolder", default="", help="output folder"
-    )
+    parser.add_argument("-output", dest="outputfolder", default="", help="output folder")
     # parser.add_argument('-direction', dest='direction', default='LR', help='layout direction (LR or TB)')
     parser.add_argument(
         "--general",
@@ -66,9 +64,7 @@ def main():
         default="DRAWIO",
         help="code type (default: drawio)",
     )
-    parser.add_argument(
-        "-font", dest="fontname", default="IBM Plex Sans", help="font name"
-    )
+    parser.add_argument("-font", dest="fontname", default="IBM Plex Sans", help="font name")
 
     args = parser.parse_args()
 
@@ -121,8 +117,7 @@ def main():
             compose.composeDiagrams()
             if common.isDrawioCode():
                 common.printDone(
-                    path.join(outputfolder, outputfile),
-                    common.getProvider().value.upper(),
+                    path.join(outputfolder, outputfile), common.getProvider().value.upper()
                 )
             elif common.isPythonCode():
                 splitfile = path.splitext(outputfile)
@@ -133,7 +128,7 @@ def main():
         else:
             common.printExit()
     else:
-        print()
+        pass
 
 
 if __name__ == "__main__":

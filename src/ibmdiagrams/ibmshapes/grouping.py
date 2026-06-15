@@ -16,26 +16,57 @@
 from . import _IBMGrouping
 from .colors import Colors
 
+
 class _Grouping(_IBMGrouping):
-    def __init__(self, label, sublabel="", linecolor="", fillcolor="", shape="", icon="", direction="LR"):
-        super(_Grouping, self).__init__(label, sublabel=sublabel, 
-                                        linecolor=linecolor, fillcolor=fillcolor,
-                                        shape=shape, icon=icon, direction=direction)
+    def __init__(
+        self, label, sublabel="", linecolor="", fillcolor="", shape="", icon="", direction="LR"
+    ):
+        super().__init__(
+            label,
+            sublabel=sublabel,
+            linecolor=linecolor,
+            fillcolor=fillcolor,
+            shape=shape,
+            icon=icon,
+            direction=direction,
+        )
+
 
 # Core Groups
 
+
 class _CoreGroups(_Grouping):
     def __init__(self, label, sublabel="", linecolor="", fillcolor="", icon="", direction="LR"):
-        super(_CoreGroups, self).__init__(label, sublabel=sublabel,
-                                          linecolor=linecolor, fillcolor=fillcolor, 
-                                          shape = "gploc" if icon == "" else "ploc",
-                                          icon=icon, direction=direction)
+        super().__init__(
+            label,
+            sublabel=sublabel,
+            linecolor=linecolor,
+            fillcolor=fillcolor,
+            shape="gploc" if icon == "" else "ploc",
+            icon=icon,
+            direction=direction,
+        )
+
 
 class PrescribedLocation(_CoreGroups):
-    def __init__(self, label, sublabel="", linecolor=Colors.lines["backend"], fillcolor=Colors.fills["white"], icon="", direction="LR"):
-        super(PrescribedLocation, self).__init__(label, sublabel=sublabel,
-                                                 linecolor=linecolor, fillcolor=fillcolor,
-                                                 icon=icon, direction=direction)
+    def __init__(
+        self,
+        label,
+        sublabel="",
+        linecolor=Colors.lines["backend"],
+        fillcolor=Colors.fills["white"],
+        icon="",
+        direction="LR",
+    ):
+        super().__init__(
+            label,
+            sublabel=sublabel,
+            linecolor=linecolor,
+            fillcolor=fillcolor,
+            icon=icon,
+            direction=direction,
+        )
+
 
 # Core Group Aliases
 PLocation = PrescribedLocation
@@ -43,17 +74,38 @@ PLocation = PrescribedLocation
 
 # Control Groups
 
+
 class _ControlGroups(_Grouping):
     def __init__(self, label, sublabel="", linecolor="", fillcolor="", icon="", direction="LR"):
-        super(_ControlGroups, self).__init__(label, sublabel=sublabel, 
-                                             linecolor=linecolor, fillcolor=fillcolor,
-                                             shape = "gzone" if icon == "" else "zone",
-                                             icon=icon, direction=direction)
+        super().__init__(
+            label,
+            sublabel=sublabel,
+            linecolor=linecolor,
+            fillcolor=fillcolor,
+            shape="gzone" if icon == "" else "zone",
+            icon=icon,
+            direction=direction,
+        )
+
 
 class Zone(_ControlGroups):
-    def __init__(self, label, sublabel="", linecolor=Colors.lines["backend"], fillcolor="none", icon="", direction="LR"):
-        super(Zone, self).__init__(label, sublabel=sublabel, 
-                                   linecolor=linecolor, fillcolor=fillcolor,
-                                   icon=icon, direction=direction)
+    def __init__(
+        self,
+        label,
+        sublabel="",
+        linecolor=Colors.lines["backend"],
+        fillcolor="none",
+        icon="",
+        direction="LR",
+    ):
+        super().__init__(
+            label,
+            sublabel=sublabel,
+            linecolor=linecolor,
+            fillcolor=fillcolor,
+            icon=icon,
+            direction=direction,
+        )
+
 
 # Control Group Aliases

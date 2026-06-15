@@ -1,13 +1,14 @@
-# Visual Regression Testing Guide
+# Testing Guide
 
 ## Overview
 
-Visual regression testing ensures that IBM Cloud diagram elements render consistently and helps detect unintended visual changes. The test suite compares generated diagrams against baseline images with configurable thresholds for flexibility across different environments.
+This guide covers both visual regression testing and code coverage testing for the ibmdiagrams project. Visual regression testing ensures that IBM Cloud diagram elements render consistently, while code coverage testing helps maintain code quality by tracking which parts of the codebase are exercised by tests.
 
 ## Table of Contents
 
 - [Prerequisites](#prerequisites)
 - [Quick Start](#quick-start)
+- [Code Coverage Testing](#code-coverage-testing)
 - [Configuration](#configuration)
 - [Running Tests](#running-tests)
 - [Understanding Test Results](#understanding-test-results)
@@ -60,7 +61,94 @@ pytest tests/test_visual_regression.py -n auto
 
 # Generate baseline for complete diagrams (first time)
 pytest tests/test_complete_diagrams.py::test_slzpowervs_diagram --update-baselines -v
+
+# Run tests with coverage report
+pytest --cov=src/ibmdiagrams --cov-report=html
+
+# Run tests with coverage and show missing lines
+pytest --cov=src/ibmdiagrams --cov-report=term-missing
 ```
+
+## Code Coverage Testing
+
+### Overview
+
+Code coverage testing measures which parts of the codebase are executed during test runs. This helps identify untested code and maintain high code quality standards.
+
+### Running Coverage Tests
+
+```bash
+# Basic coverage report
+pytest --cov=src/ibmdiagrams
+
+# Coverage with HTML report (opens in browser)
+pytest --cov=src/ibmdiagrams --cov-report=html
+open htmlcov/index.html  # macOS
+xdg-open htmlcov/index.html  # Linux
+
+# Coverage with terminal report showing missing lines
+pytest --cov=src/ibmdiagrams --cov-report=term-missing
+
+# Coverage for specific module
+pytest --cov=src/ibmdiagrams/ibmcloud --cov-report=term-missing
+
+# Coverage with branch coverage
+pytest --cov=src/ibmdiagrams --cov-branch --cov-report=term-missing
+```
+
+### Coverage Configuration
+
+Coverage settings are configured in [`pyproject.toml`](../pyproject.toml):
+
+```toml
+[tool.coverage.run]
+source = ["src/ibmdiagrams"]
+omit = [
+    "*/tests/*",
+    "*/test_*.py",
+    "*/__pycache__/*",
+    "*/site-packages/*",
+]
+branch = true
+
+[tool.coverage.report]
+precision = 2
+show_missing = true
+skip_covered = false
+```
+
+### Understanding Coverage Reports
+
+**Terminal Report:**
+```
+Name                                    Stmts   Miss  Cover   Missing
+---------------------------------------------------------------------
+src/ibmdiagrams/__init__.py                 5      0   100%
+src/ibmdiagrams/ibmbase/build.py          234     12    95%   45-48, 123-125
+src/ibmdiagrams/ibmcloud/diagram.py       156      8    95%   89-92
+---------------------------------------------------------------------
+TOTAL                                    2456    145    94%
+```
+
+- **Stmts**: Total statements in the file
+- **Miss**: Statements not executed during tests
+- **Cover**: Percentage of statements covered
+- **Missing**: Line numbers not covered
+
+**HTML Report:**
+- Open `htmlcov/index.html` in a browser
+- Interactive view showing covered/uncovered lines
+- Color-coded: green (covered), red (not covered)
+- Click files to see line-by-line coverage
+
+### Coverage Best Practices
+
+1. **Aim for high coverage** (>90%) but focus on meaningful tests
+2. **Review uncovered lines** to identify gaps in test coverage
+3. **Use branch coverage** to ensure all code paths are tested
+4. **Exclude generated code** and third-party code from coverage
+5. **Run coverage regularly** during development
+6. **Include coverage in CI** to prevent regressions
 
 ## Configuration
 
