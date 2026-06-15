@@ -51,7 +51,7 @@ Choose one of the following installation methods:
 
 ```bash
 # Download the latest wheel file from releases
-pip install ibmdiagrams-3.3.1-py3-none-any.whl
+pip install ibmdiagrams-3.3.2-py3-none-any.whl
 ```
 
 ### Option B: Install with uv (Development)
@@ -125,7 +125,7 @@ For development or when using a specific wheel file:
     "ibmdiagrams": {
       "command": "uvx",
       "args": [
-        "/absolute/path/to/ibmdiagrams-3.3.1-py3-none-any.whl",
+        "/absolute/path/to/ibmdiagrams-3.3.2-py3-none-any.whl",
         "--mcp"
       ]
     }
@@ -222,7 +222,7 @@ Add the IBM Diagrams MCP server to the `mcpServers` section:
     "ibmdiagrams": {
       "command": "uvx",
       "args": [
-        "/absolute/path/to/ibmdiagrams-3.3.1-py3-none-any.whl",
+        "/absolute/path/to/ibmdiagrams-3.3.2-py3-none-any.whl",
         "--mcp"
       ]
     }
@@ -449,7 +449,7 @@ Show me how to add a load balancer to my existing diagram code
    {
      "command": "uvx",
      "args": [
-       "/Users/username/projects/ibmdiagrams-3.3.1-py3-none-any.whl",
+       "/Users/username/projects/ibmdiagrams-3.3.2-py3-none-any.whl",
        "--mcp"
      ]
    }
@@ -458,8 +458,8 @@ Show me how to add a load balancer to my existing diagram code
 2. **Check file permissions:**
 
    ```bash
-   ls -la /path/to/ibmdiagrams-3.3.1-py3-none-any.whl
-   chmod 644 /path/to/ibmdiagrams-3.3.1-py3-none-any.whl
+   ls -la /path/to/ibmdiagrams-3.3.2-py3-none-any.whl
+   chmod 644 /path/to/ibmdiagrams-3.3.2-py3-none-any.whl
    ```
 
 3. **Verify working directory:**
