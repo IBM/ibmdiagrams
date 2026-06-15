@@ -4,7 +4,7 @@ This file provides guidance to agents when working with code in this repository.
 
 ## Project Overview
 
-**ibmdiagrams** is a Python package (v3.3.0) that generates architecture diagrams following the [IBM Diagram Standard](https://www.ibm.com/design/language/infographics/technical-diagrams/design). It enables infrastructure visualization through multiple input methods:
+**ibmdiagrams** is a Python package (v3.3.0+) that generates architecture diagrams following the [IBM Diagram Standard](https://www.ibm.com/design/language/infographics/technical-diagrams/design). It enables infrastructure visualization through multiple input methods:
 
 1. **Diagram as Code**: Write Python code using the ibmdiagrams API to programmatically create diagrams
 2. **Terraform State Files**: Automatically generate diagrams from `.tfstate` files

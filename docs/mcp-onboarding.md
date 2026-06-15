@@ -21,6 +21,7 @@ Follow these steps to configure your AI application or AI agent to use IBM Diagr
 ## Overview
 
 IBM Diagrams provides a Model Context Protocol (MCP) server that enables AI assistants to generate IBM Cloud architecture diagrams from:
+
 - Terraform state files (`.tfstate`)
 - JSON input files
 - Python diagram-as-code
@@ -50,7 +51,7 @@ Choose one of the following installation methods:
 
 ```bash
 # Download the latest wheel file from releases
-pip install ibmdiagrams-3.3.0-py3-none-any.whl
+pip install ibmdiagrams-3.3.1-py3-none-any.whl
 ```
 
 ### Option B: Install with uv (Development)
@@ -78,7 +79,7 @@ You should see output indicating the server has started with available tools.
 
 ---
 
-## Step 2: Installing IBM Diagrans MCP
+## Step 2: Installing IBM Diagrams MCP
 
 ### IBM Bob IDE
 
@@ -93,7 +94,7 @@ mkdir -p .bob
 vim .bob/mcp.json
 ```
 
-*Example: Creating the .bob/mcp.json configuration file*
+_Example: Creating the .bob/mcp.json configuration file_
 
 #### 2. Add Server Configuration
 
@@ -124,7 +125,7 @@ For development or when using a specific wheel file:
     "ibmdiagrams": {
       "command": "uvx",
       "args": [
-        "/absolute/path/to/ibmdiagrams-3.3.0-py3-none-any.whl",
+        "/absolute/path/to/ibmdiagrams-3.3.1-py3-none-any.whl",
         "--mcp"
       ]
     }
@@ -169,7 +170,7 @@ Select the **MCP** tab, then search for **"ibmdiagrams"** in the text field. Val
 4. Select and restart the server
 
 ![MCP validation](images/mcp-onboarding/ibmdiagrams-mcp-bob-step-3.png)
-*Example: Restarting MCP server in IBM Bob*
+_Example: Restarting MCP server in IBM Bob_
 
 #### 4. Verify Connection
 
@@ -221,7 +222,7 @@ Add the IBM Diagrams MCP server to the `mcpServers` section:
     "ibmdiagrams": {
       "command": "uvx",
       "args": [
-        "/absolute/path/to/ibmdiagrams-3.3.0-py3-none-any.whl",
+        "/absolute/path/to/ibmdiagrams-3.3.1-py3-none-any.whl",
         "--mcp"
       ]
     }
@@ -281,6 +282,7 @@ For the best experience with IBM Diagrams MCP, install the **ibmdiagrams-builder
 ### Installation for IBM Bob
 
 > **Prerequisites:**
+>
 > - IBM Bob Advanced mode must be enabled
 
 **Project-scoped (recommended for teams):**
@@ -320,6 +322,7 @@ cp -r skills/ibmdiagrams-builder ~/.claude/skills/
 ### Skill Activation
 
 The skill activates automatically when you ask about:
+
 - Creating architecture diagrams from Terraform
 - Generating diagrams using Python code
 - IBM Cloud infrastructure visualization
@@ -346,11 +349,13 @@ Show me how to add a load balancer to my existing diagram code
 **For IBM Bob or Claude Desktop:**
 
 1. **Test server info:**
+
    ```
    Use the ibmdiagrams MCP server to get server information
    ```
 
 2. **Generate a simple diagram:**
+
    ```
    Create a simple diagram showing IBM Cloud with a VPC containing a virtual server.
    Use the generate_from_code tool.
@@ -375,21 +380,24 @@ Show me how to add a load balancer to my existing diagram code
 ### Server Not Connecting
 
 **Symptoms:**
+
 - "MCP server not found" error
 - Tools not available in AI assistant
 
 **Solutions:**
 
 1. **Verify installation:**
+
    ```bash
    ibmdiagrams --version
    ```
 
 2. **Test server manually:**
+
    ```bash
    ibmdiagrams --mcp
    ```
-   
+
    You should see server startup messages and available tools.
 
 3. **Check configuration file:**
@@ -404,12 +412,14 @@ Show me how to add a load balancer to my existing diagram code
 ### Python Version Issues
 
 **Symptoms:**
+
 - "Python 3.11+ required" error
 - Server fails to start
 
 **Solutions:**
 
 1. **Check Python version:**
+
    ```bash
    python --version
    ```
@@ -427,26 +437,29 @@ Show me how to add a load balancer to my existing diagram code
 ### File Path Issues
 
 **Symptoms:**
+
 - "File not found" errors
 - "Permission denied" errors
 
 **Solutions:**
 
 1. **Use absolute paths:**
+
    ```json
    {
      "command": "uvx",
      "args": [
-       "/Users/username/projects/ibmdiagrams-3.3.0-py3-none-any.whl",
+       "/Users/username/projects/ibmdiagrams-3.3.1-py3-none-any.whl",
        "--mcp"
      ]
    }
    ```
 
 2. **Check file permissions:**
+
    ```bash
-   ls -la /path/to/ibmdiagrams-3.3.0-py3-none-any.whl
-   chmod 644 /path/to/ibmdiagrams-3.3.0-py3-none-any.whl
+   ls -la /path/to/ibmdiagrams-3.3.1-py3-none-any.whl
+   chmod 644 /path/to/ibmdiagrams-3.3.1-py3-none-any.whl
    ```
 
 3. **Verify working directory:**
@@ -456,6 +469,7 @@ Show me how to add a load balancer to my existing diagram code
 ### Font Rendering Issues
 
 **Symptoms:**
+
 - Diagrams generated but fonts don't render correctly in draw.io
 
 **Solutions:**
@@ -473,16 +487,18 @@ Show me how to add a load balancer to my existing diagram code
 ### Skill Not Activating
 
 **Symptoms:**
+
 - AI assistant doesn't seem to know about IBM Diagrams
 - Manual tool calls required
 
 **Solutions:**
 
 1. **Verify skill installation:**
+
    ```bash
    # For Bob
    ls -la .bob/skills/ibmdiagrams-builder/
-   
+
    # For Claude Desktop
    ls -la .claude/skills/ibmdiagrams-builder/
    ```

@@ -149,18 +149,6 @@ class Common:
     def setFontName(self, fontname):
         self.options.setFontName(fontname)
 
-    def isCustomLabels(self):
-        return self.labelType == LabelTypes.CUSTOM
-
-    def isGeneralLabels(self):
-        return self.labelType == LabelTypes.GENERAL
-
-    def setCustomLabels(self):
-        self.labelType = LabelTypes.CUSTOM
-
-    def setGeneralLabels(self):
-        self.labelType = LabelTypes.GENERAL
-
     def isDrawioCode(self):
         return self.options.isDrawioCode()
 
@@ -189,7 +177,7 @@ class Common:
         self.options.setProviderIBM()
 
     def setProviderAny(self):
-        self.options.setAnyProviderAny()
+        self.options.setProviderAny()
 
     def isProviderIBM(self):
         return self.options.isProviderIBM()
@@ -270,7 +258,7 @@ class Common:
         return self.options.isDesignatedVPC(name)
 
     def getDirection(self):
-        self.options.getDirection()
+        return self.options.getDirection()
 
     def setDirection(self, value):
         self.options.setDirection(value)
@@ -411,9 +399,6 @@ class Common:
 
     def printInvalidNodeShape(self, shape):
         self.messages.printInvalidNodeShape(shape)
-
-    def printInvalidProvider(self, provider):
-        self.messages.printInvalidProvider(provider)
 
     def printInvalidAlternate(self, alternate):
         self.messages.printInvalidAlternate(alternate)

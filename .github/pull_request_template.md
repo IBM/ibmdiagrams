@@ -25,10 +25,11 @@ Please describe the tests that you ran to verify your changes. Provide instructi
 - [ ] Test B
 
 **Test Configuration**:
-* Firmware version:
-* Hardware:
-* Toolchain:
-* SDK:
+* Python version:
+* ibmdiagrams version:
+* Installation method:
+* Input type tested:
+* draw.io desktop version, if visual tests were run:
 
 # Checklist:
 

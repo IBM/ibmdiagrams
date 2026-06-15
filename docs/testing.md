@@ -165,7 +165,7 @@ pytest tests/test_visual_regression.py --threshold=0.01
 pytest tests/test_visual_regression.py --threshold=0.05
 ```
 
-**Default:** 0.0 (exact match)
+**Default:** 1.25
 
 #### `--pixel-tolerance`
 Per-pixel color tolerance (0-255) for handling anti-aliasing differences.
@@ -175,7 +175,7 @@ Per-pixel color tolerance (0-255) for handling anti-aliasing differences.
 pytest tests/test_visual_regression.py --pixel-tolerance=5
 ```
 
-**Default:** 0 (exact color match)
+**Default:** 10
 
 #### `--update-baselines`
 Regenerate baseline images instead of comparing.
@@ -524,7 +524,11 @@ Threshold: 0.00%
 
 ## CI Integration
 
-### GitHub Actions Example
+The repository includes a base GitHub Actions workflow at `.github/workflows/ci.yml` that runs Ruff, pytest, and package build checks on Python 3.11. The visual regression workflow below is optional for environments that install draw.io desktop and IBM Plex Sans fonts.
+
+**Note:** If GitHub Actions workflows are available in your repository, you can use them to automate testing. The examples below show how to configure visual regression testing in CI environments.
+
+### Visual Regression GitHub Actions Example
 
 ```yaml
 name: Visual Regression Tests
@@ -536,10 +540,10 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.11'
     

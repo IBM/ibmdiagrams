@@ -91,6 +91,8 @@ class Options:
     inputFolder = ""
     outputFile = ""
     outputFolder = ""
+    tablesFolder = ""
+    outputIcons = ""
     iconType = ""
     labelType = ""
     codeType = ""
@@ -112,6 +114,11 @@ class Options:
         self.codeType = CodeTypes.DRAWIO
         self.direction = Directions.LR
         self.fontname = FontNames.IBM_PLEX_SANS
+        self.icons = None
+        self.allicons = False
+        self.tablesFolder = ""
+        self.outputIcons = ""
+        self.designatedVPCs = set()
         # self.inputFile = 'input.json'
         # self.inputFolder = path.join(path.expanduser('~'), 'Documents', toolName)
         # self.outputFile = 'diagram.xml'
@@ -137,7 +144,7 @@ class Options:
         self.inputFile = value
 
     def getInputFolder(self):
-        return self.outputFile
+        return self.inputFolder
 
     def setInputFolder(self, value):
         self.inputFolder = value
@@ -157,11 +164,17 @@ class Options:
     def getOutputBase(self):
         return path.splitext(self.outputFile)[0]
 
+    def getTablesFolder(self):
+        return self.tablesFolder
+
+    def setTablesFolder(self, value):
+        self.tablesFolder = value
+
     def getOutputIcons(self):
-        return self.options.getOutputIcons()
+        return self.outputIcons
 
     def setOutputIcons(self, value):
-        return self.options.setOutputIcons(value)
+        self.outputIcons = value
 
     def getProvider(self):
         return self.provider
@@ -290,11 +303,17 @@ class Options:
     def getIcons(self):
         return self.icons
 
+    def setIcons(self, icons):
+        self.icons = icons
+
     def setAllIcons(self):
         self.allicons = True
 
     def isAllIcons(self):
         return self.allicons
+
+    def isDesignatedVPC(self, name):
+        return not self.designatedVPCs or name in self.designatedVPCs
 
     def getDirection(self):
         return self.direction

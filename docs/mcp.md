@@ -46,7 +46,7 @@ ibmdiagrams --mcp
 uv run ibmdiagrams --mcp
 
 # Or using uvx with a wheel file
-uvx /path/to/ibmdiagrams-3.3.0-py3-none-any.whl --mcp
+uvx /path/to/ibmdiagrams-3.3.1-py3-none-any.whl --mcp
 ```
 
 The server will start and display available tools and connection information.
@@ -80,7 +80,7 @@ For development or when using a specific wheel file:
     "ibmdiagrams": {
       "command": "uvx",
       "args": [
-        "/Users/username/path/to/ibmdiagrams-3.3.0-py3-none-any.whl",
+        "/Users/username/path/to/ibmdiagrams-3.3.1-py3-none-any.whl",
         "--mcp"
       ]
     }
@@ -678,7 +678,7 @@ You can configure multiple MCP server instances for different purposes:
     "ibmdiagrams-dev": {
       "command": "uvx",
       "args": [
-        "/path/to/dev/ibmdiagrams-3.3.0-py3-none-any.whl",
+        "/path/to/dev/ibmdiagrams-3.3.1-py3-none-any.whl",
         "--mcp"
       ]
     }
@@ -846,7 +846,7 @@ For complete documentation, see the [AI Skill README](../skills/ibmdiagrams-buil
 
 - **[Model Context Protocol](https://modelcontextprotocol.io/)** - Official MCP documentation
 - **[FastMCP](https://github.com/jlowin/fastmcp)** - FastMCP framework
-- **[IBM Bob](https://internal.bob.ibm.com/docs/ide/configuration/mcp/mcp-in-bob)** - IBM Bob - Using MCP
+- **[IBM Bob](https://bob.ibm.com/docs/ide/configuration/mcp/mcp-in-bob)** - IBM Bob - Using MCP
 
 ---
 

@@ -823,7 +823,6 @@ When your PR is merged, ensure `CHANGELOG.md` is updated:
 - **Documentation**: Check [docs/](docs/) first
 - **Issues**: Search existing issues or create a new one
 - **Discussions**: Use GitHub Discussions for questions
-- **Slack**: Join our IBM internal Slack channel (link in repo)
 
 ### Asking Questions
 
