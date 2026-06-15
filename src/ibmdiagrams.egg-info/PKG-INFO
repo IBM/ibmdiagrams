@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: ibmdiagrams
-Version: 3.3.1
+Version: 3.3.2
 Summary: Generate architecture diagrams following IBM Diagram Standard
 Author-email: John Pape <jtpape@us.ibm.com>, Kai Wedekind <kai.wedekind@de.ibm.com>, "Jay Warfield (left IBM)" <jay.warfield@us.ibm.com>
 Maintainer-email: John Pape <jtpape@us.ibm.com>, Kai Wedekind <kai.wedekind@de.ibm.com>
@@ -21,8 +21,8 @@ Requires-Dist: pandas>=1.4.2
 Requires-Dist: PyYAML>=6.0
 Requires-Dist: requests>=2.31.0
 Requires-Dist: tabulate>=0.10.0
-Requires-Dist: urllib3>=1.26.9
-Requires-Dist: fastmcp>=3.2.4
+Requires-Dist: urllib3>=2.7.0
+Requires-Dist: fastmcp>=3.4.2
 Requires-Dist: rich>=15.0.0
 Dynamic: license-file
 

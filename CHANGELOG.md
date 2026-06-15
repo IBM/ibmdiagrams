@@ -4,6 +4,28 @@ All notable changes to ibmdiagrams are documented here.
 
 ---
 
+## 🔒 [3.3.2] - 2026-06-15
+
+### 🛡️ Security
+
+#### 🚨 Dependency Vulnerability Fixes
+
+- **Updated urllib3 to 2.7.0+**: Addresses multiple high-severity vulnerabilities:
+  - Fixed decompression-bomb safeguards bypass in streaming API
+  - Fixed sensitive headers forwarded across origins in proxied low-level redirects
+- **Updated fastmcp to 3.4.2+**: Ensures transitive dependencies (idna, starlette, pyjwt) are updated to secure versions, addressing:
+  - idna: CVE-2024-3651 bypass vulnerability (Moderate severity)
+  - starlette: Missing Host header validation (Moderate severity)
+  - pyjwt: Unbounded JWKS endpoint requests DoS (Low severity)
+
+### 📦 Dependencies
+
+- Updated minimum `urllib3` version from `>=1.26.9` to `>=2.7.0` in both `pyproject.toml` and `requirements.txt`
+- Updated minimum `fastmcp` version from `>=3.2.4` to `>=3.4.2` in both `pyproject.toml` and `requirements.txt`
+- All 166 tests passing after security updates
+
+---
+
 ## 🎉 [3.3.1] - 2026-06-12
 
 ### 🐛 Fixes
