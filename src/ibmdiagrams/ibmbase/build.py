@@ -745,7 +745,7 @@ class Build:
             if linetype == "":
                 linetype = CONNECTOR_STYLE_DEFAULT
             elif linetype.upper() not in [parm.value for parm in ConnectorStyles]:
-                self.common.printInvalidConnectorStyle(style)
+                self.common.printInvalidConnectorStyle(linetype)
                 return None
             connectors[connectorid]["linetype"] = linetype
 
@@ -806,26 +806,32 @@ class Build:
             hexvalue = Colors.lines[linecolor.lower()]
         return hexvalue
 
-    # Family color ensures that fill color is from same family as line color or transparent or white..
+    def _getColorName(self, hexcolor):
+        """Get color name from hex value, returning None if not found."""
+        return Colors.names.get(hexcolor)
+
+    # Family color ensures that fill color is from same family as line color or transparent or white.
     def checkFamilyColor(self, hexlinecolor, hexfillcolor):
-        fillcolor = Colors.names[hexfillcolor]
+        fillcolor = self._getColorName(hexfillcolor)
+        if fillcolor is None:
+            return None
+
         if fillcolor == "white" or fillcolor == "none":
             return hexfillcolor
 
-        linecolor = Colors.names[hexlinecolor]
+        linecolor = self._getColorName(hexlinecolor)
+        if linecolor is None:
+            return None
+
         lightlinecolor = "light" + linecolor
-
-        if fillcolor == lightlinecolor:
-            return hexfillcolor
-
-        return None
+        return hexfillcolor if fillcolor == lightlinecolor else None
 
     # Fill color must be from IBM Color Palette and can be transparent, white, or light color from same family as line color.
     def checkFillColor(self, hexlinecolor, fillcolor):
         hexbgvalue = None
         if fillcolor.lower() in Colors.fills:
             hexbgvalue = Colors.fills[fillcolor.lower()]
-            hexbgvalue = validFamilyColor(hexlinecolor, hexfillcolor)
+            hexbgvalue = self.checkFamilyColor(hexlinecolor, hexbgvalue)
         return hexbgvalue
 
     def addKeys(self):
@@ -1052,7 +1058,7 @@ class Build:
 
             # Set node geometry.
             # If no children then follow direction and center single node.
-            ## Defer to later: If children then make all items vertical and ignore direction.
+            # Defer to later: If children then make all items vertical and ignore direction.
             # Add group width and height with items to group.
             # if childcount == 0:
             for nodeid in nodeids:

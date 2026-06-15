@@ -364,7 +364,6 @@ jobs:
 
 ### Community
 
-- 💬 **Slack**: Join our IBM internal Slack channel (link in repo)
 - 🐛 **Issues**: [Report bugs or request features](https://github.com/IBM/ibmdiagrams/issues)
 - 🤝 **Contributing**: See [CONTRIBUTING.md](CONTRIBUTING.md)
 

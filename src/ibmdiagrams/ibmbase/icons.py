@@ -474,7 +474,6 @@ class Icons:
             "icon": "enterprise",
             "custom_icon": None,
             "color": Colors.lines["user"],
-            "fill": Colors.lines["user"],
             "fill": Colors.lines["compute"],
             "resource": "none",
             "fields": {},

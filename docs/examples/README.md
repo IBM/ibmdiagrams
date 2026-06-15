@@ -425,7 +425,6 @@ Links to related examples.
 
 - 📖 **Documentation**: Check the guides above
 - 🐛 **Issues**: [GitHub Issues](https://github.com/IBM/ibmdiagrams/issues)
-- 💬 **Slack**: IBM internal Slack channel
 - 📧 **Email**: Contact maintainers
 
 ---

@@ -1,15 +1,19 @@
 Metadata-Version: 2.4
 Name: ibmdiagrams
-Version: 3.3.0
+Version: 3.3.1
 Summary: Generate architecture diagrams following IBM Diagram Standard
 Author-email: John Pape <jtpape@us.ibm.com>, Kai Wedekind <kai.wedekind@de.ibm.com>, "Jay Warfield (left IBM)" <jay.warfield@us.ibm.com>
 Maintainer-email: John Pape <jtpape@us.ibm.com>, Kai Wedekind <kai.wedekind@de.ibm.com>
 License-Expression: Apache-2.0
 Keywords: cloud,diagrams,ibm
 Classifier: Development Status :: 3 - Alpha
-Classifier: Intended Audience :: Software Architects :: Cloud Architects || Developers
-Classifier: Topic :: Diagrams :: Cloud :: Development
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Information Technology
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
 Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Scientific/Engineering :: Visualization
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
 Requires-Python: >=3.11.0
 Description-Content-Type: text/markdown
 License-File: LICENSE

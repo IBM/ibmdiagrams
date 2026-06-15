@@ -21,7 +21,7 @@ import time
 from uuid import uuid4
 
 from .common import Common
-from .constants import ShapeKind, ShapeStyle, StaticShapeStyle
+from .constants import CombinedStyle, ShapeKind, ShapeStyle, StaticShapeStyle
 from .elements import Elements
 
 # Configure logging
@@ -663,7 +663,7 @@ class Types:
         if meta is not None:
             props.update(meta)
 
-        data = {"header": header, "cell": cell, "geo": geo, "props": props, "point": {}}
+        data = {"cell": cell, "geo": geo, "props": props, "point": {}}
 
         return data
 
@@ -1230,8 +1230,7 @@ class Types:
         return [datashape, datalabel, dataicon]
 
     def buildValue(self, id, parentid, name, parent, subname, text, x, y, width, height):
-        shape = ibmshapes["text"]
-        style = shape["style"]
+        style = CombinedStyle.TEXT.value
         data = {
             "cell": {"id": id, "value": text, "style": style, "vertex": "1", "parent": parentid},
             "geo": {
