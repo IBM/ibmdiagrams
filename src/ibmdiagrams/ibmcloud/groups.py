@@ -409,6 +409,40 @@ class PlacementGroup(_ControlGroup):
         )
 
 
+class LayoutGroup(_Grouping):
+    """
+    A layout group component that provides positioning without visual boundaries.
+
+    Use LayoutGroup when you need to organize elements hierarchically for layout and
+    positioning purposes but don't want any visual container styling (no borders, icons,
+    or fill colors) in the final diagram output.
+
+    Args:
+        direction: Layout direction for child elements ("LR" for left-to-right, "TB" for top-to-bottom)
+
+    Example:
+        with LayoutGroup(direction="TB"):
+            server1 = VirtualServer("Server 1")
+            server2 = VirtualServer("Server 2")
+    """
+
+    def __init__(self, *, direction="LR"):
+        # Call base Group class directly to access hideicon parameter
+        from ibmdiagrams import Group
+
+        Group.__init__(
+            self,
+            label="",
+            sublabel="",
+            linecolor="",
+            fillcolor=Colors.fills["none"],
+            shape="zone",
+            icon="",
+            hideicon="true",
+            direction=direction,
+        )
+
+
 class ResourceGroup(_ControlGroup):
     def __init__(self, label, sublabel="", direction="LR"):
         super().__init__(

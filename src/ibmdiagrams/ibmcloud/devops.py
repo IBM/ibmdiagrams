@@ -100,4 +100,13 @@ class IntegrationPak(_DevOps):
         )
 
 
+class ClassicInfrastructure(_DevOps):
+    def __init__(self, label, sublabel=""):
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="Classic Infrastructure Group",
+        )
+
+
 # Aliases

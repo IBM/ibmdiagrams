@@ -180,5 +180,8 @@ class Shapes:
     def dumpXML(self, file, folder):
         self.types.dumpXML(file, folder)
 
+    def getXMLString(self) -> str:
+        return self.types.getXMLString()
+
     def resetXML(self):
         self.types.resetXML()

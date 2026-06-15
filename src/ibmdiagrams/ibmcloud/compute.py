@@ -100,4 +100,13 @@ class Satellite(_Compute):
         )
 
 
+class EnterpriseData(_Compute):
+    def __init__(self, label, sublabel=""):
+        super().__init__(
+            label=label,
+            sublabel=sublabel,
+            icon="Chart Line Data Icon",
+        )
+
+
 # Aliases

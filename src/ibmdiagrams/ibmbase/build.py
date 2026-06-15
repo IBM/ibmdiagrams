@@ -187,6 +187,13 @@ class Build:
 
         return xmldata
 
+    def getXMLString(self, xmldata, diagram_name):
+        """Build XML and return as string instead of writing to file"""
+        self.shapes.buildXML(xmldata, diagram_name)
+        xml_string = self.shapes.getXMLString()
+        self.shapes.resetXML()
+        return xml_string
+
     def checkAll(self):
         self.diagrams = self.checkDiagrams(self.diagrams)
         self.groups = self.checkGroups(self.groups)
@@ -470,7 +477,9 @@ class Build:
     def checkGroups(self, groups):
         for groupid, properties in groups.items():
             label = properties["label"]
-            if label == "":
+            hideicon = properties.get("hideicon", "")
+            # Don't set default label for invisible groups (hideicon=true and empty label)
+            if label == "" and hideicon != "true":
                 label = GROUP_LABEL_DEFAULT
             groups[groupid]["label"] = label
 
@@ -512,12 +521,17 @@ class Build:
                 fontsize = GROUP_FONTSIZE_DEFAULT
             groups[groupid]["fontsize"] = fontsize
 
+            # Check if hideicon was explicitly set (for invisible groups)
+            hideicon_property = properties.get("hideicon", "")
             hideicon = False
             icon = properties["icon"]
             if icon == "":
                 # icon = GROUP_ICON_DEFAULT
                 parentid = properties["parentid"]
-                if parentid is None:
+                # If hideicon is explicitly set to "true", keep icon empty (for invisible groups)
+                if hideicon_property == "true":
+                    hideicon = True
+                elif parentid is None:
                     icon = GROUP_ICON_DEFAULT
                 else:
                     parentproperties = groups[parentid]
@@ -534,10 +548,14 @@ class Build:
             custom_icon = icon_dict.get("custom_icon")
 
             # Store the icon's default color separately
-            linecolor = iconcolor
+            # For layout group (hideicon=true, empty icon, empty linecolor), keep linecolor empty
             userlinecolor = properties["linecolor"]
-            if userlinecolor != "":
+            if hideicon and userlinecolor == "":
+                linecolor = ""
+            elif userlinecolor != "":
                 linecolor = userlinecolor
+            else:
+                linecolor = iconcolor
             userfillcolor = properties["fillcolor"]
             if userfillcolor != "":
                 fillcolor = userfillcolor
@@ -590,7 +608,8 @@ class Build:
             groups[groupid]["iconcolor"] = hexiconcolor
 
             hexlinecolor = self.checkLineColor(linecolor)
-            if hexlinecolor is None:
+            # Allow empty string for invisible groups, otherwise validate
+            if hexlinecolor is None and linecolor != "":
                 self.common.printInvalidLineColor(linecolor)
                 return None
             groups[groupid]["linecolor"] = hexlinecolor
@@ -778,7 +797,10 @@ class Build:
         return connectors
 
     # Line color must be from IBM Color Palette and can be component name, color name, or hex value.
+    # Empty string is allowed for invisible groups.
     def checkLineColor(self, linecolor):
+        if linecolor == "":
+            return ""
         hexvalue = None
         if linecolor.lower() in Colors.lines:
             hexvalue = Colors.lines[linecolor.lower()]
@@ -946,6 +968,31 @@ class Build:
 
         return
 
+    def calculateExpandedNodeHeight(self, nodeid):
+        """Calculate the actual height of an expanded node based on its label and sublabel line count."""
+        # Before mergeItems(), items are in self.items; after, they're in self.groups
+        node = self.items.get(nodeid) or self.groups.get(nodeid)
+        if not node:
+            return 48  # Default height if node not found
+
+        shape = node["shape"].lower()
+
+        if shape not in ["epnode", "ploc"]:
+            return 48  # Standard node height
+
+        name = node["label"]
+        subname = node["sublabel"]
+
+        linecount = 0
+        if len(name) > 0:
+            linecount = linecount + 1 + name.count("<br")
+        if len(subname) > 0:
+            linecount = linecount + 1 + subname.count("<br")
+
+        # Match the calculation in buildEPNodeShape and buildPLocShape: base height (48) + additional lines * line height (16)
+        calculated_height = 48 + max(0, linecount - 1) * 16
+        return calculated_height
+
     def calculateIsolatedItems(self):
         mintopspace = 60
         minshapespace = 20
@@ -973,7 +1020,24 @@ class Build:
                 x = minshapespace
                 y = mintopspace
                 width = mingroupwidth
-                height = minnodeheight
+
+                # For expanded nodes (epnode) and ploc shapes, calculate height based on label/sublabel
+                if properties["shape"].lower() in ["epnode", "ploc"]:
+                    name = properties["label"]
+                    subname = properties["sublabel"]
+                    linecount = 0
+                    if len(name) > 0:
+                        linecount = linecount + 1 + name.count("<br")
+                    if len(subname) > 0:
+                        linecount = linecount + 1 + subname.count("<br")
+
+                    if nodecount == 0 and linecount <= 2:
+                        height = minnodeheight
+                    else:
+                        height = 48 + max(0, linecount - 1) * 16
+                else:
+                    height = minnodeheight
+
                 self.groups[groupid]["final"] = True
                 self.groups[groupid]["geometry"] = [0, 0, width, height]
                 continue
@@ -981,7 +1045,7 @@ class Build:
             nodeindex = 0
 
             nodewidth = minnodewidth
-            nodeheight = minnodeheight
+            nodeheight = minnodeheight  # noqa: F841
 
             groupwidth = (minnodewidth + (2 * minitemspace)) if direction == "TB" else minitemspace
             groupheight = mintopspace
@@ -993,20 +1057,26 @@ class Build:
             # if childcount == 0:
             for nodeid in nodeids:
                 nodeindex += 1
+
+                # Get actual node height (accounts for expanded nodes with multiple lines)
+                actual_nodeheight = self.calculateExpandedNodeHeight(nodeid)
+
                 if direction == "LR":
                     if nodecount == 1:
                         # Center single node in group.
                         x = (mingroupwidth / 2) - (minnodewidth / 2)
                         y = mintopspace
                         groupwidth = mingroupwidth
-                        groupheight = mintopspace + minnodeheight + minitemspace
+                        groupheight = mintopspace + actual_nodeheight + minitemspace
                     elif nodecount > 1:
                         # Left justify items horizontally in group.
                         # Future: Wrap long list of items to multiple rows.
                         x = ((nodeindex - 1) * minnodewidth) + (nodeindex * minitemspace)
                         y = mintopspace
                         groupwidth += minnodewidth + minitemspace
-                        groupheight = mintopspace + minnodeheight + minitemspace
+                        groupheight = max(
+                            groupheight, mintopspace + actual_nodeheight + minitemspace
+                        )
 
                 elif direction == "TB":
                     # Left justify items vertically in group.
@@ -1015,15 +1085,16 @@ class Build:
                     if nodeindex == 1:
                         y = mintopspace
                     else:
-                        y = (
-                            mintopspace
-                            + ((nodeindex - 1) * minnodeheight)
-                            + ((nodeindex - 1) * minitemspace)
+                        # Calculate y position based on previous nodes' actual heights
+                        prev_heights = sum(
+                            self.calculateExpandedNodeHeight(nodeids[i])
+                            for i in range(nodeindex - 1)
                         )
+                        y = mintopspace + prev_heights + ((nodeindex - 1) * minitemspace)
                     groupwidth = mingroupwidth
-                    groupheight += minnodeheight + minitemspace
+                    groupheight += actual_nodeheight + minitemspace
 
-                self.items[nodeid]["geometry"] = [x, y, nodewidth, nodeheight]
+                self.items[nodeid]["geometry"] = [x, y, nodewidth, actual_nodeheight]
 
                 self.groups[groupid]["final"] = True
 
@@ -1032,7 +1103,25 @@ class Build:
         return
 
     def calculateLeftRightGroups(self, parentid):
-        mintopspace = 60
+        parent = self.groups[parentid]
+
+        # Calculate mintopspace based on parent's label line count for ploc and zone shapes
+        if parent["shape"].lower() in ["ploc", "zone"]:
+            name = parent["label"]
+            subname = parent["sublabel"]
+            linecount = 0
+            if len(name) > 0:
+                linecount = linecount + 1 + name.count("<br")
+            if len(subname) > 0:
+                linecount = linecount + 1 + subname.count("<br")
+            # Base space (60) + additional lines * line height (16px to match label geometry)
+            mintopspace = 60 + max(0, linecount - 1) * 16
+        else:
+            mintopspace = 60
+
+        # Store calculated mintopspace for later retrieval
+        self.groups[parentid]["mintopspace"] = mintopspace
+
         minshapespace = 20
         # minitemspace = 60
         minitemspace = 80  # noqa: F841
@@ -1060,7 +1149,9 @@ class Build:
         newparentheight = 0
 
         position = 0
+        child_geometries = []
 
+        # First pass: Calculate all child geometries
         for childids in parentchildren:
             position += 1
 
@@ -1090,12 +1181,12 @@ class Build:
                 savewidth += childwidth
                 saveheight = max(saveheight, childgeometry[3] + (2 * minshapespace))
                 if childfinal:
-                    self.groups[childid]["geometry"] = [savex, savey, childwidth, childheight]
+                    child_geometries.append((childid, savex, savey, childwidth, childheight))
                     newparentwidth += childwidth + savex
                     newparentheight += childheight + savey
                 else:
                     self.groups[childid]["final"] = True
-                    self.groups[childid]["geometry"] = [savex, savey, savewidth, saveheight]
+                    child_geometries.append((childid, savex, savey, savewidth, saveheight))
                     newparentwidth += savewidth + savex
                     newparentheight += saveheight + savey
             else:
@@ -1104,17 +1195,26 @@ class Build:
                 savewidth += childwidth
                 saveheight += childheight
                 if childfinal:
-                    self.groups[childid]["geometry"] = [savex, savey, childwidth, childheight]
+                    child_geometries.append((childid, savex, savey, childwidth, childheight))
                     newparentwidth += childwidth + minshapespace
                     newparentheight = max(newparentheight, childheight + savey)
                 else:
                     self.groups[childid]["final"] = True
-                    self.groups[childid]["geometry"] = [savex, savey, savewidth, saveheight]
+                    child_geometries.append((childid, savex, savey, savewidth, saveheight))
                     newparentwidth += savewidth + savex
                     newparentheight += saveheight + savey
 
+        # Find maximum height among all children
+        max_child_height = max((geom[4] for geom in child_geometries), default=0)
+
+        # Second pass: Set all children to the maximum height
+        for childid, x, y, width, height in child_geometries:
+            self.groups[childid]["geometry"] = [x, y, width, max_child_height]
+
+        # Update parent height to accommodate the tallest child
+        newparentheight = max_child_height + mintopspace + minshapespace
+
         newparentwidth -= 3 * minshapespace
-        newparentheight += minshapespace
 
         newparentwidth = max(parentwidth, newparentwidth)
         newparentheight = max(parentheight, newparentheight)
@@ -1122,7 +1222,26 @@ class Build:
         return [0, 0, newparentwidth, newparentheight]
 
     def calculateTopBottomGroups(self, parentid):
-        mintopspace = 60
+        parent = self.groups[parentid]
+
+        # Check if parent is an invisible group (hideicon=true)
+        is_invisible = parent.get("hideicon", False)
+
+        if is_invisible:
+            mintopspace = 0
+        elif parent["shape"].lower() in ["ploc", "zone"]:
+            # Calculate mintopspace based on parent's label line count for ploc and zone shapes
+            name = parent["label"]
+            subname = parent["sublabel"]
+            linecount = 0
+            if len(name) > 0:
+                linecount = linecount + 1 + name.count("<br")
+            if len(subname) > 0:
+                linecount = linecount + 1 + subname.count("<br")
+            # Base space (60) + additional lines * line height (16px to match label geometry)
+            mintopspace = 60 + max(0, linecount - 1) * 16
+        else:
+            mintopspace = 60
         minshapespace = 20
         # minitemspace = 60
         minitemspace = 80  # noqa: F841
@@ -1228,7 +1347,7 @@ class Build:
         parentwidth = parentgeometry[2]
         parentheight = parentgeometry[3]
 
-        nodeheight = minnodeheight + minitemspace + minshapespace
+        nodeheight = minnodeheight + minitemspace + minshapespace  # noqa: F841
         itemsets = 0
         adjustwidth = 0
         adjustheight = 0
@@ -1262,19 +1381,34 @@ class Build:
                 for childid in childids:
                     nodeindex += 1
 
+                    # Get actual node height (accounts for expanded nodes with multiple lines)
+                    actual_nodeheight = self.calculateExpandedNodeHeight(childid)
+
                     if nodeindex == 1:
                         childx = floor((widthspacing / 2) - minshapespace)
                     else:
                         childx += widthspacing
 
-                    self.groups[childid]["geometry"] = [childx, childy, minnodewidth, minnodeheight]
+                    self.groups[childid]["geometry"] = [
+                        childx,
+                        childy,
+                        minnodewidth,
+                        actual_nodeheight,
+                    ]
+
+                # Calculate max height for this row of items
+                max_row_height = max(
+                    (self.calculateExpandedNodeHeight(cid) for cid in childids),
+                    default=minnodeheight,
+                )
+                row_height = max_row_height + minitemspace + minshapespace
 
                 if position == 1:
-                    adjustheight += nodeheight - (2 * minshapespace)
+                    adjustheight += row_height - (2 * minshapespace)
                 elif position == len(parentchildren):
-                    adjustheight += nodeheight + (2 * minshapespace)
+                    adjustheight += row_height + (2 * minshapespace)
                 else:
-                    adjustheight += nodeheight
+                    adjustheight += row_height
 
                 adjustwidth = max(
                     adjustwidth,
@@ -1302,8 +1436,8 @@ class Build:
 
         return [0, 0, newparentwidth, newparentheight]
 
-    def calculateTopBottomItems(self, parentid, parentgeometry):
-        mintopspace = 60
+    def calculateTopBottomItems(self, parentid, parentgeometry, mintopspace=60):
+        # Use passed mintopspace parameter (defaults to 60 for backward compatibility)
         minshapespace = 20
         # minitemspace = 60
         minitemspace = 80
@@ -1356,17 +1490,33 @@ class Build:
                 for childid in childids:
                     nodeindex += 1
 
+                    # Get actual node height (accounts for expanded nodes with multiple lines)
+                    actual_nodeheight = self.calculateExpandedNodeHeight(childid)
+
                     if nodeindex == 1:
                         childy = floor(heightspacing / 2) - minshapespace
                     else:
                         childy += heightspacing
 
-                    self.groups[childid]["geometry"] = [childx, childy, minnodewidth, minnodeheight]
+                    self.groups[childid]["geometry"] = [
+                        childx,
+                        childy,
+                        minnodewidth,
+                        actual_nodeheight,
+                    ]
 
                 if position == len(parentchildren):
                     adjustwidth += nodewidth - minshapespace + minitemspace
                 else:
                     adjustwidth += nodewidth
+
+                # Calculate total height needed for this column of items
+                total_column_height = (
+                    mintopspace
+                    + sum(self.calculateExpandedNodeHeight(cid) for cid in childids)
+                    + (nodeindex * minitemspace)
+                )
+                adjustheight = max(adjustheight, total_column_height)
 
                 adjustheight = max(
                     adjustheight,
@@ -1409,7 +1559,9 @@ class Build:
         elif parentdirection == "LR":
             # Parent direction is LR and node direction is TB which are left-justified vertically.
             geometry = self.calculateLeftRightGroups(parentid)
-            geometry = self.calculateTopBottomItems(parentid, geometry)
+            # Retrieve calculated mintopspace to preserve it through layout phases
+            mintopspace = self.groups[parentid].get("mintopspace", 60)
+            geometry = self.calculateTopBottomItems(parentid, geometry, mintopspace)
             self.groups[parentid]["final"] = True
 
         elif parentdirection == "TB":
@@ -1436,6 +1588,15 @@ class Build:
 
         self.eliminateNesting()
 
+        # Find maximum height among all top-level groups
+        max_height = 0
+        for groupid in self.tops:
+            group = self.groups[groupid]
+            geometry = group["geometry"]
+            height = geometry[3]
+            max_height = max(max_height, height)
+
+        # Position top-level groups horizontally and equalize their heights
         resetwidth = 0
         for groupid in self.tops:
             group = self.groups[groupid]
@@ -1443,7 +1604,7 @@ class Build:
             x = geometry[0] + resetwidth
             y = geometry[1]
             width = geometry[2]
-            height = geometry[3]
+            height = max_height  # Use maximum height for all top-level groups
             self.groups[groupid]["geometry"] = [x, y, width, height]
             resetwidth += width + 20
 

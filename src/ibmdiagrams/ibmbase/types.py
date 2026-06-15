@@ -700,13 +700,13 @@ class Types:
         elif shape == "pnode":
             data = self.buildPNodeShape(id, node, x, y, width, height, meta, shapelabel)
         elif shape == "epnode":
-            data = self.buildEPNodeShape(id, node, x, y, width, height, meta, shapelabel)
+            data = self.buildEPNodeShape(id, node, x, y, width, height, meta, shapelabel, linecount)
         elif shape == "ploc":
-            data = self.buildPLocShape(id, node, x, y, width, height, meta, shapelabel)
+            data = self.buildPLocShape(id, node, x, y, width, height, meta, shapelabel, linecount)
         # elif shape == "gploc":
         #   data = self.buildGPLocShape( id, node, x, y, width, height, meta, shapelabel)
         elif shape == "zone":
-            data = self.buildZoneShape(id, node, x, y, width, height, meta, shapelabel)
+            data = self.buildZoneShape(id, node, x, y, width, height, meta, shapelabel, linecount)
         # elif shape == "gzone":
         #   data = self.buildGZoneShape(id, node, x, y, width, height, meta, shapelabel)
         else:
@@ -870,7 +870,7 @@ class Types:
 
         return [datashape, dataicon]
 
-    def buildEPNodeShape(self, id, node, x, y, width, height, meta, shapelabel):
+    def buildEPNodeShape(self, id, node, x, y, width, height, meta, shapelabel, linecount=1):
         fillcolor = node["fillcolor"]
         if fillcolor == "":
             fillcolor = "none"
@@ -906,7 +906,7 @@ class Types:
         stylelabel = (
             "shape=rect;strokeColor=none;fillColor="
             + linecolor
-            + ";aspect=fixed;resizable=0;html=1;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;part=1;spacingLeft=5;fontFamily=%FONT;fontSize=14;"
+            + ";aspect=fixed;resizable=1;html=1;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=top;part=1;spacingLeft=5;fontFamily=%FONT;fontSize=14;"
         )
         stylelabel = stylelabel.replace("%FONT", self.common.getFontName())
 
@@ -969,7 +969,7 @@ class Types:
 
         return [datashape, datalabel, dataicon]
 
-    def buildPLocShape(self, id, node, x, y, width, height, meta, shapelabel):
+    def buildPLocShape(self, id, node, x, y, width, height, meta, shapelabel, linecount):
         fillcolor = node["fillcolor"]
         if fillcolor == "":
             fillcolor = "none"
@@ -1006,7 +1006,14 @@ class Types:
         # datashape = {'header': header, 'cell': cell, 'geo': geo, 'props':  props, 'point': {}}
         datashape = {"cell": cell, "geo": geo, "props": props, "point": {}}
 
-        stylelabel = "shape=rect;strokeColor=none;fillColor=none;aspect=fixed;resizable=0;html=1;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;part=1;spacingLeft=5;fontFamily=%FONT;fontSize=14;"
+        # Use verticalAlign=top when there's a sublabel (has content after </b><br>), otherwise use middle
+        # The shapelabel format is: "<b style='font-weight:600'>label</b><br>sublabel"
+        # Check if there's actual content after the closing </b><br> tag
+        has_sublabel = (
+            "</b><br>" in shapelabel.lower() and len(shapelabel.split("</b><br>", 1)[1].strip()) > 0
+        )
+        vertical_align = "top" if has_sublabel else "middle"
+        stylelabel = f"shape=rect;strokeColor=none;fillColor=none;aspect=fixed;resizable=0;html=1;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign={vertical_align};part=1;spacingLeft=5;fontFamily=%FONT;fontSize=14;"
         stylelabel = stylelabel.replace("%FONT", self.common.getFontName())
 
         cell = {
@@ -1017,7 +1024,9 @@ class Types:
             "parent": id,
         }
 
-        geo = {"width": str(48), "height": str(48), "relative": str(1), "as": "geometry"}
+        # Calculate label height based on line count (16px per line)
+        label_height = max(48, linecount * 16)
+        geo = {"width": str(48), "height": str(label_height), "relative": str(1), "as": "geometry"}
 
         datalabel = {"cell": cell, "geo": geo, "props": {}, "point": {}}
 
@@ -1090,19 +1099,35 @@ class Types:
 
         return [datashape, datalabel, dataicon, datasidebar]
 
-    def buildZoneShape(self, id, node, x, y, width, height, meta, shapelabel):
+    def buildZoneShape(self, id, node, x, y, width, height, meta, shapelabel, linecount):
         fillcolor = node["fillcolor"]
         if fillcolor == "":
             fillcolor = "none"
         linecolor = node["linecolor"]
         iconcolor = node.get("iconcolor", linecolor)
-        styleshape = (
-            "container=0;collapsible=0;expand=0;recursiveResize=0;image=;strokeColor="
-            + linecolor
-            + ";fillColor="
-            + fillcolor
-            + ";dashed=1;dashPattern=1 3;strokeWidth=2;"
-        )
+
+        # Check if this is an invisible group (no linecolor, no icon, no label)
+        icon = node["icon"]
+        # Detect HTML-formatted empty labels like "<b style='font-weight:600'></b><br>"
+        label_is_empty = shapelabel == "" or shapelabel == "<b style='font-weight:600'></b><br>"
+        is_invisible = linecolor == "" and icon == "" and label_is_empty
+
+        if is_invisible:
+            # For invisible groups, use strokeColor=none and no dashed border
+            styleshape = (
+                "container=0;collapsible=0;expand=0;recursiveResize=0;image=;strokeColor=none"
+                + ";fillColor="
+                + fillcolor
+                + ";dashed=0;strokeWidth=0;"
+            )
+        else:
+            styleshape = (
+                "container=0;collapsible=0;expand=0;recursiveResize=0;image=;strokeColor="
+                + linecolor
+                + ";fillColor="
+                + fillcolor
+                + ";dashed=1;dashPattern=1 3;strokeWidth=2;"
+            )
 
         parentid = node["parentid"]
         parentid = "1" if parentid is None else parentid
@@ -1124,7 +1149,18 @@ class Types:
 
         datashape = {"cell": cell, "geo": geo, "props": props, "point": {}}
 
-        stylelabel = "shape=rect;fillColor=none;aspect=fixed;resizable=0;html=1;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;strokeColor=none;part=1;spacingLeft=5;fontFamily=%FONT;fontSize=14;"
+        # For invisible groups, return only the container without label and icon
+        if is_invisible:
+            return [datashape]
+
+        # Use verticalAlign=top when there's a sublabel (has content after </b><br>), otherwise use middle
+        # The shapelabel format is: "<b style='font-weight:600'>label</b><br>sublabel"
+        # Check if there's actual content after the closing </b><br> tag
+        has_sublabel = (
+            "</b><br>" in shapelabel.lower() and len(shapelabel.split("</b><br>", 1)[1].strip()) > 0
+        )
+        vertical_align = "top" if has_sublabel else "middle"
+        stylelabel = f"shape=rect;fillColor=none;aspect=fixed;resizable=0;html=1;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign={vertical_align};strokeColor=none;part=1;spacingLeft=5;fontFamily=%FONT;fontSize=14;"
         stylelabel = stylelabel.replace("%FONT", self.common.getFontName())
 
         cell = {
@@ -1135,11 +1171,12 @@ class Types:
             "parent": id,
         }
 
-        geo = {"width": str(48), "height": str(48), "relative": str(1), "as": "geometry"}
+        # Calculate label height based on line count (16px per line)
+        label_height = max(48, linecount * 16)
+        geo = {"width": str(48), "height": str(label_height), "relative": str(1), "as": "geometry"}
 
         datalabel = {"cell": cell, "geo": geo, "props": {}, "point": {}}
 
-        icon = node["icon"]
         custom_icon = node.get("custom_icon")
         if custom_icon:
             resource_name = node.get("label", "")
@@ -1237,6 +1274,10 @@ class Types:
 
     def dumpXML(self, file, folder):
         self.elements.dumpXML(file, folder)
+
+    def getXMLString(self) -> str:
+        """Return XML as a string instead of writing to file"""
+        return self.elements.getXMLString()
 
     def resetXML(self):
         self.data = {"header": {"type": "device", "compressed": "false"}}

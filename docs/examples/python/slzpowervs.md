@@ -70,7 +70,7 @@ with Diagram("slzpowervs"):
           objectstoragelogs = ObjectStorage("Object Storage", "Activity Tracker")
 ```
 
-![diagram](slzpowervs.drawio.png)
+![diagram](slzpowervs.drawio.svg)
 </details>
 
 ## License

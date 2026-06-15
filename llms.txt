@@ -1,0 +1,333 @@
+# IBM Diagrams
+
+> IBM Diagrams is a Python package that generates professional architecture diagrams following the IBM Design Language - Technical Diagrams Guideline. Transform your infrastructure into beautiful, standards-compliant diagrams through Diagram as Code, Terraform integration, or JSON input.
+
+## Getting Started
+
+- [Overview](https://github.com/IBM/ibmdiagrams): Introduction to IBM Diagrams
+- [Quick Start](https://github.com/IBM/ibmdiagrams#-quick-start): Your first diagram in 30 seconds
+- [Installation](https://github.com/IBM/ibmdiagrams/blob/main/docs/setup.md): Setup with uv or pip
+- [Getting Started Guide](https://github.com/IBM/ibmdiagrams/blob/main/GETTING_STARTED.md): Complete setup and first steps
+
+## Core Concepts
+
+- [Diagram as Code](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md): Python API for programmatic diagram creation
+- [Terraform Integration](https://github.com/IBM/ibmdiagrams/blob/main/docs/terraform.md): Auto-generate diagrams from .tfstate files
+- [MCP Integration](https://github.com/IBM/ibmdiagrams/blob/main/docs/mcp.md): Model Context Protocol server for AI assistants
+- [Testing Guide](https://github.com/IBM/ibmdiagrams/blob/main/docs/testing.md): Visual regression testing
+
+## Design Standards
+
+- [IBM Design Language](https://www.ibm.com/design/language/infographics/technical-diagrams/design): Technical diagrams guideline
+- [IBM Color Palette](https://www.ibm.com/design/language/color): Color usage (Cyan, Teal, Purple, Magenta)
+- [IBM Plex Fonts](https://fonts.google.com/?query=Plex): Typography (IBM Plex Sans and variants)
+- [Shape Types](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#shape-types): Groups, Zones, Nodes, Actors
+
+## Input Methods
+
+### 1. Diagram as Code (Python)
+Write Python code to create diagrams programmatically. Perfect for version control, rapid iteration, and reusable templates.
+
+```python
+from ibmdiagrams.ibmcloud.diagram import Diagram
+from ibmdiagrams.ibmcloud.groups import IBMCloud, Region, VPC, Zone, Subnet
+from ibmdiagrams.ibmcloud.compute import VirtualServer
+
+with Diagram("my-architecture"):
+    with IBMCloud("IBM Cloud"):
+        with Region("Dallas"):
+            with VPC("Production VPC"):
+                with Zone("Zone 1", "10.10.0.0/18"):
+                    with Subnet("App Subnet", "10.10.10.0/24"):
+                        vsi = VirtualServer("Web Server", "10.10.10.4")
+```
+
+### 2. Terraform State Files
+Automatically generate diagrams from existing infrastructure. Perfect for documentation, compliance audits, and onboarding.
+
+```bash
+# With custom labels (resource names, IPs)
+ibmdiagrams cloud.tfstate
+
+# With general labels (resource types only)
+ibmdiagrams --general cloud.tfstate
+
+# Generate Python code for customization
+ibmdiagrams --python cloud.tfstate
+```
+
+### 3. JSON Input
+Generate diagrams from internal JSON format (for advanced integrations).
+
+```bash
+ibmdiagrams cloud.json
+```
+
+## API Reference
+
+### Diagram Class
+Entry point for all diagrams. Controls output format, direction, and styling.
+
+- [Diagram](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#diagram): Root container with configuration options
+- Parameters: name, filename, output, direction, font
+
+### Groups (Containers)
+Represent "deployedOn" relationships. Act as containers for other resources.
+
+- [IBMCloud](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#core-groups): Top-level IBM Cloud container
+- [Region](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#core-groups): Geographic region
+- [VPC](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#core-groups): Virtual Private Cloud
+- [Zone](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#core-groups): Availability zone
+- [Subnet](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#core-groups): Network subnet
+- [SecurityGroup](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#core-groups): Security group
+- [ResourceGroup](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#core-groups): Resource group
+- [CloudServices](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#core-groups): Cloud services container
+
+### Compute Resources
+Virtual machines, bare metal servers, and compute services. See [usage examples](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#compute-resources) for VirtualServer and PowerVirtualServer.
+
+- [VirtualServer](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#compute-resources): VPC virtual server instance (usage example provided)
+- [PowerVirtualServer](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#compute-resources): Power virtual server (usage example provided)
+- [BareMetalServer](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#compute-resources): Bare metal server
+- [ClassicVirtualServer](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#compute-resources): Classic virtual server
+- [DedicatedHost](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#compute-resources): Dedicated host
+- [ImageService](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#compute-resources): Image service
+- [Satellite](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#compute-resources): IBM Cloud Satellite
+
+### Network Components
+Load balancers, gateways, and network services. See [usage examples](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#network-components) for PublicGateway, ApplicationLoadBalancer, and TransitGateway.
+
+- [PublicGateway](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#network-components): Public gateway (usage example provided)
+- [ApplicationLoadBalancer](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#network-components): Application load balancer (usage example provided)
+- [TransitGateway](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#network-components): Transit gateway (usage example provided)
+- [LoadBalancer](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#network-components): Load balancer
+- [NetworkLoadBalancer](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#network-components): Network load balancer
+- [VPNGateway](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#network-components): VPN gateway
+- [EndpointGateway](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#network-components): Virtual private endpoint gateway
+- [DirectLinkDedicated](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#network-components): Direct Link dedicated
+- [DirectLinkConnect](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#network-components): Direct Link connect
+- [DNSServices](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#network-components): DNS services
+- [FloatingIP](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#network-components): Floating IP address
+
+### Storage Services
+Object storage, block storage, and backup services. See [usage examples](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#storage-services) for ObjectStorage and BlockStorage.
+
+- [ObjectStorage](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#storage-services): Cloud Object Storage (usage example provided)
+- [BlockStorage](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#storage-services): Block Storage volumes (usage example provided)
+- [BlockStorageSnapshots](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#storage-services): Block Storage snapshots
+- [CloudBackup](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#storage-services): Cloud Backup service
+- [FileStorage](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#storage-services): File Storage
+
+### Security Services
+Encryption, secrets management, and security services. See [usage examples](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#security-services) for KeyProtect, SecretsManager, and VPNGateway.
+
+- [KeyProtect](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#security-services): Key Protect encryption (usage example provided)
+- [SecretsManager](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#security-services): Secrets Manager (usage example provided)
+- [VPNGateway](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#security-services): VPN gateway (usage example provided)
+- [SecurityComplianceCenter](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#security-services): Security & Compliance Center
+- [AppID](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#security-services): App ID authentication
+- [BastionHost](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#security-services): Bastion host
+- [VPNConnection](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#security-services): VPN connection
+
+### Observability
+Monitoring, logging, and observability services. See [usage examples](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#observability) for all three services.
+
+- [CloudLogs](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#observability): Cloud Logs (usage example provided)
+- [FlowLogs](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#observability): VPC Flow Logs (usage example provided)
+- [Monitoring](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#observability): IBM Cloud Monitoring (usage example provided)
+
+### Data Services
+Databases and data management services. See [usage examples](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#data-services) for PostgreSQL and Redis.
+
+- [PostgreSQL](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#data-services): PostgreSQL database (usage example provided)
+- [Redis](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#data-services): Redis cache (usage example provided)
+- [DB2](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#data-services): IBM Db2 database
+- [DB2Warehouse](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#data-services): Db2 Warehouse
+- [MySQL](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#data-services): MySQL database
+- [Cloudant](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#data-services): Cloudant NoSQL database
+- [EventStreams](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#data-services): Event Streams (Kafka)
+- [Elasticsearch](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#data-services): Elasticsearch (not in import list)
+
+### Containers & Kubernetes
+Container orchestration and management services. See [usage examples](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#containers--kubernetes) for KubernetesService and OpenShift.
+
+- [KubernetesService](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#containers--kubernetes): IBM Kubernetes Service (usage example provided)
+- [OpenShift](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#containers--kubernetes): Red Hat OpenShift (usage example provided)
+- [CodeEngine](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#containers--kubernetes): IBM Code Engine
+- [ContainerRegistry](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#containers--kubernetes): Container Registry
+
+### AI & Watson
+AI, machine learning, and Watson services. See [usage examples](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#ai--watson) for WatsonX and WatsonAssistant.
+
+- [WatsonX](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#ai--watson): watsonx platform (usage example provided)
+- [WatsonAssistant](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#ai--watson): Watson Assistant (usage example provided)
+- [WatsonXAI](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#ai--watson): watsonx.ai
+- [WatsonXData](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#ai--watson): watsonx.data
+- [WatsonXGovernance](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#ai--watson): watsonx.governance
+- [WatsonDiscovery](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#ai--watson): Watson Discovery
+- [WatsonStudio](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#ai--watson): Watson Studio (not in import list)
+- [WatsonMachineLearning](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#ai--watson): Watson Machine Learning (not in import list)
+
+### DevOps Services
+CI/CD, source control, and DevOps tools. Note: DevOps services are available in the codebase but not documented in diagram-as-code.md. See [Terraform documentation](https://github.com/IBM/ibmdiagrams/blob/main/docs/terraform.md#continuous-delivery) for Terraform resource support.
+
+- ContinuousDelivery: Continuous Delivery
+- ContinuousIntegration: Continuous Integration
+- Toolchain: DevOps Toolchain
+- SourceCodeRepository: Source code repository
+- GitLab: GitLab
+- Ansible: Ansible automation
+
+### Actors
+Users, applications, and external entities. See [usage examples](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#actors) for User and Application.
+
+- [User](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#actors): Single user (usage example provided)
+- [Application](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#actors): Application component (usage example provided)
+- [Users](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#actors): Multiple users
+- [Microservice](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#actors): Microservice
+
+### Connectors
+Visual connections between components.
+
+- [SolidEdge](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#connectors): Solid line connection
+- [PrivateSolidEdge](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#connectors): Private solid line
+- [PublicSolidEdge](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#connectors): Public solid line
+- [DashedEdge](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#connectors): Dashed line
+- [DottedEdge](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#connectors): Dotted line
+- [DoubleEdge](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#connectors): Double line
+- [TunnelEdge](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#connectors): Tunnel line
+
+## Examples
+
+- [Simple VPC](https://github.com/IBM/ibmdiagrams/blob/main/docs/examples/python/simple-vpc.md): Basic VPC with virtual server
+- [VSI on VPC Landing Zone](https://github.com/IBM/ibmdiagrams/blob/main/docs/examples/python/slzvsi.md): Enterprise landing zone with multi-zone deployment
+- [Power Virtual Server](https://github.com/IBM/ibmdiagrams/blob/main/docs/examples/python/slzpowervs.md): Power Systems infrastructure
+- [Terraform Examples](https://github.com/IBM/ibmdiagrams/tree/main/docs/examples/terraform): Auto-generated from Terraform state
+- [JSON Examples](https://github.com/IBM/ibmdiagrams/tree/main/docs/examples/json): JSON input format examples
+
+## CLI Reference
+
+### Basic Commands
+
+```bash
+# Generate diagram from Terraform state (custom labels)
+ibmdiagrams cloud.tfstate
+
+# Generate with general labels (resource types only)
+ibmdiagrams --general cloud.tfstate
+
+# Generate Python code instead of DrawIO
+ibmdiagrams --python cloud.tfstate
+
+# Specify output directory
+ibmdiagrams -output ./diagrams cloud.tfstate
+
+# Use custom font
+ibmdiagrams -font "IBM Plex Sans JP" cloud.tfstate
+
+# Show version
+ibmdiagrams --version
+
+# Show help
+ibmdiagrams --help
+
+# Start MCP server
+ibmdiagrams --mcp
+```
+
+### Font Options
+
+- `IBM Plex Sans` (default) - Latin script
+- `IBM Plex Sans Arabic` - Arabic script
+- `IBM Plex Sans Devanagari` - Devanagari script
+- `IBM Plex Sans Hebrew` - Hebrew script
+- `IBM Plex Sans JP` - Japanese script
+- `IBM Plex Sans KR` - Korean script
+- `IBM Plex Sans Thai` - Thai script
+
+## MCP Server
+
+IBM Diagrams provides a Model Context Protocol (MCP) server for AI assistant integration.
+
+### Configuration
+
+```json
+{
+  "mcpServers": {
+    "ibmdiagrams": {
+      "command": "ibmdiagrams",
+      "args": ["--mcp"]
+    }
+  }
+}
+```
+
+### Available Tools
+
+- [generate_from_file](https://github.com/IBM/ibmdiagrams/blob/main/docs/mcp.md#1-generate_from_file): Generate diagram from .tfstate or .json file
+- [server_info](https://github.com/IBM/ibmdiagrams/blob/main/docs/mcp.md#2-server_info): Get MCP server metadata
+
+### Tool Parameters
+
+**generate_from_file:**
+- `inputfile` (required): Path to .tfstate or .json file
+- `outputfolder` (optional): Output directory (default: current directory)
+- `labeltype` (optional): "CUSTOM" or "GENERAL" (default: "CUSTOM")
+- `codetype` (optional): "DRAWIO" or "PYTHON" (default: "DRAWIO")
+- `fontname` (optional): Font family (default: "IBM Plex Sans")
+
+## Source Code — IBM/ibmdiagrams
+
+> Python package for generating IBM-standard architecture diagrams from code, Terraform, or JSON.
+
+- [Repository](https://github.com/IBM/ibmdiagrams): Main repository
+- [Core Module (ibmbase)](https://github.com/IBM/ibmdiagrams/tree/main/src/ibmdiagrams/ibmbase): Diagram generation engine
+- [IBM Cloud Module (ibmcloud)](https://github.com/IBM/ibmdiagrams/tree/main/src/ibmdiagrams/ibmcloud): IBM Cloud components
+- [Shapes Module (ibmshapes)](https://github.com/IBM/ibmdiagrams/tree/main/src/ibmdiagrams/ibmshapes): Alternative shape library
+- [Scripts Module (ibmscripts)](https://github.com/IBM/ibmdiagrams/tree/main/src/ibmdiagrams/ibmscripts): CLI and MCP server
+- [Tests](https://github.com/IBM/ibmdiagrams/tree/main/tests): Visual regression tests
+- [Examples](https://github.com/IBM/ibmdiagrams/tree/main/docs/examples): Python, Terraform, and JSON examples
+
+## Best Practices
+
+### Diagram as Code
+
+- [Use Meaningful Names](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#1-use-meaningful-names): Descriptive resource names
+- [Use Sublabels](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#2-use-sublabels-for-technical-details): Technical details in sublabels
+- [Choose Direction](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#3-choose-appropriate-direction): LR for wide, TB for deep hierarchies
+- [Group Resources](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#4-group-related-resources): Use ResourceGroup or LayoutGroup
+- [Keep It Simple](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#5-keep-it-simple): Flatten where possible
+- [Use Variables](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#6-use-variables-for-reusable-components): Reusable components
+
+### Terraform Integration
+
+- [Descriptive Names](https://github.com/IBM/ibmdiagrams/blob/main/docs/terraform.md#1-use-descriptive-resource-names): Use clear resource names
+- [Add Tags](https://github.com/IBM/ibmdiagrams/blob/main/docs/terraform.md#2-add-tags-for-better-organization): Organize with tags
+- [Naming Conventions](https://github.com/IBM/ibmdiagrams/blob/main/docs/terraform.md#3-use-consistent-naming-conventions): Consistent patterns
+- [CI/CD Integration](https://github.com/IBM/ibmdiagrams/blob/main/docs/terraform.md#4-generate-diagrams-in-cicd): Automate diagram generation
+- [Secure State Files](https://github.com/IBM/ibmdiagrams/blob/main/docs/terraform.md#5-keep-state-files-secure): Don't commit state files
+- [Document Generation](https://github.com/IBM/ibmdiagrams/blob/main/docs/terraform.md#6-document-diagram-generation): Document the process
+
+## Known Limitations
+
+- [Group Spanning](https://github.com/IBM/ibmdiagrams/blob/main/docs/diagram-as-code.md#group-spanning): Cannot represent groups spanning other groups
+- [Connectors](https://github.com/IBM/ibmdiagrams#%EF%B8%8F-known-limitations): Currently direct point-to-point connections
+
+## Resources
+
+- [GitHub Repository](https://github.com/IBM/ibmdiagrams): Source code and issues
+- [Releases](https://github.com/IBM/ibmdiagrams/releases): Download wheel files
+- [Contributing Guide](https://github.com/IBM/ibmdiagrams/blob/main/CONTRIBUTING.md): Contribution guidelines
+- [Code of Conduct](https://github.com/IBM/ibmdiagrams/blob/main/CODE_OF_CONDUCT.md): Community standards
+- [Security Policy](https://github.com/IBM/ibmdiagrams/blob/main/SECURITY.md): Security reporting
+- [Changelog](https://github.com/IBM/ibmdiagrams/blob/main/CHANGELOG.md): Version history
+- [License](https://github.com/IBM/ibmdiagrams/blob/main/LICENSE): Apache 2.0 license
+
+## External Resources
+
+- [IBM Design Language](https://www.ibm.com/design/language/infographics/technical-diagrams/design): Technical diagrams guideline
+- [draw.io Desktop](https://github.com/jgraph/drawio-desktop/releases): Diagram editor
+- [IBM Plex Fonts](https://fonts.google.com/?query=Plex): Typography downloads
+- [Model Context Protocol](https://modelcontextprotocol.io/): MCP documentation
+- [FastMCP](https://github.com/jlowin/fastmcp): MCP framework
+- [uv Package Manager](https://github.com/astral-sh/uv): Fast Python package manager

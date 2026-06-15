@@ -1,18 +1,19 @@
 [project]
 name = "ibmdiagrams"
-version = "3.2.1"
+version = "3.3.0"
 description = "Generate architecture diagrams following IBM Diagram Standard"
 readme = "README.md"
 requires-python = ">=3.11.0"
 license = "Apache-2.0"
 keywords = ["cloud", "diagrams", "ibm"]
 authors = [
-  {name = "John Pape", email = "jtpape@us.ibm.com" },
-  {name = "Kai Wedekind", email = "kai.wedekind@de.ibm.com" },
-  {name = "Jay Warfield (left IBM)", email = "jay.warfield@us.ibm.com" },
+  { name = "John Pape", email = "jtpape@us.ibm.com" },
+  { name = "Kai Wedekind", email = "kai.wedekind@de.ibm.com" },
+  { name = "Jay Warfield (left IBM)", email = "jay.warfield@us.ibm.com" },
 ]
 maintainers = [
-  {name = "John Pape", email = "jtpape@us.ibm.com" }
+  { name = "John Pape", email = "jtpape@us.ibm.com" },
+  { name = "Kai Wedekind", email = "kai.wedekind@de.ibm.com" }
 ]
 # For a list of valid classifiers, see https://pypi.org/classifiers/
 classifiers = [
@@ -27,8 +28,10 @@ dependencies = [
   'pandas>=1.4.2',
   'PyYAML>=6.0',
   'requests>=2.31.0',
-  'tabulate>=0.9.0',
+  'tabulate>=0.10.0',
   'urllib3>=1.26.9',
+  'fastmcp>=3.2.4',
+  "rich>=15.0.0",
 ]
 ##[project.optional-dependencies]
 ##dev = ["check-manifest"]
@@ -80,7 +83,7 @@ build-backend = "setuptools.build_meta"
 ibmdiagrams = "ibmdiagrams.ibmscripts.ibmdiagrams:main"
 
 [tool.ruff]
-target-version = "py310"
+target-version = "py311"
 line-length = 100
 
 [tool.ruff.lint]

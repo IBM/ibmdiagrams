@@ -1,0 +1,32 @@
+{
+  "vpcs": [
+    {
+      "name": "Production VPC",
+      "id": "vpc-prod-001",
+      "region": "us-south"
+    }
+  ],
+  "subnets": [
+    {
+      "name": "Web Subnet",
+      "id": "subnet-web-001",
+      "subnet": "10.10.10.0/24",
+      "vpcId": "vpc-prod-001",
+      "availabilityZone": "us-south-1"
+    }
+  ],
+  "instances": [
+    {
+      "name": "Web Server",
+      "id": "instance-web-001",
+      "vpcId": "vpc-prod-001",
+      "availabilityZone": "us-south-1",
+      "networkInterfaces": [
+        {
+          "networkId": "subnet-web-001",
+          "ip": "10.10.10.4"
+        }
+      ]
+    }
+  ]
+}

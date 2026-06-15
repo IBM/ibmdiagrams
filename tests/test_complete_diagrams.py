@@ -15,6 +15,7 @@ from utils.image_comparison import (
     ImageSizeMismatchError,
     compare_images,
     compare_images_with_tolerance,
+    generate_size_mismatch_diff,
     save_diff_image,
 )
 
@@ -95,11 +96,35 @@ with Diagram("slzpowervs"):
 def cloud_diagram_code() -> str:
     """Return the code for the cloud diagram."""
     return """
-from ibmdiagrams.ibmcloud.diagram import Diagram
-from ibmdiagrams.ibmcloud.groups import IBMCloud, Region, VPC, Zone, Subnet, PublicNetwork, EnterpriseNetwork, ExpandedVirtualServer
 from ibmdiagrams.ibmcloud.actors import User
-from ibmdiagrams.ibmcloud.network import Internet, PublicGateway, FIP, NetworkLoadBalancer
-from ibmdiagrams.ibmcloud.security import VPNConnection, VPNGateway
+from ibmdiagrams.ibmcloud.applications import Applications, UserDirectory
+from ibmdiagrams.ibmcloud.compute import EnterpriseData
+from ibmdiagrams.ibmcloud.devops import ClassicInfrastructure
+from ibmdiagrams.ibmcloud.diagram import Diagram
+from ibmdiagrams.ibmcloud.groups import (
+    VPC,
+    EnterpriseNetwork,
+    ExpandedVirtualServer,
+    IBMCloud,
+    LayoutGroup,
+    PublicNetwork,
+    Region,
+    Subnet,
+    Zone,
+)
+from ibmdiagrams.ibmcloud.network import (
+    FIP,
+    TGW,
+    DirectLinkConnect,
+    Internet,
+    NetworkLoadBalancer,
+    PublicGateway,
+    Router,
+)
+from ibmdiagrams.ibmcloud.security import (
+    VPNConnection,
+    VPNGateway,
+)
 
 with Diagram("cloud"):
     with PublicNetwork("Public<br>network", direction="TB"):
@@ -108,49 +133,116 @@ with Diagram("cloud"):
         VPNConnection("VPN<br>connection")
 
     with IBMCloud("IBM Cloud"):
-        with Region("Dallas Region", direction="TB"):
+        with Region("Dallas Region", direction="TB") as dallas_region:
             with VPC("VPC A"):
                 with Zone("Dallas Zone 1", sublabel="10.10.0.0/18", direction="LR"):
-                    PublicGateway(label="Public gateway")
+                    PublicGateway(label="Public<br>gateway")
                     FIP(label="Floating IP")
-                    VPNGateway(label="VPN gateway")
+                    VPNGateway(label="VPN<br>gateway")
 
-                    with Subnet("Subnet 1", sublabel="10.10.10.0/24"):
-                        with ExpandedVirtualServer(
-                            label="VSI 1",
-                            sublabel="Type: Dedicated",
-                        ):
-                            pass
-                    with Subnet("Subnet 2", sublabel="10.10.20.0/24"):
-                        with ExpandedVirtualServer(
-                            label="VSI 2",
-                            sublabel="Type: Dedicated",
-                        ):
-                            pass
-
+                    with LayoutGroup(direction="TB"):
+                        with Subnet("Subnet 1", sublabel="10.10.10.0/24<br>Frontend ACL"):
+                            with ExpandedVirtualServer(
+                                label="VSI 1",
+                                sublabel="Type: Dedicated<br>OS: Redhat 8.x<br>Profile: Balanced bx2-2x8<br>vCPU: 2<br>RAM: 8GiB<br>Bandwith: 4Gbps",
+                            ):
+                                pass
+                        with Subnet("Subnet 2", sublabel="10.10.20.0/24<br>Backend ACL"):
+                            with ExpandedVirtualServer(
+                                label="VSI 2",
+                                sublabel="Type: Dedicated<br>OS: Redhat 8.x<br>Profile: Balanced bx2-2x8<br>vCPU: 2<br>RAM: 8GiB<br>Bandwith: 4Gbps",
+                            ):
+                                pass
 
                 NetworkLoadBalancer("Public load<br>balancer")
                 NetworkLoadBalancer("Private load<br>balancer")
 
                 with Zone("Dallas Zone 2", sublabel="10.10.0.0/18", direction="TB"):
-                    with Subnet("Subnet 3", sublabel="10.10.10.0/24"):
+                    with Subnet("Subnet 3", sublabel="10.10.10.0/24<br>Frontend ACL"):
                         with ExpandedVirtualServer(
                             label="VSI 3",
-                            sublabel="Type: Dedicated",
+                            sublabel="Type: Dedicated<br>OS: Redhat 8.x<br>Profile: Balanced bx2-2x8<br>vCPU: 2<br>RAM: 8GiB<br>Bandwith: 4Gbps",
                         ):
                             pass
-                    with Subnet("Subnet 4", sublabel="10.10.20.0/24"):
+                    with Subnet("Subnet 4", sublabel="10.10.20.0/24<br>Backend ACL"):
                         with ExpandedVirtualServer(
                             label="VSI 4",
-                            sublabel="Type: Dedicated",
+                            sublabel="Type: Dedicated<br>OS: Redhat 8.x<br>Profile: Balanced bx2-2x8<br>vCPU: 2<br>RAM: 8GiB<br>Bandwith: 4Gbps",
                         ):
                             pass
                     pass
                 pass
 
+        ClassicInfrastructure("Classic<br>infrastructure")
+        TGW("Transit<br>Gateway")
+        DirectLinkConnect("Direct Link")
+        Router("Implicit<br>router")
 
     with EnterpriseNetwork("Enterprise<br>network", direction="TB"):
+        UserDirectory(label="Enterprise user<br>directory")
         User(label="Enterprise<br>user")
+        Applications(label="Enterprise<br>applications")
+        EnterpriseData(label="Enterprise<br>data")
+"""
+
+
+def slzvsi_diagram_code() -> str:
+    """Return the code for the slzvsi diagram."""
+    return """
+from ibmdiagrams.ibmcloud.diagram import Diagram
+from ibmdiagrams.ibmcloud.groups import IBMCloud, Region, VPC, Zone, Subnet, CloudServices, ResourceGroup, SecurityGroup
+from ibmdiagrams.ibmcloud.compute import VirtualServer
+from ibmdiagrams.ibmcloud.network import EndpointGateway, TransitGateway
+from ibmdiagrams.ibmcloud.security import KeyProtect, VPNGateway
+from ibmdiagrams.ibmcloud.storage import ObjectStorage
+from ibmdiagrams.ibmcloud.observability import CloudLogs, FlowLogs
+
+with Diagram("slzvsi"):
+  with IBMCloud("IBM Cloud"):
+    with Region("Dallas", direction="TB"):
+      with ResourceGroup("Management RG"):
+        with VPC("Management VPC"):
+          with Zone("Zone 1", "10.24.0.0/18", direction="TB"):
+            with Subnet("VPE Subnet", "10.10.20.0/24"):
+              vpe = EndpointGateway("VPE")
+            with Subnet("VPN Subnet", "10.10.30.0/24"):
+              vpn = VPNGateway("Gateway VPN")
+            with Subnet("VSI Subnet", "10.10.40.0/24"):
+              vsi = VirtualServer("Management VSI", "10.10.40.4")
+          with Zone("Zone 2", "10.240.64.0/18", direction="TB"):
+            with Subnet("VPE Subnet", "10.20.20.0/24"):
+              vpe = EndpointGateway("VPE")
+            with Subnet("VSI Subnet", "10.20.30.0/24"):
+              vsi = VirtualServer("Management VSI", "10.20.30.4")
+          with Zone("Zone 3", "10.240.128.0/18", direction="TB"):
+            with Subnet("VPE Subnet", "10.30.20.0/24"):
+              vpe = EndpointGateway("VPE")
+            with Subnet("VSI Subnet", "10.30.30.0/24"):
+              vsi = VirtualServer("Management VSI", "10.30.30.4")
+      with ResourceGroup("Workload RG"):
+        with VPC("Workload VPC"):
+          with Zone("Zone 1", "10.240.0.0/24", direction="TB"):
+            with Subnet("VPE Subnet", "10.40.20.0/24"):
+              vpe = EndpointGateway("VPE")
+            with Subnet("VSI Subnet", "10.40.30.0/24"):
+              vsi = VirtualServer("Workload VSI", "10.40.30.4")
+          with Zone("Zone 2", "10.240.64.0/24", direction="TB"):
+            with Subnet("VPE Subnet", "10.50.20.0/24"):
+              vpe = EndpointGateway("VPE")
+            with Subnet("VSI Subnet", "10.50.30.0/24"):
+              vsi = VirtualServer("Workload VSI", "10.50.30.4")
+          with Zone("Zone 3", "10.240.128.0/24", direction="TB"):
+            with Subnet("VPE Subnet", "10.60.20.0/24"):
+              vpe = EndpointGateway("VPE")
+            with Subnet("VSI Subnet", "10.60.30.0/24"):
+              vsi = VirtualServer("Workload VSI", "10.60.30.4")
+      with ResourceGroup("Services RG"):
+        with CloudServices("Cloud Services"):
+          logs = CloudLogs("Cloud Logs")
+          flowlogs = FlowLogs("Mgmt Flow Logs<br>Workload Flow Logs")
+          buckets = ObjectStorage("Logs Bucket<br>Mgmt Bucket<br>Workload Bucket")
+          keys = KeyProtect("Log Key<br>ROKS Key<br>SLZ Key<br>VSI Volume Key")
+          tg = TransitGateway("Transit Gateway")
 """
 
 
@@ -467,9 +559,155 @@ def test_cloud_diagram(
         )
 
     except ImageSizeMismatchError as e:
+        # Generate and save size mismatch diff if requested
+        if save_diffs:
+            try:
+                diff_image = generate_size_mismatch_diff(baseline_png, generated_png)
+                diff_path = diff_output_dir / f"{diagram_name}_diff.png"
+                save_diff_image(diff_image, diff_path)
+                diff_msg = f"\n  Diff image: {diff_path}"
+            except Exception as diff_error:
+                logger.warning(f"Failed to generate size mismatch diff: {diff_error}")
+                diff_msg = ""
+        else:
+            diff_msg = "\n  Run with --save-diffs to generate diff image"
+
         pytest.fail(
             f"\nImage dimensions don't match for {diagram_name}:\n"
-            f"  {e}\n\n"
+            f"  {e}{diff_msg}\n\n"
+            f"This usually indicates a significant change in diagram generation.\n"
+            f"If this change is intentional, update the baseline:\n"
+            f"  pytest {__file__} --update-baselines"
+        )
+    except (ImageLoadError, ImageComparisonError) as e:
+        pytest.fail(f"Image comparison failed for {diagram_name}: {e}")
+
+
+@pytest.mark.visual_regression
+@pytest.mark.threshold(1.0)  # Allow 1% difference for complex diagrams
+def test_slzvsi_diagram(
+    temp_output_dir: Path,
+    test_threshold: float,
+    pixel_tolerance: int,
+    update_baselines: bool,
+    save_diffs: bool,
+    diff_output_dir: Path,
+    drawio_executable: Path | None,
+) -> None:
+    """
+    Test that the slzvsi complete diagram renders correctly.
+
+    This test generates the full slzvsi diagram and compares it with
+    the baseline image.
+
+    Args:
+        temp_output_dir: Temporary directory for test outputs.
+        test_threshold: Maximum allowed difference percentage.
+        pixel_tolerance: Per-pixel color tolerance.
+        update_baselines: If True, update baselines instead of comparing.
+        save_diffs: If True, save diff images on failure.
+        diff_output_dir: Directory for saving diff images.
+        drawio_executable: Path to draw.io executable.
+    """
+    # Skip if draw.io not available
+    if drawio_executable is None:
+        pytest.skip(
+            "draw.io executable not found. "
+            "Install from: https://github.com/jgraph/drawio-desktop/releases"
+        )
+
+    diagram_name = "slzvsi"
+    baseline_dir = Path(__file__).parent / "baselines"
+    baseline_png_dir = baseline_dir / "png"
+    baseline_png = baseline_png_dir / f"{diagram_name}.png"
+
+    # Check baseline exists
+    if not baseline_png.exists() and not update_baselines:
+        pytest.fail(
+            f"Baseline image not found: {baseline_png}\n"
+            f"Run with --update-baselines to generate baseline."
+        )
+
+    # Generate test diagram
+    try:
+        generated_png = generate_complete_diagram(
+            diagram_name,
+            slzvsi_diagram_code(),
+            temp_output_dir,
+            drawio_executable,
+        )
+    except Exception as e:
+        pytest.fail(f"Failed to generate diagram: {e}")
+
+    # Update baseline mode
+    if update_baselines:
+        baseline_png_dir.mkdir(parents=True, exist_ok=True)
+        import shutil
+
+        shutil.copy2(generated_png, baseline_png)
+        logger.info(f"Updated baseline: {baseline_png}")
+        pytest.skip(f"Baseline updated: {baseline_png}")
+        return
+
+    # Compare images
+    try:
+        if pixel_tolerance > 0:
+            is_match, diff_percentage, diff_image = compare_images_with_tolerance(
+                baseline_png,
+                generated_png,
+                threshold=test_threshold,
+                pixel_tolerance=pixel_tolerance,
+            )
+        else:
+            is_match, diff_percentage, diff_image = compare_images(
+                baseline_png,
+                generated_png,
+                threshold=test_threshold,
+            )
+
+        if not is_match:
+            # Save diff image if requested
+            if save_diffs and diff_image is not None:
+                diff_path = diff_output_dir / f"{diagram_name}_diff.png"
+                save_diff_image(diff_image, diff_path)
+                diff_msg = f"\n  Diff image: {diff_path}"
+            else:
+                diff_msg = "\n  Run with --save-diffs to generate diff image"
+
+            pytest.fail(
+                f"\nVisual regression test failed for diagram: {diagram_name}\n"
+                f"  Difference: {diff_percentage:.2f}%\n"
+                f"  Threshold: {test_threshold:.2f}%{diff_msg}\n\n"
+                f"The generated diagram differs from the baseline by {diff_percentage:.2f}%.\n"
+                f"This exceeds the allowed threshold of {test_threshold:.2f}%.\n\n"
+                f"If this change is intentional:\n"
+                f"  1. Review the visual changes carefully\n"
+                f"  2. Run: pytest {__file__} --update-baselines\n"
+                f"  3. Commit the updated baseline image"
+            )
+
+        logger.info(
+            f"Visual regression test passed for {diagram_name}: "
+            f"{diff_percentage:.2f}% difference (threshold: {test_threshold:.2f}%)"
+        )
+
+    except ImageSizeMismatchError as e:
+        # Generate and save size mismatch diff if requested
+        if save_diffs:
+            try:
+                diff_image = generate_size_mismatch_diff(baseline_png, generated_png)
+                diff_path = diff_output_dir / f"{diagram_name}_diff.png"
+                save_diff_image(diff_image, diff_path)
+                diff_msg = f"\n  Diff image: {diff_path}"
+            except Exception as diff_error:
+                logger.warning(f"Failed to generate size mismatch diff: {diff_error}")
+                diff_msg = ""
+        else:
+            diff_msg = "\n  Run with --save-diffs to generate diff image"
+
+        pytest.fail(
+            f"\nImage dimensions don't match for {diagram_name}:\n"
+            f"  {e}{diff_msg}\n\n"
             f"This usually indicates a significant change in diagram generation.\n"
             f"If this change is intentional, update the baseline:\n"
             f"  pytest {__file__} --update-baselines"

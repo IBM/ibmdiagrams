@@ -131,22 +131,22 @@ class Messages:
         sys.stdout.write(*args)
 
     def printStartDiagram(self, diagramname, cloud):
-        self.printError(self.startDiagramMessage % (diagramname, cloud))
+        self.printMessage(self.startDiagramMessage % (diagramname, cloud))
 
     def printStartFile(self, filename, cloud):
-        self.printError(self.startFileMessage % (filename, cloud))
+        self.printMessage(self.startFileMessage % (filename, cloud))
 
     def printStartRIASwithKey(self, apikey, region):
-        self.printError(self.startRIASKeyMessage % (apikey, region))
+        self.printMessage(self.startRIASKeyMessage % (apikey, region))
 
     def printStartRIASwithAccount(self, apikey, accountid, region):
-        self.printError(self.startRIASAccountMessage % (apikey, accountid, region))
+        self.printMessage(self.startRIASAccountMessage % (apikey, accountid, region))
 
     def printDone(self, filename, cloud):
-        self.printError(self.doneMessage % (filename, cloud))
+        self.printMessage(self.doneMessage % (filename, cloud))
 
     def printExit(self):
-        self.printError(self.exitMessage)
+        self.printMessage(self.exitMessage)
 
     def printMissingAllRegions(self):
         self.printError(self.missingAllRegionsMessage)
