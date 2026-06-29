@@ -80,6 +80,50 @@ def test_shape_builder_returns_drawio_cell_without_undefined_header():
     assert shape["props"] == {"owner": "test"}
 
 
+def test_shape_builder_preserves_long_labels_without_truncation():
+    """Long shape labels are preserved instead of shortened with ellipses."""
+    types = Types(Common())
+    long_label = "My Production VPC with a long name"
+    node = {
+        "shape": "gploc",
+        "label": long_label,
+        "sublabel": "",
+        "genname": "VPC",
+        "linecolor": Colors.lines["network"],
+        "fillcolor": Colors.fills["network"],
+        "parentid": None,
+        "image": "",
+        "icon": "",
+    }
+
+    shape = types.buildShape("shape-long-label", node, 10, 20, 200, 120, {}, False)
+
+    assert long_label in shape["cell"]["value"]
+    assert "..." not in shape["cell"]["value"]
+
+
+def test_python_api_preserves_long_group_labels_in_drawio_output(tmp_path: Path):
+    """Diagram-as-code output keeps full group labels in the generated DrawIO file."""
+    from ibmdiagrams.ibmcloud.compute import VirtualServer
+    from ibmdiagrams.ibmcloud.diagram import Diagram
+    from ibmdiagrams.ibmcloud.groups import VPC, IBMCloud, Region, Subnet, Zone
+
+    with Diagram("long-labels", output=str(tmp_path)):
+        with IBMCloud("IBM Cloud with a long name"):
+            with Region("Dallas"):
+                with VPC("My Production VPC with a long name"):
+                    with Zone("Zone 1", "10.10.0.0/18"):
+                        with Subnet("App Subnet", "10.10.10.0/24"):
+                            VirtualServer("Web Server", "10.10.10.4")
+
+    drawio = (tmp_path / "long-labels.drawio").read_text()
+
+    assert "IBM Cloud with a long name" in drawio
+    assert "My Production VPC with a long name" in drawio
+    assert "IBM Cloud with..." not in drawio
+    assert "My Production ..." not in drawio
+
+
 def test_value_builder_uses_text_style_without_undefined_shape_map():
     """Value builder uses the built-in text style instead of an undefined shape map."""
     types = Types(Common())

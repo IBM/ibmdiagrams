@@ -40,31 +40,8 @@ class Common:
         return hash.hexdigest()
 
     def truncateText(self, text, size, linebreak):
-        if text.find(linebreak) == -1:
-            if len(text) > size:
-                return text[0 : size - 1] + "..."
-            else:
-                return text
-        else:
-            textsplit = text.split(linebreak)
-            newtext = ""
-            count = 0
-            for name in textsplit:
-                count = count + 1
-                if len(name) == 0:
-                    continue
-                elif len(name) > size:
-                    if count == 1:
-                        newtext = name[0 : size - 1] + "..."
-                    else:
-                        newtext = newtext + linebreak + name[0 : size - 1] + "..."
-                else:
-                    newtext = name if count == 1 else newtext + linebreak + name
-
-        if len(newtext) > 0:
-            return newtext
-        else:
-            return text
+        # Preserve labels as authored; draw.io handles wrapping/overflow.
+        return text
 
     # Options
 
