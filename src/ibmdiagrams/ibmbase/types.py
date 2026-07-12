@@ -510,14 +510,6 @@ class Types:
         parentid = node["parentid"]
         parentid = "1" if parentid is None else parentid
 
-        labelsize = 20
-
-        if len(name) > 0:
-            name = self.common.truncateText(name, labelsize, "<br>")
-
-        if len(subname) > 0:
-            subname = self.common.truncateText(subname, labelsize, "<br>")
-
         if genflag:
             shapelabel = "<b style='font-weight:600'>" + genname
             # shapelabel = genname
@@ -631,14 +623,6 @@ class Types:
             styleIcon = "icon=" + icon + ";" if icon != "" else ""
             style = style.replace("%ICON", styleIcon)
 
-        labelsize = 20
-
-        if len(name) > 0:
-            name = self.common.truncateText(name, labelsize, "<br>")
-
-        if len(subname) > 0:
-            subname = self.common.truncateText(subname, labelsize, "<br>")
-
         if genflag:
             shapelabel = "<b style='font-weight:600'>" + genname
         else:
@@ -668,8 +652,6 @@ class Types:
         return data
 
     def buildDrawioShape(self, id, node, x, y, width, height, meta, genflag):
-        # labelsize = 20
-        labelsize = 15
         shape = node["shape"].lower()
         name = node["label"]
         subname = node["sublabel"]
@@ -681,12 +663,6 @@ class Types:
             linecount = linecount + 1 + name.count("<br")
         if len(subname) > 0:
             linecount = linecount + 1 + subname.count("<br")
-
-        if len(name) > 0:
-            name = self.common.truncateText(name, labelsize, "<br>")
-
-        if len(subname) > 0:
-            subname = self.common.truncateText(subname, labelsize, "<br>")
 
         if genflag:
             shapelabel = "<b style='font-weight:600'>" + genname
