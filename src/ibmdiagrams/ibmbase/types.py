@@ -668,8 +668,7 @@ class Types:
         return data
 
     def buildDrawioShape(self, id, node, x, y, width, height, meta, genflag):
-        # labelsize = 20
-        labelsize = 15
+        labelsize = 30
         shape = node["shape"].lower()
         name = node["label"]
         subname = node["sublabel"]
