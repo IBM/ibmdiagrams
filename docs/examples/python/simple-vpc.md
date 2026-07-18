@@ -61,7 +61,7 @@ with Diagram("simple-vpc"):
 ### Prerequisites
 
 - IBM Diagrams installed ([Setup Guide](../setup.md))
-- Python 3.11+
+- Python 3.12+
 - draw.io Desktop
 
 ### Steps

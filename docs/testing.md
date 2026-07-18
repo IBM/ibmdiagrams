@@ -524,7 +524,7 @@ Threshold: 0.00%
 
 ## CI Integration
 
-The repository includes a base GitHub Actions workflow at `.github/workflows/ci.yml` that runs Ruff, pytest, and package build checks on Python 3.11. The visual regression workflow below is optional for environments that install draw.io desktop and IBM Plex Sans fonts.
+The repository includes a base GitHub Actions workflow at `.github/workflows/ci.yml` that runs Ruff, pytest, and package build checks on Python 3.12. The visual regression workflow below is optional for environments that install draw.io desktop and IBM Plex Sans fonts.
 
 **Note:** If GitHub Actions workflows are available in your repository, you can use them to automate testing. The examples below show how to configure visual regression testing in CI environments.
 
@@ -545,7 +545,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.11'
+        python-version: '3.12'
     
     - name: Install dependencies
       run: |

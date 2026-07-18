@@ -34,7 +34,7 @@ This guide focuses on setting up IBM Diagrams MCP with **IBM Bob** (VS Code exte
 
 Before you begin, ensure you have:
 
-- **Python 3.11+** installed
+- **Python 3.12+** installed
 - **IBM Diagrams** package (wheel file or installed via pip)
 - **uv** package manager (recommended) - [Install uv](https://docs.astral.sh/uv/)
 - **IBM Bob** IDE OR **Claude Desktop** application
@@ -413,7 +413,7 @@ Show me how to add a load balancer to my existing diagram code
 
 **Symptoms:**
 
-- "Python 3.11+ required" error
+- "Python 3.12+ required" error
 - Server fails to start
 
 **Solutions:**
@@ -424,9 +424,9 @@ Show me how to add a load balancer to my existing diagram code
    python --version
    ```
 
-2. **Install Python 3.11+:**
-   - macOS: `brew install python@3.11`
-   - Ubuntu: `sudo apt install python3.11`
+2. **Install Python 3.12+:**
+   - macOS: `brew install python@3.12`
+   - Ubuntu: `sudo apt install python3.12`
    - Windows: Download from [python.org](https://www.python.org/downloads/)
 
 3. **Use uv (recommended):**

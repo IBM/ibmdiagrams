@@ -32,7 +32,7 @@ The [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) is an open 
 
 ### Prerequisites
 
-- Python 3.11+
+- Python 3.12+
 - IBM Diagrams installed (see [Setup Guide](setup.md))
 - An MCP-compatible client (e.g., IBM Bob, Claude Code etc.)
 
@@ -557,7 +557,7 @@ Error: Failed to start MCP server
 
 3. **Check Python version:**
    ```bash
-   python --version  # Should be 3.11+
+   python --version  # Should be 3.12+
    ```
 
 4. **Reinstall package:**
