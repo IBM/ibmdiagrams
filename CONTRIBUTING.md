@@ -66,7 +66,7 @@ Help make IBM Diagrams accessible to more people by improving documentation for 
 
 Before you begin, ensure you have:
 
-- **Python 3.11+** installed ([Download](https://www.python.org/downloads/))
+- **Python 3.12+** installed ([Download](https://www.python.org/downloads/))
 - **Git** for version control
 - **draw.io Desktop** for testing diagrams ([Download](https://github.com/jgraph/drawio-desktop/releases))
 - **IBM Plex Sans fonts** for proper rendering ([Install](https://fonts.google.com/?query=Plex))
@@ -338,7 +338,7 @@ Crashes with error: `KeyError: 'module.vpc.resource'`
 
 ## Environment
 - IBM Diagrams: 3.1.10
-- Python: 3.11.5
+- Python: 3.12
 - OS: macOS 14.0
 
 ## Error Log
@@ -844,7 +844,7 @@ Expected: Connectors between VPCs
 Actual: No connectors visible
 
 IBM Diagrams version: 3.1.10
-Python version: 3.11.5
+Python version: 3.12
 ```
 
 ### Helping Others

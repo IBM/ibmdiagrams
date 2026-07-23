@@ -19,7 +19,7 @@ Welcome to IBM Diagrams! This guide will help you get up and running in minutes,
 
 ### Required
 
-- **Python 3.11+**: [Download Python](https://www.python.org/downloads/)
+- **Python 3.12+**: [Download Python](https://www.python.org/downloads/)
 - **draw.io Desktop**: [Download draw.io](https://github.com/jgraph/drawio-desktop/releases) (to view/edit diagrams)
 
 ### Recommended
@@ -342,7 +342,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: '3.12'
       - run: pip install ibmdiagrams-*.whl
       - run: ibmdiagrams terraform.tfstate
       - uses: actions/upload-artifact@v3

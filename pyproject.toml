@@ -1,9 +1,9 @@
 [project]
 name = "ibmdiagrams"
-version = "3.3.2"
+version = "3.3.3"
 description = "Generate architecture diagrams following IBM Diagram Standard"
 readme = "README.md"
-requires-python = ">=3.11.0"
+requires-python = ">=3.12.0"
 license = "Apache-2.0"
 keywords = ["cloud", "diagrams", "ibm"]
 authors = [
@@ -22,19 +22,19 @@ classifiers = [
   "Intended Audience :: Information Technology",
   "Operating System :: OS Independent",
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
   "Topic :: Scientific/Engineering :: Visualization",
   "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 # For an analysis of this field vs pip's requirements files see:
 # https://packaging.python.org/discussions/install-requires-vs-requirements/
 dependencies = [
-  'pandas>=1.4.2',
+  'pandas>=3.0.3',
   'PyYAML>=6.0',
-  'requests>=2.31.0',
+  "requests>=2.34.2",
   'tabulate>=0.10.0',
   'urllib3>=2.7.0',
-  'fastmcp>=3.4.2',
+  "fastmcp>=3.4.2",
   "rich>=15.0.0",
 ]
 ##[project.optional-dependencies]
@@ -67,12 +67,12 @@ dependencies = [
 [dependency-groups]
 dev = [
   "defusedxml>=0.7.1",
-  "numpy>=1.24.0",
-  "Pillow>=10.0.0",
-  "pytest>=9.0.3",
+  "numpy>=2.5.1",
+  "Pillow>=12.3.0",
+  "pytest>=9.1.1",
   "pytest-cov>=7.1.0",
-  "pytest-xdist>=3.0.0",
-  "ruff>=0.15.12",
+  "pytest-xdist>=3.8.0",
+  "ruff>=0.15.22",
   "pre-commit>=4.6.0",
   "detect-secrets>=1.5.0",
 ]
@@ -87,7 +87,7 @@ build-backend = "setuptools.build_meta"
 ibmdiagrams = "ibmdiagrams.ibmscripts.ibmdiagrams:main"
 
 [tool.ruff]
-target-version = "py311"
+target-version = "py312"
 line-length = 100
 
 [tool.ruff.lint]

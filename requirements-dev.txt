@@ -2,12 +2,12 @@
 # Install with: pip install -r requirements-dev.txt
 
 # Visual regression testing dependencies
-Pillow>=10.0.0
-numpy>=1.24.0
-pytest>=9.0.3
+Pillow>=12.3.0
+numpy>=2.5.1
+pytest>=9.1.1
 pytest-cov>=7.1.0
-pytest-xdist>=3.0.0
+pytest-xdist>=3.8.0
 defusedxml>=0.7.1
-ruff>=0.15.12
+ruff>=0.15.22
 pre-commit>=4.6.0
 detect-secrets>=1.5.0

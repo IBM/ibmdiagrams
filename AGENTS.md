@@ -14,7 +14,7 @@ All diagrams are output as `.drawio` files that can be opened in draw.io desktop
 
 ### Core Technologies
 
-- **Language**: Python 3.11+
+- **Language**: Python 3.12+
 - **Key Dependencies**: pandas, PyYAML, requests, tabulate, urllib3
 - **Dev Dependencies**: pytest, pytest-cov, pytest-xdist, ruff, pre-commit, detect-secrets, Pillow, defusedxml
 - **Output Format**: DrawIO XML format

@@ -9,7 +9,7 @@ on:
 
 jobs:
   test:
-    name: Python 3.11
+    name: Python 3.12
     runs-on: ubuntu-latest
 
     steps:
@@ -19,7 +19,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: "3.12"
 
       - name: Set up uv
         uses: astral-sh/setup-uv@v5
