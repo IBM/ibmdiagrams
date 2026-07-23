@@ -4,6 +4,45 @@ All notable changes to ibmdiagrams are documented here.
 
 ---
 
+## 🎉 [3.3.3] - 2026-07-23
+
+### 🐛 Fixes
+
+#### ✂️ Label Truncation in draw.io Output
+
+- **Raised `labelsize` threshold from 15 to 30** in `buildDrawioShape` (`src/ibmdiagrams/ibmbase/types.py`): Labels up to 30 characters are now rendered verbatim in draw.io shapes. Previously, common IBM Cloud service names such as _Application Load Balancer_ and _Security Compliance Center_ were silently clipped to 14 characters with a trailing ellipsis.
+
+### 🧪 Testing
+
+- Added `tests/test_label_truncation.py` with four unit tests covering the new threshold: exact boundary, below boundary, above boundary, and a regression case verifying labels that were incorrectly truncated under the old threshold of 15 are now preserved.
+- Updated visual regression baselines for all shapes affected by the label fix: `network:application-load-balancer`, `security:security-compliance-center`, `ai:watsonx-z-refactor-code-assistant`, `group:expanded-bare-metal-server`, `group:expanded-classic-bare-metal-server`, `group:expanded-classic-virtual-server`, `group:expanded-power-virtual-server`, `cloud`, `slzvsi`, `slzpowervs`.
+
+### 🔧 Infrastructure
+
+#### 🐍 Python Baseline
+
+- **Raised minimum Python version from 3.11 to 3.12** in `pyproject.toml` (`requires-python`), driven by NumPy 2.x requiring Python ≥ 3.12.
+- Updated Ruff `target-version` from `py311` to `py312`.
+- Updated CI workflow to test on Python 3.12.
+- Updated `.python-version` to `3.13.1` for local development.
+
+#### 📦 Dependencies
+
+- Updated minimum `pandas` version from `>=1.4.2` to `>=3.0.3`
+- Updated minimum `requests` version from `>=2.31.0` to `>=2.34.2`
+- Updated minimum `numpy` (dev) from `>=1.24.0` to `>=2.5.1`
+- Updated minimum `Pillow` (dev) from `>=10.0.0` to `>=12.3.0`
+- Updated minimum `pytest` (dev) from `>=9.0.3` to `>=9.1.1`
+- Updated minimum `pytest-xdist` (dev) from `>=3.0.0` to `>=3.8.0`
+- Updated minimum `ruff` (dev) from `>=0.15.12` to `>=0.15.22`
+- Regenerated `uv.lock` with Python 3.12 resolution
+
+### 📚 Documentation
+
+- Updated all Python version references from 3.11 to 3.12 across `docs/setup.md`, `docs/mcp.md`, `docs/mcp-onboarding.md`, `AGENTS.md`, `CONTRIBUTING.md`, `GETTING_STARTED.md`, `README.md`, `docs/terraform.md`, `docs/testing.md`, and all example docs.
+
+---
+
 ## 🔒 [3.3.2] - 2026-06-15
 
 ### 🛡️ Security
