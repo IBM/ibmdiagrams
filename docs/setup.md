@@ -20,7 +20,7 @@ Complete installation and configuration guide for IBM Diagrams.
 
 | Software | Minimum Version | Purpose | Download Link |
 |----------|----------------|---------|---------------|
-| **Python** | 3.11+ | Runtime environment | [python.org](https://www.python.org/downloads/) |
+| **Python** | 3.12+ | Runtime environment | [python.org](https://www.python.org/downloads/) |
 | **draw.io Desktop** | Latest | View/edit diagrams | [GitHub Releases](https://github.com/jgraph/drawio-desktop/releases) |
 
 ### Recommended Software
@@ -95,7 +95,7 @@ uv pip install <package-name>
 **macOS:**
 ```bash
 # Download from python.org or use Homebrew
-brew install python@3.11
+brew install python@3.12
 
 # Verify installation
 python3 --version
@@ -109,13 +109,13 @@ python3 --version
 **Linux (Ubuntu/Debian):**
 ```bash
 sudo apt update
-sudo apt install python3.11 python3.11-venv python3-pip
+sudo apt install python3.12 python3.12-venv python3-pip
 ```
 
 #### Step 2: Install pip
 
 ```bash
-# Usually included with Python 3.11+
+# Usually included with Python 3.12+
 # If needed, install manually:
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 python3 get-pip.py
@@ -135,7 +135,7 @@ ibmdiagrams --help
 ```
 
 **Installation Location:**
-- **macOS/Linux**: `/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/ibmdiagrams`
+- **macOS/Linux**: `/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/ibmdiagrams`
 - **Windows**: `C:\Users\<username>\AppData\Local\Programs\Python\Python311\Lib\site-packages\ibmdiagrams`
 
 ---
@@ -398,15 +398,15 @@ ModuleNotFoundError: No module named 'ibmdiagrams'
 
 **Symptoms:**
 ```bash
-ERROR: Python 3.11 or higher is required
+ERROR: Python 3.12 or higher is required
 ```
 
 **Solutions:**
 
-1. **Install Python 3.11+**
-   - macOS: `brew install python@3.11`
+1. **Install Python 3.12+**
+   - macOS: `brew install python@3.12`
    - Windows: Download from [python.org](https://www.python.org/downloads/)
-   - Linux: `sudo apt install python3.11`
+   - Linux: `sudo apt install python3.12`
 
 2. **Use uv (automatically manages Python versions)**
    ```bash
