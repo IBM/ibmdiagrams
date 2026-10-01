@@ -136,7 +136,7 @@ ibmdiagrams --help
 
 **Installation Location:**
 - **macOS/Linux**: `/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/ibmdiagrams`
-- **Windows**: `C:\Users\<username>\AppData\Local\Programs\Python\Python311\Lib\site-packages\ibmdiagrams`
+- **Windows**: `C:\Users\<username>\AppData\Local\Programs\Python\Python312\Lib\site-packages\ibmdiagrams`
 
 ---
 
@@ -326,7 +326,7 @@ bash: ibmdiagrams: command not found
    export PATH="$HOME/.local/bin:$PATH"
    
    # Windows - Add to System Environment Variables
-   # C:\Users\<username>\AppData\Local\Programs\Python\Python311\Scripts
+   # C:\Users\<username>\AppData\Local\Programs\Python\Python312\Scripts
    ```
 
 3. **Verify installation location**
