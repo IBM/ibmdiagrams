@@ -140,21 +140,18 @@ If you're building a tool that generates diagrams:
 # Your custom tool
 import json
 
+
 def generate_diagram_json(infrastructure_data):
     """Convert your data format to IBM Diagrams JSON"""
-    diagram = {
-        "diagram": {
-            "name": "generated-diagram",
-            "elements": []
-        }
-    }
-    
+    diagram = {"diagram": {"name": "generated-diagram", "elements": []}}
+
     # Transform your data
     for resource in infrastructure_data:
         element = transform_to_element(resource)
         diagram["diagram"]["elements"].append(element)
-    
+
     return diagram
+
 
 # Generate JSON
 diagram_json = generate_diagram_json(my_data)
@@ -175,19 +172,20 @@ If you need to generate diagrams programmatically from non-Terraform sources:
 import json
 import subprocess
 
+
 def create_diagram_from_api(api_data):
     """Generate diagram from API response"""
-    
+
     # Transform API data to JSON format
     diagram_json = transform_api_to_json(api_data)
-    
+
     # Save JSON
     with open("api-diagram.json", "w") as f:
         json.dump(diagram_json, f)
-    
+
     # Generate diagram
     subprocess.run(["ibmdiagrams", "api-diagram.json"])
-    
+
     return "api-diagram.drawio"
 ```
 
@@ -199,17 +197,19 @@ For processing multiple diagrams:
 import json
 import os
 
+
 def batch_generate_diagrams(json_files):
     """Generate diagrams from multiple JSON files"""
     for json_file in json_files:
         # Validate JSON
         with open(json_file) as f:
             data = json.load(f)
-        
+
         # Generate diagram
         os.system(f"ibmdiagrams {json_file}")
-        
+
         print(f"Generated {json_file.replace('.json', '.drawio')}")
+
 
 # Usage
 json_files = ["diagram1.json", "diagram2.json", "diagram3.json"]
@@ -234,8 +234,8 @@ infrastructure = {
             "name": "production-vpc",
             "servers": [
                 {"name": "web-1", "ip": "10.10.10.4"},
-                {"name": "web-2", "ip": "10.10.10.5"}
-            ]
+                {"name": "web-2", "ip": "10.10.10.5"},
+            ],
         }
     ]
 }
@@ -259,7 +259,7 @@ def generate_vpc_diagram(vpc_config):
     from ibmdiagrams.ibmcloud.diagram import Diagram
     from ibmdiagrams.ibmcloud.groups import IBMCloud, VPC, Zone, Subnet
     from ibmdiagrams.ibmcloud.compute import VirtualServer
-    
+
     with Diagram(vpc_config["name"]):
         with IBMCloud("IBM Cloud"):
             with VPC(vpc_config["vpc_name"]):
@@ -269,6 +269,7 @@ def generate_vpc_diagram(vpc_config):
                             with Subnet(subnet["name"], subnet["cidr"]):
                                 for server in subnet["servers"]:
                                     VirtualServer(server["name"], server["ip"])
+
 
 # Use the template
 config = {
@@ -282,13 +283,11 @@ config = {
                 {
                     "name": "Web Subnet",
                     "cidr": "10.10.10.0/24",
-                    "servers": [
-                        {"name": "web-1", "ip": "10.10.10.4"}
-                    ]
+                    "servers": [{"name": "web-1", "ip": "10.10.10.4"}],
                 }
-            ]
+            ],
         }
-    ]
+    ],
 }
 
 generate_vpc_diagram(config)

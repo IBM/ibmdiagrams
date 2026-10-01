@@ -146,23 +146,22 @@ from ibmdiagrams.ibmcloud.actors import User
 with Diagram("example-enhanced", direction="TB"):
     # Add user actor (not in Terraform)
     user = User("End User")
-    
+
     with IBMCloud("IBM Cloud"):
         with Region("us-south"):
             with VPC("example-vpc"):
                 # Add load balancer (not in Terraform)
                 alb = ApplicationLoadBalancer("Load Balancer")
                 pgw = PublicGateway("Public Gateway")
-                
+
                 with Zone("us-south-1", "10.10.0.0/18"):
                     with Subnet("web-subnet", "10.10.10.0/24"):
                         with SecurityGroup("Web Security Group"):
                             # Enhanced label with more details
                             web = VirtualServer(
-                                "web-server",
-                                "10.10.10.4<br>bx2-2x8<br>Ubuntu 22.04"
+                                "web-server", "10.10.10.4<br>bx2-2x8<br>Ubuntu 22.04"
                             )
-                
+
                 # Add observability (not in Terraform)
                 logs = CloudLogs("Application Logs")
                 mon = Monitoring("Infrastructure Monitoring")
@@ -183,10 +182,7 @@ with VPC("production-vpc"):
     # Frontend tier - handles HTTP/HTTPS traffic
     with Subnet("web-subnet", "10.10.10.0/24"):
         # Primary web server - serves static content
-        web = VirtualServer(
-            "web-server",
-            "10.10.10.4<br>Nginx 1.24<br>2vCPU, 8GB RAM"
-        )
+        web = VirtualServer("web-server", "10.10.10.4<br>Nginx 1.24<br>2vCPU, 8GB RAM")
 ```
 
 ### 2. Change Layout Direction
@@ -233,7 +229,7 @@ vsi = VirtualServer("web-server-1", "10.10.10.4")
 # Enhanced (detailed labels)
 vsi = VirtualServer(
     label="web-server-1",
-    sublabel="10.10.10.4<br>Type: Dedicated<br>OS: Ubuntu 22.04 LTS<br>Profile: bx2-4x16<br>vCPU: 4<br>RAM: 16GiB<br>Bandwidth: 8Gbps"
+    sublabel="10.10.10.4<br>Type: Dedicated<br>OS: Ubuntu 22.04 LTS<br>Profile: bx2-4x16<br>vCPU: 4<br>RAM: 16GiB<br>Bandwidth: 8Gbps",
 )
 ```
 
@@ -264,10 +260,11 @@ def create_tier(tier_name, zone_name, subnet_cidr, server_count):
             for i in range(1, server_count + 1):
                 server = VirtualServer(
                     f"{tier_name} Server {i}",
-                    f"{subnet_cidr.split('.')[0]}.{subnet_cidr.split('.')[1]}.{subnet_cidr.split('.')[2]}.{i+3}"
+                    f"{subnet_cidr.split('.')[0]}.{subnet_cidr.split('.')[1]}.{subnet_cidr.split('.')[2]}.{i + 3}",
                 )
                 servers.append(server)
             return servers
+
 
 # Use the function
 with VPC("production-vpc"):
@@ -328,6 +325,7 @@ def create_environment(env_name, zone_count):
                             with Subnet(f"Subnet {z}"):
                                 VirtualServer(f"{env_name}-server-{z}")
 
+
 # Generate diagrams for each environment
 create_environment("dev", 1)
 create_environment("staging", 2)
@@ -378,11 +376,13 @@ from ibmdiagrams.ibmcloud.diagram import Diagram
 from ibmdiagrams.ibmcloud.groups import IBMCloud, VPC
 from ibmdiagrams.ibmcloud.compute import VirtualServer
 
+
 def create_base_infrastructure():
     with IBMCloud("IBM Cloud"):
         with VPC("production-vpc"):
             vsi = VirtualServer("web-server")
     return vsi
+
 
 # infrastructure_custom.py (custom additions)
 from infrastructure_base import create_base_infrastructure
@@ -483,6 +483,7 @@ python -c "from ibmdiagrams.ibmcloud.diagram import Diagram"
    ```python
    # Add missing resource
    from ibmdiagrams.ibmcloud.storage import ObjectStorage
+
    cos = ObjectStorage("Backup Bucket")
    ```
 

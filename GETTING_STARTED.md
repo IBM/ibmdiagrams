@@ -269,35 +269,36 @@ Explore available components:
 ```python
 # Groups (containers)
 from ibmdiagrams.ibmcloud.groups import (
-    IBMCloud, Region, VPC, Zone, Subnet,
-    SecurityGroup, ResourceGroup, CloudServices
+    IBMCloud,
+    Region,
+    VPC,
+    Zone,
+    Subnet,
+    SecurityGroup,
+    ResourceGroup,
+    CloudServices,
 )
 
 # Compute resources
-from ibmdiagrams.ibmcloud.compute import (
-    VirtualServer, PowerVirtualServer, BareMetalServer
-)
+from ibmdiagrams.ibmcloud.compute import VirtualServer, PowerVirtualServer, BareMetalServer
 
 # Network components
 from ibmdiagrams.ibmcloud.network import (
-    LoadBalancer, PublicGateway, VPNGateway,
-    EndpointGateway, TransitGateway
+    LoadBalancer,
+    PublicGateway,
+    VPNGateway,
+    EndpointGateway,
+    TransitGateway,
 )
 
 # Security services
-from ibmdiagrams.ibmcloud.security import (
-    KeyProtect, SecretsManager, SecurityGroup
-)
+from ibmdiagrams.ibmcloud.security import KeyProtect, SecretsManager, SecurityGroup
 
 # Storage services
-from ibmdiagrams.ibmcloud.storage import (
-    ObjectStorage, BlockStorage
-)
+from ibmdiagrams.ibmcloud.storage import ObjectStorage, BlockStorage
 
 # Observability
-from ibmdiagrams.ibmcloud.observability import (
-    CloudLogs, FlowLogs, Monitoring
-)
+from ibmdiagrams.ibmcloud.observability import CloudLogs, FlowLogs, Monitoring
 ```
 
 [📚 Full API Reference](docs/diagram-as-code.md)
@@ -313,10 +314,7 @@ with VPC("My VPC", direction="LR"):  # Left to Right (default)
     pass
 
 # Add sublabels for additional info
-vsi = VirtualServer(
-    label="Web Server",
-    sublabel="10.10.10.4<br>Ubuntu 22.04"
-)
+vsi = VirtualServer(label="Web Server", sublabel="10.10.10.4<br>Ubuntu 22.04")
 
 # Use custom fonts (for global variants)
 with Diagram("my-diagram", font="IBM Plex Sans JP"):

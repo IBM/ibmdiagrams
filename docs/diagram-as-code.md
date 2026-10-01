@@ -103,11 +103,11 @@ The root container for all diagrams.
 from ibmdiagrams.ibmcloud.diagram import Diagram
 
 with Diagram(
-    name="diagram-name",      # Required: Output filename (without .drawio)
-    filename="custom-name",   # Optional: Override output filename
-    output="./output",        # Optional: Output directory
-    direction="LR",           # Optional: "LR" (default) or "TB"
-    font="IBM Plex Sans"      # Optional: Font family
+    name="diagram-name",  # Required: Output filename (without .drawio)
+    filename="custom-name",  # Optional: Override output filename
+    output="./output",  # Optional: Output directory
+    direction="LR",  # Optional: "LR" (default) or "TB"
+    font="IBM Plex Sans",  # Optional: Font family
 ):
     pass
 ```
@@ -130,14 +130,14 @@ Groups represent "deployedOn" relationships and act as containers.
 
 ```python
 from ibmdiagrams.ibmcloud.groups import (
-    IBMCloud,           # Top-level IBM Cloud container
-    Region,             # Geographic region
-    VPC,                # Virtual Private Cloud
-    Zone,               # Availability zone
-    Subnet,             # Network subnet
-    SecurityGroup,      # Security group
-    ResourceGroup,      # Resource group
-    CloudServices,      # Cloud services container
+    IBMCloud,  # Top-level IBM Cloud container
+    Region,  # Geographic region
+    VPC,  # Virtual Private Cloud
+    Zone,  # Availability zone
+    Subnet,  # Network subnet
+    SecurityGroup,  # Security group
+    ResourceGroup,  # Resource group
+    CloudServices,  # Cloud services container
 )
 
 # Usage
@@ -160,12 +160,12 @@ with IBMCloud("IBM Cloud"):
 
 ```python
 from ibmdiagrams.ibmcloud.groups import (
-    Enterprise,              # Enterprise container
-    PublicNetwork,          # Public network
-    EnterpriseNetwork,      # Enterprise network
+    Enterprise,  # Enterprise container
+    PublicNetwork,  # Public network
+    EnterpriseNetwork,  # Enterprise network
     ClassicInfrastructure,  # Classic infrastructure
-    PowerWorkspace,         # Power workspace
-    LayoutGroup,            # Generic layout container
+    PowerWorkspace,  # Power workspace
+    LayoutGroup,  # Generic layout container
 )
 ```
 
@@ -182,7 +182,7 @@ from ibmdiagrams.ibmcloud.groups import (
 
 with ExpandedVirtualServer(
     label="Web Server",
-    sublabel="Type: Dedicated<br>OS: Ubuntu 22.04<br>Profile: bx2-4x16<br>vCPU: 4<br>RAM: 16GiB"
+    sublabel="Type: Dedicated<br>OS: Ubuntu 22.04<br>Profile: bx2-4x16<br>vCPU: 4<br>RAM: 16GiB",
 ):
     pass
 ```
@@ -193,25 +193,19 @@ with ExpandedVirtualServer(
 
 ```python
 from ibmdiagrams.ibmcloud.compute import (
-    VirtualServer,           # VPC virtual server
-    PowerVirtualServer,      # Power virtual server
-    BareMetalServer,         # Bare metal server
-    ClassicVirtualServer,    # Classic virtual server
-    DedicatedHost,           # Dedicated host
-    ImageService,            # Image service
-    Satellite,               # Satellite
+    VirtualServer,  # VPC virtual server
+    PowerVirtualServer,  # Power virtual server
+    BareMetalServer,  # Bare metal server
+    ClassicVirtualServer,  # Classic virtual server
+    DedicatedHost,  # Dedicated host
+    ImageService,  # Image service
+    Satellite,  # Satellite
 )
 
 # Usage
-vsi = VirtualServer(
-    label="Web Server",
-    sublabel="10.10.10.4"
-)
+vsi = VirtualServer(label="Web Server", sublabel="10.10.10.4")
 
-power = PowerVirtualServer(
-    label="SAP HANA",
-    sublabel="192.168.1.10"
-)
+power = PowerVirtualServer(label="SAP HANA", sublabel="192.168.1.10")
 ```
 
 ---
@@ -226,17 +220,14 @@ from ibmdiagrams.ibmcloud.network import (
     NetworkLoadBalancer,
     ClassicLoadBalancer,
     GlobalLoadBalancer,
-    
     # Gateways
     PublicGateway,
     VPNGateway,
     EndpointGateway,
     TransitGateway,
-    
     # Connectivity
     DirectLinkConnect,
     DirectLinkDedicated,
-    
     # Other
     Internet,
     Router,
@@ -256,13 +247,13 @@ tgw = TransitGateway("Transit Gateway")
 
 ```python
 from ibmdiagrams.ibmcloud.security import (
-    KeyProtect,              # Key Protect
-    SecretsManager,          # Secrets Manager
-    SecurityGroup,           # Security group
-    VPNGateway,             # VPN gateway
-    VPNConnection,          # VPN connection
-    AppID,                  # App ID
-    SecurityComplianceCenter, # Security & Compliance Center
+    KeyProtect,  # Key Protect
+    SecretsManager,  # Secrets Manager
+    SecurityGroup,  # Security group
+    VPNGateway,  # VPN gateway
+    VPNConnection,  # VPN connection
+    AppID,  # App ID
+    SecurityComplianceCenter,  # Security & Compliance Center
 )
 
 # Usage
@@ -277,10 +268,10 @@ vpn = VPNGateway("Site-to-Site VPN")
 
 ```python
 from ibmdiagrams.ibmcloud.storage import (
-    ObjectStorage,           # Cloud Object Storage
-    BlockStorage,            # Block Storage
-    BlockStorageSnapshots,   # Block Storage Snapshots
-    CloudBackup,             # Cloud Backup
+    ObjectStorage,  # Cloud Object Storage
+    BlockStorage,  # Block Storage
+    BlockStorageSnapshots,  # Block Storage Snapshots
+    CloudBackup,  # Cloud Backup
 )
 
 # Usage
@@ -294,9 +285,9 @@ block = BlockStorage("Data Volume", "500GB")
 
 ```python
 from ibmdiagrams.ibmcloud.observability import (
-    CloudLogs,              # Cloud Logs
-    FlowLogs,               # Flow Logs
-    Monitoring,             # Monitoring
+    CloudLogs,  # Cloud Logs
+    FlowLogs,  # Flow Logs
+    Monitoring,  # Monitoring
 )
 
 # Usage
@@ -311,14 +302,14 @@ mon = Monitoring("Metrics")
 
 ```python
 from ibmdiagrams.ibmcloud.data import (
-    Database,               # Generic database
-    DB2,                    # DB2
-    DB2Warehouse,          # DB2 Warehouse
-    PostgreSQL,            # PostgreSQL
-    MySQL,                 # MySQL
-    Redis,                 # Redis
-    Cloudant,              # Cloudant
-    EventStreams,          # Event Streams
+    Database,  # Generic database
+    DB2,  # DB2
+    DB2Warehouse,  # DB2 Warehouse
+    PostgreSQL,  # PostgreSQL
+    MySQL,  # MySQL
+    Redis,  # Redis
+    Cloudant,  # Cloudant
+    EventStreams,  # Event Streams
 )
 
 # Usage
@@ -332,10 +323,10 @@ cache = Redis("Session Cache")
 
 ```python
 from ibmdiagrams.ibmcloud.containers import (
-    KubernetesService,      # IBM Kubernetes Service
-    OpenShift,              # Red Hat OpenShift
-    CodeEngine,             # Code Engine
-    ContainerRegistry,      # Container Registry
+    KubernetesService,  # IBM Kubernetes Service
+    OpenShift,  # Red Hat OpenShift
+    CodeEngine,  # Code Engine
+    ContainerRegistry,  # Container Registry
 )
 
 # Usage
@@ -349,12 +340,12 @@ ocp = OpenShift("Dev Cluster")
 
 ```python
 from ibmdiagrams.ibmcloud.ai import (
-    WatsonX,                # watsonx
-    WatsonXAI,             # watsonx.ai
-    WatsonXData,           # watsonx.data
-    WatsonXGovernance,     # watsonx.governance
-    WatsonAssistant,       # Watson Assistant
-    WatsonDiscovery,       # Watson Discovery
+    WatsonX,  # watsonx
+    WatsonXAI,  # watsonx.ai
+    WatsonXData,  # watsonx.data
+    WatsonXGovernance,  # watsonx.governance
+    WatsonAssistant,  # Watson Assistant
+    WatsonDiscovery,  # Watson Discovery
 )
 
 # Usage
@@ -368,10 +359,10 @@ assistant = WatsonAssistant("Customer Support Bot")
 
 ```python
 from ibmdiagrams.ibmcloud.actors import (
-    User,                   # User
-    Users,                  # Multiple users
-    Application,            # Application
-    Microservice,          # Microservice
+    User,  # User
+    Users,  # Multiple users
+    Application,  # Application
+    Microservice,  # Microservice
 )
 
 # Usage
@@ -385,13 +376,13 @@ app = Application("Mobile App")
 
 ```python
 from ibmdiagrams.ibmcloud.connectors import (
-    SolidEdge,             # Solid line
-    PrivateSolidEdge,      # Private solid line
-    PublicSolidEdge,       # Public solid line
-    DashedEdge,            # Dashed line
-    DottedEdge,            # Dotted line
-    DoubleEdge,            # Double line
-    TunnelEdge,            # Tunnel line
+    SolidEdge,  # Solid line
+    PrivateSolidEdge,  # Private solid line
+    PublicSolidEdge,  # Public solid line
+    DashedEdge,  # Dashed line
+    DottedEdge,  # Dotted line
+    DoubleEdge,  # Double line
+    TunnelEdge,  # Tunnel line
 )
 
 # Usage
@@ -401,13 +392,7 @@ from ibmdiagrams.ibmcloud.connectors import SolidEdge
 SolidEdge(source, target, label="HTTPS")
 
 # With custom arrows
-SolidEdge(
-    source, 
-    target,
-    label="API Call",
-    startarrow="circle",
-    endarrow="arrow"
-)
+SolidEdge(source, target, label="API Call", startarrow="circle", endarrow="arrow")
 ```
 
 **Arrow Types:**
@@ -523,8 +508,7 @@ vsi = VirtualServer("Web Server", "10.10.10.4")
 
 # ✅ Good - Multi-line sublabels
 vsi = VirtualServer(
-    label="Database Server",
-    sublabel="10.10.30.4<br>Ubuntu 22.04<br>4vCPU, 16GB RAM"
+    label="Database Server", sublabel="10.10.30.4<br>Ubuntu 22.04<br>4vCPU, 16GB RAM"
 )
 ```
 
@@ -589,6 +573,7 @@ def create_web_tier(zone_name, subnet_cidr, ip_base):
         with Subnet("Web Subnet", subnet_cidr):
             return VirtualServer("Web Server", ip_base)
 
+
 with Diagram("scalable-app"):
     with IBMCloud("IBM Cloud"):
         with Region("Dallas"):
@@ -629,8 +614,7 @@ vsi = VirtualServer("Web Server<br>Production")
 
 # Multi-line sublabel
 vsi = VirtualServer(
-    label="Database Server",
-    sublabel="10.10.30.4<br>PostgreSQL 15<br>Primary Instance"
+    label="Database Server", sublabel="10.10.30.4<br>PostgreSQL 15<br>Primary Instance"
 )
 
 # Multiple services in one shape
@@ -672,6 +656,7 @@ def create_vpc_diagram(name, zones, subnets_per_zone):
                             for s in range(1, subnets_per_zone + 1):
                                 with Subnet(f"Subnet {s}", f"10.{z}{s}.0.0/24"):
                                     VirtualServer(f"VSI-{z}-{s}")
+
 
 # Generate different architectures
 create_vpc_diagram("small", zones=1, subnets_per_zone=2)

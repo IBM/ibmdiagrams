@@ -219,7 +219,7 @@ generate_from_file(
     outputfolder="/path/to/diagrams",
     labeltype="CUSTOM",
     codetype="DRAWIO",
-    fontname="IBM Plex Sans"
+    fontname="IBM Plex Sans",
 )
 ```
 
@@ -264,7 +264,7 @@ with Diagram('my-architecture'):
 """,
     diagram_name="my-architecture",
     outputfolder="/path/to/output",
-    fontname="IBM Plex Sans"
+    fontname="IBM Plex Sans",
 )
 ```
 
