@@ -611,11 +611,13 @@ When adding new features, include tests:
 import pytest
 from ibmdiagrams.ibmcloud.compute import NewService
 
+
 def test_new_service_creation():
     """Test that NewService can be instantiated."""
     service = NewService("Test Service", "10.0.0.1")
     assert service.label == "Test Service"
     assert service.sublabel == "10.0.0.1"
+
 
 def test_new_service_properties():
     """Test NewService properties."""
@@ -678,12 +680,15 @@ src/ibmdiagrams/
 class VirtualServer:
     pass
 
+
 # Functions and variables: snake_case
 def generate_diagram():
     resource_name = "my-resource"
 
+
 # Constants: UPPER_SNAKE_CASE
 MAX_DIAGRAM_SIZE = 10000
+
 
 # Private: prefix with underscore
 def _internal_helper():
@@ -726,14 +731,15 @@ When adding new components, follow IBM Design Language:
 from ibmdiagrams.ibmbase.colors import IBM_BLUE_60
 from ibmdiagrams.ibmbase.shapes import create_square_node
 
+
 class NewService:
     """New IBM Cloud service."""
-    
+
     def __init__(self, label: str, sublabel: str = ""):
         self.label = label
         self.sublabel = sublabel
         self.color = IBM_BLUE_60  # Use IBM color
-        self.shape = "square"     # Follow shape conventions
+        self.shape = "square"  # Follow shape conventions
         self.icon = "new-service-icon.svg"  # IBM Design icon
 ```
 

@@ -299,6 +299,7 @@ def create_tier(name, cidr, server_count):
         for i in range(1, server_count + 1):
             VirtualServer(f"{name} Server {i}")
 
+
 create_tier("Web", "10.10.10.0/24", 3)
 create_tier("App", "10.10.20.0/24", 2)
 ```

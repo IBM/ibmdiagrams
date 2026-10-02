@@ -71,10 +71,11 @@ from flask import Flask, Response
 
 app = Flask(__name__)
 
-@app.route('/diagram')
+
+@app.route("/diagram")
 def get_diagram():
     xml_string = create_diagram_get_xml()
-    return Response(xml_string, mimetype='application/xml')
+    return Response(xml_string, mimetype="application/xml")
 ```
 
 ### Database Storage
@@ -82,12 +83,12 @@ def get_diagram():
 ```python
 import sqlite3
 
+
 def save_diagram_to_db(diagram_name, xml_string):
-    conn = sqlite3.connect('diagrams.db')
+    conn = sqlite3.connect("diagrams.db")
     cursor = conn.cursor()
     cursor.execute(
-        "INSERT INTO diagrams (name, xml_content) VALUES (?, ?)",
-        (diagram_name, xml_string)
+        "INSERT INTO diagrams (name, xml_content) VALUES (?, ?)", (diagram_name, xml_string)
     )
     conn.commit()
     conn.close()
@@ -97,6 +98,7 @@ def save_diagram_to_db(diagram_name, xml_string):
 
 ```python
 from xml.etree import ElementTree as ET
+
 
 def process_diagram_xml(xml_string):
     root = ET.fromstring(xml_string)

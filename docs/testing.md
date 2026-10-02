@@ -597,9 +597,7 @@ from tests.utils.image_comparison import compare_images, save_diff_image
 
 # Compare two images
 is_match, diff_percentage, diff_image = compare_images(
-    Path("image1.png"),
-    Path("image2.png"),
-    threshold=1.0
+    Path("image1.png"), Path("image2.png"), threshold=1.0
 )
 
 # Save diff if needed
@@ -615,7 +613,7 @@ from tests.utils.baseline_elements import get_baseline_elements
 from tests.utils.baseline_utils import (
     generate_baseline_diagram,
     setup_baseline_directories,
-    find_drawio_executable
+    find_drawio_executable,
 )
 
 # Setup
