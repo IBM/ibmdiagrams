@@ -4,6 +4,27 @@ All notable changes to ibmdiagrams are documented here.
 
 ---
 
+## 🎉 [3.3.4] - 2026-10-28
+
+### 🔒 Security
+
+Remediates all open Dependabot alerts from the IBM OSPO security notification (issue #28): 5 critical, 29 high and 21 medium.
+
+#### 📦 Dependency Updates
+
+- **Pillow** (dev): minimum raised from `>=12.3.0` to `>=13.0.0`; locked at `13.0.0`. Fixes all Pillow alerts, including 5 critical.
+- **fastmcp**: minimum raised from `>=3.4.2` to `>=4.1.2`; locked at `4.1.4`. Fixes GHSA-vqqp-x5qm-5qp4 and GHSA-7xgj-8392-5q4r.
+- **virtualenv** (transitive, dev tooling): locked at `21.15.1` (patched in `21.14.9`).
+- **filelock** (transitive): locked at `4.2.4` (patched in `4.2.1`).
+- **opentelemetry-api** (transitive): locked at `1.45.1` (patched in `1.45.1`).
+- Regenerated `uv.lock`. Newer `fastmcp` no longer pulls in `keyring` and its dependencies (`secretstorage`, `jeepney`, `jaraco-*`, `more-itertools`, `pywin32-ctypes`), which were removed from the lock file.
+
+### 🧪 Testing
+
+- Full test suite (170 tests) and pre-commit hooks pass with the updated dependencies; no visual regression baselines changed.
+
+---
+
 ## 🎉 [3.3.3] - 2026-07-23
 
 ### 🐛 Fixes
